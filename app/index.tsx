@@ -48,6 +48,7 @@ export default function Splash() {
           const churches = loginData.userChurches?.filter(userChurch =>
             userChurch.apis && userChurch.apis?.length > 0);
           await AsyncStorage.setItem("@UserChurches", JSON.stringify(churches));
+          await AsyncStorage.setItem("@UserObj", JSON.stringify(loginData?.user));
 
           // Check if there's a previously selected church
           if (selectedChurchId[1] && churches) {

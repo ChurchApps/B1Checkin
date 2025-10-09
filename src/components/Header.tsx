@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert
+  View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert,
+  ViewStyle,
+  ImageStyle
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
-import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
+import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper, LoginUserInterface } from "../helpers";
 import { router } from "expo-router";
-
+import UserPlaceHolderIcon from "@/assets/images/user-placeholder.png";
 
 interface Props {
   navigation: screenNavigationProps,
@@ -20,8 +22,7 @@ interface Props {
 const Header = (props: Props) => {
   const [status, setStatus] = React.useState("");
   const [landscape, setLandscape] = React.useState(false);
-  const [logoTapCount, setLogoTapCount] = React.useState(0);
-  const logoTapTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [user, setUser] = useState<LoginUserInterface>({});
 
   let eventEmitter: NativeEventEmitter;
 
@@ -30,57 +31,74 @@ const Header = (props: Props) => {
     // props.navigation?.navigate("/printers");
   };
 
-  const handleLogoTap = () => {
-    // Clear any existing timeout
-    if (logoTapTimeoutRef.current) {
-      clearTimeout(logoTapTimeoutRef.current);
+  const fetchUserDetails = async () => {
+    try {
+      const userDetails = await AsyncStorage.getItem("@UserObj");
+      let user = userDetails ? JSON.parse(userDetails) : null;
+
+      const data = await AsyncStorage.multiGet(["@UserChurches", "@SelectedChurchId"]);
+      const churches = data[0][1] ? JSON.parse(data[0][1]) : [];
+      const selectedChurchId = data[1][1] || null;
+
+      if (churches.length && selectedChurchId) {
+        const currentChurch = churches.find(
+          (uc: any) => uc.church?.id?.toString() === selectedChurchId
+        );
+        if (currentChurch) {
+          user = {
+            ...user,
+            photo: currentChurch?.person?.photo
+          };
+        }
+      }
+
+      if (user) setUser(user);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
     }
+  };
 
-    // Increment tap count
-    const newTapCount = logoTapCount + 1;
-    setLogoTapCount(newTapCount);
 
-    if (newTapCount >= 7) {
-      // Show logout confirmation after 7 taps
-      Alert.alert(
-        "Secret Menu",
-        "Are you sure you want to logout?",
-        [
-          {
-            text: "Cancel",
-            style: "cancel",
-            onPress: () => setLogoTapCount(0)
+  const handleLogout = () => {
+    Alert.alert(
+      "Logout Confirmation",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Logout",
+          onPress: async () => {
+            // Clear stored credentials and church selection
+            await AsyncStorage.multiRemove(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@UserChurches", "@Login"]);
+
+            // Clear cached data
+            CachedData.userChurch = null;
+            CachedData.churchAppearance = null;
+
+            // Navigate to login screen
+            router.replace("/login");
           },
-          {
-            text: "Logout",
-            onPress: async () => {
-              // Clear stored credentials and church selection
-              await AsyncStorage.multiRemove(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@UserChurches", "@Login"]);
+          style: "destructive"
+        }
+      ]
+    );
+  };
 
-              // Clear cached data
-              CachedData.userChurch = null;
-              CachedData.churchAppearance = null;
-
-              // Navigate to login screen
-              router.replace("/login");
-            },
-            style: "destructive"
-          }
-        ]
-      );
-      setLogoTapCount(0);
-    } else {
-      // Reset tap count after 2 seconds of no taps
-      logoTapTimeoutRef.current = setTimeout(() => {
-        setLogoTapCount(0);
-      }, 2000);
-    }
+  const handleLogoTap = () => {
+    router.push({
+      pathname: "/selectChurch",
+      params: { fromServices: "true" },
+    });
   };
 
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); };
 
   const init = () => {
     console.log(Platform.OS);
+    fetchUserDetails();
     if (Platform.OS === "android" && NativeModules.PrinterHelper) {
       console.log("print", CachedData.printer);
       console.log(receiveNativeStatus);
@@ -131,9 +149,19 @@ const Header = (props: Props) => {
         <StatusBar backgroundColor={StyleConstants.baseColor} />
 
         {/* Compact Printer Status Bar */}
-        <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
-          <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
-        </Ripple>
+        <View style={headerStyles.printerAndProfileWrapper}>
+          <Ripple style={headerStyles.userProfile} onPress={() => { handleLogout(); }}>
+            <Image
+              source={user?.photo ? { uri: user.photo } : UserPlaceHolderIcon}
+              style={{ width: 25, height: 25, borderRadius: 20, marginRight: 6 }}
+            />
+            <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{user?.firstName + ", " + user?.lastName}</Text>
+          </Ripple>
+
+          <Ripple onPress={() => { handleClick(); }}>
+            <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
+          </Ripple>
+        </View>
 
         {/* Logo Section with Dark Blue Background */}
         <View style={headerStyles.logoSection}>
@@ -150,6 +178,21 @@ const Header = (props: Props) => {
   return (
     <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
       <StatusBar backgroundColor={StyleConstants.baseColor} />
+
+      <View style={headerStyles.printerAndProfileWrapper}>
+        <Ripple style={headerStyles.userProfile} onPress={() => { handleLogout(); }}>
+          <Image
+            source={user?.photo ? { uri: user.photo } : UserPlaceHolderIcon}
+            style={{ width: 40, height: 40, borderRadius: 20, marginRight: 3 }}
+          />
+          <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{user?.firstName + "," + user?.lastName}</Text>
+        </Ripple>
+
+        <Ripple onPress={() => { handleClick(); }}>
+          <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
+        </Ripple>
+      </View>
+
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
@@ -171,7 +214,7 @@ const headerStyles = {
     paddingTop: DimensionHelper.wp("5%"),
     paddingBottom: DimensionHelper.wp("5%"),
     alignItems: "center"
-  },
+  } as ViewStyle,
 
   // Prominent White Box for Logo within Blue Header
   logoContainer: {
@@ -185,13 +228,28 @@ const headerStyles = {
     shadowOpacity: 0.15,
     shadowRadius: 6,
     elevation: 4
-  },
+  } as ViewStyle,
 
   prominentLogo: {
     width: DimensionHelper.wp("65%"), // Slightly smaller than container for padding
     height: DimensionHelper.wp("14%"),
     resizeMode: "contain"
-  }
+  } as ImageStyle,
+
+  printerAndProfileWrapper: {
+    flexDirection: "row",
+    backgroundColor: StyleConstants.baseColor,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 10
+  } as ViewStyle,
+
+  userProfile: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  } as ViewStyle
 };
 
 export default Header;

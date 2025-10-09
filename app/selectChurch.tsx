@@ -60,6 +60,9 @@ function SelectChurch() {
     await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
     // navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
 
+    if (router.canGoBack()) {
+      return router.back();
+    }
     router.replace("/services"); // Navigate using expo-router
     // router.push({ pathname: "/services", params: { selectedChurchId: userChurch.church.id } });
 
@@ -125,19 +128,42 @@ function SelectChurch() {
 
   return (
     <View style={Styles.churchSelectionContainer}>
-      {/* Header with Logo */}
-      <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("6%") }}>
-        <Image
-          source={require("../src/images/logo1.png")}
+      <View style={{ marginBottom: DimensionHelper.wp("6%") }}>
+        <View
           style={{
-            width: DimensionHelper.wp("20%"),
-            height: DimensionHelper.wp("20%"),
-            resizeMode: "contain",
-            marginBottom: DimensionHelper.wp("2%")
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: DimensionHelper.wp("3%"),
           }}
-        />
-        <Text style={Styles.churchSelectionTitle}>Select a Church</Text>
+        >
+          <TouchableOpacity onPress={() => router.back()} style={{ padding: DimensionHelper.wp("2%") }}>
+            <MaterialIcons
+              name="arrow-back"
+              size={DimensionHelper.wp("5%")}
+              color={StyleConstants.baseColor}
+            />
+          </TouchableOpacity>
+
+          <Text style={[Styles.churchSelectionTitle, { textAlign: "center", flex: 1 }]}>
+            Select a Church
+          </Text>
+
+          <View style={{ width: DimensionHelper.wp("5%") }} />
+        </View>
+
+        <View style={{ alignItems: "center" }}>
+          <Image
+            source={require("../src/images/logo1.png")}
+            style={{
+              width: DimensionHelper.wp("20%"),
+              height: DimensionHelper.wp("20%"),
+              resizeMode: "contain",
+            }}
+          />
+        </View>
       </View>
+
 
       {churchList}
     </View>

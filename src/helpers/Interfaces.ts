@@ -43,6 +43,7 @@ export interface LoginUserInterface {
   lastName?: string;
   displayName?: string;
   jwt?: string;
+  photo?: string;
 }
 
 export interface LoginUserChurchInterface {

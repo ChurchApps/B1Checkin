@@ -22,7 +22,7 @@ function Login(_props: Props) {
         setIsLoading(false);
         if (data.errors?.length > 0) { Utils.snackBar(data.errors[0]); } else {
           const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0);
-          AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
+          AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)], ["@UserObj", JSON.stringify(data?.user)]]);
           setEmail("");
           setPassword("");
           router.replace("/selectChurch");

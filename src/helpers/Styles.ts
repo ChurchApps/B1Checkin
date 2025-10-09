@@ -210,7 +210,6 @@ export const Styles = StyleSheet.create({
     fontWeight: "500",
     color: StyleConstants.darkColor,
     textAlign: "center",
-    marginBottom: DimensionHelper.wp("6%")
   },
   churchCard: {
     backgroundColor: StyleConstants.whiteColor,

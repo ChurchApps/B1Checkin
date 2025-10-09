@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View
 } from "react-native";
@@ -7,7 +7,7 @@ import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -33,6 +33,12 @@ const Services = (props: Props) => {
       setDimension(dim);
     });
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [])
+  );
 
   const wd = (number: string) => {
     let givenWidth = typeof number === "number" ? number : parseFloat(number);
@@ -99,7 +105,6 @@ const Services = (props: Props) => {
     }
   };
 
-  React.useEffect(loadData, []);
 
   return (
     <View style={serviceStyles.container}>
