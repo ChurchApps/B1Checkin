@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Chums Checkin",
-    "slug": "chums-checkin",
+    "name": "B1Checkin",
+    "slug": "B1Checkin",
     "version": "1.30.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "b1checkin",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "owner": "churchapps",
@@ -16,10 +16,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/app-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "org.chums.checkin"
+      "package": "church.b1.checkin"
     },
     "web": {
       "bundler": "metro",
@@ -31,7 +31,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/adaptive-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"

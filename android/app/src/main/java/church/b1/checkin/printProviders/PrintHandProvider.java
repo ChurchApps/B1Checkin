@@ -1,12 +1,12 @@
-package  org.chums.checkin.printProviders;
+package  church.b1.checkin.printProviders;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import  org.chums.checkin.PrintHandHelper;
-import  org.chums.checkin.PrinterHelper;
+import  church.b1.checkin.PrintHandHelper;
+import  church.b1.checkin.PrinterHelper;
 
 import java.util.ArrayList;
 import java.util.List;

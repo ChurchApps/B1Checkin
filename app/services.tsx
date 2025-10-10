@@ -65,7 +65,7 @@ const Services = (props: Props) => {
     const item = data.item;
     return (
       <Ripple style={[Styles.bigLinkButton, { width: wd("90%") }]} onPress={() => { selectService(item.id); }}>
-        <Text style={Styles.bigLinkButtonText}>{item.campus.name} - {item.name}</Text>
+        <Text style={Styles.bigLinkButtonText}>{item?.campus?.name} - {item?.name}</Text>
       </Ripple>
     );
   };

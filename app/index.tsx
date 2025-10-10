@@ -72,15 +72,14 @@ function Splash(props: Props) {
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <View>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{flex: 1, backgroundColor: "#FFF"}}>
+      <View style={{ justifyContent: 'center', alignItems: 'center', flex:1 }}>
         <TouchableOpacity onPress={() => {
           console.log("onpresss")
           router.replace('/login');
         }}>
-          <Image source={require("../src/images/logo1.png")} style={{ width: 400, height: 400 }} resizeMode="contain" />
+          <Image source={require("../assets/images/adaptive-icon.png")} style={{ width: 200, height: 200 }} resizeMode="contain" />
         </TouchableOpacity>
-        {/* <Image source={require("../src/images/logo1.png")} style={{width:400, height:400}} resizeMode="contain" /> */}
       </View>
     </View>
   );

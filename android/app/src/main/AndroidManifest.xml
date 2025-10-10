@@ -24,8 +24,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="myapp"/>
-        <data android:scheme="org.chums.checkin"/>
+        <data android:scheme="b1checkin"/>
+        <data android:scheme="church.b1.checkin"/>
       </intent-filter>
     </activity>
   </application>

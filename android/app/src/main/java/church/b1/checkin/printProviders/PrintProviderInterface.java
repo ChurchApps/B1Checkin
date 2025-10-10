@@ -1,4 +1,4 @@
-package org.chums.checkin.printProviders;
+package church.b1.checkin.printProviders;
 
 import android.content.Context;
 import android.graphics.Bitmap;

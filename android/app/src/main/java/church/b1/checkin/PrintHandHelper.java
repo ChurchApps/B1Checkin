@@ -1,4 +1,4 @@
-package  org.chums.checkin;
+package  church.b1.checkin;
 
 import android.content.Context;
 import android.graphics.Bitmap;
