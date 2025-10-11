@@ -1,29 +1,29 @@
 {
-    "project_info": {
-      "project_number": "299156109733",
-      "project_id": "chumscheckin-87148",
-      "storage_bucket": "chumscheckin-87148.firebasestorage.app"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:299156109733:android:65923550c8aead2951504c",
-          "android_client_info": {
-            "package_name": "org.chums.checkin"
-          }
-        },
-        "oauth_client": [],
-        "api_key": [
-          {
-            "current_key": "AIzaSyA7IVU23U-DdB29CKkcbazHS7iClcO5pF0"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": []
-          }
+  "project_info": {
+    "project_number": "832059312495",
+    "project_id": "b1-checkin",
+    "storage_bucket": "b1-checkin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832059312495:android:e0bb4d9d6283b824e0409a",
+        "android_client_info": {
+          "package_name": "church.b1.checkin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4RTxjIH4b171nlCq1Xwuiv9ja4FbO8GY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
-    ],
-    "configuration_version": "1"
-  }
+    }
+  ],
+  "configuration_version": "1"
+}

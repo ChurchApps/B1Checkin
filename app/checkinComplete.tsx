@@ -65,7 +65,7 @@ const CheckinComplete = (props: Props) => {
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite, flex:1 }}>
       <Header navigation={props.navigation} />
       <View style={[Styles.mainContainer, { justifyContent: "center" }]}>
         <FontAwesome name={"check-circle"} style={{ fontSize: DimensionHelper.wp("20%"), color: StyleConstants.greenColor, alignSelf: "center" }} size={DimensionHelper.wp("20%")} />

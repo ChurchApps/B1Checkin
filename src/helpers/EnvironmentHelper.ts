@@ -14,7 +14,8 @@ export class EnvironmentHelper {
 
   static init = () => {
     // let stage = STAGE;
-    let stage = "prod";
+    // let stage = "prod";
+    let stage = "staging";
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
@@ -37,9 +38,9 @@ export class EnvironmentHelper {
 
   //NOTE: None of these values are secret.
   static initStaging = () => {
-    EnvironmentHelper.MembershipApi = "https://membershipapi.staging.churchapps.org";
-    EnvironmentHelper.AttendanceApi = "https://attendanceapi.staging.churchapps.org";
-    EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
+    EnvironmentHelper.MembershipApi = "https://api.staging.churchapps.org/membership";
+    EnvironmentHelper.AttendanceApi = "https://api.staging.churchapps.org/attendance";
+    EnvironmentHelper.ContentRoot = "https://api.staging.churchapps.org/content";
   };
 
   //NOTE: None of these values are secret.
