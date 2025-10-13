@@ -128,8 +128,8 @@ const splashStyles = {
     backgroundColor: StyleConstants.whiteColor
   },
   logo: {
-    width: DimensionHelper.wp("60%"),
-    height: DimensionHelper.wp("60%"),
+    width: DimensionHelper.wp("40%"),
+    height: DimensionHelper.wp("40%"),
     resizeMode: "contain",
     marginBottom: DimensionHelper.wp("8%")
   },

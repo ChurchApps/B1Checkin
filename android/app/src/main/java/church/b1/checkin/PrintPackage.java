@@ -1,4 +1,4 @@
-package  org.chums.checkin;
+package  church.b1.checkin;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

@@ -1,4 +1,4 @@
-package org.chums.checkin
+package church.b1.checkin
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
