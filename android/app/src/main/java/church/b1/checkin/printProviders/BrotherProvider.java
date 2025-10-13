@@ -1,4 +1,4 @@
-package  org.chums.checkin.printProviders;
+package  church.b1.checkin.printProviders;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import  org.chums.checkin.PrinterHelper;
+import  church.b1.checkin.PrinterHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class BrotherProvider implements PrintProviderInterface {
     private static String printerModel = "QL-1110NWB";
 
     public String[] scan() {
-      
+
         //return new String[]{"192.168.1.2", "192.168.1.3"};
 
         List<String> result = new ArrayList<>();

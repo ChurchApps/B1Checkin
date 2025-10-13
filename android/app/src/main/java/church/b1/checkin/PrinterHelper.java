@@ -1,4 +1,4 @@
-package  org.chums.checkin;
+package  church.b1.checkin;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,8 +15,8 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import  org.chums.checkin.printProviders.BrotherProvider;
-import  org.chums.checkin.printProviders.PrintProviderInterface;
+import  church.b1.checkin.printProviders.BrotherProvider;
+import  church.b1.checkin.printProviders.PrintProviderInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
 
     @ReactMethod
     public void scan(final Promise promise) {
-      
+
         promise.resolve(String.join(",", printProvider.scan()));
     }
 

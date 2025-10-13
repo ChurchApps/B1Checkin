@@ -133,7 +133,8 @@ function SelectChurch() {
             width: DimensionHelper.wp("20%"),
             height: DimensionHelper.wp("20%"),
             resizeMode: "contain",
-            marginBottom: DimensionHelper.wp("2%")
+            marginBottom: DimensionHelper.wp("2%"),
+            borderRadius: DimensionHelper.wp("5%")
           }}
         />
         <Text style={Styles.churchSelectionTitle}>Select a Church</Text>

@@ -87,12 +87,12 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'org.chums.checkin'
+    namespace 'church.b1.checkin'
     defaultConfig {
-        applicationId 'org.chums.checkin'
+        applicationId 'church.b1.checkin'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 31
+        versionCode 1
         versionName "2.0.1"
     }
     signingConfigs {
