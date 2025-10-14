@@ -15,7 +15,10 @@
     },
     "production": {
       "autoIncrement": false,
-      "channel": "production"
+      "channel": "production",
+      "android": {
+        "buildType": "app-bundle"
+      }
     },
     "amazon": {
       "autoIncrement": false,
