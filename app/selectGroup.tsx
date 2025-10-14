@@ -180,7 +180,6 @@ const SelectGroup = (props: any) => {
 
 };
 
-// Professional tablet-optimized styles matching ChumsApp
 const selectGroupStyles = {
   container: {
     flex: 1,

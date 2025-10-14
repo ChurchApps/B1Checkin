@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "B1Checkin",
-    "slug": "B1Checkin",
-    "version": "2.0.1",
+    "slug": "b1-checkin",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "b1checkin",
@@ -11,8 +11,9 @@
     "owner": "churchapps",
     "extra": {
       "eas": {
-        "projectId": "3e543eda-7610-49dc-b345-38234d7b9059"
-      }
+        "projectId": "669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
+      },
+      "router": {}
     },
     "android": {
       "adaptiveIcon": {
@@ -42,11 +43,11 @@
       "typedRoutes": true
     },
     "updates": {
-      "url": "https://u.expo.dev/3e543eda-7610-49dc-b345-38234d7b9059"
+      "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
     },
     "ios": {
       "bundleIdentifier": "church.b1.checkin"
     },
-    "runtimeVersion": "2.0.0"
+    "runtimeVersion": "1.0.0"
   }
 }

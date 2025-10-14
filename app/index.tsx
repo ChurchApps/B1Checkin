@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Image, View, Text, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Updates from "expo-updates";
 import { EnvironmentHelper, ApiHelper, LoginResponseInterface, CachedData, DimensionHelper, StyleConstants } from "../src/helpers";
 
 export default function Splash() {
@@ -12,8 +13,35 @@ export default function Splash() {
     // Initialize API configuration
     EnvironmentHelper.init();
 
-    checkStoredCredentials();
+    // Check for updates first, then proceed with login
+    checkForUpdates();
   }, []);
+
+  const checkForUpdates = async () => {
+    try {
+      // Only check for updates in production builds
+      if (!__DEV__) {
+        setStatusMessage("Checking for updates...");
+
+        const update = await Updates.checkForUpdateAsync();
+
+        if (update.isAvailable) {
+          setStatusMessage("Downloading update...");
+          await Updates.fetchUpdateAsync();
+
+          // Reload the app to apply the update
+          await Updates.reloadAsync();
+          return; // This line won't be reached as app reloads
+        }
+      }
+    } catch (error) {
+      console.error("Error checking for updates:", error);
+      // Continue with normal flow even if update check fails
+    }
+
+    // Proceed with credential check after update check
+    checkStoredCredentials();
+  };
 
   const checkStoredCredentials = async () => {
     try {

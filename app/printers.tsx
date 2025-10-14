@@ -226,7 +226,6 @@ const Printers = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles matching ChumsApp design patterns
 const printerStyles = {
   container: {
     flex: 1,

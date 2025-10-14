@@ -189,7 +189,6 @@ const Lookup = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles matching ChumsApp
 const lookupStyles = {
   container: {
     flex: 1,

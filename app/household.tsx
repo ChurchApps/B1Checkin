@@ -79,7 +79,6 @@ const Household = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles matching ChumsApp
 const householdStyles = {
   container: {
     flex: 1,

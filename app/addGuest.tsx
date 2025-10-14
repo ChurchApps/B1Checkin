@@ -161,7 +161,6 @@ const AddGuest = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles matching ChumsApp design patterns
 const addGuestStyles = {
   container: {
     flex: 1,

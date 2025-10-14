@@ -1,14 +1,12 @@
-<img align="right" width="150" src="https://raw.githubusercontent.com/ChurchApps/ChumsApp/main/public/images/logo.png">
+# B1 Church Checkin
 
-# CHUMS Checkin
-
-> CHUMS Checkin is an Android app companion for the church management software CHUMS. It's for use on self-checkin tablets at churches that prints name labels and parent pickup slips with unique id codes to ensure children are matched with the correct parents. Visit <a href="https://chums.org/">CHUMS.org</a> to learn more.
+> B1 Church Checkin is an Android app companion for the church management software B1.church. It's for use on self-checkin tablets at churches that prints name labels and parent pickup slips with unique id codes to ensure children are matched with the correct parents. Visit <a href="https://b1.church/">B1.church</a> to learn more.
 
 ## Preview
 
 <div style="display: flex;gap: 10px;">
-    <img style="width: 25%;" src="https://github.com/ChurchApps/ChumsCheckin/assets/1447203/f1d9e5e3-0a43-4566-88d5-ed094f862732">
-    <img style="width: 25%;" src="https://github.com/ChurchApps/ChumsCheckin/assets/1447203/c0d6aa1c-8957-4096-9e5e-80f429873a31">
+    <img style="width: 25%;" src="https://github.com/ChurchApps/B1Checkin/assets/1447203/f1d9e5e3-0a43-4566-88d5-ed094f862732">
+    <img style="width: 25%;" src="https://github.com/ChurchApps/B1Checkin/assets/1447203/c0d6aa1c-8957-4096-9e5e-80f429873a31">
 </div>
 
 ## Get Involved

@@ -13,8 +13,8 @@ export class StyleConstants {
   static smallerFont = StyleConstants.deviceWidth * 3.0 / 100;
 
   //Colors
-  static baseColor = "#1565C0";  // ChumsApp primary blue
-  static baseColor1 = "#568BDA"; // ChumsApp light blue (header color)
+  static baseColor = "#1565C0";  // primary blue
+  static baseColor1 = "#568BDA"; // light blue (header color)
   static blueColor = "#2196F3";
   static darkColor = "#3c3c3c";
   static blackColor = "black";
@@ -28,7 +28,7 @@ export class StyleConstants {
   static cyanColor = "#1C9BA0";
   static darkPink = "	#FF69B4";
   static ghostWhite = "#F6F6F8";
-  static loginBackground = "#EEE"; // ChumsApp login background
+  static loginBackground = "#EEE"; // login background
 
   //Font
   static RobotoBold = "Roboto-Bold";

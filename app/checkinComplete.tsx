@@ -102,7 +102,6 @@ const CheckinComplete = (props: Props) => {
 
 };
 
-// Professional tablet-optimized styles matching ChumsApp design patterns
 const checkinCompleteStyles = {
   container: {
     flex: 1,
