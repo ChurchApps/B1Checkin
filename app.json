@@ -46,9 +46,6 @@
     "updates": {
       "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
     },
-    "ios": {
-      "bundleIdentifier": "church.b1.checkin"
-    },
     "runtimeVersion": "1.0.0"
   }
 }

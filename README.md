@@ -31,12 +31,11 @@ If you would like to contribute in any way, head over to our [Slack Channel](htt
 
 If you'd like to set up the project locally, see our [development guide](https://churchapps.org/dev). The short version is:
 
-1. **Prerequisite** First set follow the setup instructions for [CHUMS](https://github.com/ChurchApps/ChumsApp)
-2. **Install** the dependencies with: `npm install`
-3. **Configure** - Copy `dotenv.sample.txt` to `.env` and updated it to point to the appropriate API urls. On env changes please restart the server with `npm start -- --reset-cache`. For the cases when connecting to local running apis, use system's ip (192.---.-.---) instead of `localhost`.
-4. **Start React Native** - Run `npm start` to start the React Native server.
-5. **Install Android App** - In Android Studio open the /android folder and click the run button to install the app on your device. It will initially load with the logo missing, you need to connect it to the ReactNative server.
-6. **Connect App to React Native** - Either shake the device or run `adb shell input keyevent 82` to open the developer menu. Go to settings, Debug server host and enter YourIP:8081. Restart the app and it should work properly.
+1. **Install** the dependencies with: `npm install`
+2. **Configure** - Copy `dotenv.sample.txt` to `.env` and updated it to point to the appropriate API urls. On env changes please restart the server with `npm start -- --reset-cache`. For the cases when connecting to local running apis, use system's ip (192.---.-.---) instead of `localhost`.
+3. **Start React Native** - Run `npm start` to start the React Native server.
+4. **Install Android App** - In Android Studio open the /android folder and click the run button to install the app on your device. It will initially load with the logo missing, you need to connect it to the ReactNative server.
+5. **Connect App to React Native** - Either shake the device or run `adb shell input keyevent 82` to open the developer menu. Go to settings, Debug server host and enter YourIP:8081. Restart the app and it should work properly.
 
 ### Connect Debugger
 
