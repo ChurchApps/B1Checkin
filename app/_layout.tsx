@@ -29,12 +29,6 @@ function RootLayout() {
     return () => clearTimeout(timer);
   }, [loaded]);
 
-  // Always render the content, even if fonts aren't loaded
-  if (!loaded && !error) {
-    // Show loading for a maximum of 2 seconds
-    return null;
-  }
-
   return (
     <ThemeProvider value={DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>

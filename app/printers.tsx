@@ -146,7 +146,7 @@ const Printers = (props: Props) => {
     if (htmlLabels?.length > 0) {
       return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />);
     }
-    return null;
+    return <></>;
   };
 
   const getContent = () => {

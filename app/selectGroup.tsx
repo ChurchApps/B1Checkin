@@ -104,37 +104,37 @@ const SelectGroup = (props: any) => {
   };
 
   const getExpanded = (selectedcategory: number, category: GroupCategoryInterface) => {
-    if (selectedcategory !== category.key) { return null; } else {
-      const result: JSX.Element[] = [];
-      category.items.forEach(g => {
-        result.push(
-          <Ripple
-            key={g.id?.toString()}
-            style={selectGroupStyles.groupItem}
-            onPress={() => selectGroup(g.id || "", g.name || "")}
-          >
-            <View style={selectGroupStyles.groupItemContent}>
-              <View style={selectGroupStyles.groupIconContainer}>
-                <FontAwesome
-                  name="users"
-                  style={selectGroupStyles.groupIcon}
-                  size={DimensionHelper.wp("4%")}
-                />
-              </View>
-              <Text style={selectGroupStyles.groupName}>{g.name}</Text>
-              <View style={selectGroupStyles.selectIconContainer}>
-                <FontAwesome
-                  name="check-circle-o"
-                  style={selectGroupStyles.selectIcon}
-                  size={DimensionHelper.wp("4.5%")}
-                />
-              </View>
+    if (selectedcategory !== category.key) { return <></>; }
+
+    const result: JSX.Element[] = [];
+    category.items.forEach(g => {
+      result.push(
+        <Ripple
+          key={g.id?.toString()}
+          style={selectGroupStyles.groupItem}
+          onPress={() => selectGroup(g.id || "", g.name || "")}
+        >
+          <View style={selectGroupStyles.groupItemContent}>
+            <View style={selectGroupStyles.groupIconContainer}>
+              <FontAwesome
+                name="users"
+                style={selectGroupStyles.groupIcon}
+                size={DimensionHelper.wp("4%")}
+              />
             </View>
-          </Ripple>
-        );
-      });
-      return <View style={selectGroupStyles.expandedContainer}>{result}</View>;
-    }
+            <Text style={selectGroupStyles.groupName}>{g.name}</Text>
+            <View style={selectGroupStyles.selectIconContainer}>
+              <FontAwesome
+                name="check-circle-o"
+                style={selectGroupStyles.selectIcon}
+                size={DimensionHelper.wp("4.5%")}
+              />
+            </View>
+          </View>
+        </Ripple>
+      );
+    });
+    return <View style={selectGroupStyles.expandedContainer}>{result}</View>;
   };
 
   React.useEffect(buildTree, []);

@@ -72,7 +72,13 @@ const MemberServiceTimes = (props: Props) => {
   if (props.selectedMemberId === props.person.id) {
     const visit = VisitHelper.getByPersonId(props.pendingVisits, props.person.id || "");
     const visitSessions = visit?.visitSessions || [];
-    CachedData.serviceTimes.forEach(st => { result.push(getExpandedRow(st, visitSessions)); });
+    if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
+      CachedData.serviceTimes.forEach(st => {
+        if (st) {
+          result.push(getExpandedRow(st, visitSessions));
+        }
+      });
+    }
   }
 
   return (

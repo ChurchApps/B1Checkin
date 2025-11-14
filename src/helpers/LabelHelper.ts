@@ -53,7 +53,7 @@ export class LabelHelper {
   }
 
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
-    const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", visit.personId || "");
+    const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "");
     let isChild: boolean = false;
     childVisits.forEach(cv => { if (cv.personId === person.id) { isChild = true; } });
     let result = html.replace(/\[Name\]/g, person.name?.display || person.displayName || "");
@@ -69,7 +69,7 @@ export class LabelHelper {
     let childList: string[] = [];
     let allergiesList: string[] = [];
     childVisits.forEach(cv => {
-      const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", cv.personId || "");
+      const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", cv.personId || "");
       childList.push((person.name?.display || person.displayName || "Unknown") + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
       allergiesList.push(person.nametagNotes ?? "");
     });
@@ -89,7 +89,7 @@ export class LabelHelper {
     CachedData.pendingVisits.forEach(pv => {
       let isChild = false;
       pv.visitSessions?.forEach(vs => {
-        const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
+        const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
         if (group.parentPickup) { isChild = true; }
       });

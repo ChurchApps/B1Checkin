@@ -46,13 +46,19 @@ const Services = (props: Props) => {
 
     Promise.all(promises).then(() => {
       //for simplicity, iterate the group service times and add groups to the services.
-      CachedData.serviceTimes.forEach(st => {
-        st.groups = [];
-        ArrayHelper.getAll(CachedData.groupServiceTimes, "serviceTimeId", st.id).forEach((gst: GroupServiceTimeInterface) => {
-          const g: GroupInterface = ArrayHelper.getOne(CachedData.groups, "id", gst.groupId);
-          st.groups?.push(g);
+      if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
+        CachedData.serviceTimes.forEach(st => {
+          if (st) {
+            st.groups = [];
+            ArrayHelper.getAll(CachedData.groupServiceTimes || [], "serviceTimeId", st.id).forEach((gst: GroupServiceTimeInterface) => {
+              const g: GroupInterface = ArrayHelper.getOne(CachedData.groups || [], "id", gst.groupId);
+              if (g) {
+                st.groups?.push(g);
+              }
+            });
+          }
         });
-      });
+      }
       console.log(JSON.stringify(CachedData.serviceTimes));
 
 

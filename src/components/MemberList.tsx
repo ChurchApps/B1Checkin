@@ -16,28 +16,36 @@ const MemberList = (props: Props) => {
   const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); };
 
   const getCondensedGroupList = (person: PersonInterface) => {
-    if (selectedMemberId === person.id) { return null; } else {
-      const visit = VisitHelper.getByPersonId(props.pendingVisits, person.id || "");
-      if (visit?.visitSessions?.length === 0) { return (null); } else {
-        const groups: JSX.Element[] = [];
-        visit?.visitSessions?.forEach((vs: VisitSessionInterface, index) => {
-          const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
-          const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", vs.session?.groupId || "");
-          const groupName = group?.name || "none";
-          const serviceTime = st?.name || "";
+    if (selectedMemberId === person.id) { return <></>; }
 
-          groups.push(
-            <View key={index} style={memberListStyles.groupChip}>
-              <View style={memberListStyles.groupInfo}>
-                <Text style={memberListStyles.serviceTimeLabel} numberOfLines={1}>{serviceTime}</Text>
-                <Text style={memberListStyles.groupName} numberOfLines={1}>{groupName}</Text>
-              </View>
-            </View>
-          );
-        });
-        return (<View style={memberListStyles.groupContainer}>{groups}</View>);
-      }
+    const visit = VisitHelper.getByPersonId(props.pendingVisits, person.id || "");
+    if (!visit || !visit.visitSessions || !Array.isArray(visit.visitSessions) || visit.visitSessions.length === 0) {
+      return <></>;
     }
+
+    const groups: JSX.Element[] = [];
+    const visitSessions = visit.visitSessions || [];
+
+    visitSessions.forEach((vs: VisitSessionInterface, index) => {
+      if (!vs || !vs.session) { return; }
+
+      const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session.serviceTimeId || "");
+      const group: GroupInterface | null = ArrayHelper.getOne(st?.groups || [], "id", vs.session.groupId || "");
+      const groupName = group?.name || "none";
+      const serviceTime = st?.name || "";
+
+      groups.push(
+        <View key={index} style={memberListStyles.groupChip}>
+          <View style={memberListStyles.groupInfo}>
+            <Text style={memberListStyles.serviceTimeLabel} numberOfLines={1}>{serviceTime}</Text>
+            <Text style={memberListStyles.groupName} numberOfLines={1}>{groupName}</Text>
+          </View>
+        </View>
+      );
+    });
+
+    if (groups.length === 0) { return <></>; }
+    return (<View style={memberListStyles.groupContainer}>{groups}</View>);
   };
 
 
@@ -110,7 +118,7 @@ const MemberList = (props: Props) => {
 
   return (
     <FlatList
-      data={CachedData.householdMembers}
+      data={CachedData.householdMembers || []}
       renderItem={getMemberRow}
       keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
       showsVerticalScrollIndicator={false}
