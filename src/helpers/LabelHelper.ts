@@ -114,7 +114,7 @@ export class LabelHelper {
       cv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
-        if (group.printPickup) { shouldPrint = true; }
+        if (group.parentPickup) { shouldPrint = true; }
       });
     });
     return shouldPrint;
