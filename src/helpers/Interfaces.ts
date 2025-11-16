@@ -149,6 +149,7 @@ export interface GroupInterface {
   trackAttendance?: boolean;
   parentPickup?: boolean;
   printNametag?: boolean;
+  printPickup?: boolean;
   about?: string;
   photoUrl?: string;
   tags?: string;

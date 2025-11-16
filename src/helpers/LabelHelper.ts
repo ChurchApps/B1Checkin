@@ -98,6 +98,28 @@ export class LabelHelper {
     return result;
   }
 
+  private static shouldPrintNametag(visit: VisitInterface): boolean {
+    let shouldPrint = false;
+    visit.visitSessions?.forEach(vs => {
+      const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
+      const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
+      if (group.printNametag) { shouldPrint = true; }
+    });
+    return shouldPrint;
+  }
+
+  private static shouldPrintPickup(childVisits: VisitInterface[]): boolean {
+    let shouldPrint = false;
+    childVisits.forEach(cv => {
+      cv.visitSessions?.forEach(vs => {
+        const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
+        const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
+        if (group.printPickup) { shouldPrint = true; }
+      });
+    });
+    return shouldPrint;
+  }
+
   public static async getAllLabels() {
     const pickupCode = LabelHelper.generatePickupCode();
     const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
@@ -106,10 +128,14 @@ export class LabelHelper {
     const result: string[] = [];
 
     CachedData.pendingVisits.forEach(pv => {
-      if (pv.visitSessions && pv.visitSessions.length > 0) { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); }
+      if (pv.visitSessions && pv.visitSessions.length > 0 && this.shouldPrintNametag(pv)) {
+        result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
+      }
     });
 
-    if (childVisits.length > 0) { result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode)); }
+    if (childVisits.length > 0 && this.shouldPrintPickup(childVisits)) {
+      result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
+    }
     return result;
   }
 }
