@@ -225,6 +225,7 @@ const Lookup = (props: Props) => {
                 onSubmitEditing={handleSearch}
                 style={lookupStyles.searchTextInput}
                 placeholderTextColor={StyleConstants.lightGray}
+                numberOfLines={1}
               />
               <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
                 <Text style={lookupStyles.searchButtonText}>Search</Text>
@@ -295,7 +296,7 @@ const lookupStyles = StyleSheet.create({
     borderRadius: 999,
     paddingVertical: DimensionHelper.wp("2%"),
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   modeButtonActive: {
