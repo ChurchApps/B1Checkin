@@ -1,6 +1,7 @@
 import React from "react";
 import { TextInput, View, Text, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import { screenNavigationProps, CachedData, StyleConstants, DimensionHelper } from "../src/helpers";
 import { ApiHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
@@ -12,6 +13,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 interface Props { navigation: screenNavigationProps }
 
 const AddGuest = (props: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const _params = useLocalSearchParams(); // ✅ Retrieve route parameters
 
@@ -19,7 +21,7 @@ const AddGuest = (props: Props) => {
   const [lastName, setLastName] = React.useState("");
 
   const addGuest = () => {
-    if (firstName === "") { Utils.snackBar("Please enter first name"); } else if (lastName === "") { Utils.snackBar("Please enter last name"); } else {
+    if (firstName === "") { Utils.snackBar(t("addGuest.enterFirstName")); } else if (lastName === "") { Utils.snackBar(t("addGuest.enterLastName")); } else {
       getOrCreatePerson(firstName, lastName).then(person => {
       // console.log(person)
       // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
@@ -81,8 +83,8 @@ const AddGuest = (props: Props) => {
       {/* Add Guest Section */}
       <Subheader
         icon="👤"
-        title="Add Guest"
-        subtitle="Enter guest information to add them to your household"
+        title={t("addGuest.title")}
+        subtitle={t("addGuest.subtitle")}
       />
 
       {/* Main Content */}
@@ -100,10 +102,10 @@ const AddGuest = (props: Props) => {
                 color={StyleConstants.baseColor}
                 style={addGuestStyles.labelIcon}
               />
-              <Text style={addGuestStyles.label}>First Name</Text>
+              <Text style={addGuestStyles.label}>{t("addGuest.firstName")}</Text>
             </View>
             <TextInput
-              placeholder="Enter first name"
+              placeholder={t("addGuest.firstNamePlaceholder")}
               onChangeText={(value) => { setFirstName(value); }}
               style={addGuestStyles.textInput}
               placeholderTextColor={StyleConstants.darkColor + "50"}
@@ -118,10 +120,10 @@ const AddGuest = (props: Props) => {
                 color={StyleConstants.baseColor}
                 style={addGuestStyles.labelIcon}
               />
-              <Text style={addGuestStyles.label}>Last Name</Text>
+              <Text style={addGuestStyles.label}>{t("addGuest.lastName")}</Text>
             </View>
             <TextInput
-              placeholder="Enter last name"
+              placeholder={t("addGuest.lastNamePlaceholder")}
               onChangeText={(value) => { setLastName(value); }}
               style={addGuestStyles.textInput}
               placeholderTextColor={StyleConstants.darkColor + "50"}
@@ -142,7 +144,7 @@ const AddGuest = (props: Props) => {
             color={StyleConstants.baseColor}
             style={addGuestStyles.buttonIcon}
           />
-          <Text style={addGuestStyles.cancelButtonText}>Cancel</Text>
+          <Text style={addGuestStyles.cancelButtonText}>{t("common.cancel")}</Text>
         </Ripple>
         <Ripple
           style={[addGuestStyles.actionButton, addGuestStyles.addButton]}
@@ -154,7 +156,7 @@ const AddGuest = (props: Props) => {
             color={StyleConstants.whiteColor}
             style={addGuestStyles.buttonIcon}
           />
-          <Text style={addGuestStyles.addButtonText}>Add Guest</Text>
+          <Text style={addGuestStyles.addButtonText}>{t("addGuest.addButton")}</Text>
         </Ripple>
       </View>
     </KeyboardAvoidingView>

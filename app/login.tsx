@@ -3,6 +3,7 @@ import {
   View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from "react-i18next";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
 import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "../src/helpers";
 import Fontisto from "@expo/vector-icons/Fontisto";
@@ -11,12 +12,13 @@ import { router } from "expo-router";
 interface Props { navigation: screenNavigationProps }
 
 function Login(_props: Props) {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const login = () => {
-    if (email === "") { Utils.snackBar("Please enter your email address"); } else if (!Utilities.validateEmail(email)) { Utils.snackBar("Please enter valid email"); } else if (password === "") { Utils.snackBar("Please enter your password"); } else {
+    if (email === "") { Utils.snackBar(t("login.enterEmail")); } else if (!Utilities.validateEmail(email)) { Utils.snackBar(t("login.validEmail")); } else if (password === "") { Utils.snackBar(t("login.enterPassword")); } else {
       setIsLoading(true);
       ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
         setIsLoading(false);
@@ -29,7 +31,7 @@ function Login(_props: Props) {
         }
       }).catch((_error) => {
         setIsLoading(false);
-        Utils.snackBar("Login failed.");
+        Utils.snackBar(t("login.loginFailed"));
       });
     }
   };
@@ -59,11 +61,11 @@ function Login(_props: Props) {
                 marginBottom: DimensionHelper.wp("1%")
               }}
             />
-            <Text style={{ fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor }}>Check-in System</Text>
+            <Text style={{ fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor }}>{t("login.title")}</Text>
           </View>
 
           {/* Title */}
-          <Text style={Styles.loginTitle}>Welcome Back</Text>
+          <Text style={Styles.loginTitle}>{t("login.welcomeBack")}</Text>
 
           {/* Email Input */}
           <View style={Styles.loginInputView}>
@@ -74,7 +76,7 @@ function Login(_props: Props) {
               style={Styles.loginInputIcon}
             />
             <TextInput
-              placeholder="Email"
+              placeholder={t("login.emailPlaceholder")}
               placeholderTextColor="rgba(0, 0, 0, 0.4)"
               style={Styles.loginInput}
               autoComplete="email"
@@ -94,7 +96,7 @@ function Login(_props: Props) {
               style={Styles.loginInputIcon}
             />
             <TextInput
-              placeholder="Password"
+              placeholder={t("login.passwordPlaceholder")}
               placeholderTextColor="rgba(0, 0, 0, 0.4)"
               style={Styles.loginInput}
               secureTextEntry={true}
@@ -115,18 +117,18 @@ function Login(_props: Props) {
             {isLoading ? (
               <ActivityIndicator size="small" color="#FFFFFF" />
             ) : (
-              <Text style={Styles.loginButtonText}>Login</Text>
+              <Text style={Styles.loginButtonText}>{t("common.login")}</Text>
             )}
           </TouchableOpacity>
 
           {/* Privacy Policy */}
           <Text style={Styles.privacyText}>
-            By logging in, I confirm that I have read the{" "}
+            {t("login.privacyConsent")}{" "}
             <Text
               style={Styles.privacyLink}
               onPress={() => router.navigate("/privacyPolicy")}
             >
-              privacy policy
+              {t("login.privacyPolicy")}
             </Text>
           </Text>
         </View>

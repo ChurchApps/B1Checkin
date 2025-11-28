@@ -1,0 +1,96 @@
+{
+  "common": {
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "search": "Rechercher",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "save": "Enregistrer",
+    "done": "Terminé",
+    "none": "Aucun"
+  },
+  "splash": {
+    "initializing": "Initialisation...",
+    "checkingUpdates": "Vérification des mises à jour...",
+    "downloadingUpdate": "Téléchargement de la mise à jour...",
+    "loggingIn": "Connexion en cours...",
+    "loadingChurch": "Chargement des données de l'église..."
+  },
+  "login": {
+    "title": "Système d'enregistrement",
+    "welcomeBack": "Bienvenue",
+    "emailPlaceholder": "Courriel",
+    "passwordPlaceholder": "Mot de passe",
+    "privacyConsent": "En me connectant, je confirme avoir lu la",
+    "privacyPolicy": "politique de confidentialité",
+    "enterEmail": "Veuillez entrer votre adresse courriel",
+    "validEmail": "Veuillez entrer un courriel valide",
+    "enterPassword": "Veuillez entrer votre mot de passe",
+    "loginFailed": "La connexion a échoué."
+  },
+  "services": {
+    "title": "Sélectionner un service",
+    "subtitle": "Choisissez le service pour l'enregistrement",
+    "loading": "Chargement des services..."
+  },
+  "lookup": {
+    "title": "Recherche par numéro de téléphone",
+    "subtitle": "Entrez les quatre derniers chiffres du numéro de mobile",
+    "placeholder": "Entrez les quatre derniers chiffres du numéro de mobile",
+    "readyTitle": "Prêt à rechercher",
+    "readySubtitle": "Entrez un numéro de téléphone pour trouver des personnes",
+    "searching": "Recherche en cours...",
+    "noMatchTitle": "Aucun résultat trouvé",
+    "noMatchSubtitle": "Essayez de rechercher avec un autre numéro de téléphone",
+    "invalidNumbers": "Veuillez entrer des numéros valides.",
+    "enterPhone": "Veuillez entrer le numéro de téléphone ou les quatre derniers chiffres",
+    "minDigits": "Veuillez entrer au moins quatre chiffres."
+  },
+  "selectChurch": {
+    "title": "Sélectionner une église",
+    "loading": "Chargement des églises..."
+  },
+  "household": {
+    "title": "Sélectionner les membres de la famille",
+    "subtitle": "Choisissez qui s'enregistre aujourd'hui",
+    "addGuest": "Ajouter un invité",
+    "checkin": "ENREGISTRER"
+  },
+  "selectGroup": {
+    "title": "Sélectionner un groupe",
+    "subtitle": "Choisissez un groupe pour {{serviceName}}",
+    "groupCount": "{{count}} groupes",
+    "none": "Aucun"
+  },
+  "addGuest": {
+    "title": "Ajouter un invité",
+    "subtitle": "Entrez les informations de l'invité pour l'ajouter à votre famille",
+    "firstName": "Prénom",
+    "firstNamePlaceholder": "Entrez le prénom",
+    "lastName": "Nom de famille",
+    "lastNamePlaceholder": "Entrez le nom de famille",
+    "addButton": "Ajouter l'invité",
+    "enterFirstName": "Veuillez entrer le prénom",
+    "enterLastName": "Veuillez entrer le nom de famille"
+  },
+  "checkinComplete": {
+    "title": "Enregistrement terminé",
+    "subtitle": "Votre famille a été enregistrée avec succès",
+    "welcomeTitle": "Bienvenue !",
+    "welcomeMessage": "Votre famille a été enregistrée avec succès.",
+    "printingMessage": "Vos étiquettes sont en cours d'impression."
+  },
+  "header": {
+    "secretMenuTitle": "Menu secret",
+    "logoutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?"
+  },
+  "printers": {
+    "title": "Sélectionner une imprimante",
+    "subtitle": "Choisissez une imprimante pour imprimer les badges et étiquettes",
+    "noPrinter": "Aucune imprimante",
+    "scanning": "Recherche d'imprimantes...",
+    "testPrint": "Test d'impression",
+    "saveRestart": "Enregistrer et redémarrer",
+    "noPrinterSelected": "Aucune imprimante sélectionnée"
+  }
+}

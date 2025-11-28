@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
 import { AvailablePrinter, CachedData, screenNavigationProps, StyleConstants } from "../src/helpers";
@@ -19,6 +20,7 @@ type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
 const Printers = (props: Props) => {
+  const { t } = useTranslation();
   const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer" }]);
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer" });
   const [dimension, _setDimension] = React.useState(Dimensions.get("window"));
@@ -114,7 +116,7 @@ const Printers = (props: Props) => {
         </View>
         <View style={printerStyles.printerInfo}>
           <Text style={[printerStyles.printerName, isSelected && printerStyles.selectedText]} numberOfLines={1}>
-            {isNoPrinter ? "No Printer" : printer.model}
+            {isNoPrinter ? t("printers.noPrinter") : printer.model}
           </Text>
           {!isNoPrinter && (
             <Text style={[printerStyles.printerIp, isSelected && printerStyles.selectedSubtext]} numberOfLines={1}>
@@ -136,7 +138,7 @@ const Printers = (props: Props) => {
   };
 
   const testPrint = () => {
-    if (selectedPrinter.model === "No Printer") { Alert.alert("No printer selected"); } else {
+    if (selectedPrinter.model === "No Printer") { Alert.alert(t("printers.noPrinterSelected")); } else {
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
     }
@@ -154,7 +156,7 @@ const Printers = (props: Props) => {
       return (
         <View style={printerStyles.loadingContainer}>
           <ActivityIndicator size="large" color={StyleConstants.baseColor} />
-          <Text style={printerStyles.loadingText}>Scanning for printers...</Text>
+          <Text style={printerStyles.loadingText}>{t("printers.scanning")}</Text>
         </View>
       );
     }
@@ -183,8 +185,8 @@ const Printers = (props: Props) => {
       {/* Select Printer Section */}
       <Subheader
         icon="🖨️"
-        title="Select a Printer"
-        subtitle="Choose a printer for printing name tags and labels"
+        title={t("printers.title")}
+        subtitle={t("printers.subtitle")}
       />
 
       {/* Main Content */}
@@ -204,7 +206,7 @@ const Printers = (props: Props) => {
             color={StyleConstants.baseColor}
             style={printerStyles.buttonIcon}
           />
-          <Text style={printerStyles.testButtonText}>Test Print</Text>
+          <Text style={printerStyles.testButtonText}>{t("printers.testPrint")}</Text>
         </Ripple>
         <Ripple
           style={[printerStyles.actionButton, printerStyles.doneButton]}
@@ -219,7 +221,7 @@ const Printers = (props: Props) => {
             color={StyleConstants.whiteColor}
             style={printerStyles.buttonIcon}
           />
-          <Text style={printerStyles.doneButtonText}>Save & Restart</Text>
+          <Text style={printerStyles.doneButtonText}>{t("printers.saveRestart")}</Text>
         </Ripple>
       </View>
     </View>

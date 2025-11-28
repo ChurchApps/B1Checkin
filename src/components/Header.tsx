@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
 
@@ -18,6 +19,7 @@ interface Props {
 
 
 const Header = (props: Props) => {
+  const { t } = useTranslation();
   const [status, setStatus] = React.useState("");
   const [landscape, setLandscape] = React.useState(false);
   const [logoTapCount, setLogoTapCount] = React.useState(0);
@@ -43,16 +45,16 @@ const Header = (props: Props) => {
     if (newTapCount >= 7) {
       // Show logout confirmation after 7 taps
       Alert.alert(
-        "Secret Menu",
-        "Are you sure you want to logout?",
+        t("header.secretMenuTitle"),
+        t("header.logoutConfirm"),
         [
           {
-            text: "Cancel",
+            text: t("common.cancel"),
             style: "cancel",
             onPress: () => setLogoTapCount(0)
           },
           {
-            text: "Logout",
+            text: t("common.logout"),
             onPress: async () => {
               // Clear stored credentials and church selection
               await AsyncStorage.multiRemove(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@UserChurches", "@Login"]);

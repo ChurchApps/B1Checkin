@@ -4,6 +4,7 @@ import {
   TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio
 } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
 import { EnvironmentHelper, screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
@@ -18,6 +19,7 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 
 const Lookup = (props: Props) => {
   // const Lookup = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const params = useLocalSearchParams();
   const [hasSearched, setHasSearched] = React.useState<boolean>(false);
@@ -51,19 +53,19 @@ const Lookup = (props: Props) => {
   const handleSearch = () => {
     const nonNumericPattern = /[^\d]/;
     if (nonNumericPattern.test(phone)) {
-      Utils.snackBar("Please enter valid numbers.");
+      Utils.snackBar(t("lookup.invalidNumbers"));
       return;
     }
 
     const cleanedPhone = phone.replace(/\D/g, "");
-    if (phone === "") { Utils.snackBar("Please enter phone number or last four digits"); } else {
+    if (phone === "") { Utils.snackBar(t("lookup.enterPhone")); } else {
       Keyboard.dismiss();
       setHasSearched(true);
       setIsLoading(true);
       // AppCenterHelper.trackEvent("Search");
 
       if (cleanedPhone.length < 4) {
-        Utils.snackBar("Please enter at least four digits.");
+        Utils.snackBar(t("lookup.minDigits"));
         setIsLoading(false);
         return;
       }
@@ -100,15 +102,15 @@ const Lookup = (props: Props) => {
       return (
         <View style={lookupStyles.emptyState}>
           <Text style={lookupStyles.emptyStateIcon}>🔍</Text>
-          <Text style={lookupStyles.emptyStateTitle}>Ready to Search</Text>
-          <Text style={lookupStyles.emptyStateSubtitle}>Enter a phone number to find people</Text>
+          <Text style={lookupStyles.emptyStateTitle}>{t("lookup.readyTitle")}</Text>
+          <Text style={lookupStyles.emptyStateSubtitle}>{t("lookup.readySubtitle")}</Text>
         </View>
       );
     } else if (isLoading) {
       return (
         <View style={lookupStyles.loadingContainer}>
           <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-          <Text style={lookupStyles.loadingText}>Searching...</Text>
+          <Text style={lookupStyles.loadingText}>{t("lookup.searching")}</Text>
         </View>
       );
     } else {
@@ -116,8 +118,8 @@ const Lookup = (props: Props) => {
         return (
           <View style={lookupStyles.noResultsState}>
             <Text style={lookupStyles.noResultsIcon}>😔</Text>
-            <Text style={lookupStyles.noResultsTitle}>No Matches Found</Text>
-            <Text style={lookupStyles.noResultsSubtitle}>Try searching with a different phone number</Text>
+            <Text style={lookupStyles.noResultsTitle}>{t("lookup.noMatchTitle")}</Text>
+            <Text style={lookupStyles.noResultsSubtitle}>{t("lookup.noMatchSubtitle")}</Text>
           </View>
         );
       }
@@ -158,8 +160,8 @@ const Lookup = (props: Props) => {
       {/* Search Section */}
       <Subheader
         icon="🔍"
-        title="Search by Phone Number"
-        subtitle="Enter last four digits of mobile number"
+        title={t("lookup.title")}
+        subtitle={t("lookup.subtitle")}
       />
 
       {/* Main Content */}
@@ -168,14 +170,14 @@ const Lookup = (props: Props) => {
         <View style={lookupStyles.searchSection}>
           <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
             <TextInput
-              placeholder="Enter last four digits of mobile number"
+              placeholder={t("lookup.placeholder")}
               onChangeText={(value) => { setPhone(value); }}
               keyboardType="numeric"
               style={lookupStyles.searchTextInput}
               placeholderTextColor={StyleConstants.lightGray}
             />
             <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
-              <Text style={lookupStyles.searchButtonText}>Search</Text>
+              <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
             </Ripple>
           </View>
         </View>

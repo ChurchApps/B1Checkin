@@ -3,30 +3,33 @@ import { Image, View, Text, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Updates from "expo-updates";
+import { useTranslation } from "react-i18next";
 import { EnvironmentHelper, ApiHelper, LoginResponseInterface, CachedData, DimensionHelper, StyleConstants } from "../src/helpers";
 
 export default function Splash() {
   console.log("Splash component called");
-  const [statusMessage, setStatusMessage] = React.useState("Initializing...");
+  const { t } = useTranslation();
+  const [statusMessage, setStatusMessage] = React.useState("");
 
   useEffect(() => {
     // Initialize API configuration
     EnvironmentHelper.init();
+    setStatusMessage(t("splash.initializing"));
 
     // Check for updates first, then proceed with login
     checkForUpdates();
-  }, []);
+  }, [t]);
 
   const checkForUpdates = async () => {
     try {
       // Only check for updates in production builds
       if (!__DEV__) {
-        setStatusMessage("Checking for updates...");
+        setStatusMessage(t("splash.checkingUpdates"));
 
         const update = await Updates.checkForUpdateAsync();
 
         if (update.isAvailable) {
-          setStatusMessage("Downloading update...");
+          setStatusMessage(t("splash.downloadingUpdate"));
           await Updates.fetchUpdateAsync();
 
           // Reload the app to apply the update
@@ -59,7 +62,7 @@ export default function Splash() {
       }
 
       if (email[1] && password[1]) {
-        setStatusMessage("Logging in...");
+        setStatusMessage(t("splash.loggingIn"));
 
         // Attempt auto-login with stored credentials
         const loginData: LoginResponseInterface = await ApiHelper.postAnonymous(
@@ -84,7 +87,7 @@ export default function Splash() {
 
             if (previousChurch) {
               // Restore previous church selection
-              setStatusMessage("Loading church data...");
+              setStatusMessage(t("splash.loadingChurch"));
               CachedData.userChurch = previousChurch;
               previousChurch.apis?.forEach(api =>
                 ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));

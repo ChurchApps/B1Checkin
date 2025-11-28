@@ -1,0 +1,96 @@
+{
+  "common": {
+    "cancel": "Abbrechen",
+    "loading": "Lädt...",
+    "search": "Suchen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "save": "Speichern",
+    "done": "Fertig",
+    "none": "Keine"
+  },
+  "splash": {
+    "initializing": "Wird initialisiert...",
+    "checkingUpdates": "Suche nach Updates...",
+    "downloadingUpdate": "Lade Update herunter...",
+    "loggingIn": "Melde an...",
+    "loadingChurch": "Lade Kirchendaten..."
+  },
+  "login": {
+    "title": "Check-in-System",
+    "welcomeBack": "Willkommen zurück",
+    "emailPlaceholder": "E-Mail",
+    "passwordPlaceholder": "Passwort",
+    "privacyConsent": "Mit der Anmeldung bestätige ich, dass ich die",
+    "privacyPolicy": "Datenschutzerklärung",
+    "enterEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+    "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "enterPassword": "Bitte geben Sie Ihr Passwort ein",
+    "loginFailed": "Anmeldung fehlgeschlagen."
+  },
+  "services": {
+    "title": "Gottesdienst auswählen",
+    "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
+    "loading": "Lade Gottesdienste..."
+  },
+  "lookup": {
+    "title": "Suche nach Telefonnummer",
+    "subtitle": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
+    "placeholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
+    "readyTitle": "Bereit zur Suche",
+    "readySubtitle": "Geben Sie eine Telefonnummer ein, um Personen zu finden",
+    "searching": "Suche...",
+    "noMatchTitle": "Keine Übereinstimmungen gefunden",
+    "noMatchSubtitle": "Versuchen Sie die Suche mit einer anderen Telefonnummer",
+    "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
+    "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
+    "minDigits": "Bitte geben Sie mindestens vier Ziffern ein."
+  },
+  "selectChurch": {
+    "title": "Gemeinde auswählen",
+    "loading": "Lade Gemeinden..."
+  },
+  "household": {
+    "title": "Haushaltsmitglieder auswählen",
+    "subtitle": "Wählen Sie aus, wer heute eincheckt",
+    "addGuest": "Gast hinzufügen",
+    "checkin": "EINCHECKEN"
+  },
+  "selectGroup": {
+    "title": "Gruppe auswählen",
+    "subtitle": "Wählen Sie eine Gruppe für {{serviceName}}",
+    "groupCount": "{{count}} Gruppen",
+    "none": "Keine"
+  },
+  "addGuest": {
+    "title": "Gast hinzufügen",
+    "subtitle": "Geben Sie die Gastinformationen ein, um sie zu Ihrem Haushalt hinzuzufügen",
+    "firstName": "Vorname",
+    "firstNamePlaceholder": "Vorname eingeben",
+    "lastName": "Nachname",
+    "lastNamePlaceholder": "Nachname eingeben",
+    "addButton": "Gast hinzufügen",
+    "enterFirstName": "Bitte geben Sie den Vornamen ein",
+    "enterLastName": "Bitte geben Sie den Nachnamen ein"
+  },
+  "checkinComplete": {
+    "title": "Check-in abgeschlossen",
+    "subtitle": "Ihre Familie wurde erfolgreich eingecheckt",
+    "welcomeTitle": "Willkommen!",
+    "welcomeMessage": "Ihre Familie wurde erfolgreich eingecheckt.",
+    "printingMessage": "Ihre Etiketten werden jetzt gedruckt."
+  },
+  "header": {
+    "secretMenuTitle": "Geheimmenü",
+    "logoutConfirm": "Möchten Sie sich wirklich abmelden?"
+  },
+  "printers": {
+    "title": "Drucker auswählen",
+    "subtitle": "Wählen Sie einen Drucker zum Drucken von Namensschildern und Etiketten",
+    "noPrinter": "Kein Drucker",
+    "scanning": "Suche nach Druckern...",
+    "testPrint": "Testdruck",
+    "saveRestart": "Speichern & Neu starten",
+    "noPrinterSelected": "Kein Drucker ausgewählt"
+  }
+}

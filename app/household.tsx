@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
@@ -16,6 +17,7 @@ type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; }
 
 const Household = (props: Props) => {
+  const { t } = useTranslation();
   const [pendingVisits, setPendingVisits] = React.useState<VisitInterface[]>([]);
   // const init = () => {
   //   // AppCenterHelper.trackEvent("Household screen");
@@ -47,8 +49,8 @@ const Household = (props: Props) => {
       {/* Household Members Section */}
       <Subheader
         icon="👥"
-        title="Select Household Members"
-        subtitle="Choose who is checking in today"
+        title={t("household.title")}
+        subtitle={t("household.subtitle")}
       />
 
       {/* Main Content */}
@@ -63,7 +65,7 @@ const Household = (props: Props) => {
           <View style={householdStyles.addGuestSection}>
             <Ripple style={householdStyles.addGuestButton} onPress={addGuest}>
               <Text style={householdStyles.addGuestIcon}>👤</Text>
-              <Text style={householdStyles.addGuestText}>Add a Guest</Text>
+              <Text style={householdStyles.addGuestText}>{t("household.addGuest")}</Text>
             </Ripple>
           </View>
         </ScrollView>
@@ -72,7 +74,7 @@ const Household = (props: Props) => {
       {/* Check-in Button */}
       <View style={householdStyles.checkinSection}>
         <Ripple style={householdStyles.checkinButton} onPress={checkin}>
-          <Text style={householdStyles.checkinButtonText}>CHECK IN</Text>
+          <Text style={householdStyles.checkinButtonText}>{t("household.checkin")}</Text>
         </Ripple>
       </View>
     </View>
