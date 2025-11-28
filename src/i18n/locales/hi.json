@@ -92,5 +92,13 @@
     "testPrint": "टेस्ट प्रिंट",
     "saveRestart": "सहेजें और पुनः आरंभ करें",
     "noPrinterSelected": "कोई प्रिंटर चयनित नहीं"
+  },
+  "print": {
+    "printing": "प्रिंटिंग"
+  },
+  "members": {
+    "selectGroup": "समूह चुनें",
+    "error": "त्रुटि",
+    "unknown": "अज्ञात"
   }
 }

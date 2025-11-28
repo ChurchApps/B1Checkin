@@ -92,5 +92,13 @@
     "testPrint": "Тестовая печать",
     "saveRestart": "Сохранить и перезапустить",
     "noPrinterSelected": "Принтер не выбран"
+  },
+  "print": {
+    "printing": "Печать"
+  },
+  "members": {
+    "selectGroup": "Выберите группу",
+    "error": "Ошибка",
+    "unknown": "Неизвестно"
   }
 }

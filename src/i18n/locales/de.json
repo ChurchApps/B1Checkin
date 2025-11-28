@@ -92,5 +92,13 @@
     "testPrint": "Testdruck",
     "saveRestart": "Speichern & Neu starten",
     "noPrinterSelected": "Kein Drucker ausgewählt"
+  },
+  "print": {
+    "printing": "Wird gedruckt"
+  },
+  "members": {
+    "selectGroup": "Gruppe auswählen",
+    "error": "Fehler",
+    "unknown": "Unbekannt"
   }
 }

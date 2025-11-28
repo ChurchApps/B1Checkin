@@ -92,5 +92,13 @@
     "testPrint": "Testutskrift",
     "saveRestart": "Lagre og start på nytt",
     "noPrinterSelected": "Ingen skriver valgt"
+  },
+  "print": {
+    "printing": "Skriver ut"
+  },
+  "members": {
+    "selectGroup": "Velg gruppe",
+    "error": "Feil",
+    "unknown": "Ukjent"
   }
 }

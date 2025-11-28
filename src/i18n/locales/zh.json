@@ -92,5 +92,13 @@
     "testPrint": "测试打印",
     "saveRestart": "保存并重启",
     "noPrinterSelected": "未选择打印机"
+  },
+  "print": {
+    "printing": "打印中"
+  },
+  "members": {
+    "selectGroup": "选择小组",
+    "error": "错误",
+    "unknown": "未知"
   }
 }

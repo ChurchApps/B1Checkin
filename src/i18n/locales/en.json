@@ -92,5 +92,13 @@
     "testPrint": "Test Print",
     "saveRestart": "Save & Restart",
     "noPrinterSelected": "No printer selected"
+  },
+  "print": {
+    "printing": "Printing"
+  },
+  "members": {
+    "selectGroup": "Select Group",
+    "error": "Error",
+    "unknown": "Unknown"
   }
 }

@@ -92,5 +92,13 @@
     "testPrint": "Impresión de Prueba",
     "saveRestart": "Guardar y Reiniciar",
     "noPrinterSelected": "No se ha seleccionado ninguna impresora"
+  },
+  "print": {
+    "printing": "Imprimiendo"
+  },
+  "members": {
+    "selectGroup": "Seleccionar Grupo",
+    "error": "Error",
+    "unknown": "Desconocido"
   }
 }

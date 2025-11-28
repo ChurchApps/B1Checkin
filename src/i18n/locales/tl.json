@@ -92,5 +92,13 @@
     "testPrint": "Test Print",
     "saveRestart": "I-save at I-restart",
     "noPrinterSelected": "Walang napiling printer"
+  },
+  "print": {
+    "printing": "Nag-i-print"
+  },
+  "members": {
+    "selectGroup": "Pumili ng Grupo",
+    "error": "Kamalian",
+    "unknown": "Hindi Alam"
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import { CachedData, screenNavigationProps, VisitHelper, VisitSessionHelper, StyleConstants } from "../helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
@@ -9,6 +10,7 @@ import { router } from "expo-router";
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
 const MemberServiceTimes = (props: Props) => {
+  const { t } = useTranslation();
 
   const handleServiceTimeClick = (serviceTime: any, person: any) => {
     router.navigate({
@@ -24,11 +26,11 @@ const MemberServiceTimes = (props: Props) => {
   const getExpandedRow = (serviceTime: ServiceTimeInterface, visitSessions: VisitSessionInterface[]) => {
     const stSessions = VisitSessionHelper.getByServiceTimeId(visitSessions, serviceTime.id || "");
     const isSelected = stSessions.length > 0;
-    let selectedGroupName = "Select Group";
+    let selectedGroupName = t("members.selectGroup");
     if (isSelected) {
       const groupId = stSessions[0].session?.groupId || "";
       const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", groupId);
-      selectedGroupName = group?.name || "Error";
+      selectedGroupName = group?.name || t("members.error");
     }
 
     // Truncate group name if it's too long

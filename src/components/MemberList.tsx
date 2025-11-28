@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, FlatList, Image, Dimensions, PixelRatio } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import {
   CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, StyleConstants, VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper
 } from "../helpers";
@@ -10,6 +11,7 @@ import MemberServiceTimes from "./MemberServiceTimes";
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
 const MemberList = (props: Props) => {
+  const { t } = useTranslation();
   const [selectedMemberId, setSelectedMemberId] = React.useState("");
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
@@ -93,7 +95,7 @@ const MemberList = (props: Props) => {
           <View style={memberListStyles.memberContent}>
             {getPhotoElement()}
             <View style={memberListStyles.memberInfo}>
-              <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || "Unknown"}</Text>
+              <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || t("members.unknown")}</Text>
               {getCondensedGroupList(person)}
             </View>
             <View style={memberListStyles.expandIconContainer}>
