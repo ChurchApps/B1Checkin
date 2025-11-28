@@ -38,7 +38,15 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "b1-checkin",
+          "organization": "churchapps"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
