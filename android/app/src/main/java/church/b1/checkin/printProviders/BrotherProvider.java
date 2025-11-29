@@ -110,8 +110,7 @@ public class BrotherProvider implements PrintProviderInterface {
             PrintError printError =  printerDriver.printImage(bmp, printSettings);
 
             if (printError.getCode() != PrintError.ErrorCode.NoError) {
-                printError.getErrorRecoverySuggestion();
-                PrinterHelper.logError("BrotherProvider.java", "Error - Print Image: " + printError.getCode());
+                PrinterHelper.logError("BrotherProvider.java", "Error - Print Image: " + printError.getCode() + " - " + printError.getErrorDescription());
             }
             else {
                 PrinterHelper.logEvent("Print","BrotherProvider.java", "Success - Print Image");
