@@ -40,10 +40,16 @@ const CheckinComplete = (props: Props) => {
     });
   };
 
-  const print = async () => LabelHelper.getAllLabels().then(async (labels) => {
-    setHtmlLabels(labels);
-    if (labels.length === 0) { startOver(); }
-  });
+  const print = async () => {
+    try {
+      const labels = await LabelHelper.getAllLabels();
+      setHtmlLabels(labels);
+      if (labels.length === 0) { startOver(); }
+    } catch (error) {
+      console.error("Error printing labels:", error);
+      startOver();
+    }
+  };
 
   const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
 

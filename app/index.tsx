@@ -10,15 +10,40 @@ export default function Splash() {
   console.log("Splash component called");
   const { t } = useTranslation();
   const [statusMessage, setStatusMessage] = React.useState("");
+  const [isReady, setIsReady] = React.useState(false);
 
   useEffect(() => {
     // Initialize API configuration
     EnvironmentHelper.init();
     setStatusMessage(t("splash.initializing"));
 
-    // Check for updates first, then proceed with login
-    checkForUpdates();
+    // Add a small delay to ensure layout is mounted before any navigation
+    const initTimer = setTimeout(() => {
+      setIsReady(true);
+      // Check for updates first, then proceed with login
+      checkForUpdates();
+    }, 100);
+
+    return () => clearTimeout(initTimer);
   }, [t]);
+
+  const safeNavigate = (path: string) => {
+    try {
+      if (isReady) {
+        router.replace(path);
+      }
+    } catch (error) {
+      console.error("Navigation error:", error);
+      // Retry navigation after a short delay
+      setTimeout(() => {
+        try {
+          router.replace(path);
+        } catch (retryError) {
+          console.error("Navigation retry failed:", retryError);
+        }
+      }, 500);
+    }
+  };
 
   const checkForUpdates = async () => {
     try {
@@ -73,7 +98,7 @@ export default function Splash() {
 
         if (loginData.errors?.length > 0) {
           // Login failed, go to login screen
-          router.replace("/login");
+          safeNavigate("/login");
         } else {
           // Login successful, update stored churches
           const churches = loginData.userChurches?.filter(userChurch =>
@@ -114,25 +139,25 @@ export default function Splash() {
               }
 
               // Go directly to services screen
-              router.replace("/services");
+              safeNavigate("/services");
               return;
             }
           }
 
           // No previous church selection, go to church selection
-          router.replace("/selectChurch");
+          safeNavigate("/selectChurch");
         }
       } else {
         // No stored credentials, go to login
         setTimeout(() => {
-          router.replace("/login");
+          safeNavigate("/login");
         }, 1500);
       }
     } catch (error) {
       console.error("Auto-login error:", error);
       // On any error, go to login screen
       setTimeout(() => {
-        router.replace("/login");
+        safeNavigate("/login");
       }, 1500);
     }
   };

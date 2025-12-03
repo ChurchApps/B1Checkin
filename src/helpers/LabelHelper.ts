@@ -91,7 +91,7 @@ export class LabelHelper {
       pv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
-        if (group.parentPickup) { isChild = true; }
+        if (group?.parentPickup) { isChild = true; }
       });
       if (isChild) { result.push(pv); }
     });
@@ -103,7 +103,7 @@ export class LabelHelper {
     visit.visitSessions?.forEach(vs => {
       const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
       const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
-      if (group.printNametag) { shouldPrint = true; }
+      if (group?.printNametag) { shouldPrint = true; }
     });
     return shouldPrint;
   }
@@ -114,13 +114,14 @@ export class LabelHelper {
       cv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
-        if (group.parentPickup) { shouldPrint = true; }
+        if (group?.parentPickup) { shouldPrint = true; }
       });
     });
     return shouldPrint;
   }
 
   public static async getAllLabels() {
+    try {
     const pickupCode = LabelHelper.generatePickupCode();
     const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
     const labelTemplate = await this.readHtml("1_1x3_5.html");
@@ -137,6 +138,10 @@ export class LabelHelper {
       result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
     }
     return result;
+    } catch (error) {
+      console.error("Error getting labels:", error);
+      return [];
+    }
   }
 }
 
