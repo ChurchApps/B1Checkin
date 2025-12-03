@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import {
-  TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio
+  TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet
 } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
@@ -15,8 +15,6 @@ import Subheader from "../src/components/Subheader";
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
-
-
 const Lookup = (props: Props) => {
   // const Lookup = () => {
   const { t } = useTranslation();
@@ -26,6 +24,8 @@ const Lookup = (props: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [people, setPeople] = React.useState([]);
   const [phone, setPhone] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [searchMode, setSearchMode] = React.useState<"phone" | "name">("phone");
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
   const loadHouseholdMembers = async () => {
@@ -40,7 +40,6 @@ const Lookup = (props: Props) => {
     CachedData.existingVisits = await ApiHelper.get(url, "AttendanceApi");
     CachedData.pendingVisits = [...CachedData.existingVisits];
     setIsLoading(false);
-    // props.navigation.navigate("Household");
     router.navigate("/household");
   };
 
@@ -48,6 +47,13 @@ const Lookup = (props: Props) => {
     setIsLoading(true);
     CachedData.householdId = person.householdId || "";
     loadHouseholdMembers();
+  };
+
+  const handleModeChange = (mode: "phone" | "name") => {
+    if (mode === searchMode) return;
+    setSearchMode(mode);
+    setHasSearched(false);
+    setPeople([]);
   };
 
   const handleSearch = () => {
@@ -64,18 +70,44 @@ const Lookup = (props: Props) => {
       setIsLoading(true);
       // AppCenterHelper.trackEvent("Search");
 
+      const cleanedPhone = phone.replace(/\D/g, "");
       if (cleanedPhone.length < 4) {
         Utils.snackBar(t("lookup.minDigits"));
         setIsLoading(false);
         return;
       }
 
+      Keyboard.dismiss();
+      setHasSearched(true);
+      setIsLoading(true);
       const searchQuery = cleanedPhone.length > 4 ? cleanedPhone : cleanedPhone.slice(-4);
-      // console.log("searchQuery ", searchQuery)
-      ApiHelper.get("/people/search/phone?number=" + searchQuery, "MembershipApi").then(data => {
-        setIsLoading(false);
-        setPeople(data);
-      });
+      ApiHelper.get("/people/search/phone?number=" + searchQuery, "MembershipApi")
+        .then(data => {
+          setPeople(data);
+        })
+        .catch(() => {
+          Utils.snackBar("Unable to complete search. Please try again.");
+        })
+        .finally(() => setIsLoading(false));
+    } else {
+      const trimmedLast = lastName.trim();
+      if (trimmedLast.length < 2) {
+        Utils.snackBar("Please enter at least two letters of the last name.");
+        return;
+      }
+
+      Keyboard.dismiss();
+      setHasSearched(true);
+      setIsLoading(true);
+      const url = "/people/search?term=" + encodeURIComponent(trimmedLast);
+      ApiHelper.get(url, "MembershipApi")
+        .then(data => {
+          setPeople(data);
+        })
+        .catch(() => {
+          Utils.snackBar("Unable to complete search. Please try again.");
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -88,7 +120,7 @@ const Lookup = (props: Props) => {
           style={lookupStyles.personPhoto}
         />
         <View style={lookupStyles.personInfo}>
-          <Text style={lookupStyles.personName}>{person.name.display}</Text>
+          <Text style={lookupStyles.personName}>{person?.name?.display}</Text>
         </View>
         <View style={lookupStyles.arrowContainer}>
           <Text style={lookupStyles.arrow}>›</Text>
@@ -118,8 +150,12 @@ const Lookup = (props: Props) => {
         return (
           <View style={lookupStyles.noResultsState}>
             <Text style={lookupStyles.noResultsIcon}>😔</Text>
-            <Text style={lookupStyles.noResultsTitle}>{t("lookup.noMatchTitle")}</Text>
-            <Text style={lookupStyles.noResultsSubtitle}>{t("lookup.noMatchSubtitle")}</Text>
+            <Text style={lookupStyles.noResultsTitle}>No Matches Found</Text>
+            <Text style={lookupStyles.noResultsSubtitle}>
+              {searchMode === "phone"
+                ? "Try searching with a different phone number"
+                : "Try searching with a different last name"}
+            </Text>
           </View>
         );
       }
@@ -168,18 +204,55 @@ const Lookup = (props: Props) => {
       <View style={lookupStyles.mainContent}>
         {/* Search Input */}
         <View style={lookupStyles.searchSection}>
-          <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
-            <TextInput
-              placeholder={t("lookup.placeholder")}
-              onChangeText={(value) => { setPhone(value); }}
-              keyboardType="numeric"
-              style={lookupStyles.searchTextInput}
-              placeholderTextColor={StyleConstants.lightGray}
-            />
-            <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
-              <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
+          <View style={lookupStyles.modeToggleContainer}>
+            <Ripple
+              style={[lookupStyles.modeButton, searchMode === "phone" && lookupStyles.modeButtonActive]}
+              onPress={() => handleModeChange("phone")}
+            >
+              <Text style={[lookupStyles.modeButtonText, searchMode === "phone" && lookupStyles.modeButtonTextActive]}>Phone</Text>
+            </Ripple>
+            <Ripple
+              style={[lookupStyles.modeButton, searchMode === "name" && lookupStyles.modeButtonActive]}
+              onPress={() => handleModeChange("name")}
+            >
+              <Text style={[lookupStyles.modeButtonText, searchMode === "name" && lookupStyles.modeButtonTextActive]}>Name</Text>
             </Ripple>
           </View>
+          {searchMode === "phone" ? (
+            <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
+              <TextInput
+                placeholder="Enter last four digits of mobile number"
+                onChangeText={(value) => { setPhone(value); }}
+                value={phone}
+                keyboardType="numeric"
+                autoCapitalize="none"
+                returnKeyType="search"
+                onSubmitEditing={handleSearch}
+                style={lookupStyles.searchTextInput}
+                placeholderTextColor={StyleConstants.lightGray}
+                numberOfLines={1}
+              />
+              <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
+                <Text style={lookupStyles.searchButtonText}>Search</Text>
+              </Ripple>
+            </View>
+          ) : (
+            <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
+              <TextInput
+                placeholder="Enter last name"
+                onChangeText={(value) => { setLastName(value); }}
+                value={lastName}
+                autoCapitalize="words"
+                returnKeyType="search"
+                onSubmitEditing={handleSearch}
+                style={[lookupStyles.searchTextInput, lookupStyles.nameTextInput]}
+                placeholderTextColor={StyleConstants.lightGray}
+              />
+              <Ripple style={[lookupStyles.searchButton, lookupStyles.nameSearchButton]} onPress={handleSearch}>
+                <Text style={lookupStyles.searchButtonText}>Search</Text>
+              </Ripple>
+            </View>
+          )}
         </View>
 
         {/* Results Section */}
@@ -191,7 +264,8 @@ const Lookup = (props: Props) => {
   );
 };
 
-const lookupStyles = {
+// Professional tablet-optimized styles matching ChumsApp
+const lookupStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: StyleConstants.ghostWhite
@@ -206,6 +280,42 @@ const lookupStyles = {
   // Search Section
   searchSection: {
     marginBottom: DimensionHelper.wp("5%")
+  },
+
+  modeToggleContainer: {
+    flexDirection: "row",
+    alignSelf: "center",
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 999,
+    padding: DimensionHelper.wp("0.8%"),
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    shadowColor: StyleConstants.baseColor,
+    width: DimensionHelper.wp("60%")
+  },
+
+  modeButton: {
+    flex: 1,
+    borderRadius: 999,
+    paddingVertical: DimensionHelper.wp("2%"),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modeButtonActive: {
+    backgroundColor: StyleConstants.baseColor
+  },
+
+  modeButtonText: {
+    fontSize: DimensionHelper.wp("3.5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.baseColor
+  },
+
+  modeButtonTextActive: {
+    color: StyleConstants.whiteColor
   },
 
   searchView: {
@@ -246,6 +356,22 @@ const lookupStyles = {
     fontSize: DimensionHelper.wp("3.8%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600"
+  },
+
+  nameSearchView: {
+    flexDirection: "column",
+    alignItems: "stretch"
+  },
+
+  nameTextInput: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 8,
+  },
+
+  nameSearchButton: {
+    alignSelf: "stretch",
+    marginLeft: 0,
+    marginTop: 0
   },
 
   // Results Section
@@ -383,6 +509,6 @@ const lookupStyles = {
     lineHeight: DimensionHelper.wp("5%"),
     paddingHorizontal: DimensionHelper.wp("10%")
   }
-};
+});
 
 export default Lookup;
