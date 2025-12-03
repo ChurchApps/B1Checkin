@@ -5,6 +5,27 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import "../src/i18n";
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://b02de73c6c40f84c1360d6a3b8ffd3f7@o4510432524107776.ingest.us.sentry.io/4510443717591040',
+
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
+
+  // Enable Logs
+  enableLogs: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration()],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -50,4 +71,4 @@ function RootLayout() {
   );
 }
 
-export default RootLayout;
+export default Sentry.wrap(RootLayout);

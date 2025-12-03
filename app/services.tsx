@@ -3,6 +3,7 @@ import {
   Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View
 } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
@@ -12,6 +13,7 @@ import { router } from "expo-router";
 interface Props { navigation: screenNavigationProps }
 
 const Services = (props: Props) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [services, setServices] = React.useState([]);
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
@@ -87,7 +89,7 @@ const Services = (props: Props) => {
       return (
         <View style={serviceStyles.loadingContainer}>
           <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-          <Text style={serviceStyles.loadingText}>Loading services...</Text>
+          <Text style={serviceStyles.loadingText}>{t("services.loading")}</Text>
         </View>
       );
     } else {
@@ -117,8 +119,8 @@ const Services = (props: Props) => {
       {/* Select a Service Section */}
       <Subheader
         icon="📅"
-        title="Select a Service"
-        subtitle="Choose which service to check in for"
+        title={t("services.title")}
+        subtitle={t("services.subtitle")}
       />
 
       {/* Main Content */}

@@ -1,0 +1,104 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "loading": "Carregando...",
+    "search": "Buscar",
+    "login": "Entrar",
+    "logout": "Sair",
+    "save": "Salvar",
+    "done": "Concluído",
+    "none": "Nenhum"
+  },
+  "splash": {
+    "initializing": "Inicializando...",
+    "checkingUpdates": "Verificando atualizações...",
+    "downloadingUpdate": "Baixando atualização...",
+    "loggingIn": "Entrando...",
+    "loadingChurch": "Carregando dados da igreja..."
+  },
+  "login": {
+    "title": "Sistema de Check-in",
+    "welcomeBack": "Bem-vindo de Volta",
+    "emailPlaceholder": "E-mail",
+    "passwordPlaceholder": "Senha",
+    "privacyConsent": "Ao fazer login, confirmo que li a",
+    "privacyPolicy": "política de privacidade",
+    "enterEmail": "Por favor, insira seu endereço de e-mail",
+    "validEmail": "Por favor, insira um e-mail válido",
+    "enterPassword": "Por favor, insira sua senha",
+    "loginFailed": "Falha no login."
+  },
+  "services": {
+    "title": "Selecione um Culto",
+    "subtitle": "Escolha para qual culto deseja fazer check-in",
+    "loading": "Carregando cultos..."
+  },
+  "lookup": {
+    "title": "Buscar por Número de Telefone",
+    "subtitle": "Digite os últimos quatro dígitos do número de celular",
+    "placeholder": "Digite os últimos quatro dígitos do número de celular",
+    "readyTitle": "Pronto para Buscar",
+    "readySubtitle": "Digite um número de telefone para encontrar pessoas",
+    "searching": "Buscando...",
+    "noMatchTitle": "Nenhum Resultado Encontrado",
+    "noMatchSubtitle": "Tente buscar com um número de telefone diferente",
+    "invalidNumbers": "Por favor, insira números válidos.",
+    "enterPhone": "Por favor, insira o número de telefone ou os últimos quatro dígitos",
+    "minDigits": "Por favor, insira pelo menos quatro dígitos."
+  },
+  "selectChurch": {
+    "title": "Selecione uma Igreja",
+    "loading": "Carregando igrejas..."
+  },
+  "household": {
+    "title": "Selecione os Membros da Família",
+    "subtitle": "Escolha quem está fazendo check-in hoje",
+    "addGuest": "Adicionar um Visitante",
+    "checkin": "FAZER CHECK-IN"
+  },
+  "selectGroup": {
+    "title": "Selecione um Grupo",
+    "subtitle": "Escolha um grupo para {{serviceName}}",
+    "groupCount": "{{count}} grupos",
+    "none": "Nenhum"
+  },
+  "addGuest": {
+    "title": "Adicionar Visitante",
+    "subtitle": "Insira as informações do visitante para adicioná-lo à sua família",
+    "firstName": "Primeiro Nome",
+    "firstNamePlaceholder": "Digite o primeiro nome",
+    "lastName": "Sobrenome",
+    "lastNamePlaceholder": "Digite o sobrenome",
+    "addButton": "Adicionar Visitante",
+    "enterFirstName": "Por favor, insira o primeiro nome",
+    "enterLastName": "Por favor, insira o sobrenome"
+  },
+  "checkinComplete": {
+    "title": "Check-in Concluído",
+    "subtitle": "Sua família foi registrada com sucesso",
+    "welcomeTitle": "Bem-vindo!",
+    "welcomeMessage": "Sua família foi registrada com sucesso.",
+    "printingMessage": "Suas etiquetas estão sendo impressas agora."
+  },
+  "header": {
+    "secretMenuTitle": "Menu Secreto",
+    "logoutConfirm": "Tem certeza de que deseja sair?"
+  },
+  "printers": {
+    "title": "Selecione uma Impressora",
+    "subtitle": "Escolha uma impressora para imprimir etiquetas e crachás",
+    "noPrinter": "Sem Impressora",
+    "scanning": "Procurando impressoras...",
+    "testPrint": "Impressão de Teste",
+    "saveRestart": "Salvar e Reiniciar",
+    "noPrinterSelected": "Nenhuma impressora selecionada"
+  },
+  "print": {
+    "printing": "Imprimindo"
+  },
+  "members": {
+    "selectGroup": "Selecionar Grupo",
+    "error": "Erro",
+    "unknown": "Desconhecido"
+  }
+}

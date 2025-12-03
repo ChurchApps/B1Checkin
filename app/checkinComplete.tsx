@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { useTranslation } from "react-i18next";
 import { screenNavigationProps, CachedData, LabelHelper, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
@@ -11,6 +12,7 @@ import { router } from "expo-router";
 interface Props { navigation: screenNavigationProps; }
 
 const CheckinComplete = (props: Props) => {
+  const { t } = useTranslation();
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const loadData = () => {
@@ -74,8 +76,8 @@ const CheckinComplete = (props: Props) => {
       {/* Check-in Complete Section */}
       <Subheader
         icon="✅"
-        title="Check-in Complete"
-        subtitle="Your family has been successfully checked in"
+        title={t("checkinComplete.title")}
+        subtitle={t("checkinComplete.subtitle")}
       />
 
       {/* Main Content */}
@@ -88,10 +90,10 @@ const CheckinComplete = (props: Props) => {
               size={DimensionHelper.wp("15%")}
             />
           </View>
-          <Text style={checkinCompleteStyles.successTitle}>Welcome!</Text>
+          <Text style={checkinCompleteStyles.successTitle}>{t("checkinComplete.welcomeTitle")}</Text>
           <Text style={checkinCompleteStyles.successMessage}>
-            Your family has been checked in successfully.
-            {CachedData.printer?.ipAddress ? " Your labels are being printed now." : ""}
+            {t("checkinComplete.welcomeMessage")}
+            {CachedData.printer?.ipAddress ? " " + t("checkinComplete.printingMessage") : ""}
           </Text>
         </View>
 

@@ -1,0 +1,104 @@
+{
+  "common": {
+    "cancel": "Kanselahin",
+    "loading": "Naglo-load...",
+    "search": "Maghanap",
+    "login": "Mag-login",
+    "logout": "Mag-logout",
+    "save": "I-save",
+    "done": "Tapos na",
+    "none": "Wala"
+  },
+  "splash": {
+    "initializing": "Nagsisimula...",
+    "checkingUpdates": "Sinusuri ang mga update...",
+    "downloadingUpdate": "Dina-download ang update...",
+    "loggingIn": "Nagla-login...",
+    "loadingChurch": "Nilo-load ang datos ng simbahan..."
+  },
+  "login": {
+    "title": "Sistema ng Check-in",
+    "welcomeBack": "Maligayang Pagbabalik",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "privacyConsent": "Sa pag-login, kinukumpirma ko na nabasa ko na ang",
+    "privacyPolicy": "patakaran sa privacy",
+    "enterEmail": "Pakiusap na ilagay ang inyong email address",
+    "validEmail": "Pakiusap na maglagay ng wastong email",
+    "enterPassword": "Pakiusap na ilagay ang inyong password",
+    "loginFailed": "Hindi matagumpay ang pag-login."
+  },
+  "services": {
+    "title": "Pumili ng Serbisyo",
+    "subtitle": "Piliin kung aling serbisyo ang para sa check-in",
+    "loading": "Nilo-load ang mga serbisyo..."
+  },
+  "lookup": {
+    "title": "Maghanap gamit ang Numero ng Telepono",
+    "subtitle": "Ilagay ang huling apat na numero ng mobile number",
+    "placeholder": "Ilagay ang huling apat na numero ng mobile number",
+    "readyTitle": "Handa nang Maghanap",
+    "readySubtitle": "Maglagay ng numero ng telepono upang makahanap ng mga tao",
+    "searching": "Naghahanap...",
+    "noMatchTitle": "Walang Nahanap na Tugma",
+    "noMatchSubtitle": "Subukang maghanap gamit ang ibang numero ng telepono",
+    "invalidNumbers": "Pakiusap na maglagay ng wastong mga numero.",
+    "enterPhone": "Pakiusap na ilagay ang numero ng telepono o huling apat na numero",
+    "minDigits": "Pakiusap na maglagay ng hindi bababa sa apat na numero."
+  },
+  "selectChurch": {
+    "title": "Pumili ng Simbahan",
+    "loading": "Nilo-load ang mga simbahan..."
+  },
+  "household": {
+    "title": "Pumili ng mga Miyembro ng Sambahayan",
+    "subtitle": "Piliin kung sino ang mag-check in ngayong araw",
+    "addGuest": "Magdagdag ng Bisita",
+    "checkin": "MAG-CHECK IN"
+  },
+  "selectGroup": {
+    "title": "Pumili ng Grupo",
+    "subtitle": "Pumili ng grupo para sa {{serviceName}}",
+    "groupCount": "{{count}} mga grupo",
+    "none": "Wala"
+  },
+  "addGuest": {
+    "title": "Magdagdag ng Bisita",
+    "subtitle": "Ilagay ang impormasyon ng bisita upang maidagdag sa inyong sambahayan",
+    "firstName": "Pangalan",
+    "firstNamePlaceholder": "Ilagay ang pangalan",
+    "lastName": "Apelyido",
+    "lastNamePlaceholder": "Ilagay ang apelyido",
+    "addButton": "Magdagdag ng Bisita",
+    "enterFirstName": "Pakiusap na ilagay ang pangalan",
+    "enterLastName": "Pakiusap na ilagay ang apelyido"
+  },
+  "checkinComplete": {
+    "title": "Tapos na ang Check-in",
+    "subtitle": "Matagumpay na naka-check in ang inyong pamilya",
+    "welcomeTitle": "Maligayang Pagdating!",
+    "welcomeMessage": "Matagumpay na naka-check in ang inyong pamilya.",
+    "printingMessage": "Ini-print na ngayon ang inyong mga label."
+  },
+  "header": {
+    "secretMenuTitle": "Lihim na Menu",
+    "logoutConfirm": "Sigurado ka bang gusto mong mag-logout?"
+  },
+  "printers": {
+    "title": "Pumili ng Printer",
+    "subtitle": "Pumili ng printer para sa pag-print ng mga name tag at label",
+    "noPrinter": "Walang Printer",
+    "scanning": "Nagha-scan ng mga printer...",
+    "testPrint": "Test Print",
+    "saveRestart": "I-save at I-restart",
+    "noPrinterSelected": "Walang napiling printer"
+  },
+  "print": {
+    "printing": "Nag-i-print"
+  },
+  "members": {
+    "selectGroup": "Pumili ng Grupo",
+    "error": "Kamalian",
+    "unknown": "Hindi Alam"
+  }
+}

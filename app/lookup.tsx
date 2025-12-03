@@ -4,6 +4,7 @@ import {
   TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet
 } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
 import { EnvironmentHelper, screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
@@ -15,6 +16,8 @@ type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
 const Lookup = (props: Props) => {
+  // const Lookup = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const params = useLocalSearchParams();
   const [hasSearched, setHasSearched] = React.useState<boolean>(false);
@@ -54,21 +57,23 @@ const Lookup = (props: Props) => {
   };
 
   const handleSearch = () => {
-    if (searchMode === "phone") {
-      if (phone === "") {
-        Utils.snackBar("Please enter phone number or last four digits");
-        return;
-      }
+    const nonNumericPattern = /[^\d]/;
+    if (nonNumericPattern.test(phone)) {
+      Utils.snackBar(t("lookup.invalidNumbers"));
+      return;
+    }
 
-      const nonNumericPattern = /[^\d]/;
-      if (nonNumericPattern.test(phone)) {
-        Utils.snackBar("Please enter valid numbers.");
-        return;
-      }
+    const cleanedPhone = phone.replace(/\D/g, "");
+    if (phone === "") { Utils.snackBar(t("lookup.enterPhone")); } else {
+      Keyboard.dismiss();
+      setHasSearched(true);
+      setIsLoading(true);
+      // AppCenterHelper.trackEvent("Search");
 
       const cleanedPhone = phone.replace(/\D/g, "");
       if (cleanedPhone.length < 4) {
-        Utils.snackBar("Please enter at least four digits.");
+        Utils.snackBar(t("lookup.minDigits"));
+        setIsLoading(false);
         return;
       }
 
@@ -129,15 +134,15 @@ const Lookup = (props: Props) => {
       return (
         <View style={lookupStyles.emptyState}>
           <Text style={lookupStyles.emptyStateIcon}>🔍</Text>
-          <Text style={lookupStyles.emptyStateTitle}>Ready to Search</Text>
-          <Text style={lookupStyles.emptyStateSubtitle}>Enter a phone number or last name to find people</Text>
+          <Text style={lookupStyles.emptyStateTitle}>{t("lookup.readyTitle")}</Text>
+          <Text style={lookupStyles.emptyStateSubtitle}>{t("lookup.readySubtitle")}</Text>
         </View>
       );
     } else if (isLoading) {
       return (
         <View style={lookupStyles.loadingContainer}>
           <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-          <Text style={lookupStyles.loadingText}>Searching...</Text>
+          <Text style={lookupStyles.loadingText}>{t("lookup.searching")}</Text>
         </View>
       );
     } else {
@@ -191,8 +196,8 @@ const Lookup = (props: Props) => {
       {/* Search Section */}
       <Subheader
         icon="🔍"
-        title="Search by Phone or Name"
-        subtitle="Use the last four digits or the last name to find people"
+        title={t("lookup.title")}
+        subtitle={t("lookup.subtitle")}
       />
 
       {/* Main Content */}

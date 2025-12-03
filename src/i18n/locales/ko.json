@@ -1,0 +1,104 @@
+{
+  "common": {
+    "cancel": "취소",
+    "loading": "로딩 중...",
+    "search": "검색",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "save": "저장",
+    "done": "완료",
+    "none": "없음"
+  },
+  "splash": {
+    "initializing": "초기화 중...",
+    "checkingUpdates": "업데이트 확인 중...",
+    "downloadingUpdate": "업데이트 다운로드 중...",
+    "loggingIn": "로그인 중...",
+    "loadingChurch": "교회 데이터 로딩 중..."
+  },
+  "login": {
+    "title": "체크인 시스템",
+    "welcomeBack": "다시 오신 것을 환영합니다",
+    "emailPlaceholder": "이메일",
+    "passwordPlaceholder": "비밀번호",
+    "privacyConsent": "로그인함으로써 다음을 읽었음을 확인합니다",
+    "privacyPolicy": "개인정보 보호정책",
+    "enterEmail": "이메일 주소를 입력해주세요",
+    "validEmail": "유효한 이메일을 입력해주세요",
+    "enterPassword": "비밀번호를 입력해주세요",
+    "loginFailed": "로그인에 실패했습니다."
+  },
+  "services": {
+    "title": "예배 선택",
+    "subtitle": "체크인할 예배를 선택하세요",
+    "loading": "예배 로딩 중..."
+  },
+  "lookup": {
+    "title": "전화번호로 검색",
+    "subtitle": "휴대전화 번호의 마지막 네 자리를 입력하세요",
+    "placeholder": "휴대전화 번호의 마지막 네 자리를 입력하세요",
+    "readyTitle": "검색 준비 완료",
+    "readySubtitle": "사람을 찾으려면 전화번호를 입력하세요",
+    "searching": "검색 중...",
+    "noMatchTitle": "일치하는 항목 없음",
+    "noMatchSubtitle": "다른 전화번호로 검색해보세요",
+    "invalidNumbers": "유효한 숫자를 입력해주세요.",
+    "enterPhone": "전화번호 또는 마지막 네 자리를 입력해주세요",
+    "minDigits": "최소 네 자리를 입력해주세요."
+  },
+  "selectChurch": {
+    "title": "교회 선택",
+    "loading": "교회 로딩 중..."
+  },
+  "household": {
+    "title": "가족 구성원 선택",
+    "subtitle": "오늘 체크인할 사람을 선택하세요",
+    "addGuest": "게스트 추가",
+    "checkin": "체크인"
+  },
+  "selectGroup": {
+    "title": "그룹 선택",
+    "subtitle": "{{serviceName}}의 그룹을 선택하세요",
+    "groupCount": "{{count}}개 그룹",
+    "none": "없음"
+  },
+  "addGuest": {
+    "title": "게스트 추가",
+    "subtitle": "가족에 추가할 게스트 정보를 입력하세요",
+    "firstName": "이름",
+    "firstNamePlaceholder": "이름을 입력하세요",
+    "lastName": "성",
+    "lastNamePlaceholder": "성을 입력하세요",
+    "addButton": "게스트 추가",
+    "enterFirstName": "이름을 입력해주세요",
+    "enterLastName": "성을 입력해주세요"
+  },
+  "checkinComplete": {
+    "title": "체크인 완료",
+    "subtitle": "가족이 성공적으로 체크인되었습니다",
+    "welcomeTitle": "환영합니다!",
+    "welcomeMessage": "가족이 성공적으로 체크인되었습니다.",
+    "printingMessage": "라벨을 출력하고 있습니다."
+  },
+  "header": {
+    "secretMenuTitle": "비밀 메뉴",
+    "logoutConfirm": "정말 로그아웃하시겠습니까?"
+  },
+  "printers": {
+    "title": "프린터 선택",
+    "subtitle": "명찰 및 라벨 인쇄용 프린터를 선택하세요",
+    "noPrinter": "프린터 없음",
+    "scanning": "프린터 검색 중...",
+    "testPrint": "테스트 인쇄",
+    "saveRestart": "저장 및 재시작",
+    "noPrinterSelected": "선택된 프린터 없음"
+  },
+  "print": {
+    "printing": "인쇄 중"
+  },
+  "members": {
+    "selectGroup": "그룹 선택",
+    "error": "오류",
+    "unknown": "알 수 없음"
+  }
+}

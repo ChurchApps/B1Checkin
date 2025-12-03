@@ -1,0 +1,104 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "search": "Search",
+    "login": "Login",
+    "logout": "Logout",
+    "save": "Save",
+    "done": "Done",
+    "none": "None"
+  },
+  "splash": {
+    "initializing": "Initializing...",
+    "checkingUpdates": "Checking for updates...",
+    "downloadingUpdate": "Downloading update...",
+    "loggingIn": "Logging in...",
+    "loadingChurch": "Loading church data..."
+  },
+  "login": {
+    "title": "Check-in System",
+    "welcomeBack": "Welcome Back",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "privacyConsent": "By logging in, I confirm that I have read the",
+    "privacyPolicy": "privacy policy",
+    "enterEmail": "Please enter your email address",
+    "validEmail": "Please enter valid email",
+    "enterPassword": "Please enter your password",
+    "loginFailed": "Login failed."
+  },
+  "services": {
+    "title": "Select a Service",
+    "subtitle": "Choose which service to check in for",
+    "loading": "Loading services..."
+  },
+  "lookup": {
+    "title": "Search by Phone Number",
+    "subtitle": "Enter last four digits of mobile number",
+    "placeholder": "Enter last four digits of mobile number",
+    "readyTitle": "Ready to Search",
+    "readySubtitle": "Enter a phone number to find people",
+    "searching": "Searching...",
+    "noMatchTitle": "No Matches Found",
+    "noMatchSubtitle": "Try searching with a different phone number",
+    "invalidNumbers": "Please enter valid numbers.",
+    "enterPhone": "Please enter phone number or last four digits",
+    "minDigits": "Please enter at least four digits."
+  },
+  "selectChurch": {
+    "title": "Select a Church",
+    "loading": "Loading churches..."
+  },
+  "household": {
+    "title": "Select Household Members",
+    "subtitle": "Choose who is checking in today",
+    "addGuest": "Add a Guest",
+    "checkin": "CHECK IN"
+  },
+  "selectGroup": {
+    "title": "Select a Group",
+    "subtitle": "Choose a group for {{serviceName}}",
+    "groupCount": "{{count}} groups",
+    "none": "None"
+  },
+  "addGuest": {
+    "title": "Add Guest",
+    "subtitle": "Enter guest information to add them to your household",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter last name",
+    "addButton": "Add Guest",
+    "enterFirstName": "Please enter first name",
+    "enterLastName": "Please enter last name"
+  },
+  "checkinComplete": {
+    "title": "Check-in Complete",
+    "subtitle": "Your family has been successfully checked in",
+    "welcomeTitle": "Welcome!",
+    "welcomeMessage": "Your family has been checked in successfully.",
+    "printingMessage": "Your labels are being printed now."
+  },
+  "header": {
+    "secretMenuTitle": "Secret Menu",
+    "logoutConfirm": "Are you sure you want to logout?"
+  },
+  "printers": {
+    "title": "Select a Printer",
+    "subtitle": "Choose a printer for printing name tags and labels",
+    "noPrinter": "No Printer",
+    "scanning": "Scanning for printers...",
+    "testPrint": "Test Print",
+    "saveRestart": "Save & Restart",
+    "noPrinterSelected": "No printer selected"
+  },
+  "print": {
+    "printing": "Printing"
+  },
+  "members": {
+    "selectGroup": "Select Group",
+    "error": "Error",
+    "unknown": "Unknown"
+  }
+}

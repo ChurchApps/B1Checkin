@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleConstants, Styles, CachedData } from "../src/helpers";
 import { ApiHelper, DimensionHelper, FirebaseHelper, LoginUserChurchInterface } from "../src/helpers";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -13,6 +14,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 // }
 
 function SelectChurch() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [userChurches, setUserChurches] = React.useState<LoginUserChurchInterface[]>([]);
   const [isLoading, setLoading] = React.useState<boolean>(false);
@@ -110,7 +112,7 @@ function SelectChurch() {
     ? (
       <View style={Styles.churchSelectionLoader}>
         <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-        <Text style={{ marginTop: DimensionHelper.wp("4%"), fontSize: DimensionHelper.wp("3.5%"), color: StyleConstants.grayColor, fontFamily: StyleConstants.RobotoRegular }}>Loading churches...</Text>
+        <Text style={{ marginTop: DimensionHelper.wp("4%"), fontSize: DimensionHelper.wp("3.5%"), color: StyleConstants.grayColor, fontFamily: StyleConstants.RobotoRegular }}>{t("selectChurch.loading")}</Text>
       </View>
     )
     : (
@@ -137,7 +139,7 @@ function SelectChurch() {
             borderRadius: DimensionHelper.wp("5%")
           }}
         />
-        <Text style={Styles.churchSelectionTitle}>Select a Church</Text>
+        <Text style={Styles.churchSelectionTitle}>{t("selectChurch.title")}</Text>
       </View>
 
       {churchList}

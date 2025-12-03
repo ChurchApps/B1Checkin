@@ -2,7 +2,7 @@
   "expo": {
     "name": "B1Checkin",
     "slug": "b1-checkin",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "b1checkin",
@@ -38,7 +38,15 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "b1-checkin",
+          "organization": "churchapps"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -46,6 +54,6 @@
     "updates": {
       "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
     },
-    "runtimeVersion": "1.0.0"
+    "runtimeVersion": "1.1.0"
   }
 }

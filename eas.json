@@ -17,7 +17,8 @@
       "autoIncrement": false,
       "channel": "production",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "image": "latest"
       }
     },
     "amazon": {

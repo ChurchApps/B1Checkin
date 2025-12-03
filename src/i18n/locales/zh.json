@@ -1,0 +1,104 @@
+{
+  "common": {
+    "cancel": "取消",
+    "loading": "加载中...",
+    "search": "搜索",
+    "login": "登录",
+    "logout": "退出登录",
+    "save": "保存",
+    "done": "完成",
+    "none": "无"
+  },
+  "splash": {
+    "initializing": "初始化中...",
+    "checkingUpdates": "检查更新中...",
+    "downloadingUpdate": "下载更新中...",
+    "loggingIn": "登录中...",
+    "loadingChurch": "加载教会数据中..."
+  },
+  "login": {
+    "title": "签到系统",
+    "welcomeBack": "欢迎回来",
+    "emailPlaceholder": "电子邮箱",
+    "passwordPlaceholder": "密码",
+    "privacyConsent": "登录即表示我已阅读并确认",
+    "privacyPolicy": "隐私政策",
+    "enterEmail": "请输入您的电子邮箱地址",
+    "validEmail": "请输入有效的电子邮箱",
+    "enterPassword": "请输入您的密码",
+    "loginFailed": "登录失败。"
+  },
+  "services": {
+    "title": "选择服务",
+    "subtitle": "选择要签到的服务",
+    "loading": "加载服务中..."
+  },
+  "lookup": {
+    "title": "通过电话号码搜索",
+    "subtitle": "输入手机号码后四位",
+    "placeholder": "输入手机号码后四位",
+    "readyTitle": "准备搜索",
+    "readySubtitle": "输入电话号码以查找人员",
+    "searching": "搜索中...",
+    "noMatchTitle": "未找到匹配项",
+    "noMatchSubtitle": "请尝试使用其他电话号码搜索",
+    "invalidNumbers": "请输入有效的数字。",
+    "enterPhone": "请输入电话号码或后四位数字",
+    "minDigits": "请至少输入四位数字。"
+  },
+  "selectChurch": {
+    "title": "选择教会",
+    "loading": "加载教会中..."
+  },
+  "household": {
+    "title": "选择家庭成员",
+    "subtitle": "选择今天签到的人员",
+    "addGuest": "添加访客",
+    "checkin": "签到"
+  },
+  "selectGroup": {
+    "title": "选择小组",
+    "subtitle": "为{{serviceName}}选择小组",
+    "groupCount": "{{count}}个小组",
+    "none": "无"
+  },
+  "addGuest": {
+    "title": "添加访客",
+    "subtitle": "输入访客信息以将其添加到您的家庭",
+    "firstName": "名字",
+    "firstNamePlaceholder": "输入名字",
+    "lastName": "姓氏",
+    "lastNamePlaceholder": "输入姓氏",
+    "addButton": "添加访客",
+    "enterFirstName": "请输入名字",
+    "enterLastName": "请输入姓氏"
+  },
+  "checkinComplete": {
+    "title": "签到完成",
+    "subtitle": "您的家人已成功签到",
+    "welcomeTitle": "欢迎！",
+    "welcomeMessage": "您的家人已成功签到。",
+    "printingMessage": "您的标签正在打印中。"
+  },
+  "header": {
+    "secretMenuTitle": "隐藏菜单",
+    "logoutConfirm": "您确定要退出登录吗？"
+  },
+  "printers": {
+    "title": "选择打印机",
+    "subtitle": "选择用于打印名牌和标签的打印机",
+    "noPrinter": "无打印机",
+    "scanning": "扫描打印机中...",
+    "testPrint": "测试打印",
+    "saveRestart": "保存并重启",
+    "noPrinterSelected": "未选择打印机"
+  },
+  "print": {
+    "printing": "打印中"
+  },
+  "members": {
+    "selectGroup": "选择小组",
+    "error": "错误",
+    "unknown": "未知"
+  }
+}

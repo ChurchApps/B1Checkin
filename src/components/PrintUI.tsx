@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, NativeModules } from "react-native";
 import { WebView } from "react-native-webview";
 import ViewShot, { captureRef } from "react-native-view-shot";
+import { useTranslation } from "react-i18next";
 import { Styles } from "../helpers";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const PrintUI = (props: Props) => {
+  const { t } = useTranslation();
   const shotRef = React.useRef(null);
   const [html, setHtml] = React.useState("");
 
@@ -61,7 +63,7 @@ const PrintUI = (props: Props) => {
 
   return (
     <>
-      <Text style={Styles.H1}>Printing</Text>
+      <Text style={Styles.H1}>{t("print.printing")}</Text>
       <View style={{ flex: 1, opacity: 1 }}>
         <ViewShot ref={shotRef} style={Styles.viewShot}>
           <WebView source={{ html: html }} style={Styles.webView} />

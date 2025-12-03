@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, FlatList, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { VisitHelper, VisitSessionHelper, CachedData, StyleConstants } from "../src/helpers";
@@ -14,7 +15,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 interface GroupCategoryInterface { key: number, name: string, items: GroupInterface[] }
 
 const SelectGroup = (props: any) => {
-
+  const { t } = useTranslation();
 
   const router = useRouter();
   const { personId, serviceTime } = useLocalSearchParams();
@@ -87,7 +88,7 @@ const SelectGroup = (props: any) => {
           <View style={selectGroupStyles.categoryContent}>
             <View style={selectGroupStyles.categoryInfo}>
               <Text style={selectGroupStyles.categoryName}>{item.name}</Text>
-              <Text style={selectGroupStyles.categoryCount}>{item.items.length} groups</Text>
+              <Text style={selectGroupStyles.categoryCount}>{t("selectGroup.groupCount", { count: item.items.length })}</Text>
             </View>
             <View style={selectGroupStyles.expandIconContainer}>
               <FontAwesome
@@ -149,8 +150,8 @@ const SelectGroup = (props: any) => {
       {/* Select Group Section */}
       <Subheader
         icon="👥"
-        title="Select a Group"
-        subtitle={`Choose a group for ${serviceTimes?.name || "this service"}`}
+        title={t("selectGroup.title")}
+        subtitle={t("selectGroup.subtitle", { serviceName: serviceTimes?.name || "this service" })}
       />
 
       {/* Main Content */}
@@ -172,7 +173,7 @@ const SelectGroup = (props: any) => {
       {/* None Button */}
       <View style={selectGroupStyles.noneSection}>
         <Ripple style={selectGroupStyles.noneButton} onPress={handleNone}>
-          <Text style={selectGroupStyles.noneButtonText}>None</Text>
+          <Text style={selectGroupStyles.noneButtonText}>{t("selectGroup.none")}</Text>
         </Ripple>
       </View>
     </View>
