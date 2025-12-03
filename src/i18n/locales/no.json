@@ -31,7 +31,8 @@
   "services": {
     "title": "Velg en gudstjeneste",
     "subtitle": "Velg hvilken gudstjeneste du vil sjekke inn til",
-    "loading": "Laster gudstjenester..."
+    "loading": "Laster gudstjenester...",
+    "selectService": "Velg en gudstjeneste:"
   },
   "lookup": {
     "title": "Søk etter telefonnummer",
@@ -42,9 +43,16 @@
     "searching": "Søker...",
     "noMatchTitle": "Ingen treff funnet",
     "noMatchSubtitle": "Prøv å søke med et annet telefonnummer",
+    "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
     "invalidNumbers": "Vennligst oppgi gyldige tall.",
     "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
-    "minDigits": "Vennligst oppgi minst fire sifre."
+    "minDigits": "Vennligst oppgi minst fire sifre.",
+    "minLetters": "Vennligst oppgi minst to bokstaver av etternavnet.",
+    "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",
+    "modePhone": "Telefon",
+    "modeName": "Navn",
+    "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
+    "namePlaceholder": "Oppgi etternavn"
   },
   "selectChurch": {
     "title": "Velg en kirke",

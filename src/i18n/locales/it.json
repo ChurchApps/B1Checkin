@@ -31,7 +31,8 @@
   "services": {
     "title": "Seleziona un Servizio",
     "subtitle": "Scegli per quale servizio effettuare il check-in",
-    "loading": "Caricamento servizi..."
+    "loading": "Caricamento servizi...",
+    "selectService": "Seleziona un servizio:"
   },
   "lookup": {
     "title": "Cerca per Numero di Telefono",
@@ -42,9 +43,16 @@
     "searching": "Ricerca in corso...",
     "noMatchTitle": "Nessun Risultato Trovato",
     "noMatchSubtitle": "Prova a cercare con un numero di telefono diverso",
+    "noMatchSubtitleName": "Prova a cercare con un cognome diverso",
     "invalidNumbers": "Inserisci numeri validi.",
     "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
-    "minDigits": "Inserisci almeno quattro cifre."
+    "minDigits": "Inserisci almeno quattro cifre.",
+    "minLetters": "Inserisci almeno due lettere del cognome.",
+    "searchError": "Impossibile completare la ricerca. Riprova.",
+    "modePhone": "Telefono",
+    "modeName": "Nome",
+    "phonePlaceholder": "Inserisci le ultime quattro cifre del numero di cellulare",
+    "namePlaceholder": "Inserisci il cognome"
   },
   "selectChurch": {
     "title": "Seleziona una Chiesa",

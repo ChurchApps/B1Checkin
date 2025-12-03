@@ -3,6 +3,7 @@ import {
   Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View
 } from "react-native";
 import Ripple from "react-native-material-ripple";
+import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
 import { screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
@@ -10,6 +11,7 @@ import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface
 interface Props { navigation: screenNavigationProps }
 
 const Services = (props: Props) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [services, setServices] = React.useState([]);
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
@@ -82,7 +84,7 @@ const Services = (props: Props) => {
   return (
     <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <Header navigation={props.navigation} />
-      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a service:</Text>
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>{t("services.selectService")}</Text>
       {getResults()}
     </View>
   );

@@ -31,7 +31,8 @@
   "services": {
     "title": "Gottesdienst auswählen",
     "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
-    "loading": "Lade Gottesdienste..."
+    "loading": "Lade Gottesdienste...",
+    "selectService": "Wählen Sie einen Gottesdienst:"
   },
   "lookup": {
     "title": "Suche nach Telefonnummer",
@@ -42,9 +43,16 @@
     "searching": "Suche...",
     "noMatchTitle": "Keine Übereinstimmungen gefunden",
     "noMatchSubtitle": "Versuchen Sie die Suche mit einer anderen Telefonnummer",
+    "noMatchSubtitleName": "Versuchen Sie die Suche mit einem anderen Nachnamen",
     "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
     "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
-    "minDigits": "Bitte geben Sie mindestens vier Ziffern ein."
+    "minDigits": "Bitte geben Sie mindestens vier Ziffern ein.",
+    "minLetters": "Bitte geben Sie mindestens zwei Buchstaben des Nachnamens ein.",
+    "searchError": "Die Suche konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+    "modePhone": "Telefon",
+    "modeName": "Name",
+    "phonePlaceholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
+    "namePlaceholder": "Geben Sie den Nachnamen ein"
   },
   "selectChurch": {
     "title": "Gemeinde auswählen",

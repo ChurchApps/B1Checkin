@@ -57,23 +57,21 @@ const Lookup = (props: Props) => {
   };
 
   const handleSearch = () => {
-    const nonNumericPattern = /[^\d]/;
-    if (nonNumericPattern.test(phone)) {
-      Utils.snackBar(t("lookup.invalidNumbers"));
-      return;
-    }
-
-    const cleanedPhone = phone.replace(/\D/g, "");
-    if (phone === "") { Utils.snackBar(t("lookup.enterPhone")); } else {
-      Keyboard.dismiss();
-      setHasSearched(true);
-      setIsLoading(true);
-      // AppCenterHelper.trackEvent("Search");
+    if (searchMode === "phone") {
+      const nonNumericPattern = /[^\d]/;
+      if (nonNumericPattern.test(phone)) {
+        Utils.snackBar(t("lookup.invalidNumbers"));
+        return;
+      }
 
       const cleanedPhone = phone.replace(/\D/g, "");
+      if (cleanedPhone === "") {
+        Utils.snackBar(t("lookup.enterPhone"));
+        return;
+      }
+
       if (cleanedPhone.length < 4) {
         Utils.snackBar(t("lookup.minDigits"));
-        setIsLoading(false);
         return;
       }
 
@@ -86,13 +84,13 @@ const Lookup = (props: Props) => {
           setPeople(data);
         })
         .catch(() => {
-          Utils.snackBar("Unable to complete search. Please try again.");
+          Utils.snackBar(t("lookup.searchError"));
         })
         .finally(() => setIsLoading(false));
     } else {
       const trimmedLast = lastName.trim();
       if (trimmedLast.length < 2) {
-        Utils.snackBar("Please enter at least two letters of the last name.");
+        Utils.snackBar(t("lookup.minLetters"));
         return;
       }
 
@@ -105,7 +103,7 @@ const Lookup = (props: Props) => {
           setPeople(data);
         })
         .catch(() => {
-          Utils.snackBar("Unable to complete search. Please try again.");
+          Utils.snackBar(t("lookup.searchError"));
         })
         .finally(() => setIsLoading(false));
     }
@@ -150,11 +148,11 @@ const Lookup = (props: Props) => {
         return (
           <View style={lookupStyles.noResultsState}>
             <Text style={lookupStyles.noResultsIcon}>😔</Text>
-            <Text style={lookupStyles.noResultsTitle}>No Matches Found</Text>
+            <Text style={lookupStyles.noResultsTitle}>{t("lookup.noMatchTitle")}</Text>
             <Text style={lookupStyles.noResultsSubtitle}>
               {searchMode === "phone"
-                ? "Try searching with a different phone number"
-                : "Try searching with a different last name"}
+                ? t("lookup.noMatchSubtitle")
+                : t("lookup.noMatchSubtitleName")}
             </Text>
           </View>
         );
@@ -209,19 +207,19 @@ const Lookup = (props: Props) => {
               style={[lookupStyles.modeButton, searchMode === "phone" && lookupStyles.modeButtonActive]}
               onPress={() => handleModeChange("phone")}
             >
-              <Text style={[lookupStyles.modeButtonText, searchMode === "phone" && lookupStyles.modeButtonTextActive]}>Phone</Text>
+              <Text style={[lookupStyles.modeButtonText, searchMode === "phone" && lookupStyles.modeButtonTextActive]}>{t("lookup.modePhone")}</Text>
             </Ripple>
             <Ripple
               style={[lookupStyles.modeButton, searchMode === "name" && lookupStyles.modeButtonActive]}
               onPress={() => handleModeChange("name")}
             >
-              <Text style={[lookupStyles.modeButtonText, searchMode === "name" && lookupStyles.modeButtonTextActive]}>Name</Text>
+              <Text style={[lookupStyles.modeButtonText, searchMode === "name" && lookupStyles.modeButtonTextActive]}>{t("lookup.modeName")}</Text>
             </Ripple>
           </View>
           {searchMode === "phone" ? (
             <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
               <TextInput
-                placeholder="Enter last four digits of mobile number"
+                placeholder={String(t("lookup.phonePlaceholder"))}
                 onChangeText={(value) => { setPhone(value); }}
                 value={phone}
                 keyboardType="numeric"
@@ -231,15 +229,16 @@ const Lookup = (props: Props) => {
                 style={lookupStyles.searchTextInput}
                 placeholderTextColor={StyleConstants.lightGray}
                 numberOfLines={1}
+                editable={true}
               />
               <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
-                <Text style={lookupStyles.searchButtonText}>Search</Text>
+                <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
               </Ripple>
             </View>
           ) : (
             <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
               <TextInput
-                placeholder="Enter last name"
+                placeholder={String(t("lookup.namePlaceholder"))}
                 onChangeText={(value) => { setLastName(value); }}
                 value={lastName}
                 autoCapitalize="words"
@@ -247,9 +246,10 @@ const Lookup = (props: Props) => {
                 onSubmitEditing={handleSearch}
                 style={[lookupStyles.searchTextInput, lookupStyles.nameTextInput]}
                 placeholderTextColor={StyleConstants.lightGray}
+                editable={true}
               />
               <Ripple style={[lookupStyles.searchButton, lookupStyles.nameSearchButton]} onPress={handleSearch}>
-                <Text style={lookupStyles.searchButtonText}>Search</Text>
+                <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
               </Ripple>
             </View>
           )}

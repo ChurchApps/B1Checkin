@@ -31,7 +31,8 @@
   "services": {
     "title": "Select a Service",
     "subtitle": "Choose which service to check in for",
-    "loading": "Loading services..."
+    "loading": "Loading services...",
+    "selectService": "Select a service:"
   },
   "lookup": {
     "title": "Search by Phone Number",
@@ -42,9 +43,16 @@
     "searching": "Searching...",
     "noMatchTitle": "No Matches Found",
     "noMatchSubtitle": "Try searching with a different phone number",
+    "noMatchSubtitleName": "Try searching with a different last name",
     "invalidNumbers": "Please enter valid numbers.",
     "enterPhone": "Please enter phone number or last four digits",
-    "minDigits": "Please enter at least four digits."
+    "minDigits": "Please enter at least four digits.",
+    "minLetters": "Please enter at least two letters of the last name.",
+    "searchError": "Unable to complete search. Please try again.",
+    "modePhone": "Phone",
+    "modeName": "Name",
+    "phonePlaceholder": "Enter last four digits of mobile number",
+    "namePlaceholder": "Enter last name"
   },
   "selectChurch": {
     "title": "Select a Church",

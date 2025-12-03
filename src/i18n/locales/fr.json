@@ -31,7 +31,8 @@
   "services": {
     "title": "Sélectionner un service",
     "subtitle": "Choisissez le service pour l'enregistrement",
-    "loading": "Chargement des services..."
+    "loading": "Chargement des services...",
+    "selectService": "Sélectionnez un service :"
   },
   "lookup": {
     "title": "Recherche par numéro de téléphone",
@@ -42,9 +43,16 @@
     "searching": "Recherche en cours...",
     "noMatchTitle": "Aucun résultat trouvé",
     "noMatchSubtitle": "Essayez de rechercher avec un autre numéro de téléphone",
+    "noMatchSubtitleName": "Essayez de rechercher avec un autre nom de famille",
     "invalidNumbers": "Veuillez entrer des numéros valides.",
     "enterPhone": "Veuillez entrer le numéro de téléphone ou les quatre derniers chiffres",
-    "minDigits": "Veuillez entrer au moins quatre chiffres."
+    "minDigits": "Veuillez entrer au moins quatre chiffres.",
+    "minLetters": "Veuillez entrer au moins deux lettres du nom de famille.",
+    "searchError": "Impossible de terminer la recherche. Veuillez réessayer.",
+    "modePhone": "Téléphone",
+    "modeName": "Nom",
+    "phonePlaceholder": "Entrez les quatre derniers chiffres du numéro de mobile",
+    "namePlaceholder": "Entrez le nom de famille"
   },
   "selectChurch": {
     "title": "Sélectionner une église",

@@ -31,7 +31,8 @@
   "services": {
     "title": "Selecione um Culto",
     "subtitle": "Escolha para qual culto deseja fazer check-in",
-    "loading": "Carregando cultos..."
+    "loading": "Carregando cultos...",
+    "selectService": "Selecione um culto:"
   },
   "lookup": {
     "title": "Buscar por Número de Telefone",
@@ -42,9 +43,16 @@
     "searching": "Buscando...",
     "noMatchTitle": "Nenhum Resultado Encontrado",
     "noMatchSubtitle": "Tente buscar com um número de telefone diferente",
+    "noMatchSubtitleName": "Tente buscar com um sobrenome diferente",
     "invalidNumbers": "Por favor, insira números válidos.",
     "enterPhone": "Por favor, insira o número de telefone ou os últimos quatro dígitos",
-    "minDigits": "Por favor, insira pelo menos quatro dígitos."
+    "minDigits": "Por favor, insira pelo menos quatro dígitos.",
+    "minLetters": "Por favor, insira pelo menos duas letras do sobrenome.",
+    "searchError": "Não foi possível completar a busca. Por favor, tente novamente.",
+    "modePhone": "Telefone",
+    "modeName": "Nome",
+    "phonePlaceholder": "Digite os últimos quatro dígitos do número de celular",
+    "namePlaceholder": "Digite o sobrenome"
   },
   "selectChurch": {
     "title": "Selecione uma Igreja",

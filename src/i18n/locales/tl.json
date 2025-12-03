@@ -31,7 +31,8 @@
   "services": {
     "title": "Pumili ng Serbisyo",
     "subtitle": "Piliin kung aling serbisyo ang para sa check-in",
-    "loading": "Nilo-load ang mga serbisyo..."
+    "loading": "Nilo-load ang mga serbisyo...",
+    "selectService": "Pumili ng serbisyo:"
   },
   "lookup": {
     "title": "Maghanap gamit ang Numero ng Telepono",
@@ -42,9 +43,16 @@
     "searching": "Naghahanap...",
     "noMatchTitle": "Walang Nahanap na Tugma",
     "noMatchSubtitle": "Subukang maghanap gamit ang ibang numero ng telepono",
+    "noMatchSubtitleName": "Subukang maghanap gamit ang ibang apelyido",
     "invalidNumbers": "Pakiusap na maglagay ng wastong mga numero.",
     "enterPhone": "Pakiusap na ilagay ang numero ng telepono o huling apat na numero",
-    "minDigits": "Pakiusap na maglagay ng hindi bababa sa apat na numero."
+    "minDigits": "Pakiusap na maglagay ng hindi bababa sa apat na numero.",
+    "minLetters": "Pakiusap na maglagay ng hindi bababa sa dalawang titik ng apelyido.",
+    "searchError": "Hindi makumpleto ang paghahanap. Pakiusap na subukan muli.",
+    "modePhone": "Telepono",
+    "modeName": "Pangalan",
+    "phonePlaceholder": "Ilagay ang huling apat na numero ng mobile number",
+    "namePlaceholder": "Ilagay ang apelyido"
   },
   "selectChurch": {
     "title": "Pumili ng Simbahan",

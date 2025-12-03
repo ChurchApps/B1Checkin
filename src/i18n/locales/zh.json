@@ -31,7 +31,8 @@
   "services": {
     "title": "选择服务",
     "subtitle": "选择要签到的服务",
-    "loading": "加载服务中..."
+    "loading": "加载服务中...",
+    "selectService": "选择服务："
   },
   "lookup": {
     "title": "通过电话号码搜索",
@@ -42,9 +43,16 @@
     "searching": "搜索中...",
     "noMatchTitle": "未找到匹配项",
     "noMatchSubtitle": "请尝试使用其他电话号码搜索",
+    "noMatchSubtitleName": "请尝试使用其他姓氏搜索",
     "invalidNumbers": "请输入有效的数字。",
     "enterPhone": "请输入电话号码或后四位数字",
-    "minDigits": "请至少输入四位数字。"
+    "minDigits": "请至少输入四位数字。",
+    "minLetters": "请输入至少两个姓氏字母。",
+    "searchError": "无法完成搜索。请重试。",
+    "modePhone": "电话",
+    "modeName": "姓名",
+    "phonePlaceholder": "输入手机号码后四位",
+    "namePlaceholder": "输入姓氏"
   },
   "selectChurch": {
     "title": "选择教会",
