@@ -19,10 +19,15 @@ const Services = (props: Props) => {
   const loadData = () => {
     setIsLoading(true);
 
-    ApiHelper.get("/services", "AttendanceApi").then(data => {
-      console.log("data", data);
-      setServices(data); setIsLoading(false);
-    });
+    ApiHelper.get("/services", "AttendanceApi")
+      .then(data => {
+        console.log("data", data);
+        setServices(data); setIsLoading(false);
+      })
+      .catch(error => {
+        console.error("Error loading services:", error);
+        setIsLoading(false);
+      });
   };
 
   React.useEffect(() => {
@@ -43,26 +48,31 @@ const Services = (props: Props) => {
 
     const promises: Promise<any>[] = [ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => { CachedData.serviceId = serviceId; CachedData.serviceTimes = times; }), ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }), ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; })];
 
-    Promise.all(promises).then(() => {
-      //for simplicity, iterate the group service times and add groups to the services.
-      if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
-        CachedData.serviceTimes.forEach(st => {
-          if (st) {
-            st.groups = [];
-            ArrayHelper.getAll(CachedData.groupServiceTimes || [], "serviceTimeId", st.id).forEach((gst: GroupServiceTimeInterface) => {
-              const g: GroupInterface = ArrayHelper.getOne(CachedData.groups || [], "id", gst.groupId);
-              if (g) {
-                st.groups?.push(g);
-              }
-            });
-          }
-        });
-      }
-      console.log(JSON.stringify(CachedData.serviceTimes));
+    Promise.all(promises)
+      .then(() => {
+        //for simplicity, iterate the group service times and add groups to the services.
+        if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
+          CachedData.serviceTimes.forEach(st => {
+            if (st) {
+              st.groups = [];
+              ArrayHelper.getAll(CachedData.groupServiceTimes || [], "serviceTimeId", st.id).forEach((gst: GroupServiceTimeInterface) => {
+                const g: GroupInterface = ArrayHelper.getOne(CachedData.groups || [], "id", gst.groupId);
+                if (g) {
+                  st.groups?.push(g);
+                }
+              });
+            }
+          });
+        }
+        console.log(JSON.stringify(CachedData.serviceTimes));
 
-      setIsLoading(false);
-      props.navigation.navigate("Lookup");
-    });
+        setIsLoading(false);
+        props.navigation.navigate("Lookup");
+      })
+      .catch(error => {
+        console.error("Error loading service data:", error);
+        setIsLoading(false);
+      });
 
   };
 

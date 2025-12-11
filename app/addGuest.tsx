@@ -22,14 +22,18 @@ const AddGuest = (props: Props) => {
 
   const addGuest = () => {
     if (firstName === "") { Utils.snackBar(t("addGuest.enterFirstName")); } else if (lastName === "") { Utils.snackBar(t("addGuest.enterLastName")); } else {
-      getOrCreatePerson(firstName, lastName).then(person => {
-      // console.log(person)
-      // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
-        CachedData.householdMembers.push(person);
-        // props.navigation.navigate("Household");
-        router.push("/household");
-      // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
-      });
+      getOrCreatePerson(firstName, lastName)
+        .then(person => {
+          // console.log(person)
+          // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
+          CachedData.householdMembers.push(person);
+          // props.navigation.navigate("Household");
+          router.push("/household");
+          // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
+        })
+        .catch(error => {
+          console.error("Error adding guest:", error);
+        });
     }
     // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
   };
@@ -45,7 +49,9 @@ const AddGuest = (props: Props) => {
       };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
       console.log("data", data);
-      person.id = data[0].id;
+      if (data && data.length > 0) {
+        person.id = data[0].id;
+      }
     }
     console.log("zzz", person);
     return person;

@@ -52,10 +52,14 @@ const PrintUI = (props: Props) => {
     if (firstTag) { setFirstTag(false); }
     console.log("html loaded");
     //await timeout(500);
-    captureRef(shotRef, { format: "jpg", quality: 1 }).then(async result => {
-      await timeout(500);
-      handleCaptureComplete(result);
-    });
+    captureRef(shotRef, { format: "jpg", quality: 1 })
+      .then(async result => {
+        await timeout(500);
+        handleCaptureComplete(result);
+      })
+      .catch(error => {
+        console.error("Error capturing print view:", error);
+      });
   };
 
   const loadNextLabel = () => { setHtml(props.htmlLabels[printIndex]); };

@@ -22,9 +22,14 @@ const CheckinComplete = (props: Props) => {
     if (CachedData.printer?.ipAddress) { print(); }
     //print();
 
-    Promise.all(promises).then(() => {
-      if (!CachedData.printer?.ipAddress) { startOver(); }
-    });
+    Promise.all(promises)
+      .then(() => {
+        if (!CachedData.printer?.ipAddress) { startOver(); }
+      })
+      .catch(error => {
+        console.error("Error during checkin:", error);
+        startOver();
+      });
   };
 
   const startOver = () => {
@@ -56,13 +61,18 @@ const CheckinComplete = (props: Props) => {
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
-    return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(_data => {
-      console.log("Checkin Complete");
-      //console.log(data)
-      // AppCenterHelper.trackEvent("Checkin Complete");
-      //router.navigate('/checkinComplete')
-      // props.navigation.navigate("CheckinComplete");
-    });
+    return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi")
+      .then(_data => {
+        console.log("Checkin Complete");
+        //console.log(data)
+        // AppCenterHelper.trackEvent("Checkin Complete");
+        //router.navigate('/checkinComplete')
+        // props.navigation.navigate("CheckinComplete");
+      })
+      .catch(error => {
+        console.error("Error during checkin:", error);
+        throw error;
+      });
   };
 
 

@@ -54,20 +54,25 @@ const Printers = (props: Props) => {
     }
 
     if (NativeModules.PrinterHelper) {
-      NativeModules.PrinterHelper.scan().then((data: string) => {
-        console.log("Scan callback", data);
-        const items = data.split(",");
-        let result: AvailablePrinter[] = [];
-        items.forEach(item => {
-          if (item.length > 0) {
-            const splitItem = item.split("~");
-            result.push({ ipAddress: splitItem[1], model: splitItem[0] });
-          }
+      NativeModules.PrinterHelper.scan()
+        .then((data: string) => {
+          console.log("Scan callback", data);
+          const items = data.split(",");
+          let result: AvailablePrinter[] = [];
+          items.forEach(item => {
+            if (item.length > 0) {
+              const splitItem = item.split("~");
+              result.push({ ipAddress: splitItem[1], model: splitItem[0] });
+            }
+          });
+          result.push({ model: "No Printer", ipAddress: "No Printer" });
+          setPrinters(result);
+          setIsScanning(false);
+        })
+        .catch(error => {
+          console.error("Error scanning for printers:", error);
+          setIsScanning(false);
         });
-        result.push({ model: "No Printer", ipAddress: "No Printer" });
-        setPrinters(result);
-        setIsScanning(false);
-      });
     } else {
       setIsScanning(false);
     }
