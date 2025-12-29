@@ -90,7 +90,7 @@ export class LabelHelper {
       let isChild = false;
       pv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
-        const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
+        const group: GroupInterface = ArrayHelper.getOne(serviceTime?.groups || [], "id", vs.session?.groupId || "");
         if (group?.parentPickup) { isChild = true; }
       });
       if (isChild) { result.push(pv); }
@@ -102,7 +102,7 @@ export class LabelHelper {
     let shouldPrint = false;
     visit.visitSessions?.forEach(vs => {
       const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
-      const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
+      const group: GroupInterface = ArrayHelper.getOne(serviceTime?.groups || [], "id", vs.session?.groupId || "");
       if (group?.printNametag) { shouldPrint = true; }
     });
     return shouldPrint;
@@ -113,7 +113,7 @@ export class LabelHelper {
     childVisits.forEach(cv => {
       cv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
-        const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
+        const group: GroupInterface = ArrayHelper.getOne(serviceTime?.groups || [], "id", vs.session?.groupId || "");
         if (group?.parentPickup) { shouldPrint = true; }
       });
     });

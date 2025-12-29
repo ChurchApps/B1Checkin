@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { Image, View, Text, ActivityIndicator } from "react-native";
-import { router } from "expo-router";
+import { router, useRootNavigationState, Href } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Updates from "expo-updates";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,54 @@ export default function Splash() {
   console.log("Splash component called");
   const { t } = useTranslation();
   const [statusMessage, setStatusMessage] = React.useState("");
-  const [isReady, setIsReady] = React.useState(false);
+  const navigationState = useRootNavigationState();
+  const hasNavigated = useRef(false);
+  const pendingNavigation = useRef<string | null>(null);
+
+  // Check if the navigation state is ready
+  const isNavigationReady = navigationState?.key != null;
+
+  const safeNavigate = useCallback((path: string) => {
+    // Prevent multiple navigations
+    if (hasNavigated.current) return;
+
+    if (!isNavigationReady) {
+      // Store the pending navigation path to be executed when ready
+      pendingNavigation.current = path;
+      console.log("Navigation deferred, layout not ready:", path);
+      return;
+    }
+
+    try {
+      hasNavigated.current = true;
+      router.replace(path as Href);
+    } catch (error) {
+      console.error("Navigation error:", error);
+      hasNavigated.current = false;
+      // Retry navigation after a short delay
+      setTimeout(() => {
+        if (!hasNavigated.current) {
+          try {
+            hasNavigated.current = true;
+            router.replace(path as Href);
+          } catch (retryError) {
+            console.error("Navigation retry failed:", retryError);
+            hasNavigated.current = false;
+          }
+        }
+      }, 500);
+    }
+  }, [isNavigationReady]);
+
+  // Execute pending navigation when navigation becomes ready
+  useEffect(() => {
+    if (isNavigationReady && pendingNavigation.current && !hasNavigated.current) {
+      const path = pendingNavigation.current;
+      pendingNavigation.current = null;
+      console.log("Executing deferred navigation:", path);
+      safeNavigate(path);
+    }
+  }, [isNavigationReady, safeNavigate]);
 
   useEffect(() => {
     // Initialize API configuration
@@ -19,31 +66,12 @@ export default function Splash() {
 
     // Add a small delay to ensure layout is mounted before any navigation
     const initTimer = setTimeout(() => {
-      setIsReady(true);
       // Check for updates first, then proceed with login
       checkForUpdates();
     }, 100);
 
     return () => clearTimeout(initTimer);
   }, [t]);
-
-  const safeNavigate = (path: string) => {
-    try {
-      if (isReady) {
-        router.replace(path);
-      }
-    } catch (error) {
-      console.error("Navigation error:", error);
-      // Retry navigation after a short delay
-      setTimeout(() => {
-        try {
-          router.replace(path);
-        } catch (retryError) {
-          console.error("Navigation retry failed:", retryError);
-        }
-      }, 500);
-    }
-  };
 
   const checkForUpdates = async () => {
     try {
