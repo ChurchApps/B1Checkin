@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "Avbryt",
-    "loading": "Laster...",
-    "search": "Søk",
-    "login": "Logg inn",
-    "logout": "Logg ut",
-    "save": "Lagre",
-    "done": "Ferdig",
-    "none": "Ingen"
-  },
-  "splash": {
-    "initializing": "Initialiserer...",
-    "checkingUpdates": "Sjekker for oppdateringer...",
-    "downloadingUpdate": "Laster ned oppdatering...",
-    "loggingIn": "Logger inn...",
-    "loadingChurch": "Laster kirkedata..."
-  },
-  "login": {
-    "title": "Innsjekkingssystem",
-    "welcomeBack": "Velkommen tilbake",
-    "emailPlaceholder": "E-post",
-    "passwordPlaceholder": "Passord",
-    "privacyConsent": "Ved å logge inn bekrefter jeg at jeg har lest",
-    "privacyPolicy": "personvernserklæringen",
-    "enterEmail": "Vennligst oppgi e-postadresse",
-    "validEmail": "Vennligst oppgi gyldig e-postadresse",
-    "enterPassword": "Vennligst oppgi passord",
-    "loginFailed": "Innlogging mislyktes."
-  },
-  "services": {
-    "title": "Velg en gudstjeneste",
-    "subtitle": "Velg hvilken gudstjeneste du vil sjekke inn til",
-    "loading": "Laster gudstjenester...",
-    "selectService": "Velg en gudstjeneste:"
-  },
-  "lookup": {
-    "title": "Søk etter telefonnummer",
-    "subtitle": "Oppgi de fire siste sifrene i mobilnummeret",
-    "placeholder": "Oppgi de fire siste sifrene i mobilnummeret",
-    "readyTitle": "Klar til å søke",
-    "readySubtitle": "Oppgi et telefonnummer for å finne personer",
-    "searching": "Søker...",
-    "noMatchTitle": "Ingen treff funnet",
-    "noMatchSubtitle": "Prøv å søke med et annet telefonnummer",
-    "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
-    "invalidNumbers": "Vennligst oppgi gyldige tall.",
-    "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
-    "minDigits": "Vennligst oppgi minst fire sifre.",
-    "minLetters": "Vennligst oppgi minst to bokstaver av etternavnet.",
-    "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",
-    "modePhone": "Telefon",
-    "modeName": "Navn",
-    "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
-    "namePlaceholder": "Oppgi etternavn"
-  },
-  "selectChurch": {
-    "title": "Velg en kirke",
-    "loading": "Laster kirker..."
-  },
-  "household": {
-    "title": "Velg husholdningsmedlemmer",
-    "subtitle": "Velg hvem som sjekker inn i dag",
-    "addGuest": "Legg til en gjest",
-    "checkin": "SJEKK INN"
-  },
-  "selectGroup": {
-    "title": "Velg en gruppe",
-    "subtitle": "Velg en gruppe for {{serviceName}}",
-    "groupCount": "{{count}} grupper",
-    "none": "Ingen"
-  },
   "addGuest": {
-    "title": "Legg til gjest",
-    "subtitle": "Oppgi gjesteinformasjon for å legge dem til i husholdningen din",
+    "addButton": "Legg til gjest",
+    "enterFirstName": "Vennligst oppgi fornavn",
+    "enterLastName": "Vennligst oppgi etternavn",
     "firstName": "Fornavn",
     "firstNamePlaceholder": "Oppgi fornavn",
     "lastName": "Etternavn",
     "lastNamePlaceholder": "Oppgi etternavn",
-    "addButton": "Legg til gjest",
-    "enterFirstName": "Vennligst oppgi fornavn",
-    "enterLastName": "Vennligst oppgi etternavn"
+    "subtitle": "Oppgi gjesteinformasjon for å legge dem til i husholdningen din",
+    "title": "Legg til gjest"
   },
   "checkinComplete": {
-    "title": "Innsjekking fullført",
+    "printingMessage": "Navnelappene dine blir skrevet ut nå.",
     "subtitle": "Familien din har blitt sjekket inn",
-    "welcomeTitle": "Velkommen!",
+    "title": "Innsjekking fullført",
     "welcomeMessage": "Familien din har blitt sjekket inn.",
-    "printingMessage": "Navnelappene dine blir skrevet ut nå."
+    "welcomeTitle": "Velkommen!"
+  },
+  "common": {
+    "cancel": "Avbryt",
+    "login": "Logg inn",
+    "logout": "Logg ut",
+    "search": "Søk"
   },
   "header": {
-    "secretMenuTitle": "Hemmelig meny",
-    "logoutConfirm": "Er du sikker på at du vil logge ut?"
+    "logoutConfirm": "Er du sikker på at du vil logge ut?",
+    "secretMenuTitle": "Hemmelig meny"
   },
-  "printers": {
-    "title": "Velg en skriver",
-    "subtitle": "Velg en skriver for utskrift av navnelapper og etiketter",
-    "noPrinter": "Ingen skriver",
-    "scanning": "Søker etter skrivere...",
-    "testPrint": "Testutskrift",
-    "saveRestart": "Lagre og start på nytt",
-    "noPrinterSelected": "Ingen skriver valgt"
+  "household": {
+    "addGuest": "Legg til en gjest",
+    "checkin": "SJEKK INN",
+    "subtitle": "Velg hvem som sjekker inn i dag",
+    "title": "Velg husholdningsmedlemmer"
+  },
+  "login": {
+    "emailPlaceholder": "E-post",
+    "enterEmail": "Vennligst oppgi e-postadresse",
+    "enterPassword": "Vennligst oppgi passord",
+    "loginFailed": "Innlogging mislyktes.",
+    "passwordPlaceholder": "Passord",
+    "privacyConsent": "Ved å logge inn bekrefter jeg at jeg har lest",
+    "privacyPolicy": "personvernserklæringen",
+    "title": "Innsjekkingssystem",
+    "validEmail": "Vennligst oppgi gyldig e-postadresse",
+    "welcomeBack": "Velkommen tilbake"
+  },
+  "lookup": {
+    "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
+    "invalidNumbers": "Vennligst oppgi gyldige tall.",
+    "minDigits": "Vennligst oppgi minst fire sifre.",
+    "minLetters": "Vennligst oppgi minst to bokstaver av etternavnet.",
+    "modeName": "Navn",
+    "modePhone": "Telefon",
+    "namePlaceholder": "Oppgi etternavn",
+    "noMatchSubtitle": "Prøv å søke med et annet telefonnummer",
+    "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
+    "noMatchTitle": "Ingen treff funnet",
+    "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
+    "readySubtitle": "Oppgi et telefonnummer for å finne personer",
+    "readyTitle": "Klar til å søke",
+    "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",
+    "searching": "Søker...",
+    "subtitle": "Oppgi de fire siste sifrene i mobilnummeret",
+    "title": "Søk etter telefonnummer"
+  },
+  "members": {
+    "error": "Feil",
+    "selectGroup": "Velg gruppe",
+    "unknown": "Ukjent"
   },
   "print": {
     "printing": "Skriver ut"
   },
-  "members": {
-    "selectGroup": "Velg gruppe",
-    "error": "Feil",
-    "unknown": "Ukjent"
+  "printers": {
+    "noPrinter": "Ingen skriver",
+    "noPrinterSelected": "Ingen skriver valgt",
+    "saveRestart": "Lagre og start på nytt",
+    "scanning": "Søker etter skrivere...",
+    "subtitle": "Velg en skriver for utskrift av navnelapper og etiketter",
+    "testPrint": "Testutskrift",
+    "title": "Velg en skriver"
+  },
+  "selectChurch": {
+    "loading": "Laster kirker...",
+    "title": "Velg en kirke"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} grupper",
+    "none": "Ingen",
+    "subtitle": "Velg en gruppe for {{serviceName}}",
+    "title": "Velg en gruppe"
+  },
+  "services": {
+    "loading": "Laster gudstjenester...",
+    "selectService": "Velg en gudstjeneste:",
+    "subtitle": "Velg hvilken gudstjeneste du vil sjekke inn til",
+    "title": "Velg en gudstjeneste"
+  },
+  "splash": {
+    "checkingUpdates": "Sjekker for oppdateringer...",
+    "downloadingUpdate": "Laster ned oppdatering...",
+    "initializing": "Initialiserer...",
+    "loadingChurch": "Laster kirkedata...",
+    "loggingIn": "Logger inn..."
   }
 }

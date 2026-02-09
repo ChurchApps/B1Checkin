@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "Cancelar",
-    "loading": "Cargando...",
-    "search": "Buscar",
-    "login": "Iniciar Sesión",
-    "logout": "Cerrar Sesión",
-    "save": "Guardar",
-    "done": "Listo",
-    "none": "Ninguno"
-  },
-  "splash": {
-    "initializing": "Inicializando...",
-    "checkingUpdates": "Verificando actualizaciones...",
-    "downloadingUpdate": "Descargando actualización...",
-    "loggingIn": "Iniciando sesión...",
-    "loadingChurch": "Cargando datos de la iglesia..."
-  },
-  "login": {
-    "title": "Sistema de Registro",
-    "welcomeBack": "Bienvenido de Nuevo",
-    "emailPlaceholder": "Correo Electrónico",
-    "passwordPlaceholder": "Contraseña",
-    "privacyConsent": "Al iniciar sesión, confirmo que he leído la",
-    "privacyPolicy": "política de privacidad",
-    "enterEmail": "Por favor ingrese su dirección de correo electrónico",
-    "validEmail": "Por favor ingrese un correo electrónico válido",
-    "enterPassword": "Por favor ingrese su contraseña",
-    "loginFailed": "Error al iniciar sesión."
-  },
-  "services": {
-    "title": "Seleccione un Servicio",
-    "subtitle": "Elija para qué servicio desea registrarse",
-    "loading": "Cargando servicios...",
-    "selectService": "Seleccione un servicio:"
-  },
-  "lookup": {
-    "title": "Buscar por Número de Teléfono",
-    "subtitle": "Ingrese los últimos cuatro dígitos del número móvil",
-    "placeholder": "Ingrese los últimos cuatro dígitos del número móvil",
-    "readyTitle": "Listo para Buscar",
-    "readySubtitle": "Ingrese un número de teléfono para encontrar personas",
-    "searching": "Buscando...",
-    "noMatchTitle": "No se Encontraron Coincidencias",
-    "noMatchSubtitle": "Intente buscar con un número de teléfono diferente",
-    "noMatchSubtitleName": "Intente buscar con un apellido diferente",
-    "invalidNumbers": "Por favor ingrese números válidos.",
-    "enterPhone": "Por favor ingrese el número de teléfono o los últimos cuatro dígitos",
-    "minDigits": "Por favor ingrese al menos cuatro dígitos.",
-    "minLetters": "Por favor ingrese al menos dos letras del apellido.",
-    "searchError": "No se pudo completar la búsqueda. Por favor intente de nuevo.",
-    "modePhone": "Teléfono",
-    "modeName": "Nombre",
-    "phonePlaceholder": "Ingrese los últimos cuatro dígitos del número móvil",
-    "namePlaceholder": "Ingrese el apellido"
-  },
-  "selectChurch": {
-    "title": "Seleccione una Iglesia",
-    "loading": "Cargando iglesias..."
-  },
-  "household": {
-    "title": "Seleccione Miembros de la Familia",
-    "subtitle": "Elija quién se está registrando hoy",
-    "addGuest": "Agregar un Invitado",
-    "checkin": "REGISTRAR"
-  },
-  "selectGroup": {
-    "title": "Seleccione un Grupo",
-    "subtitle": "Elija un grupo para {{serviceName}}",
-    "groupCount": "{{count}} grupos",
-    "none": "Ninguno"
-  },
   "addGuest": {
-    "title": "Agregar Invitado",
-    "subtitle": "Ingrese la información del invitado para agregarlo a su familia",
+    "addButton": "Agregar Invitado",
+    "enterFirstName": "Por favor ingrese el nombre",
+    "enterLastName": "Por favor ingrese el apellido",
     "firstName": "Nombre",
     "firstNamePlaceholder": "Ingrese el nombre",
     "lastName": "Apellido",
     "lastNamePlaceholder": "Ingrese el apellido",
-    "addButton": "Agregar Invitado",
-    "enterFirstName": "Por favor ingrese el nombre",
-    "enterLastName": "Por favor ingrese el apellido"
+    "subtitle": "Ingrese la información del invitado para agregarlo a su familia",
+    "title": "Agregar Invitado"
   },
   "checkinComplete": {
-    "title": "Registro Completo",
+    "printingMessage": "Sus etiquetas se están imprimiendo ahora.",
     "subtitle": "Su familia ha sido registrada exitosamente",
-    "welcomeTitle": "¡Bienvenido!",
+    "title": "Registro Completo",
     "welcomeMessage": "Su familia ha sido registrada exitosamente.",
-    "printingMessage": "Sus etiquetas se están imprimiendo ahora."
+    "welcomeTitle": "¡Bienvenido!"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "search": "Buscar"
   },
   "header": {
-    "secretMenuTitle": "Menú Secreto",
-    "logoutConfirm": "¿Está seguro de que desea cerrar sesión?"
+    "logoutConfirm": "¿Está seguro de que desea cerrar sesión?",
+    "secretMenuTitle": "Menú Secreto"
   },
-  "printers": {
-    "title": "Seleccione una Impresora",
-    "subtitle": "Elija una impresora para imprimir etiquetas de nombre",
-    "noPrinter": "Sin Impresora",
-    "scanning": "Buscando impresoras...",
-    "testPrint": "Impresión de Prueba",
-    "saveRestart": "Guardar y Reiniciar",
-    "noPrinterSelected": "No se ha seleccionado ninguna impresora"
+  "household": {
+    "addGuest": "Agregar un Invitado",
+    "checkin": "REGISTRAR",
+    "subtitle": "Elija quién se está registrando hoy",
+    "title": "Seleccione Miembros de la Familia"
+  },
+  "login": {
+    "emailPlaceholder": "Correo Electrónico",
+    "enterEmail": "Por favor ingrese su dirección de correo electrónico",
+    "enterPassword": "Por favor ingrese su contraseña",
+    "loginFailed": "Error al iniciar sesión.",
+    "passwordPlaceholder": "Contraseña",
+    "privacyConsent": "Al iniciar sesión, confirmo que he leído la",
+    "privacyPolicy": "política de privacidad",
+    "title": "Sistema de Registro",
+    "validEmail": "Por favor ingrese un correo electrónico válido",
+    "welcomeBack": "Bienvenido de Nuevo"
+  },
+  "lookup": {
+    "enterPhone": "Por favor ingrese el número de teléfono o los últimos cuatro dígitos",
+    "invalidNumbers": "Por favor ingrese números válidos.",
+    "minDigits": "Por favor ingrese al menos cuatro dígitos.",
+    "minLetters": "Por favor ingrese al menos dos letras del apellido.",
+    "modeName": "Nombre",
+    "modePhone": "Teléfono",
+    "namePlaceholder": "Ingrese el apellido",
+    "noMatchSubtitle": "Intente buscar con un número de teléfono diferente",
+    "noMatchSubtitleName": "Intente buscar con un apellido diferente",
+    "noMatchTitle": "No se Encontraron Coincidencias",
+    "phonePlaceholder": "Ingrese los últimos cuatro dígitos del número móvil",
+    "readySubtitle": "Ingrese un número de teléfono para encontrar personas",
+    "readyTitle": "Listo para Buscar",
+    "searchError": "No se pudo completar la búsqueda. Por favor intente de nuevo.",
+    "searching": "Buscando...",
+    "subtitle": "Ingrese los últimos cuatro dígitos del número móvil",
+    "title": "Buscar por Número de Teléfono"
+  },
+  "members": {
+    "error": "Error",
+    "selectGroup": "Seleccionar Grupo",
+    "unknown": "Desconocido"
   },
   "print": {
     "printing": "Imprimiendo"
   },
-  "members": {
-    "selectGroup": "Seleccionar Grupo",
-    "error": "Error",
-    "unknown": "Desconocido"
+  "printers": {
+    "noPrinter": "Sin Impresora",
+    "noPrinterSelected": "No se ha seleccionado ninguna impresora",
+    "saveRestart": "Guardar y Reiniciar",
+    "scanning": "Buscando impresoras...",
+    "subtitle": "Elija una impresora para imprimir etiquetas de nombre",
+    "testPrint": "Impresión de Prueba",
+    "title": "Seleccione una Impresora"
+  },
+  "selectChurch": {
+    "loading": "Cargando iglesias...",
+    "title": "Seleccione una Iglesia"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} grupos",
+    "none": "Ninguno",
+    "subtitle": "Elija un grupo para {{serviceName}}",
+    "title": "Seleccione un Grupo"
+  },
+  "services": {
+    "loading": "Cargando servicios...",
+    "selectService": "Seleccione un servicio:",
+    "subtitle": "Elija para qué servicio desea registrarse",
+    "title": "Seleccione un Servicio"
+  },
+  "splash": {
+    "checkingUpdates": "Verificando actualizaciones...",
+    "downloadingUpdate": "Descargando actualización...",
+    "initializing": "Inicializando...",
+    "loadingChurch": "Cargando datos de la iglesia...",
+    "loggingIn": "Iniciando sesión..."
   }
 }

@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "Cancel",
-    "loading": "Loading...",
-    "search": "Search",
-    "login": "Login",
-    "logout": "Logout",
-    "save": "Save",
-    "done": "Done",
-    "none": "None"
-  },
-  "splash": {
-    "initializing": "Initializing...",
-    "checkingUpdates": "Checking for updates...",
-    "downloadingUpdate": "Downloading update...",
-    "loggingIn": "Logging in...",
-    "loadingChurch": "Loading church data..."
-  },
-  "login": {
-    "title": "Check-in System",
-    "welcomeBack": "Welcome Back",
-    "emailPlaceholder": "Email",
-    "passwordPlaceholder": "Password",
-    "privacyConsent": "By logging in, I confirm that I have read the",
-    "privacyPolicy": "privacy policy",
-    "enterEmail": "Please enter your email address",
-    "validEmail": "Please enter valid email",
-    "enterPassword": "Please enter your password",
-    "loginFailed": "Login failed."
-  },
-  "services": {
-    "title": "Select a Service",
-    "subtitle": "Choose which service to check in for",
-    "loading": "Loading services...",
-    "selectService": "Select a service:"
-  },
-  "lookup": {
-    "title": "Search by Phone Number",
-    "subtitle": "Enter last four digits of mobile number",
-    "placeholder": "Enter last four digits of mobile number",
-    "readyTitle": "Ready to Search",
-    "readySubtitle": "Enter a phone number to find people",
-    "searching": "Searching...",
-    "noMatchTitle": "No Matches Found",
-    "noMatchSubtitle": "Try searching with a different phone number",
-    "noMatchSubtitleName": "Try searching with a different last name",
-    "invalidNumbers": "Please enter valid numbers.",
-    "enterPhone": "Please enter phone number or last four digits",
-    "minDigits": "Please enter at least four digits.",
-    "minLetters": "Please enter at least two letters of the last name.",
-    "searchError": "Unable to complete search. Please try again.",
-    "modePhone": "Phone",
-    "modeName": "Name",
-    "phonePlaceholder": "Enter last four digits of mobile number",
-    "namePlaceholder": "Enter last name"
-  },
-  "selectChurch": {
-    "title": "Select a Church",
-    "loading": "Loading churches..."
-  },
-  "household": {
-    "title": "Select Household Members",
-    "subtitle": "Choose who is checking in today",
-    "addGuest": "Add a Guest",
-    "checkin": "CHECK IN"
-  },
-  "selectGroup": {
-    "title": "Select a Group",
-    "subtitle": "Choose a group for {{serviceName}}",
-    "groupCount": "{{count}} groups",
-    "none": "None"
-  },
   "addGuest": {
-    "title": "Add Guest",
-    "subtitle": "Enter guest information to add them to your household",
+    "addButton": "Add Guest",
+    "enterFirstName": "Please enter first name",
+    "enterLastName": "Please enter last name",
     "firstName": "First Name",
     "firstNamePlaceholder": "Enter first name",
     "lastName": "Last Name",
     "lastNamePlaceholder": "Enter last name",
-    "addButton": "Add Guest",
-    "enterFirstName": "Please enter first name",
-    "enterLastName": "Please enter last name"
+    "subtitle": "Enter guest information to add them to your household",
+    "title": "Add Guest"
   },
   "checkinComplete": {
-    "title": "Check-in Complete",
+    "printingMessage": "Your labels are being printed now.",
     "subtitle": "Your family has been successfully checked in",
-    "welcomeTitle": "Welcome!",
+    "title": "Check-in Complete",
     "welcomeMessage": "Your family has been checked in successfully.",
-    "printingMessage": "Your labels are being printed now."
+    "welcomeTitle": "Welcome!"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "login": "Login",
+    "logout": "Logout",
+    "search": "Search"
   },
   "header": {
-    "secretMenuTitle": "Secret Menu",
-    "logoutConfirm": "Are you sure you want to logout?"
+    "logoutConfirm": "Are you sure you want to logout?",
+    "secretMenuTitle": "Secret Menu"
   },
-  "printers": {
-    "title": "Select a Printer",
-    "subtitle": "Choose a printer for printing name tags and labels",
-    "noPrinter": "No Printer",
-    "scanning": "Scanning for printers...",
-    "testPrint": "Test Print",
-    "saveRestart": "Save & Restart",
-    "noPrinterSelected": "No printer selected"
+  "household": {
+    "addGuest": "Add a Guest",
+    "checkin": "CHECK IN",
+    "subtitle": "Choose who is checking in today",
+    "title": "Select Household Members"
+  },
+  "login": {
+    "emailPlaceholder": "Email",
+    "enterEmail": "Please enter your email address",
+    "enterPassword": "Please enter your password",
+    "loginFailed": "Login failed.",
+    "passwordPlaceholder": "Password",
+    "privacyConsent": "By logging in, I confirm that I have read the",
+    "privacyPolicy": "privacy policy",
+    "title": "Check-in System",
+    "validEmail": "Please enter valid email",
+    "welcomeBack": "Welcome Back"
+  },
+  "lookup": {
+    "enterPhone": "Please enter phone number or last four digits",
+    "invalidNumbers": "Please enter valid numbers.",
+    "minDigits": "Please enter at least four digits.",
+    "minLetters": "Please enter at least two letters of the last name.",
+    "modeName": "Name",
+    "modePhone": "Phone",
+    "namePlaceholder": "Enter last name",
+    "noMatchSubtitle": "Try searching with a different phone number",
+    "noMatchSubtitleName": "Try searching with a different last name",
+    "noMatchTitle": "No Matches Found",
+    "phonePlaceholder": "Enter last four digits of mobile number",
+    "readySubtitle": "Enter a phone number to find people",
+    "readyTitle": "Ready to Search",
+    "searchError": "Unable to complete search. Please try again.",
+    "searching": "Searching...",
+    "subtitle": "Enter last four digits of mobile number",
+    "title": "Search by Phone Number"
+  },
+  "members": {
+    "error": "Error",
+    "selectGroup": "Select Group",
+    "unknown": "Unknown"
   },
   "print": {
     "printing": "Printing"
   },
-  "members": {
-    "selectGroup": "Select Group",
-    "error": "Error",
-    "unknown": "Unknown"
+  "printers": {
+    "noPrinter": "No Printer",
+    "noPrinterSelected": "No printer selected",
+    "saveRestart": "Save & Restart",
+    "scanning": "Scanning for printers...",
+    "subtitle": "Choose a printer for printing name tags and labels",
+    "testPrint": "Test Print",
+    "title": "Select a Printer"
+  },
+  "selectChurch": {
+    "loading": "Loading churches...",
+    "title": "Select a Church"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} groups",
+    "none": "None",
+    "subtitle": "Choose a group for {{serviceName}}",
+    "title": "Select a Group"
+  },
+  "services": {
+    "loading": "Loading services...",
+    "selectService": "Select a service:",
+    "subtitle": "Choose which service to check in for",
+    "title": "Select a Service"
+  },
+  "splash": {
+    "checkingUpdates": "Checking for updates...",
+    "downloadingUpdate": "Downloading update...",
+    "initializing": "Initializing...",
+    "loadingChurch": "Loading church data...",
+    "loggingIn": "Logging in..."
   }
 }

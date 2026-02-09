@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "रद्द करें",
-    "loading": "लोड हो रहा है...",
-    "search": "खोजें",
-    "login": "लॉगिन",
-    "logout": "लॉगआउट",
-    "save": "सहेजें",
-    "done": "पूर्ण",
-    "none": "कोई नहीं"
-  },
-  "splash": {
-    "initializing": "आरंभ हो रहा है...",
-    "checkingUpdates": "अपडेट जांच रहा है...",
-    "downloadingUpdate": "अपडेट डाउनलोड हो रहा है...",
-    "loggingIn": "लॉगिन हो रहा है...",
-    "loadingChurch": "चर्च डेटा लोड हो रहा है..."
-  },
-  "login": {
-    "title": "चेक-इन सिस्टम",
-    "welcomeBack": "वापस स्वागत है",
-    "emailPlaceholder": "ईमेल",
-    "passwordPlaceholder": "पासवर्ड",
-    "privacyConsent": "लॉगिन करके, मैं पुष्टि करता हूं कि मैंने पढ़ लिया है",
-    "privacyPolicy": "गोपनीयता नीति",
-    "enterEmail": "कृपया अपना ईमेल पता दर्ज करें",
-    "validEmail": "कृपया मान्य ईमेल दर्ज करें",
-    "enterPassword": "कृपया अपना पासवर्ड दर्ज करें",
-    "loginFailed": "लॉगिन विफल रहा।"
-  },
-  "services": {
-    "title": "एक सेवा चुनें",
-    "subtitle": "किस सेवा के लिए चेक इन करना है चुनें",
-    "loading": "सेवाएं लोड हो रही हैं...",
-    "selectService": "एक सेवा चुनें:"
-  },
-  "lookup": {
-    "title": "फोन नंबर से खोजें",
-    "subtitle": "मोबाइल नंबर के अंतिम चार अंक दर्ज करें",
-    "placeholder": "मोबाइल नंबर के अंतिम चार अंक दर्ज करें",
-    "readyTitle": "खोजने के लिए तैयार",
-    "readySubtitle": "लोगों को खोजने के लिए फोन नंबर दर्ज करें",
-    "searching": "खोज रहा है...",
-    "noMatchTitle": "कोई मेल नहीं मिला",
-    "noMatchSubtitle": "किसी अन्य फोन नंबर से खोजने का प्रयास करें",
-    "noMatchSubtitleName": "किसी अन्य उपनाम से खोजने का प्रयास करें",
-    "invalidNumbers": "कृपया मान्य संख्या दर्ज करें।",
-    "enterPhone": "कृपया फोन नंबर या अंतिम चार अंक दर्ज करें",
-    "minDigits": "कृपया कम से कम चार अंक दर्ज करें।",
-    "minLetters": "कृपया उपनाम के कम से कम दो अक्षर दर्ज करें।",
-    "searchError": "खोज पूर्ण नहीं हो सकी। कृपया पुनः प्रयास करें।",
-    "modePhone": "फोन",
-    "modeName": "नाम",
-    "phonePlaceholder": "मोबाइल नंबर के अंतिम चार अंक दर्ज करें",
-    "namePlaceholder": "उपनाम दर्ज करें"
-  },
-  "selectChurch": {
-    "title": "एक चर्च चुनें",
-    "loading": "चर्च लोड हो रहे हैं..."
-  },
-  "household": {
-    "title": "घर के सदस्यों का चयन करें",
-    "subtitle": "चुनें कि आज कौन चेक इन कर रहा है",
-    "addGuest": "एक अतिथि जोड़ें",
-    "checkin": "चेक इन करें"
-  },
-  "selectGroup": {
-    "title": "एक समूह चुनें",
-    "subtitle": "{{serviceName}} के लिए एक समूह चुनें",
-    "groupCount": "{{count}} समूह",
-    "none": "कोई नहीं"
-  },
   "addGuest": {
-    "title": "अतिथि जोड़ें",
-    "subtitle": "अपने घर में जोड़ने के लिए अतिथि की जानकारी दर्ज करें",
+    "addButton": "अतिथि जोड़ें",
+    "enterFirstName": "कृपया पहला नाम दर्ज करें",
+    "enterLastName": "कृपया अंतिम नाम दर्ज करें",
     "firstName": "पहला नाम",
     "firstNamePlaceholder": "पहला नाम दर्ज करें",
     "lastName": "अंतिम नाम",
     "lastNamePlaceholder": "अंतिम नाम दर्ज करें",
-    "addButton": "अतिथि जोड़ें",
-    "enterFirstName": "कृपया पहला नाम दर्ज करें",
-    "enterLastName": "कृपया अंतिम नाम दर्ज करें"
+    "subtitle": "अपने घर में जोड़ने के लिए अतिथि की जानकारी दर्ज करें",
+    "title": "अतिथि जोड़ें"
   },
   "checkinComplete": {
-    "title": "चेक-इन पूर्ण",
+    "printingMessage": "आपके लेबल अभी प्रिंट हो रहे हैं।",
     "subtitle": "आपका परिवार सफलतापूर्वक चेक इन हो गया है",
-    "welcomeTitle": "स्वागत है!",
+    "title": "चेक-इन पूर्ण",
     "welcomeMessage": "आपका परिवार सफलतापूर्वक चेक इन हो गया है।",
-    "printingMessage": "आपके लेबल अभी प्रिंट हो रहे हैं।"
+    "welcomeTitle": "स्वागत है!"
+  },
+  "common": {
+    "cancel": "रद्द करें",
+    "login": "लॉगिन",
+    "logout": "लॉगआउट",
+    "search": "खोजें"
   },
   "header": {
-    "secretMenuTitle": "गुप्त मेनू",
-    "logoutConfirm": "क्या आप वाकई लॉगआउट करना चाहते हैं?"
+    "logoutConfirm": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
+    "secretMenuTitle": "गुप्त मेनू"
   },
-  "printers": {
-    "title": "एक प्रिंटर चुनें",
-    "subtitle": "नाम टैग और लेबल प्रिंट करने के लिए एक प्रिंटर चुनें",
-    "noPrinter": "कोई प्रिंटर नहीं",
-    "scanning": "प्रिंटर स्कैन हो रहे हैं...",
-    "testPrint": "टेस्ट प्रिंट",
-    "saveRestart": "सहेजें और पुनः आरंभ करें",
-    "noPrinterSelected": "कोई प्रिंटर चयनित नहीं"
+  "household": {
+    "addGuest": "एक अतिथि जोड़ें",
+    "checkin": "चेक इन करें",
+    "subtitle": "चुनें कि आज कौन चेक इन कर रहा है",
+    "title": "घर के सदस्यों का चयन करें"
+  },
+  "login": {
+    "emailPlaceholder": "ईमेल",
+    "enterEmail": "कृपया अपना ईमेल पता दर्ज करें",
+    "enterPassword": "कृपया अपना पासवर्ड दर्ज करें",
+    "loginFailed": "लॉगिन विफल रहा।",
+    "passwordPlaceholder": "पासवर्ड",
+    "privacyConsent": "लॉगिन करके, मैं पुष्टि करता हूं कि मैंने पढ़ लिया है",
+    "privacyPolicy": "गोपनीयता नीति",
+    "title": "चेक-इन सिस्टम",
+    "validEmail": "कृपया मान्य ईमेल दर्ज करें",
+    "welcomeBack": "वापस स्वागत है"
+  },
+  "lookup": {
+    "enterPhone": "कृपया फोन नंबर या अंतिम चार अंक दर्ज करें",
+    "invalidNumbers": "कृपया मान्य संख्या दर्ज करें।",
+    "minDigits": "कृपया कम से कम चार अंक दर्ज करें।",
+    "minLetters": "कृपया उपनाम के कम से कम दो अक्षर दर्ज करें।",
+    "modeName": "नाम",
+    "modePhone": "फोन",
+    "namePlaceholder": "उपनाम दर्ज करें",
+    "noMatchSubtitle": "किसी अन्य फोन नंबर से खोजने का प्रयास करें",
+    "noMatchSubtitleName": "किसी अन्य उपनाम से खोजने का प्रयास करें",
+    "noMatchTitle": "कोई मेल नहीं मिला",
+    "phonePlaceholder": "मोबाइल नंबर के अंतिम चार अंक दर्ज करें",
+    "readySubtitle": "लोगों को खोजने के लिए फोन नंबर दर्ज करें",
+    "readyTitle": "खोजने के लिए तैयार",
+    "searchError": "खोज पूर्ण नहीं हो सकी। कृपया पुनः प्रयास करें।",
+    "searching": "खोज रहा है...",
+    "subtitle": "मोबाइल नंबर के अंतिम चार अंक दर्ज करें",
+    "title": "फोन नंबर से खोजें"
+  },
+  "members": {
+    "error": "त्रुटि",
+    "selectGroup": "समूह चुनें",
+    "unknown": "अज्ञात"
   },
   "print": {
     "printing": "प्रिंटिंग"
   },
-  "members": {
-    "selectGroup": "समूह चुनें",
-    "error": "त्रुटि",
-    "unknown": "अज्ञात"
+  "printers": {
+    "noPrinter": "कोई प्रिंटर नहीं",
+    "noPrinterSelected": "कोई प्रिंटर चयनित नहीं",
+    "saveRestart": "सहेजें और पुनः आरंभ करें",
+    "scanning": "प्रिंटर स्कैन हो रहे हैं...",
+    "subtitle": "नाम टैग और लेबल प्रिंट करने के लिए एक प्रिंटर चुनें",
+    "testPrint": "टेस्ट प्रिंट",
+    "title": "एक प्रिंटर चुनें"
+  },
+  "selectChurch": {
+    "loading": "चर्च लोड हो रहे हैं...",
+    "title": "एक चर्च चुनें"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} समूह",
+    "none": "कोई नहीं",
+    "subtitle": "{{serviceName}} के लिए एक समूह चुनें",
+    "title": "एक समूह चुनें"
+  },
+  "services": {
+    "loading": "सेवाएं लोड हो रही हैं...",
+    "selectService": "एक सेवा चुनें:",
+    "subtitle": "किस सेवा के लिए चेक इन करना है चुनें",
+    "title": "एक सेवा चुनें"
+  },
+  "splash": {
+    "checkingUpdates": "अपडेट जांच रहा है...",
+    "downloadingUpdate": "अपडेट डाउनलोड हो रहा है...",
+    "initializing": "आरंभ हो रहा है...",
+    "loadingChurch": "चर्च डेटा लोड हो रहा है...",
+    "loggingIn": "लॉगिन हो रहा है..."
   }
 }

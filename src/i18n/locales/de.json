@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "Abbrechen",
-    "loading": "Lädt...",
-    "search": "Suchen",
-    "login": "Anmelden",
-    "logout": "Abmelden",
-    "save": "Speichern",
-    "done": "Fertig",
-    "none": "Keine"
-  },
-  "splash": {
-    "initializing": "Wird initialisiert...",
-    "checkingUpdates": "Suche nach Updates...",
-    "downloadingUpdate": "Lade Update herunter...",
-    "loggingIn": "Melde an...",
-    "loadingChurch": "Lade Kirchendaten..."
-  },
-  "login": {
-    "title": "Check-in-System",
-    "welcomeBack": "Willkommen zurück",
-    "emailPlaceholder": "E-Mail",
-    "passwordPlaceholder": "Passwort",
-    "privacyConsent": "Mit der Anmeldung bestätige ich, dass ich die",
-    "privacyPolicy": "Datenschutzerklärung",
-    "enterEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein",
-    "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
-    "enterPassword": "Bitte geben Sie Ihr Passwort ein",
-    "loginFailed": "Anmeldung fehlgeschlagen."
-  },
-  "services": {
-    "title": "Gottesdienst auswählen",
-    "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
-    "loading": "Lade Gottesdienste...",
-    "selectService": "Wählen Sie einen Gottesdienst:"
-  },
-  "lookup": {
-    "title": "Suche nach Telefonnummer",
-    "subtitle": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
-    "placeholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
-    "readyTitle": "Bereit zur Suche",
-    "readySubtitle": "Geben Sie eine Telefonnummer ein, um Personen zu finden",
-    "searching": "Suche...",
-    "noMatchTitle": "Keine Übereinstimmungen gefunden",
-    "noMatchSubtitle": "Versuchen Sie die Suche mit einer anderen Telefonnummer",
-    "noMatchSubtitleName": "Versuchen Sie die Suche mit einem anderen Nachnamen",
-    "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
-    "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
-    "minDigits": "Bitte geben Sie mindestens vier Ziffern ein.",
-    "minLetters": "Bitte geben Sie mindestens zwei Buchstaben des Nachnamens ein.",
-    "searchError": "Die Suche konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
-    "modePhone": "Telefon",
-    "modeName": "Name",
-    "phonePlaceholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
-    "namePlaceholder": "Geben Sie den Nachnamen ein"
-  },
-  "selectChurch": {
-    "title": "Gemeinde auswählen",
-    "loading": "Lade Gemeinden..."
-  },
-  "household": {
-    "title": "Haushaltsmitglieder auswählen",
-    "subtitle": "Wählen Sie aus, wer heute eincheckt",
-    "addGuest": "Gast hinzufügen",
-    "checkin": "EINCHECKEN"
-  },
-  "selectGroup": {
-    "title": "Gruppe auswählen",
-    "subtitle": "Wählen Sie eine Gruppe für {{serviceName}}",
-    "groupCount": "{{count}} Gruppen",
-    "none": "Keine"
-  },
   "addGuest": {
-    "title": "Gast hinzufügen",
-    "subtitle": "Geben Sie die Gastinformationen ein, um sie zu Ihrem Haushalt hinzuzufügen",
+    "addButton": "Gast hinzufügen",
+    "enterFirstName": "Bitte geben Sie den Vornamen ein",
+    "enterLastName": "Bitte geben Sie den Nachnamen ein",
     "firstName": "Vorname",
     "firstNamePlaceholder": "Vorname eingeben",
     "lastName": "Nachname",
     "lastNamePlaceholder": "Nachname eingeben",
-    "addButton": "Gast hinzufügen",
-    "enterFirstName": "Bitte geben Sie den Vornamen ein",
-    "enterLastName": "Bitte geben Sie den Nachnamen ein"
+    "subtitle": "Geben Sie die Gastinformationen ein, um sie zu Ihrem Haushalt hinzuzufügen",
+    "title": "Gast hinzufügen"
   },
   "checkinComplete": {
-    "title": "Check-in abgeschlossen",
+    "printingMessage": "Ihre Etiketten werden jetzt gedruckt.",
     "subtitle": "Ihre Familie wurde erfolgreich eingecheckt",
-    "welcomeTitle": "Willkommen!",
+    "title": "Check-in abgeschlossen",
     "welcomeMessage": "Ihre Familie wurde erfolgreich eingecheckt.",
-    "printingMessage": "Ihre Etiketten werden jetzt gedruckt."
+    "welcomeTitle": "Willkommen!"
+  },
+  "common": {
+    "cancel": "Abbrechen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "search": "Suchen"
   },
   "header": {
-    "secretMenuTitle": "Geheimmenü",
-    "logoutConfirm": "Möchten Sie sich wirklich abmelden?"
+    "logoutConfirm": "Möchten Sie sich wirklich abmelden?",
+    "secretMenuTitle": "Geheimmenü"
   },
-  "printers": {
-    "title": "Drucker auswählen",
-    "subtitle": "Wählen Sie einen Drucker zum Drucken von Namensschildern und Etiketten",
-    "noPrinter": "Kein Drucker",
-    "scanning": "Suche nach Druckern...",
-    "testPrint": "Testdruck",
-    "saveRestart": "Speichern & Neu starten",
-    "noPrinterSelected": "Kein Drucker ausgewählt"
+  "household": {
+    "addGuest": "Gast hinzufügen",
+    "checkin": "EINCHECKEN",
+    "subtitle": "Wählen Sie aus, wer heute eincheckt",
+    "title": "Haushaltsmitglieder auswählen"
+  },
+  "login": {
+    "emailPlaceholder": "E-Mail",
+    "enterEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+    "enterPassword": "Bitte geben Sie Ihr Passwort ein",
+    "loginFailed": "Anmeldung fehlgeschlagen.",
+    "passwordPlaceholder": "Passwort",
+    "privacyConsent": "Mit der Anmeldung bestätige ich, dass ich die",
+    "privacyPolicy": "Datenschutzerklärung",
+    "title": "Check-in-System",
+    "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "welcomeBack": "Willkommen zurück"
+  },
+  "lookup": {
+    "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
+    "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
+    "minDigits": "Bitte geben Sie mindestens vier Ziffern ein.",
+    "minLetters": "Bitte geben Sie mindestens zwei Buchstaben des Nachnamens ein.",
+    "modeName": "Name",
+    "modePhone": "Telefon",
+    "namePlaceholder": "Geben Sie den Nachnamen ein",
+    "noMatchSubtitle": "Versuchen Sie die Suche mit einer anderen Telefonnummer",
+    "noMatchSubtitleName": "Versuchen Sie die Suche mit einem anderen Nachnamen",
+    "noMatchTitle": "Keine Übereinstimmungen gefunden",
+    "phonePlaceholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
+    "readySubtitle": "Geben Sie eine Telefonnummer ein, um Personen zu finden",
+    "readyTitle": "Bereit zur Suche",
+    "searchError": "Die Suche konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+    "searching": "Suche...",
+    "subtitle": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
+    "title": "Suche nach Telefonnummer"
+  },
+  "members": {
+    "error": "Fehler",
+    "selectGroup": "Gruppe auswählen",
+    "unknown": "Unbekannt"
   },
   "print": {
     "printing": "Wird gedruckt"
   },
-  "members": {
-    "selectGroup": "Gruppe auswählen",
-    "error": "Fehler",
-    "unknown": "Unbekannt"
+  "printers": {
+    "noPrinter": "Kein Drucker",
+    "noPrinterSelected": "Kein Drucker ausgewählt",
+    "saveRestart": "Speichern & Neu starten",
+    "scanning": "Suche nach Druckern...",
+    "subtitle": "Wählen Sie einen Drucker zum Drucken von Namensschildern und Etiketten",
+    "testPrint": "Testdruck",
+    "title": "Drucker auswählen"
+  },
+  "selectChurch": {
+    "loading": "Lade Gemeinden...",
+    "title": "Gemeinde auswählen"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} Gruppen",
+    "none": "Keine",
+    "subtitle": "Wählen Sie eine Gruppe für {{serviceName}}",
+    "title": "Gruppe auswählen"
+  },
+  "services": {
+    "loading": "Lade Gottesdienste...",
+    "selectService": "Wählen Sie einen Gottesdienst:",
+    "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
+    "title": "Gottesdienst auswählen"
+  },
+  "splash": {
+    "checkingUpdates": "Suche nach Updates...",
+    "downloadingUpdate": "Lade Update herunter...",
+    "initializing": "Wird initialisiert...",
+    "loadingChurch": "Lade Kirchendaten...",
+    "loggingIn": "Melde an..."
   }
 }

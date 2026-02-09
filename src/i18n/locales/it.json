@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "Annulla",
-    "loading": "Caricamento...",
-    "search": "Cerca",
-    "login": "Accedi",
-    "logout": "Esci",
-    "save": "Salva",
-    "done": "Fatto",
-    "none": "Nessuno"
-  },
-  "splash": {
-    "initializing": "Inizializzazione...",
-    "checkingUpdates": "Verifica aggiornamenti...",
-    "downloadingUpdate": "Download aggiornamento...",
-    "loggingIn": "Accesso in corso...",
-    "loadingChurch": "Caricamento dati chiesa..."
-  },
-  "login": {
-    "title": "Sistema di Check-in",
-    "welcomeBack": "Bentornato",
-    "emailPlaceholder": "Email",
-    "passwordPlaceholder": "Password",
-    "privacyConsent": "Effettuando l'accesso, confermo di aver letto l'",
-    "privacyPolicy": "informativa sulla privacy",
-    "enterEmail": "Inserisci il tuo indirizzo email",
-    "validEmail": "Inserisci un'email valida",
-    "enterPassword": "Inserisci la tua password",
-    "loginFailed": "Accesso fallito."
-  },
-  "services": {
-    "title": "Seleziona un Servizio",
-    "subtitle": "Scegli per quale servizio effettuare il check-in",
-    "loading": "Caricamento servizi...",
-    "selectService": "Seleziona un servizio:"
-  },
-  "lookup": {
-    "title": "Cerca per Numero di Telefono",
-    "subtitle": "Inserisci le ultime quattro cifre del numero di cellulare",
-    "placeholder": "Inserisci le ultime quattro cifre del numero di cellulare",
-    "readyTitle": "Pronto per la Ricerca",
-    "readySubtitle": "Inserisci un numero di telefono per trovare persone",
-    "searching": "Ricerca in corso...",
-    "noMatchTitle": "Nessun Risultato Trovato",
-    "noMatchSubtitle": "Prova a cercare con un numero di telefono diverso",
-    "noMatchSubtitleName": "Prova a cercare con un cognome diverso",
-    "invalidNumbers": "Inserisci numeri validi.",
-    "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
-    "minDigits": "Inserisci almeno quattro cifre.",
-    "minLetters": "Inserisci almeno due lettere del cognome.",
-    "searchError": "Impossibile completare la ricerca. Riprova.",
-    "modePhone": "Telefono",
-    "modeName": "Nome",
-    "phonePlaceholder": "Inserisci le ultime quattro cifre del numero di cellulare",
-    "namePlaceholder": "Inserisci il cognome"
-  },
-  "selectChurch": {
-    "title": "Seleziona una Chiesa",
-    "loading": "Caricamento chiese..."
-  },
-  "household": {
-    "title": "Seleziona i Membri della Famiglia",
-    "subtitle": "Scegli chi sta effettuando il check-in oggi",
-    "addGuest": "Aggiungi un Ospite",
-    "checkin": "CHECK-IN"
-  },
-  "selectGroup": {
-    "title": "Seleziona un Gruppo",
-    "subtitle": "Scegli un gruppo per {{serviceName}}",
-    "groupCount": "{{count}} gruppi",
-    "none": "Nessuno"
-  },
   "addGuest": {
-    "title": "Aggiungi Ospite",
-    "subtitle": "Inserisci le informazioni dell'ospite per aggiungerlo alla tua famiglia",
+    "addButton": "Aggiungi Ospite",
+    "enterFirstName": "Inserisci il nome",
+    "enterLastName": "Inserisci il cognome",
     "firstName": "Nome",
     "firstNamePlaceholder": "Inserisci il nome",
     "lastName": "Cognome",
     "lastNamePlaceholder": "Inserisci il cognome",
-    "addButton": "Aggiungi Ospite",
-    "enterFirstName": "Inserisci il nome",
-    "enterLastName": "Inserisci il cognome"
+    "subtitle": "Inserisci le informazioni dell'ospite per aggiungerlo alla tua famiglia",
+    "title": "Aggiungi Ospite"
   },
   "checkinComplete": {
-    "title": "Check-in Completato",
+    "printingMessage": "Le tue etichette sono in stampa.",
     "subtitle": "La tua famiglia è stata registrata con successo",
-    "welcomeTitle": "Benvenuto!",
+    "title": "Check-in Completato",
     "welcomeMessage": "La tua famiglia è stata registrata con successo.",
-    "printingMessage": "Le tue etichette sono in stampa."
+    "welcomeTitle": "Benvenuto!"
+  },
+  "common": {
+    "cancel": "Annulla",
+    "login": "Accedi",
+    "logout": "Esci",
+    "search": "Cerca"
   },
   "header": {
-    "secretMenuTitle": "Menu Segreto",
-    "logoutConfirm": "Sei sicuro di voler uscire?"
+    "logoutConfirm": "Sei sicuro di voler uscire?",
+    "secretMenuTitle": "Menu Segreto"
   },
-  "printers": {
-    "title": "Seleziona una Stampante",
-    "subtitle": "Scegli una stampante per stampare i cartellini e le etichette",
-    "noPrinter": "Nessuna Stampante",
-    "scanning": "Ricerca stampanti...",
-    "testPrint": "Stampa di Prova",
-    "saveRestart": "Salva e Riavvia",
-    "noPrinterSelected": "Nessuna stampante selezionata"
+  "household": {
+    "addGuest": "Aggiungi un Ospite",
+    "checkin": "CHECK-IN",
+    "subtitle": "Scegli chi sta effettuando il check-in oggi",
+    "title": "Seleziona i Membri della Famiglia"
+  },
+  "login": {
+    "emailPlaceholder": "Email",
+    "enterEmail": "Inserisci il tuo indirizzo email",
+    "enterPassword": "Inserisci la tua password",
+    "loginFailed": "Accesso fallito.",
+    "passwordPlaceholder": "Password",
+    "privacyConsent": "Effettuando l'accesso, confermo di aver letto l'",
+    "privacyPolicy": "informativa sulla privacy",
+    "title": "Sistema di Check-in",
+    "validEmail": "Inserisci un'email valida",
+    "welcomeBack": "Bentornato"
+  },
+  "lookup": {
+    "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
+    "invalidNumbers": "Inserisci numeri validi.",
+    "minDigits": "Inserisci almeno quattro cifre.",
+    "minLetters": "Inserisci almeno due lettere del cognome.",
+    "modeName": "Nome",
+    "modePhone": "Telefono",
+    "namePlaceholder": "Inserisci il cognome",
+    "noMatchSubtitle": "Prova a cercare con un numero di telefono diverso",
+    "noMatchSubtitleName": "Prova a cercare con un cognome diverso",
+    "noMatchTitle": "Nessun Risultato Trovato",
+    "phonePlaceholder": "Inserisci le ultime quattro cifre del numero di cellulare",
+    "readySubtitle": "Inserisci un numero di telefono per trovare persone",
+    "readyTitle": "Pronto per la Ricerca",
+    "searchError": "Impossibile completare la ricerca. Riprova.",
+    "searching": "Ricerca in corso...",
+    "subtitle": "Inserisci le ultime quattro cifre del numero di cellulare",
+    "title": "Cerca per Numero di Telefono"
+  },
+  "members": {
+    "error": "Errore",
+    "selectGroup": "Seleziona un Gruppo",
+    "unknown": "Sconosciuto"
   },
   "print": {
     "printing": "Stampa"
   },
-  "members": {
-    "selectGroup": "Seleziona un Gruppo",
-    "error": "Errore",
-    "unknown": "Sconosciuto"
+  "printers": {
+    "noPrinter": "Nessuna Stampante",
+    "noPrinterSelected": "Nessuna stampante selezionata",
+    "saveRestart": "Salva e Riavvia",
+    "scanning": "Ricerca stampanti...",
+    "subtitle": "Scegli una stampante per stampare i cartellini e le etichette",
+    "testPrint": "Stampa di Prova",
+    "title": "Seleziona una Stampante"
+  },
+  "selectChurch": {
+    "loading": "Caricamento chiese...",
+    "title": "Seleziona una Chiesa"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} gruppi",
+    "none": "Nessuno",
+    "subtitle": "Scegli un gruppo per {{serviceName}}",
+    "title": "Seleziona un Gruppo"
+  },
+  "services": {
+    "loading": "Caricamento servizi...",
+    "selectService": "Seleziona un servizio:",
+    "subtitle": "Scegli per quale servizio effettuare il check-in",
+    "title": "Seleziona un Servizio"
+  },
+  "splash": {
+    "checkingUpdates": "Verifica aggiornamenti...",
+    "downloadingUpdate": "Download aggiornamento...",
+    "initializing": "Inizializzazione...",
+    "loadingChurch": "Caricamento dati chiesa...",
+    "loggingIn": "Accesso in corso..."
   }
 }

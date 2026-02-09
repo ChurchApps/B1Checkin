@@ -1,112 +1,107 @@
 {
-  "common": {
-    "cancel": "Annuler",
-    "loading": "Chargement...",
-    "search": "Rechercher",
-    "login": "Connexion",
-    "logout": "Déconnexion",
-    "save": "Enregistrer",
-    "done": "Terminé",
-    "none": "Aucun"
-  },
-  "splash": {
-    "initializing": "Initialisation...",
-    "checkingUpdates": "Vérification des mises à jour...",
-    "downloadingUpdate": "Téléchargement de la mise à jour...",
-    "loggingIn": "Connexion en cours...",
-    "loadingChurch": "Chargement des données de l'église..."
-  },
-  "login": {
-    "title": "Système d'enregistrement",
-    "welcomeBack": "Bienvenue",
-    "emailPlaceholder": "Courriel",
-    "passwordPlaceholder": "Mot de passe",
-    "privacyConsent": "En me connectant, je confirme avoir lu la",
-    "privacyPolicy": "politique de confidentialité",
-    "enterEmail": "Veuillez entrer votre adresse courriel",
-    "validEmail": "Veuillez entrer un courriel valide",
-    "enterPassword": "Veuillez entrer votre mot de passe",
-    "loginFailed": "La connexion a échoué."
-  },
-  "services": {
-    "title": "Sélectionner un service",
-    "subtitle": "Choisissez le service pour l'enregistrement",
-    "loading": "Chargement des services...",
-    "selectService": "Sélectionnez un service :"
-  },
-  "lookup": {
-    "title": "Recherche par numéro de téléphone",
-    "subtitle": "Entrez les quatre derniers chiffres du numéro de mobile",
-    "placeholder": "Entrez les quatre derniers chiffres du numéro de mobile",
-    "readyTitle": "Prêt à rechercher",
-    "readySubtitle": "Entrez un numéro de téléphone pour trouver des personnes",
-    "searching": "Recherche en cours...",
-    "noMatchTitle": "Aucun résultat trouvé",
-    "noMatchSubtitle": "Essayez de rechercher avec un autre numéro de téléphone",
-    "noMatchSubtitleName": "Essayez de rechercher avec un autre nom de famille",
-    "invalidNumbers": "Veuillez entrer des numéros valides.",
-    "enterPhone": "Veuillez entrer le numéro de téléphone ou les quatre derniers chiffres",
-    "minDigits": "Veuillez entrer au moins quatre chiffres.",
-    "minLetters": "Veuillez entrer au moins deux lettres du nom de famille.",
-    "searchError": "Impossible de terminer la recherche. Veuillez réessayer.",
-    "modePhone": "Téléphone",
-    "modeName": "Nom",
-    "phonePlaceholder": "Entrez les quatre derniers chiffres du numéro de mobile",
-    "namePlaceholder": "Entrez le nom de famille"
-  },
-  "selectChurch": {
-    "title": "Sélectionner une église",
-    "loading": "Chargement des églises..."
-  },
-  "household": {
-    "title": "Sélectionner les membres de la famille",
-    "subtitle": "Choisissez qui s'enregistre aujourd'hui",
-    "addGuest": "Ajouter un invité",
-    "checkin": "ENREGISTRER"
-  },
-  "selectGroup": {
-    "title": "Sélectionner un groupe",
-    "subtitle": "Choisissez un groupe pour {{serviceName}}",
-    "groupCount": "{{count}} groupes",
-    "none": "Aucun"
-  },
   "addGuest": {
-    "title": "Ajouter un invité",
-    "subtitle": "Entrez les informations de l'invité pour l'ajouter à votre famille",
+    "addButton": "Ajouter l'invité",
+    "enterFirstName": "Veuillez entrer le prénom",
+    "enterLastName": "Veuillez entrer le nom de famille",
     "firstName": "Prénom",
     "firstNamePlaceholder": "Entrez le prénom",
     "lastName": "Nom de famille",
     "lastNamePlaceholder": "Entrez le nom de famille",
-    "addButton": "Ajouter l'invité",
-    "enterFirstName": "Veuillez entrer le prénom",
-    "enterLastName": "Veuillez entrer le nom de famille"
+    "subtitle": "Entrez les informations de l'invité pour l'ajouter à votre famille",
+    "title": "Ajouter un invité"
   },
   "checkinComplete": {
-    "title": "Enregistrement terminé",
+    "printingMessage": "Vos étiquettes sont en cours d'impression.",
     "subtitle": "Votre famille a été enregistrée avec succès",
-    "welcomeTitle": "Bienvenue !",
+    "title": "Enregistrement terminé",
     "welcomeMessage": "Votre famille a été enregistrée avec succès.",
-    "printingMessage": "Vos étiquettes sont en cours d'impression."
+    "welcomeTitle": "Bienvenue !"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "search": "Rechercher"
   },
   "header": {
-    "secretMenuTitle": "Menu secret",
-    "logoutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?"
+    "logoutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?",
+    "secretMenuTitle": "Menu secret"
   },
-  "printers": {
-    "title": "Sélectionner une imprimante",
-    "subtitle": "Choisissez une imprimante pour imprimer les badges et étiquettes",
-    "noPrinter": "Aucune imprimante",
-    "scanning": "Recherche d'imprimantes...",
-    "testPrint": "Test d'impression",
-    "saveRestart": "Enregistrer et redémarrer",
-    "noPrinterSelected": "Aucune imprimante sélectionnée"
+  "household": {
+    "addGuest": "Ajouter un invité",
+    "checkin": "ENREGISTRER",
+    "subtitle": "Choisissez qui s'enregistre aujourd'hui",
+    "title": "Sélectionner les membres de la famille"
+  },
+  "login": {
+    "emailPlaceholder": "Courriel",
+    "enterEmail": "Veuillez entrer votre adresse courriel",
+    "enterPassword": "Veuillez entrer votre mot de passe",
+    "loginFailed": "La connexion a échoué.",
+    "passwordPlaceholder": "Mot de passe",
+    "privacyConsent": "En me connectant, je confirme avoir lu la",
+    "privacyPolicy": "politique de confidentialité",
+    "title": "Système d'enregistrement",
+    "validEmail": "Veuillez entrer un courriel valide",
+    "welcomeBack": "Bienvenue"
+  },
+  "lookup": {
+    "enterPhone": "Veuillez entrer le numéro de téléphone ou les quatre derniers chiffres",
+    "invalidNumbers": "Veuillez entrer des numéros valides.",
+    "minDigits": "Veuillez entrer au moins quatre chiffres.",
+    "minLetters": "Veuillez entrer au moins deux lettres du nom de famille.",
+    "modeName": "Nom",
+    "modePhone": "Téléphone",
+    "namePlaceholder": "Entrez le nom de famille",
+    "noMatchSubtitle": "Essayez de rechercher avec un autre numéro de téléphone",
+    "noMatchSubtitleName": "Essayez de rechercher avec un autre nom de famille",
+    "noMatchTitle": "Aucun résultat trouvé",
+    "phonePlaceholder": "Entrez les quatre derniers chiffres du numéro de mobile",
+    "readySubtitle": "Entrez un numéro de téléphone pour trouver des personnes",
+    "readyTitle": "Prêt à rechercher",
+    "searchError": "Impossible de terminer la recherche. Veuillez réessayer.",
+    "searching": "Recherche en cours...",
+    "subtitle": "Entrez les quatre derniers chiffres du numéro de mobile",
+    "title": "Recherche par numéro de téléphone"
+  },
+  "members": {
+    "error": "Erreur",
+    "selectGroup": "Sélectionner un groupe",
+    "unknown": "Inconnu"
   },
   "print": {
     "printing": "Impression"
   },
-  "members": {
-    "selectGroup": "Sélectionner un groupe",
-    "error": "Erreur",
-    "unknown": "Inconnu"
+  "printers": {
+    "noPrinter": "Aucune imprimante",
+    "noPrinterSelected": "Aucune imprimante sélectionnée",
+    "saveRestart": "Enregistrer et redémarrer",
+    "scanning": "Recherche d'imprimantes...",
+    "subtitle": "Choisissez une imprimante pour imprimer les badges et étiquettes",
+    "testPrint": "Test d'impression",
+    "title": "Sélectionner une imprimante"
+  },
+  "selectChurch": {
+    "loading": "Chargement des églises...",
+    "title": "Sélectionner une église"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} groupes",
+    "none": "Aucun",
+    "subtitle": "Choisissez un groupe pour {{serviceName}}",
+    "title": "Sélectionner un groupe"
+  },
+  "services": {
+    "loading": "Chargement des services...",
+    "selectService": "Sélectionnez un service :",
+    "subtitle": "Choisissez le service pour l'enregistrement",
+    "title": "Sélectionner un service"
+  },
+  "splash": {
+    "checkingUpdates": "Vérification des mises à jour...",
+    "downloadingUpdate": "Téléchargement de la mise à jour...",
+    "initializing": "Initialisation...",
+    "loadingChurch": "Chargement des données de l'église...",
+    "loggingIn": "Connexion en cours..."
   }
 }
