@@ -19,7 +19,7 @@ const SelectGroup = (props: any) => {
 
   const router = useRouter();
   const { personId, serviceTime } = useLocalSearchParams();
-  let serviceTimes = JSON.parse(serviceTime);
+  const serviceTimes = JSON.parse(serviceTime);
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
   const [groupTree, setGroupTree] = React.useState<GroupCategoryInterface[]>([]);
@@ -27,7 +27,7 @@ const SelectGroup = (props: any) => {
   const buildTree = () => {
     FirebaseHelper.addOpenScreenEvent("Select Group");
     let category = "";
-    let gt: GroupCategoryInterface[] = [];
+    const gt: GroupCategoryInterface[] = [];
 
 
 
@@ -37,7 +37,7 @@ const SelectGroup = (props: any) => {
 
 
     sortedGroups?.forEach(g => {
-      if (g.categoryName !== category) { gt.push({ key: gt.length, name: g.categoryName || "", items: [] }); }
+      if (g.categoryName !== category) gt.push({ key: gt.length, name: g.categoryName || "", items: [] });
       gt[gt.length - 1].items.push(g);
       category = g.categoryName || "";
     });
@@ -105,7 +105,7 @@ const SelectGroup = (props: any) => {
   };
 
   const getExpanded = (selectedcategory: number, category: GroupCategoryInterface) => {
-    if (selectedcategory !== category.key) { return <></>; }
+    if (selectedcategory !== category.key) return <></>;
 
     const result: JSX.Element[] = [];
     category.items.forEach(g => {
@@ -193,18 +193,12 @@ const selectGroupStyles = {
     paddingHorizontal: DimensionHelper.wp("5%")
   },
 
-  scrollContent: {
-    paddingBottom: DimensionHelper.wp("5%")
-  },
+  scrollContent: { paddingBottom: DimensionHelper.wp("5%") },
 
-  listContainer: {
-    paddingBottom: DimensionHelper.wp("3%")
-  },
+  listContainer: { paddingBottom: DimensionHelper.wp("3%") },
 
   // Category Cards
-  categoryContainer: {
-    marginBottom: DimensionHelper.wp("3%")
-  },
+  categoryContainer: { marginBottom: DimensionHelper.wp("3%") },
 
   categoryCard: {
     backgroundColor: StyleConstants.whiteColor,
@@ -225,9 +219,7 @@ const selectGroupStyles = {
     justifyContent: "space-between"
   },
 
-  categoryInfo: {
-    flex: 1
-  },
+  categoryInfo: { flex: 1 },
 
   categoryName: {
     fontSize: DimensionHelper.wp("4.5%"),
@@ -288,9 +280,7 @@ const selectGroupStyles = {
     marginRight: DimensionHelper.wp("3%")
   },
 
-  groupIcon: {
-    color: StyleConstants.baseColor
-  },
+  groupIcon: { color: StyleConstants.baseColor },
 
   groupName: {
     flex: 1,
@@ -299,9 +289,7 @@ const selectGroupStyles = {
     color: StyleConstants.darkColor
   },
 
-  selectIconContainer: {
-    marginLeft: DimensionHelper.wp("2%")
-  },
+  selectIconContainer: { marginLeft: DimensionHelper.wp("2%") },
 
   selectIcon: {
     color: StyleConstants.baseColor,

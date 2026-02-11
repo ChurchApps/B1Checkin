@@ -41,9 +41,7 @@ const subheaderStyles = {
     shadowColor: StyleConstants.baseColor
   },
 
-  headerTextContainer: {
-    width: "100%"
-  },
+  headerTextContainer: { width: "100%" },
 
   titleRow: {
     flexDirection: "row",
@@ -61,13 +59,9 @@ const subheaderStyles = {
     marginRight: DimensionHelper.wp("3%")
   },
 
-  titleIcon: {
-    fontSize: DimensionHelper.wp("6%")
-  },
+  titleIcon: { fontSize: DimensionHelper.wp("6%") },
 
-  titleTextContainer: {
-    flex: 1
-  },
+  titleTextContainer: { flex: 1 },
 
   headerTitle: {
     fontSize: DimensionHelper.wp("5.5%"),

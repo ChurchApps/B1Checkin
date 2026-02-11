@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View
-} from "react-native";
+import { Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
@@ -39,7 +37,7 @@ const Services = (props: Props) => {
   }, []);
 
   const wd = (number: string) => {
-    let givenWidth = typeof number === "number" ? number : parseFloat(number);
+    const givenWidth = typeof number === "number" ? number : parseFloat(number);
     return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
   };
 

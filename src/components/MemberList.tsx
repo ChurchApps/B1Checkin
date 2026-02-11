@@ -3,9 +3,7 @@ import { View, Text, FlatList, Image, Dimensions, PixelRatio } from "react-nativ
 import { FontAwesome } from "@expo/vector-icons";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
-import {
-  CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, StyleConstants, VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper
-} from "../helpers";
+import { CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, StyleConstants, VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
 import MemberServiceTimes from "./MemberServiceTimes";
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
@@ -18,7 +16,7 @@ const MemberList = (props: Props) => {
   const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); };
 
   const getCondensedGroupList = (person: PersonInterface) => {
-    if (selectedMemberId === person.id) { return <></>; }
+    if (selectedMemberId === person.id) return <></>;
 
     const visit = VisitHelper.getByPersonId(props.pendingVisits, person.id || "");
     if (!visit || !visit.visitSessions || !Array.isArray(visit.visitSessions) || visit.visitSessions.length === 0) {
@@ -29,7 +27,7 @@ const MemberList = (props: Props) => {
     const visitSessions = visit.visitSessions || [];
 
     visitSessions.forEach((vs: VisitSessionInterface, index) => {
-      if (!vs || !vs.session) { return; }
+      if (!vs || !vs.session) return;
 
       const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session.serviceTimeId || "");
       const group: GroupInterface | null = ArrayHelper.getOne(st?.groups || [], "id", vs.session.groupId || "");
@@ -46,7 +44,7 @@ const MemberList = (props: Props) => {
       );
     });
 
-    if (groups.length === 0) { return <></>; }
+    if (groups.length === 0) return <></>;
     return (<View style={memberListStyles.groupContainer}>{groups}</View>);
   };
 
@@ -60,7 +58,7 @@ const MemberList = (props: Props) => {
   }, []);
 
   const wd = (number: string) => {
-    let givenWidth = typeof number === "number" ? number : parseFloat(number);
+    const givenWidth = typeof number === "number" ? number : parseFloat(number);
     return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
   };
 
@@ -131,13 +129,9 @@ const MemberList = (props: Props) => {
 
 // Professional tablet-optimized styles for member list
 const memberListStyles = {
-  listContainer: {
-    paddingBottom: DimensionHelper.wp("5%")
-  },
+  listContainer: { paddingBottom: DimensionHelper.wp("5%") },
 
-  memberContainer: {
-    marginBottom: DimensionHelper.wp("3%")
-  },
+  memberContainer: { marginBottom: DimensionHelper.wp("3%") },
 
   // Member Cards (Professional Material Design)
   memberCard: {

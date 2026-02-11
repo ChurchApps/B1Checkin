@@ -19,12 +19,12 @@ const CheckinComplete = (props: Props) => {
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     const promises: Promise<any>[] = [];
     promises.push(checkin());
-    if (CachedData.printer?.ipAddress) { print(); }
+    if (CachedData.printer?.ipAddress) print();
     //print();
 
     Promise.all(promises)
       .then(() => {
-        if (!CachedData.printer?.ipAddress) { startOver(); }
+        if (!CachedData.printer?.ipAddress) startOver();
       })
       .catch(error => {
         console.error("Error during checkin:", error);
@@ -49,7 +49,7 @@ const CheckinComplete = (props: Props) => {
     try {
       const labels = await LabelHelper.getAllLabels();
       setHtmlLabels(labels);
-      if (labels.length === 0) { startOver(); }
+      if (labels.length === 0) startOver();
     } catch (error) {
       console.error("Error printing labels:", error);
       startOver();
@@ -77,7 +77,8 @@ const CheckinComplete = (props: Props) => {
 
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) { return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />); } else { return <></>; }
+    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />);
+    else return <></>;
   };
 
   React.useEffect(loadData, []);
@@ -161,9 +162,7 @@ const checkinCompleteStyles = {
     marginBottom: DimensionHelper.wp("5%")
   },
 
-  successIcon: {
-    color: StyleConstants.greenColor
-  },
+  successIcon: { color: StyleConstants.greenColor },
 
   successTitle: {
     fontSize: DimensionHelper.wp("6%"),

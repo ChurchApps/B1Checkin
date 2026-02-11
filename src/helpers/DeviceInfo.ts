@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as RNDI from "expo-device";
-import  Constants  from "expo-constants";
+import Constants from "expo-constants";
 import * as Application from "expo-application";
 
 export interface DeviceInfoInterface {

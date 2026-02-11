@@ -14,7 +14,7 @@ export class FirebaseHelper {
     try {
       await analytics().logScreenView({
         screen_name: screenName,
-        screen_class: screenName,
+        screen_class: screenName
       });
       console.log(`[FirebaseHelper] Screen opened: ${screenName}`);
     } catch (error) {

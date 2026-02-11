@@ -3,15 +3,9 @@ import { DeviceEventEmitter } from "react-native";
 import * as Device from "expo-device";
 
 export const pushEventBus = {
-  emit(eventName: string, data?: any) {
-    DeviceEventEmitter.emit(eventName, data);
-  },
-  addListener(eventName: string, callback: (data?: any) => void) {
-    DeviceEventEmitter.addListener(eventName, callback);
-  },
-  removeListener(eventName: string) {
-    DeviceEventEmitter.removeAllListeners(eventName);
-  }
+  emit(eventName: string, data?: any) { DeviceEventEmitter.emit(eventName, data); },
+  addListener(eventName: string, callback: (data?: any) => void) { DeviceEventEmitter.addListener(eventName, callback); },
+  removeListener(eventName: string) { DeviceEventEmitter.removeAllListeners(eventName); }
 };
 
 export class PushNotificationHelper {

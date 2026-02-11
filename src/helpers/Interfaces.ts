@@ -3,30 +3,14 @@ export interface AvailablePrinter { ipAddress: string, model: string }
 export interface AppearanceInterface { primaryColor?: string, primaryContrast?: string, secondaryColor?: string, secondaryContrast?: string, logoLight?: string, logoDark?: string }
 
 // API Configuration
-export interface ApiConfig {
-  keyName: string;
-  url: string;
-  jwt?: string;
-  permissions?: RolePermissionInterface[];
-}
+export interface ApiConfig { keyName: string; url: string; jwt?: string; permissions?: RolePermissionInterface[]; }
 
 export type ApiListType = "MembershipApi" | "AttendanceApi" | "MessagingApi" | "ContentApi" | "GivingApi" | "AccessManagementApi";
 
 // Permission interfaces
-export interface RolePermissionInterface {
-  id?: string;
-  roleId?: string;
-  contentType?: string;
-  contentId?: string;
-  action?: string;
-  api?: string;
-}
+export interface RolePermissionInterface { id?: string; roleId?: string; contentType?: string; contentId?: string; action?: string; api?: string; }
 
-export interface PermissionInterface {
-  api: string;
-  contentType: string;
-  action: string;
-}
+export interface PermissionInterface { api: string; contentType: string; action: string; }
 
 // User and Authentication interfaces
 export interface LoginResponseInterface {
@@ -105,10 +89,7 @@ export interface ContactInfoInterface {
   workEmail?: string;
 }
 
-export interface HouseholdInterface {
-  id?: string;
-  name?: string;
-}
+export interface HouseholdInterface { id?: string; name?: string; }
 
 export interface HouseholdMemberInterface {
   id?: string;
@@ -120,16 +101,9 @@ export interface HouseholdMemberInterface {
 }
 
 // Campus and Services interfaces
-export interface CampusInterface {
-  id?: string;
-  name?: string;
-}
+export interface CampusInterface { id?: string; name?: string; }
 
-export interface ServiceInterface {
-  id?: string;
-  campusId?: string;
-  name?: string;
-}
+export interface ServiceInterface { id?: string; campusId?: string; name?: string; }
 
 export interface ServiceTimeInterface {
   id?: string;
@@ -194,13 +168,7 @@ export interface VisitSessionInterface {
   session?: SessionInterface;
 }
 
-export interface SessionInterface {
-  id?: string;
-  groupId: string;
-  serviceTimeId: string;
-  sessionDate?: Date;
-  displayName: string;
-}
+export interface SessionInterface { id?: string; groupId: string; serviceTimeId: string; sessionDate?: Date; displayName: string; }
 
 export interface AttendanceInterface {
   campus: CampusInterface;
@@ -220,11 +188,7 @@ export interface AttendanceRecordInterface {
 }
 
 // Settings interface
-export interface SettingInterface {
-  id?: string;
-  keyName?: string;
-  value?: string;
-}
+export interface SettingInterface { id?: string; keyName?: string; value?: string; }
 
 // Form interfaces
 export interface FormInterface {
@@ -269,8 +233,4 @@ export interface QuestionInterface {
 }
 
 // Search interface
-export interface SearchCondition {
-  field: string;
-  operator: string;
-  value: string;
-}
+export interface SearchCondition { field: string; operator: string; value: string; }

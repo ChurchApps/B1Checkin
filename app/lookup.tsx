@@ -1,8 +1,6 @@
 import React from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import {
-  TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet
-} from "react-native";
+import { TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
@@ -180,7 +178,7 @@ const Lookup = (props: Props) => {
   }, []);
 
   const wd = (number: string) => {
-    let givenWidth = typeof number === "number" ? number : parseFloat(number);
+    const givenWidth = typeof number === "number" ? number : parseFloat(number);
     return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
   };
 
@@ -278,9 +276,7 @@ const lookupStyles = StyleSheet.create({
   },
 
   // Search Section
-  searchSection: {
-    marginBottom: DimensionHelper.wp("5%")
-  },
+  searchSection: { marginBottom: DimensionHelper.wp("5%") },
 
   modeToggleContainer: {
     flexDirection: "row",
@@ -301,12 +297,10 @@ const lookupStyles = StyleSheet.create({
     borderRadius: 999,
     paddingVertical: DimensionHelper.wp("2%"),
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
 
-  modeButtonActive: {
-    backgroundColor: StyleConstants.baseColor
-  },
+  modeButtonActive: { backgroundColor: StyleConstants.baseColor },
 
   modeButtonText: {
     fontSize: DimensionHelper.wp("3.5%"),
@@ -314,9 +308,7 @@ const lookupStyles = StyleSheet.create({
     color: StyleConstants.baseColor
   },
 
-  modeButtonTextActive: {
-    color: StyleConstants.whiteColor
-  },
+  modeButtonTextActive: { color: StyleConstants.whiteColor },
 
   searchView: {
     backgroundColor: StyleConstants.whiteColor,
@@ -365,7 +357,7 @@ const lookupStyles = StyleSheet.create({
 
   nameTextInput: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 8,
+    borderRadius: 8
   },
 
   nameSearchButton: {
@@ -375,17 +367,11 @@ const lookupStyles = StyleSheet.create({
   },
 
   // Results Section
-  resultsSection: {
-    flex: 1
-  },
+  resultsSection: { flex: 1 },
 
-  resultsContainer: {
-    flex: 1
-  },
+  resultsContainer: { flex: 1 },
 
-  resultsList: {
-    paddingBottom: DimensionHelper.wp("5%")
-  },
+  resultsList: { paddingBottom: DimensionHelper.wp("5%") },
 
   // Person Cards (Professional Material Design)
   personCard: {

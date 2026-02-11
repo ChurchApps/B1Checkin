@@ -21,10 +21,11 @@ const PrintUI = (props: Props) => {
 
   React.useEffect(() => { resetPrint(); }, []);
   React.useEffect(() => { setPrintIndex((props.htmlLabels.length === 0) ? -1 : 0); }, [props.htmlLabels]);
-  React.useEffect(() => { if (printIndex < props.htmlLabels.length) { loadNextLabel(); } }, [printIndex]);
+  React.useEffect(() => { if (printIndex < props.htmlLabels.length) loadNextLabel(); }, [printIndex]);
   React.useEffect(() => {
     if (html) {
-      if (firstTag) { timeout(1500).then(handleHtmlLoaded); } else { timeout(300).then(handleHtmlLoaded); }
+      if (firstTag) timeout(1500).then(handleHtmlLoaded);
+      else timeout(300).then(handleHtmlLoaded);
     }
   }, [html]);
   const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
@@ -49,7 +50,7 @@ const PrintUI = (props: Props) => {
   };
 
   const handleHtmlLoaded = async () => {
-    if (firstTag) { setFirstTag(false); }
+    if (firstTag) setFirstTag(false);
     console.log("html loaded");
     //await timeout(500);
     captureRef(shotRef, { format: "jpg", quality: 1 })

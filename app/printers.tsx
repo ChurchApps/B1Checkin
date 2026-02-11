@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  View, Text, NativeModules, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator
-} from "react-native";
+import { View, Text, NativeModules, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
@@ -58,7 +56,7 @@ const Printers = (props: Props) => {
         .then((data: string) => {
           console.log("Scan callback", data);
           const items = data.split(",");
-          let result: AvailablePrinter[] = [];
+          const result: AvailablePrinter[] = [];
           items.forEach(item => {
             if (item.length > 0) {
               const splitItem = item.split("~");
@@ -98,7 +96,7 @@ const Printers = (props: Props) => {
   React.useEffect(() => { init(); }, []);
 
   const _wd = (number: string) => {
-    let givenWidth = typeof number === "number" ? number : parseFloat(number);
+    const givenWidth = typeof number === "number" ? number : parseFloat(number);
     return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
   };
 
@@ -143,7 +141,8 @@ const Printers = (props: Props) => {
   };
 
   const testPrint = () => {
-    if (selectedPrinter.model === "No Printer") { Alert.alert(t("printers.noPrinterSelected")); } else {
+    if (selectedPrinter.model === "No Printer") Alert.alert(t("printers.noPrinterSelected"));
+    else {
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
     }
@@ -305,18 +304,14 @@ const printerStyles = {
     opacity: 0.7
   },
 
-  selectedText: {
-    color: StyleConstants.whiteColor
-  },
+  selectedText: { color: StyleConstants.whiteColor },
 
   selectedSubtext: {
     color: StyleConstants.whiteColor,
     opacity: 0.9
   },
 
-  checkmarkContainer: {
-    marginLeft: DimensionHelper.wp("2%")
-  },
+  checkmarkContainer: { marginLeft: DimensionHelper.wp("2%") },
 
   // Loading State
   loadingContainer: {
@@ -372,9 +367,7 @@ const printerStyles = {
     elevation: 3
   },
 
-  buttonIcon: {
-    marginRight: DimensionHelper.wp("2%")
-  },
+  buttonIcon: { marginRight: DimensionHelper.wp("2%") },
 
   testButtonText: {
     fontSize: DimensionHelper.wp("4.2%"),

@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image
-} from "react-native";
+import { View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
@@ -22,7 +20,8 @@ function Login(_props: Props) {
       setIsLoading(true);
       ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
         setIsLoading(false);
-        if (data.errors?.length > 0) { Utils.snackBar(data.errors[0]); } else {
+        if (data.errors?.length > 0) Utils.snackBar(data.errors[0]);
+        else {
           const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0);
           AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
           setEmail("");

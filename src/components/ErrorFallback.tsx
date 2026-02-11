@@ -9,14 +9,5 @@ function ErrorFallback(props: any) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "stretch",
-    justifyContent: "center",
-    alignContent: "center",
-    paddingHorizontal: 12,
-  },
-});
+const styles = StyleSheet.create({ container: { flex: 1, flexDirection: "column", alignItems: "stretch", justifyContent: "center", alignContent: "center", paddingHorizontal: 12 } });
 export default ErrorFallback;

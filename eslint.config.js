@@ -1,142 +1,96 @@
-const { FlatCompat } = require('@eslint/eslintrc');
-const js = require('@eslint/js');
-const typescriptEslint = require('@typescript-eslint/eslint-plugin');
-const typescriptParser = require('@typescript-eslint/parser');
-const unusedImports = require('eslint-plugin-unused-imports');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
+const tseslint = require("@typescript-eslint/eslint-plugin");
+const tsParser = require("@typescript-eslint/parser");
+const unusedImports = require("eslint-plugin-unused-imports");
+const reactPlugin = require("eslint-plugin-react");
+const reactNativePlugin = require("eslint-plugin-react-native");
+const reactHooksPlugin = require("eslint-plugin-react-hooks");
 
 module.exports = [
+  { ignores: ["node_modules/", "dist/", "build/", ".next/", "coverage/", "*.config.js", ".expo/", "android/", "ios/"] },
   {
-    ignores: ['node_modules/**', 'dist/**', 'build/**', '.expo/**', 'android/**', 'ios/**'],
-  },
-  ...compat.extends('@react-native-community', 'eslint-config-expo'),
-  {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ["**/*.{ts,tsx,js,jsx}"],
     languageOptions: {
-      parser: typescriptParser,
+      parser: tsParser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true }
+      }
     },
     plugins: {
-      '@typescript-eslint': typescriptEslint,
-      'unused-imports': unusedImports,
+      "@typescript-eslint": tseslint,
+      "unused-imports": unusedImports,
+      "react": reactPlugin,
+      "react-native": reactNativePlugin,
+      "react-hooks": reactHooksPlugin
+    },
+    settings: {
+      react: { version: "detect" }
     },
     rules: {
-      // Disable all prettier rules
-      'prettier/prettier': 'off',
+      // --- Code quality ---
+      "prefer-const": "error",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", {
+        args: "all",
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_"
+      }],
+      "unused-imports/no-unused-imports": "error",
 
-      // Basic syntax preferences
-      'comma-dangle': 'off',
-      'radix': 0,
-      'eol-last': ['warn', 'always'],
-      'quote-props': ['error', 'as-needed'],
-      'quotes': [2, 'double', { avoidEscape: true }],
-      'no-trailing-spaces': 'warn',
-      'no-var': 'error',
-      'no-multiple-empty-lines': 'off',
-      'no-useless-escape': 0,
-      'jsx-quotes': ['warn', 'prefer-double'],
-      'semi': ['error', 'always'],
-      'comma-spacing': ['error', { before: false, after: true }],
+      // --- Formatting (ESLint is the sole formatter — no Prettier) ---
+      "no-trailing-spaces": "error",
+      "eol-last": ["error", "always"],
+      "quotes": ["error", "double", { avoidEscape: true, allowTemplateLiterals: true }],
+      "semi": ["error", "always"],
+      "comma-dangle": ["error", "never"],
+      "indent": ["warn", 2, { SwitchCase: 1 }],
+      "comma-spacing": ["error", { before: false, after: true }],
+      "key-spacing": ["error", { beforeColon: false, afterColon: true, mode: "strict" }],
+      "keyword-spacing": ["error", { before: true, after: true }],
+      "space-infix-ops": "error",
+      "no-multi-spaces": ["error", { ignoreEOLComments: true }],
+      "block-spacing": ["error", "always"],
 
-      // TypeScript specific
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      // --- Compact / single-line formatting ---
+      "brace-style": ["error", "1tbs", { allowSingleLine: true }],
+      curly: ["error", "multi-line"],
+      "nonblock-statement-body-position": ["error", "beside"],
 
-      // Unused imports
-      'no-unused-vars': 'off',
-      'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': [
-        'warn',
-        {
-          vars: 'all',
-          varsIgnorePattern: '^_',
-          args: 'after-used',
-          argsIgnorePattern: '^_',
-          ignoreRestSiblings: true
-        }
-      ],
+      // Objects
+      "object-curly-spacing": ["error", "always"],
+      "object-curly-newline": ["error", {
+        ObjectExpression: { multiline: true },
+        ObjectPattern: { multiline: true },
+        ImportDeclaration: { multiline: true },
+        ExportDeclaration: { multiline: true }
+      }],
+      "object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
 
-      // React Native specific
-      'react-native/no-inline-styles': 0,
+      // Arrays
+      "array-bracket-spacing": ["error", "never"],
+      "array-bracket-newline": ["error", { multiline: true, minItems: 8 }],
+      "array-element-newline": ["error", { ArrayExpression: "consistent", ArrayPattern: { minItems: 8 } }],
 
-      // Indentation and spacing
-      'indent': ['warn', 2, { SwitchCase: 1 }],
-      'arrow-body-style': ['warn', 'as-needed'],
-      'react/jsx-tag-spacing': ['warn', { beforeSelfClosing: 'always', beforeClosing: 'never' }],
+      // Functions
+      "function-paren-newline": ["error", "consistent"],
+      "function-call-argument-newline": ["error", "consistent"],
 
-      // Line length - very permissive
-      'max-len': ['warn', {
-        code: 300,
+      // Generous line length
+      "max-len": ["warn", {
+        code: 250,
         ignoreStrings: true,
         ignoreTemplateLiterals: true,
         ignoreComments: true,
         ignoreUrls: true,
-        ignoreRegExpLiterals: true,
-        ignorePattern: '^import\\s.+\\sfrom\\s.+;$|^export\\s.+\\sfrom\\s.+;$'
+        ignoreRegExpLiterals: true
       }],
 
-      // Compact code formatting
-      'curly': ['error', 'multi-line'],
-      'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-      'nonblock-statement-body-position': ['error', 'beside'],
-
-      // Object and array formatting - prefer single line
-      'object-curly-spacing': ['error', 'always'],
-      'object-curly-newline': ['error', {
-        ObjectExpression: { multiline: true, minProperties: 8, consistent: true },
-        ObjectPattern: { multiline: true, minProperties: 8, consistent: true },
-        ImportDeclaration: { multiline: true, minProperties: 8, consistent: true },
-        ExportDeclaration: { multiline: true, minProperties: 8, consistent: true }
-      }],
-      'object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
-      'array-bracket-spacing': ['error', 'never'],
-      'array-bracket-newline': ['error', { multiline: true, minItems: 10 }],
-      'array-element-newline': ['error', { multiline: true, minItems: 10 }],
-
-      // Function formatting - prefer single line
-      'function-paren-newline': ['error', 'multiline-arguments'],
-      'function-call-argument-newline': ['error', 'consistent'],
-
-      // JSX formatting - prefer single line
-      'react/jsx-max-props-per-line': 'off',
-      'react/jsx-first-prop-new-line': 'off',
-      'react/jsx-closing-bracket-location': 'off',
-      'react/jsx-one-expression-per-line': 'off',
-      'react/jsx-wrap-multilines': 'off',
-      'react/jsx-props-no-multi-spaces': 'off',
-
-      // Operator positioning
-      'operator-linebreak': 'off',
-      'multiline-ternary': 'off',
-
-      // Block formatting
-      'block-spacing': ['error', 'always'],
-      'keyword-spacing': ['error', { before: true, after: true }],
-      'space-before-blocks': ['error', 'always'],
-
-      // Disable rules that force wrapping
-      'newline-per-chained-call': 'off',
-      'no-mixed-operators': 'off',
-      'wrap-regex': 'off',
-
-      // Disable problematic rules from @react-native-community
-      '@typescript-eslint/func-call-spacing': 'off',
-      '@typescript-eslint/no-shadow': 'off',
-      'react-native/no-unused-styles': 'off',
-      'react/display-name': 'off',
-      'react/react-in-jsx-scope': 'off',
-      'react-hooks/exhaustive-deps': 'off',
-      'import/namespace': 'off',
-    },
-  },
+      // --- React Native specific ---
+      "react-native/no-inline-styles": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/display-name": "off"
+    }
+  }
 ];

@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert
-} from "react-native";
+import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
@@ -91,14 +89,14 @@ const Header = (props: Props) => {
       NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
       eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
       eventEmitter.addListener("StatusUpdated", (event: any) => {
-        if (event.status.indexOf("ready") > -1) { CachedData.printer.ipAddress = "ready"; }
+        if (event.status.indexOf("ready") > -1) CachedData.printer.ipAddress = "ready";
         setStatus(event.status);
       });
     }
   };
 
   const getVersion = () => {
-    let pkg = require("../../package.json");
+    const pkg = require("../../package.json");
     return "v" + pkg.version;
   };
 
@@ -122,9 +120,8 @@ const Header = (props: Props) => {
   }, [landscape]);
 
   const getLogoUrl = () => {
-    if (CachedData.churchAppearance?.logoLight) {
-      return { uri: CachedData.churchAppearance?.logoLight };
-    } else { return require("../images/logo1.png"); }
+    if (CachedData.churchAppearance?.logoLight) return { uri: CachedData.churchAppearance?.logoLight };
+    else return require("../images/logo1.png");
   };
 
   if (props.prominentLogo) {

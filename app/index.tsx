@@ -223,9 +223,7 @@ const splashStyles = {
     color: StyleConstants.darkColor,
     marginBottom: DimensionHelper.wp("8%")
   },
-  loadingContainer: {
-    alignItems: "center"
-  },
+  loadingContainer: { alignItems: "center" },
   statusText: {
     fontSize: DimensionHelper.wp("3.5%"),
     fontFamily: StyleConstants.RobotoRegular,

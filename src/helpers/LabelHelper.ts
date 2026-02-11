@@ -41,7 +41,7 @@ export class LabelHelper {
     ];
     let pickupCode = "";
     for (let i = 0; i < 4; i++) {
-      let idx = Math.floor(Math.random() * characters.length);
+      const idx = Math.floor(Math.random() * characters.length);
       pickupCode += characters[idx];
     }
     return pickupCode;
@@ -55,7 +55,7 @@ export class LabelHelper {
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
     const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "");
     let isChild: boolean = false;
-    childVisits.forEach(cv => { if (cv.personId === person.id) { isChild = true; } });
+    childVisits.forEach(cv => { if (cv.personId === person.id) isChild = true; });
     let result = html.replace(/\[Name\]/g, person.name?.display || person.displayName || "");
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
@@ -66,8 +66,8 @@ export class LabelHelper {
 
 
   private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
-    let childList: string[] = [];
-    let allergiesList: string[] = [];
+    const childList: string[] = [];
+    const allergiesList: string[] = [];
     childVisits.forEach(cv => {
       const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", cv.personId || "");
       childList.push((person.name?.display || person.displayName || "Unknown") + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
@@ -75,8 +75,8 @@ export class LabelHelper {
     });
     let childBullets = "";
     let allergiesBullets = "";
-    childList.forEach(child => { childBullets += "<li>" + child + "</li>"; });
-    allergiesList.forEach(child => { allergiesBullets += "<li>" + child + "</li>"; });
+    childList.forEach(child => childBullets += "<li>" + child + "</li>");
+    allergiesList.forEach(child => allergiesBullets += "<li>" + child + "</li>");
     let result = html.replace(/\[Children\]/g, childBullets);
     result = result.replace(/\[PickupCode\]/g, pickupCode);
     result = result.replace(/\[Allergies\]/g, allergiesBullets);
@@ -114,7 +114,7 @@ export class LabelHelper {
       cv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime?.groups || [], "id", vs.session?.groupId || "");
-        if (group?.parentPickup) { shouldPrint = true; }
+        if (group?.parentPickup) shouldPrint = true;
       });
     });
     return shouldPrint;
@@ -122,22 +122,22 @@ export class LabelHelper {
 
   public static async getAllLabels() {
     try {
-    const pickupCode = LabelHelper.generatePickupCode();
-    const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
-    const labelTemplate = await this.readHtml("1_1x3_5.html");
-    const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
-    const result: string[] = [];
+      const pickupCode = LabelHelper.generatePickupCode();
+      const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
+      const labelTemplate = await this.readHtml("1_1x3_5.html");
+      const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
+      const result: string[] = [];
 
-    CachedData.pendingVisits.forEach(pv => {
-      if (pv.visitSessions && pv.visitSessions.length > 0 && this.shouldPrintNametag(pv)) {
-        result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
+      CachedData.pendingVisits.forEach(pv => {
+        if (pv.visitSessions && pv.visitSessions.length > 0 && this.shouldPrintNametag(pv)) {
+          result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
+        }
+      });
+
+      if (childVisits.length > 0 && this.shouldPrintPickup(childVisits)) {
+        result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
       }
-    });
-
-    if (childVisits.length > 0 && this.shouldPrintPickup(childVisits)) {
-      result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
-    }
-    return result;
+      return result;
     } catch (error) {
       console.error("Error getting labels:", error);
       return [];

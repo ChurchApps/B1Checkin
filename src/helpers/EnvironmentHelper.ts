@@ -1,9 +1,9 @@
 import { ApiHelper } from "./ApiHelper";
 
 
-let CONTENT_ROOT = "https://content.staging.churchapps.org";
-let MEMBERSHIP_API = "https://api.staging.churchapps.org/membership";
-let ATTENDANCE_API = "https://api.staging.churchapps.org/attendance";
+const CONTENT_ROOT = "https://content.staging.churchapps.org";
+const MEMBERSHIP_API = "https://api.staging.churchapps.org/membership";
+const ATTENDANCE_API = "https://api.staging.churchapps.org/attendance";
 
 export class EnvironmentHelper {
   private static MembershipApi = "";
@@ -14,7 +14,7 @@ export class EnvironmentHelper {
 
   static init = () => {
     // let stage = STAGE;
-    let stage = "prod";
+    const stage = "prod";
 
 
     //stage = "staging";
@@ -24,7 +24,7 @@ export class EnvironmentHelper {
       case "prod": EnvironmentHelper.initProd(); break;
       default: EnvironmentHelper.initDev(); break;
     }
-    ApiHelper.apiConfigs = [{ keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permissions: [] }, { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permissions: [] },];
+    ApiHelper.apiConfigs = [{ keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permissions: [] }, { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permissions: [] }];
   };
 
   static initDev = () => {

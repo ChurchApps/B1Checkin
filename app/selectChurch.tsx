@@ -1,7 +1,5 @@
 import * as React from "react";
-import {
-  Text, FlatList, ActivityIndicator, View, Image, TouchableOpacity
-} from "react-native";
+import { Text, FlatList, ActivityIndicator, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";

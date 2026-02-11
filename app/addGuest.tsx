@@ -42,16 +42,10 @@ const AddGuest = (props: Props) => {
     const fullName = firstname + " " + lastname;
     let person: PersonInterface | null = await searchForGuest(fullName);
     if (person === null) {
-      person = {
-        householdId: CachedData.householdId,
-        name: { display: fullName, first: firstName, last: lastName },
-        contactInfo: {}
-      };
+      person = { householdId: CachedData.householdId, name: { display: fullName, first: firstName, last: lastName }, contactInfo: {} };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
       console.log("data", data);
-      if (data && data.length > 0) {
-        person.id = data[0].id;
-      }
+      if (data && data.length > 0) person.id = data[0].id;
     }
     console.log("zzz", person);
     return person;
@@ -63,9 +57,9 @@ const AddGuest = (props: Props) => {
     console.log("sssss", fullName);
     const url = "/people/search?term=" + escape(fullName);
     console.log("ss", url);
-    let people: PersonInterface[] = await ApiHelper.get(url, "MembershipApi");
+    const people: PersonInterface[] = await ApiHelper.get(url, "MembershipApi");
     console.log("urllll", people);
-    people.forEach(p => { if (p.membershipStatus !== "Member") { result = p; } });
+    people.forEach(p => { if (p.membershipStatus !== "Member") result = p; });
     console.log("reuslt", result);
     return (result === undefined) ? null : result;
   };
@@ -175,9 +169,7 @@ const addGuestStyles = {
     backgroundColor: StyleConstants.ghostWhite
   },
 
-  scrollView: {
-    flex: 1
-  },
+  scrollView: { flex: 1 },
 
   scrollContent: {
     paddingHorizontal: DimensionHelper.wp("5%"),
@@ -201,9 +193,7 @@ const addGuestStyles = {
   },
 
   // Input Groups
-  inputGroup: {
-    marginBottom: DimensionHelper.wp("5%")
-  },
+  inputGroup: { marginBottom: DimensionHelper.wp("5%") },
 
   labelContainer: {
     flexDirection: "row",
@@ -211,9 +201,7 @@ const addGuestStyles = {
     marginBottom: DimensionHelper.wp("2%")
   },
 
-  labelIcon: {
-    marginRight: DimensionHelper.wp("2%")
-  },
+  labelIcon: { marginRight: DimensionHelper.wp("2%") },
 
   label: {
     fontSize: DimensionHelper.wp("4%"),
@@ -272,9 +260,7 @@ const addGuestStyles = {
     elevation: 3
   },
 
-  buttonIcon: {
-    marginRight: DimensionHelper.wp("2%")
-  },
+  buttonIcon: { marginRight: DimensionHelper.wp("2%") },
 
   cancelButtonText: {
     fontSize: DimensionHelper.wp("4.2%"),

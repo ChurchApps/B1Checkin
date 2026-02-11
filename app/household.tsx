@@ -93,9 +93,7 @@ const householdStyles = {
     paddingHorizontal: DimensionHelper.wp("5%")
   },
 
-  scrollContent: {
-    paddingBottom: DimensionHelper.wp("5%")
-  },
+  scrollContent: { paddingBottom: DimensionHelper.wp("5%") },
 
   // Add Guest Section
   addGuestSection: {

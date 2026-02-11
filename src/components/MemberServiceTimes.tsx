@@ -124,13 +124,9 @@ const serviceTimeStyles = {
     marginRight: DimensionHelper.wp("3%")
   },
 
-  timeIcon: {
-    color: StyleConstants.baseColor
-  },
+  timeIcon: { color: StyleConstants.baseColor },
 
-  serviceTimeTextContainer: {
-    flex: 1
-  },
+  serviceTimeTextContainer: { flex: 1 },
 
   serviceTimeText: {
     fontSize: DimensionHelper.wp("4%"),
@@ -154,9 +150,7 @@ const serviceTimeStyles = {
     shadowColor: StyleConstants.baseColor
   },
 
-  selectedButton: {
-    backgroundColor: StyleConstants.baseColor
-  },
+  selectedButton: { backgroundColor: StyleConstants.baseColor },
 
   unselectedButton: {
     backgroundColor: StyleConstants.whiteColor,
@@ -170,17 +164,11 @@ const serviceTimeStyles = {
     marginRight: DimensionHelper.wp("2%")
   },
 
-  selectedButtonText: {
-    color: StyleConstants.whiteColor
-  },
+  selectedButtonText: { color: StyleConstants.whiteColor },
 
-  unselectedButtonText: {
-    color: StyleConstants.baseColor
-  },
+  unselectedButtonText: { color: StyleConstants.baseColor },
 
-  buttonIcon: {
-    marginLeft: DimensionHelper.wp("1%")
-  },
+  buttonIcon: { marginLeft: DimensionHelper.wp("1%") },
 
   selectedButtonIcon: {
     color: StyleConstants.whiteColor,
