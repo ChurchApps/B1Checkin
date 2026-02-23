@@ -57,6 +57,7 @@
     "noMatchSubtitleName": "请尝试使用其他姓氏搜索",
     "noMatchTitle": "未找到匹配项",
     "phonePlaceholder": "输入手机号码后四位",
+    "qrGuest": "扫描以注册为访客",
     "readySubtitle": "输入电话号码以查找人员",
     "readyTitle": "准备搜索",
     "searchError": "无法完成搜索。请重试。",
