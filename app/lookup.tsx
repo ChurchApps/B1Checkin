@@ -9,6 +9,7 @@ import { EnvironmentHelper, screenNavigationProps, CachedData, StyleConstants } 
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
+import QRCode from "react-native-qrcode-svg";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -25,6 +26,7 @@ const Lookup = (props: Props) => {
   const [lastName, setLastName] = React.useState("");
   const [searchMode, setSearchMode] = React.useState<"phone" | "name">("phone");
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
+  const [showQR, setShowQR] = React.useState(false);
 
   const loadHouseholdMembers = async () => {
     CachedData.householdMembers = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
@@ -175,6 +177,11 @@ const Lookup = (props: Props) => {
       const dim = Dimensions.get("screen");
       setDimension(dim);
     });
+    if (CachedData.userChurch?.church?.id) {
+      ApiHelper.getAnonymous("/settings/public/" + CachedData.userChurch.church.id, "MembershipApi")
+        .then((settings: any) => { setShowQR(settings?.enableQRGuestRegistration === "true"); })
+        .catch(() => { setShowQR(false); });
+    }
   }, []);
 
   const wd = (number: string) => {
@@ -252,6 +259,21 @@ const Lookup = (props: Props) => {
             </View>
           )}
         </View>
+
+        {/* QR Guest Registration */}
+        {showQR && CachedData.userChurch?.church?.subDomain && (
+          <View style={lookupStyles.qrSection}>
+            <View style={lookupStyles.qrContainer}>
+              <QRCode
+                value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
+                size={DimensionHelper.wp("20%")}
+                backgroundColor={StyleConstants.whiteColor}
+                color={StyleConstants.baseColor}
+              />
+              <Text style={lookupStyles.qrLabel}>{t("lookup.qrGuest")}</Text>
+            </View>
+          </View>
+        )}
 
         {/* Results Section */}
         <View style={lookupStyles.resultsSection}>
@@ -464,6 +486,32 @@ const lookupStyles = StyleSheet.create({
     color: StyleConstants.lightGray,
     textAlign: "center",
     lineHeight: DimensionHelper.wp("5%")
+  },
+
+  // QR Guest Registration
+  qrSection: {
+    alignItems: "center",
+    marginBottom: DimensionHelper.wp("3%")
+  },
+
+  qrContainer: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 12,
+    padding: DimensionHelper.wp("3%"),
+    alignItems: "center",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+    shadowColor: StyleConstants.baseColor
+  },
+
+  qrLabel: {
+    fontSize: DimensionHelper.wp("3%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.baseColor,
+    marginTop: DimensionHelper.wp("2%"),
+    textAlign: "center"
   },
 
   // No Results State

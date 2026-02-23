@@ -62,7 +62,8 @@
     "searchError": "Unable to complete search. Please try again.",
     "searching": "Searching...",
     "subtitle": "Enter last four digits of mobile number",
-    "title": "Search by Phone Number"
+    "title": "Search by Phone Number",
+    "qrGuest": "Scan to register as a guest"
   },
   "members": {
     "error": "Error",

@@ -35,6 +35,7 @@ export interface LoginUserChurchInterface {
   church?: {
     id?: string;
     name?: string;
+    subDomain?: string;
   };
   apis?: { keyName: string, jwt: string, permissions: RolePermissionInterface[] }[];
 }
