@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Torna al Chiosco",
+    "changePin": "Cambia PIN Admin",
+    "changePrinter": "Cambia Stampante",
+    "changeService": "Cambia Servizio",
+    "pinChanged": "Il PIN è stato cambiato con successo",
+    "setPin": "Imposta PIN Admin",
+    "subtitle": "Gestisci le impostazioni del dispositivo chiosco",
+    "title": "Impostazioni Admin"
+  },
   "addGuest": {
     "addButton": "Aggiungi Ospite",
     "enterFirstName": "Inserisci il nome",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "Stampa"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} tentativi rimanenti",
+    "backspace": "Cancella",
+    "enterPin": "Inserisci il PIN Admin",
+    "tooManyAttempts": "Troppi tentativi falliti. Attendere.",
+    "wrongPin": "PIN errato. Riprovare."
+  },
   "printers": {
     "noPrinter": "Nessuna Stampante",
     "noPrinterSelected": "Nessuna stampante selezionata",
+    "saveAndContinue": "Salva e Continua",
     "saveRestart": "Salva e Riavvia",
     "scanning": "Ricerca stampanti...",
     "subtitle": "Scegli una stampante per stampare i cartellini e le etichette",
     "testPrint": "Stampa di Prova",
     "title": "Seleziona una Stampante"
+  },
+  "setPin": {
+    "confirmPin": "Conferma il tuo PIN",
+    "enterPin": "Inserisci un PIN",
+    "pinMismatch": "I PIN non corrispondono. Riprovare.",
+    "pinSet": "Il PIN è stato impostato con successo",
+    "pinTooShort": "Il PIN deve avere almeno 4 cifre",
+    "subtitle": "Crea un PIN di 4-6 cifre per proteggere le impostazioni admin",
+    "title": "Imposta PIN Admin"
   },
   "selectChurch": {
     "loading": "Caricamento chiese...",

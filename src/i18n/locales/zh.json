@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "返回自助终端",
+    "changePin": "更改管理员PIN",
+    "changePrinter": "更改打印机",
+    "changeService": "更改服务",
+    "pinChanged": "PIN已成功更改",
+    "setPin": "设置管理员PIN",
+    "subtitle": "管理自助终端设备设置",
+    "title": "管理员设置"
+  },
   "addGuest": {
     "addButton": "添加访客",
     "enterFirstName": "请输入名字",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "打印中"
   },
+  "pinEntry": {
+    "attemptsRemaining": "剩余{{count}}次尝试",
+    "backspace": "删除",
+    "enterPin": "输入管理员PIN",
+    "tooManyAttempts": "失败次数过多。请稍候。",
+    "wrongPin": "PIN错误。请重试。"
+  },
   "printers": {
     "noPrinter": "无打印机",
     "noPrinterSelected": "未选择打印机",
+    "saveAndContinue": "保存并继续",
     "saveRestart": "保存并重启",
     "scanning": "扫描打印机中...",
     "subtitle": "选择用于打印名牌和标签的打印机",
     "testPrint": "测试打印",
     "title": "选择打印机"
+  },
+  "setPin": {
+    "confirmPin": "确认您的PIN",
+    "enterPin": "输入PIN",
+    "pinMismatch": "PIN不匹配。请重试。",
+    "pinSet": "PIN已成功设置",
+    "pinTooShort": "PIN必须至少4位数字",
+    "subtitle": "创建4-6位PIN以保护管理员设置",
+    "title": "设置管理员PIN"
   },
   "selectChurch": {
     "loading": "加载教会中...",

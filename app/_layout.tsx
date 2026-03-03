@@ -64,6 +64,8 @@ function RootLayout() {
           <Stack.Screen name="addGuest" />
           <Stack.Screen name="checkinComplete" />
           <Stack.Screen name="printers" />
+          <Stack.Screen name="setPin" />
+          <Stack.Screen name="adminSettings" />
           <Stack.Screen name="privacyPolicy" />
           <Stack.Screen name="+not-found" />
         </Stack>

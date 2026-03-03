@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Voltar ao Quiosque",
+    "changePin": "Alterar PIN de Admin",
+    "changePrinter": "Alterar Impressora",
+    "changeService": "Alterar Culto",
+    "pinChanged": "O PIN foi alterado com sucesso",
+    "setPin": "Definir PIN de Admin",
+    "subtitle": "Gerencie as configurações do dispositivo quiosque",
+    "title": "Configurações de Admin"
+  },
   "addGuest": {
     "addButton": "Adicionar Visitante",
     "enterFirstName": "Por favor, insira o primeiro nome",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "Imprimindo"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} tentativas restantes",
+    "backspace": "Apagar",
+    "enterPin": "Digite o PIN de Admin",
+    "tooManyAttempts": "Muitas tentativas falhadas. Aguarde.",
+    "wrongPin": "PIN incorreto. Tente novamente."
+  },
   "printers": {
     "noPrinter": "Sem Impressora",
     "noPrinterSelected": "Nenhuma impressora selecionada",
+    "saveAndContinue": "Salvar e Continuar",
     "saveRestart": "Salvar e Reiniciar",
     "scanning": "Procurando impressoras...",
     "subtitle": "Escolha uma impressora para imprimir etiquetas e crachás",
     "testPrint": "Impressão de Teste",
     "title": "Selecione uma Impressora"
+  },
+  "setPin": {
+    "confirmPin": "Confirme seu PIN",
+    "enterPin": "Digite um PIN",
+    "pinMismatch": "Os PINs não coincidem. Tente novamente.",
+    "pinSet": "O PIN foi definido com sucesso",
+    "pinTooShort": "O PIN deve ter pelo menos 4 dígitos",
+    "subtitle": "Crie um PIN de 4-6 dígitos para proteger as configurações de admin",
+    "title": "Definir PIN de Admin"
   },
   "selectChurch": {
     "loading": "Carregando igrejas...",

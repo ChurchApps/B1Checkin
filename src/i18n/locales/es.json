@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Volver al Kiosco",
+    "changePin": "Cambiar PIN de Admin",
+    "changePrinter": "Cambiar Impresora",
+    "changeService": "Cambiar Servicio",
+    "pinChanged": "El PIN ha sido cambiado exitosamente",
+    "setPin": "Establecer PIN de Admin",
+    "subtitle": "Administre la configuración del dispositivo kiosco",
+    "title": "Configuración de Admin"
+  },
   "addGuest": {
     "addButton": "Agregar Invitado",
     "enterFirstName": "Por favor ingrese el nombre",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "Imprimiendo"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} intentos restantes",
+    "backspace": "Borrar",
+    "enterPin": "Ingrese el PIN de Admin",
+    "tooManyAttempts": "Demasiados intentos fallidos. Por favor espere.",
+    "wrongPin": "PIN incorrecto. Por favor intente de nuevo."
+  },
   "printers": {
     "noPrinter": "Sin Impresora",
     "noPrinterSelected": "No se ha seleccionado ninguna impresora",
+    "saveAndContinue": "Guardar y Continuar",
     "saveRestart": "Guardar y Reiniciar",
     "scanning": "Buscando impresoras...",
     "subtitle": "Elija una impresora para imprimir etiquetas de nombre",
     "testPrint": "Impresión de Prueba",
     "title": "Seleccione una Impresora"
+  },
+  "setPin": {
+    "confirmPin": "Confirme su PIN",
+    "enterPin": "Ingrese un PIN",
+    "pinMismatch": "Los PINs no coinciden. Por favor intente de nuevo.",
+    "pinSet": "El PIN ha sido establecido exitosamente",
+    "pinTooShort": "El PIN debe tener al menos 4 dígitos",
+    "subtitle": "Cree un PIN de 4-6 dígitos para proteger la configuración de admin",
+    "title": "Establecer PIN de Admin"
   },
   "selectChurch": {
     "loading": "Cargando iglesias...",

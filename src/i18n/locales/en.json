@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Back to Kiosk",
+    "changePin": "Change Admin PIN",
+    "changePrinter": "Change Printer",
+    "changeService": "Change Service",
+    "pinChanged": "PIN has been changed successfully",
+    "setPin": "Set Admin PIN",
+    "subtitle": "Manage your kiosk device settings",
+    "title": "Admin Settings"
+  },
   "addGuest": {
     "addButton": "Add Guest",
     "enterFirstName": "Please enter first name",
@@ -29,7 +39,11 @@
   },
   "household": {
     "addGuest": "Add a Guest",
+    "alreadyCheckedIn": "Already checked in",
     "checkin": "CHECK IN",
+    "duplicateConfirm": "Check In Again",
+    "duplicateMessage": "{{names}} already checked in for this service. Check in again to update their groups.",
+    "duplicateTitle": "Already Checked In",
     "subtitle": "Choose who is checking in today",
     "title": "Select Household Members"
   },
@@ -73,14 +87,31 @@
   "print": {
     "printing": "Printing"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} attempts remaining",
+    "backspace": "Delete",
+    "enterPin": "Enter Admin PIN",
+    "tooManyAttempts": "Too many failed attempts. Please wait.",
+    "wrongPin": "Incorrect PIN. Please try again."
+  },
   "printers": {
     "noPrinter": "No Printer",
     "noPrinterSelected": "No printer selected",
+    "saveAndContinue": "Save & Continue",
     "saveRestart": "Save & Restart",
     "scanning": "Scanning for printers...",
     "subtitle": "Choose a printer for printing name tags and labels",
     "testPrint": "Test Print",
     "title": "Select a Printer"
+  },
+  "setPin": {
+    "confirmPin": "Confirm your PIN",
+    "enterPin": "Enter a PIN",
+    "pinMismatch": "PINs do not match. Please try again.",
+    "pinSet": "PIN has been set successfully",
+    "pinTooShort": "PIN must be at least 4 digits",
+    "subtitle": "Create a 4-6 digit PIN to protect admin settings",
+    "title": "Set Admin PIN"
   },
   "selectChurch": {
     "loading": "Loading churches...",

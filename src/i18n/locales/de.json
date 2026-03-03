@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Zurück zum Kiosk",
+    "changePin": "Admin-PIN ändern",
+    "changePrinter": "Drucker ändern",
+    "changeService": "Gottesdienst ändern",
+    "pinChanged": "PIN wurde erfolgreich geändert",
+    "setPin": "Admin-PIN festlegen",
+    "subtitle": "Verwalten Sie die Kioskgeräte-Einstellungen",
+    "title": "Admin-Einstellungen"
+  },
   "addGuest": {
     "addButton": "Gast hinzufügen",
     "enterFirstName": "Bitte geben Sie den Vornamen ein",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "Wird gedruckt"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} Versuche übrig",
+    "backspace": "Löschen",
+    "enterPin": "Admin-PIN eingeben",
+    "tooManyAttempts": "Zu viele Fehlversuche. Bitte warten.",
+    "wrongPin": "Falscher PIN. Bitte erneut versuchen."
+  },
   "printers": {
     "noPrinter": "Kein Drucker",
     "noPrinterSelected": "Kein Drucker ausgewählt",
+    "saveAndContinue": "Speichern & Weiter",
     "saveRestart": "Speichern & Neu starten",
     "scanning": "Suche nach Druckern...",
     "subtitle": "Wählen Sie einen Drucker zum Drucken von Namensschildern und Etiketten",
     "testPrint": "Testdruck",
     "title": "Drucker auswählen"
+  },
+  "setPin": {
+    "confirmPin": "Bestätigen Sie Ihren PIN",
+    "enterPin": "PIN eingeben",
+    "pinMismatch": "PINs stimmen nicht überein. Bitte erneut versuchen.",
+    "pinSet": "PIN wurde erfolgreich festgelegt",
+    "pinTooShort": "PIN muss mindestens 4 Ziffern haben",
+    "subtitle": "Erstellen Sie einen 4-6-stelligen PIN zum Schutz der Admin-Einstellungen",
+    "title": "Admin-PIN festlegen"
   },
   "selectChurch": {
     "loading": "Lade Gemeinden...",

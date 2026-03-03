@@ -1,6 +1,6 @@
 
 import React, { useCallback } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import MemberList from "../src/components/MemberList";
-import { screenNavigationProps, CachedData, StyleConstants, DimensionHelper } from "../src/helpers";
+import { screenNavigationProps, CachedData, VisitHelper, StyleConstants, DimensionHelper } from "../src/helpers";
 import { FirebaseHelper, VisitInterface } from "../src/helpers";
 import { router, useFocusEffect } from "expo-router";
 import { ScreenList } from "../src/screenList";
@@ -31,7 +31,31 @@ const Household = (props: Props) => {
       setPendingVisits([...CachedData.pendingVisits]);
     }, [])
   );
-  const checkin = () => { router.navigate("/checkinComplete"); };
+  const checkin = () => {
+    const alreadyCheckedInNames: string[] = [];
+    CachedData.pendingVisits.forEach(pv => {
+      if (pv.visitSessions && pv.visitSessions.length > 0) {
+        const existingVisit = VisitHelper.getByPersonId(CachedData.existingVisits, pv.personId || "");
+        if (existingVisit && existingVisit.id) {
+          const person = CachedData.householdMembers.find(m => m.id === pv.personId);
+          if (person) alreadyCheckedInNames.push(person.name?.display || person.displayName || t("members.unknown"));
+        }
+      }
+    });
+
+    if (alreadyCheckedInNames.length > 0) {
+      Alert.alert(
+        t("household.duplicateTitle"),
+        t("household.duplicateMessage", { names: alreadyCheckedInNames.join(", ") }),
+        [
+          { text: t("common.cancel"), style: "cancel" },
+          { text: t("household.duplicateConfirm"), onPress: () => { router.navigate("/checkinComplete"); } }
+        ]
+      );
+    } else {
+      router.navigate("/checkinComplete");
+    }
+  };
   const addGuest = () => { router.navigate("/addGuest"); };
 
 

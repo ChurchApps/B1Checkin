@@ -102,7 +102,7 @@ export default function Splash() {
   const checkStoredCredentials = async () => {
     try {
       // Check if user has stored credentials and saved printer
-      const [email, password, selectedChurchId, churchAppearance, savedPrinter] = await AsyncStorage.multiGet(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer"]);
+      const [email, password, selectedChurchId, churchAppearance, savedPrinter, kioskPin, kioskLocked] = await AsyncStorage.multiGet(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked"]);
 
       // Load saved printer if available
       if (savedPrinter[1]) {
@@ -112,6 +112,14 @@ export default function Splash() {
         } catch (error) {
           console.error("Error parsing saved printer:", error);
         }
+      }
+
+      // Load kiosk PIN state
+      if (kioskPin[1]) {
+        CachedData.kioskPin = kioskPin[1];
+      }
+      if (kioskLocked[1] === "true") {
+        CachedData.kioskLocked = true;
       }
 
       if (email[1] && password[1]) {

@@ -15,6 +15,11 @@ const MemberList = (props: Props) => {
 
   const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); };
 
+  const isCheckedIn = (personId: string): boolean => {
+    const visit = VisitHelper.getByPersonId(CachedData.existingVisits, personId);
+    return visit !== null && visit !== undefined && visit.id !== null && visit.id !== undefined;
+  };
+
   const getCondensedGroupList = (person: PersonInterface) => {
     if (selectedMemberId === person.id) return <></>;
 
@@ -92,6 +97,12 @@ const MemberList = (props: Props) => {
             {getPhotoElement()}
             <View style={memberListStyles.memberInfo}>
               <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || t("members.unknown")}</Text>
+              {isCheckedIn(person.id || "") && (
+                <View style={memberListStyles.checkedInBadge}>
+                  <FontAwesome name="check-circle" size={DimensionHelper.wp("3%")} color={StyleConstants.greenColor} style={memberListStyles.checkedInIcon} />
+                  <Text style={memberListStyles.checkedInText}>{t("household.alreadyCheckedIn")}</Text>
+                </View>
+              )}
               {person.nametagNotes ? (
                 <View style={memberListStyles.noteBadge}>
                   <FontAwesome name="exclamation-triangle" size={DimensionHelper.wp("3%")} color={StyleConstants.yellowColor} style={memberListStyles.noteIcon} />
@@ -227,6 +238,27 @@ const memberListStyles = {
   expandIcon: {
     color: StyleConstants.baseColor,
     opacity: 0.7
+  },
+
+  checkedInBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: StyleConstants.greenColor + "20",
+    borderRadius: 6,
+    paddingHorizontal: DimensionHelper.wp("2%"),
+    paddingVertical: DimensionHelper.wp("0.8%"),
+    marginBottom: DimensionHelper.wp("1%"),
+    alignSelf: "flex-start"
+  },
+
+  checkedInIcon: {
+    marginRight: DimensionHelper.wp("1.5%")
+  },
+
+  checkedInText: {
+    fontSize: DimensionHelper.wp("2.8%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.greenColor
   },
 
   noteBadge: {

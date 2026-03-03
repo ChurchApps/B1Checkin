@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Tilbake til kiosken",
+    "changePin": "Endre admin-PIN",
+    "changePrinter": "Endre skriver",
+    "changeService": "Endre gudstjeneste",
+    "pinChanged": "PIN er endret",
+    "setPin": "Sett admin-PIN",
+    "subtitle": "Administrer innstillingene for kioskenheten",
+    "title": "Admin-innstillinger"
+  },
   "addGuest": {
     "addButton": "Legg til gjest",
     "enterFirstName": "Vennligst oppgi fornavn",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "Skriver ut"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} forsøk igjen",
+    "backspace": "Slett",
+    "enterPin": "Skriv inn admin-PIN",
+    "tooManyAttempts": "For mange mislykkede forsøk. Vennligst vent.",
+    "wrongPin": "Feil PIN. Prøv igjen."
+  },
   "printers": {
     "noPrinter": "Ingen skriver",
     "noPrinterSelected": "Ingen skriver valgt",
+    "saveAndContinue": "Lagre og fortsett",
     "saveRestart": "Lagre og start på nytt",
     "scanning": "Søker etter skrivere...",
     "subtitle": "Velg en skriver for utskrift av navnelapper og etiketter",
     "testPrint": "Testutskrift",
     "title": "Velg en skriver"
+  },
+  "setPin": {
+    "confirmPin": "Bekreft din PIN",
+    "enterPin": "Skriv inn en PIN",
+    "pinMismatch": "PIN-kodene stemmer ikke. Prøv igjen.",
+    "pinSet": "PIN er satt",
+    "pinTooShort": "PIN må ha minst 4 sifre",
+    "subtitle": "Opprett en 4-6-sifret PIN for å beskytte admin-innstillingene",
+    "title": "Sett admin-PIN"
   },
   "selectChurch": {
     "loading": "Laster kirker...",

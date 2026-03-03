@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "कियोस्क पर वापस जाएं",
+    "changePin": "एडमिन PIN बदलें",
+    "changePrinter": "प्रिंटर बदलें",
+    "changeService": "सेवा बदलें",
+    "pinChanged": "PIN सफलतापूर्वक बदल दिया गया है",
+    "setPin": "एडमिन PIN सेट करें",
+    "subtitle": "अपने कियोस्क डिवाइस की सेटिंग्स प्रबंधित करें",
+    "title": "एडमिन सेटिंग्स"
+  },
   "addGuest": {
     "addButton": "अतिथि जोड़ें",
     "enterFirstName": "कृपया पहला नाम दर्ज करें",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "प्रिंटिंग"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} प्रयास शेष",
+    "backspace": "मिटाएं",
+    "enterPin": "एडमिन PIN दर्ज करें",
+    "tooManyAttempts": "बहुत अधिक विफल प्रयास। कृपया प्रतीक्षा करें।",
+    "wrongPin": "गलत PIN। कृपया पुनः प्रयास करें।"
+  },
   "printers": {
     "noPrinter": "कोई प्रिंटर नहीं",
     "noPrinterSelected": "कोई प्रिंटर चयनित नहीं",
+    "saveAndContinue": "सहेजें और जारी रखें",
     "saveRestart": "सहेजें और पुनः आरंभ करें",
     "scanning": "प्रिंटर स्कैन हो रहे हैं...",
     "subtitle": "नाम टैग और लेबल प्रिंट करने के लिए एक प्रिंटर चुनें",
     "testPrint": "टेस्ट प्रिंट",
     "title": "एक प्रिंटर चुनें"
+  },
+  "setPin": {
+    "confirmPin": "अपना PIN पुष्टि करें",
+    "enterPin": "एक PIN दर्ज करें",
+    "pinMismatch": "PINs मेल नहीं खाते। कृपया पुनः प्रयास करें।",
+    "pinSet": "PIN सफलतापूर्वक सेट किया गया है",
+    "pinTooShort": "PIN कम से कम 4 अंकों का होना चाहिए",
+    "subtitle": "एडमिन सेटिंग्स की सुरक्षा के लिए 4-6 अंकों का PIN बनाएं",
+    "title": "एडमिन PIN सेट करें"
   },
   "selectChurch": {
     "loading": "चर्च लोड हो रहे हैं...",

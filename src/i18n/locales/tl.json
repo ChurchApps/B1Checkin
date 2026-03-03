@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Bumalik sa Kiosk",
+    "changePin": "Baguhin ang Admin PIN",
+    "changePrinter": "Baguhin ang Printer",
+    "changeService": "Baguhin ang Serbisyo",
+    "pinChanged": "Matagumpay na nabago ang PIN",
+    "setPin": "Itakda ang Admin PIN",
+    "subtitle": "Pamahalaan ang mga setting ng kiosk device",
+    "title": "Mga Setting ng Admin"
+  },
   "addGuest": {
     "addButton": "Magdagdag ng Bisita",
     "enterFirstName": "Pakiusap na ilagay ang pangalan",
@@ -73,14 +83,31 @@
   "print": {
     "printing": "Nag-i-print"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} pagkakataon na lang",
+    "backspace": "Burahin",
+    "enterPin": "Ilagay ang Admin PIN",
+    "tooManyAttempts": "Masyadong maraming nabigong pagsubok. Maghintay.",
+    "wrongPin": "Maling PIN. Subukan muli."
+  },
   "printers": {
     "noPrinter": "Walang Printer",
     "noPrinterSelected": "Walang napiling printer",
+    "saveAndContinue": "I-save at Magpatuloy",
     "saveRestart": "I-save at I-restart",
     "scanning": "Nagha-scan ng mga printer...",
     "subtitle": "Pumili ng printer para sa pag-print ng mga name tag at label",
     "testPrint": "Test Print",
     "title": "Pumili ng Printer"
+  },
+  "setPin": {
+    "confirmPin": "Kumpirmahin ang iyong PIN",
+    "enterPin": "Maglagay ng PIN",
+    "pinMismatch": "Hindi magkatugma ang mga PIN. Subukan muli.",
+    "pinSet": "Matagumpay na naitakda ang PIN",
+    "pinTooShort": "Ang PIN ay dapat hindi bababa sa 4 na numero",
+    "subtitle": "Gumawa ng 4-6 na digit na PIN upang protektahan ang mga admin setting",
+    "title": "Itakda ang Admin PIN"
   },
   "selectChurch": {
     "loading": "Nilo-load ang mga simbahan...",

@@ -17,5 +17,8 @@ export class CachedData {
   static churchAppearance: AppearanceInterface | null = null;
 
   static printer: AvailablePrinter = { model: "none", ipAddress: "" };
+
+  static kioskPin: string = "";
+  static kioskLocked: boolean = false;
 }
 

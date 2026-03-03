@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
+import PinEntryModal from "./PinEntryModal";
 
 interface Props {
   navigation: screenNavigationProps,
@@ -22,12 +23,28 @@ const Header = (props: Props) => {
   const [landscape, setLandscape] = React.useState(false);
   const [logoTapCount, setLogoTapCount] = React.useState(0);
   const logoTapTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [showPinModal, setShowPinModal] = React.useState(false);
+  const pendingAdminAction = React.useRef<"settings" | "printers">("settings");
 
   let eventEmitter: NativeEventEmitter;
 
   const handleClick = () => {
-    router.navigate("/printers");
-    // props.navigation?.navigate("/printers");
+    if (CachedData.kioskLocked && CachedData.kioskPin) {
+      pendingAdminAction.current = "printers";
+      setShowPinModal(true);
+    } else {
+      router.navigate("/printers");
+    }
+  };
+
+  const handlePinSuccess = () => {
+    setShowPinModal(false);
+    if (pendingAdminAction.current === "printers") {
+      router.navigate("/printers");
+    } else {
+      router.navigate("/adminSettings");
+    }
+    pendingAdminAction.current = "settings";
   };
 
   const handleLogoTap = () => {
@@ -41,34 +58,16 @@ const Header = (props: Props) => {
     setLogoTapCount(newTapCount);
 
     if (newTapCount >= 7) {
-      // Show logout confirmation after 7 taps
-      Alert.alert(
-        t("header.secretMenuTitle"),
-        t("header.logoutConfirm"),
-        [
-          {
-            text: t("common.cancel"),
-            style: "cancel",
-            onPress: () => setLogoTapCount(0)
-          },
-          {
-            text: t("common.logout"),
-            onPress: async () => {
-              // Clear stored credentials and church selection
-              await AsyncStorage.multiRemove(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@UserChurches", "@Login"]);
-
-              // Clear cached data
-              CachedData.userChurch = null;
-              CachedData.churchAppearance = null;
-
-              // Navigate to login screen
-              router.replace("/login");
-            },
-            style: "destructive"
-          }
-        ]
-      );
       setLogoTapCount(0);
+
+      if (CachedData.kioskLocked && CachedData.kioskPin) {
+        // PIN is set — require PIN to access admin settings
+        pendingAdminAction.current = "settings";
+        setShowPinModal(true);
+      } else {
+        // No PIN set — go directly to admin settings
+        router.navigate("/adminSettings");
+      }
     } else {
       // Reset tap count after 2 seconds of no taps
       logoTapTimeoutRef.current = setTimeout(() => {
@@ -142,6 +141,12 @@ const Header = (props: Props) => {
           </Ripple>
         </View>
 
+        <PinEntryModal
+          visible={showPinModal}
+          mode="verify"
+          onSuccess={handlePinSuccess}
+          onCancel={() => setShowPinModal(false)}
+        />
       </View>
     );
   }
@@ -157,6 +162,12 @@ const Header = (props: Props) => {
           <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
         </Ripple>
       )}
+      <PinEntryModal
+        visible={showPinModal}
+        mode="verify"
+        onSuccess={handlePinSuccess}
+        onCancel={() => setShowPinModal(false)}
+      />
     </View>
   );
 };
