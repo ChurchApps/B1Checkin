@@ -72,6 +72,14 @@ const MemberServiceTimes = (props: Props) => {
 
   const result: any[] = [];
   if (props.selectedMemberId === props.person.id) {
+    if (props.person.nametagNotes) {
+      result.push(
+        <View key="noteAlert" style={serviceTimeStyles.noteAlert}>
+          <FontAwesome name="exclamation-triangle" size={DimensionHelper.wp("4%")} color={StyleConstants.yellowColor} style={serviceTimeStyles.noteAlertIcon} />
+          <Text style={serviceTimeStyles.noteAlertText}>{props.person.nametagNotes}</Text>
+        </View>
+      );
+    }
     const visit = VisitHelper.getByPersonId(props.pendingVisits, props.person.id || "");
     const visitSessions = visit?.visitSessions || [];
     if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
@@ -178,6 +186,28 @@ const serviceTimeStyles = {
   unselectedButtonIcon: {
     color: StyleConstants.baseColor,
     opacity: 0.6
+  },
+
+  noteAlert: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: StyleConstants.yellowColor + "20",
+    borderRadius: 8,
+    padding: DimensionHelper.wp("3%"),
+    marginVertical: DimensionHelper.wp("1%"),
+    borderLeftWidth: 3,
+    borderLeftColor: StyleConstants.yellowColor
+  },
+
+  noteAlertIcon: {
+    marginRight: DimensionHelper.wp("2%")
+  },
+
+  noteAlertText: {
+    fontSize: DimensionHelper.wp("3.5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor,
+    flex: 1
   }
 };
 

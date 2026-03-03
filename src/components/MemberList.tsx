@@ -92,6 +92,12 @@ const MemberList = (props: Props) => {
             {getPhotoElement()}
             <View style={memberListStyles.memberInfo}>
               <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || t("members.unknown")}</Text>
+              {person.nametagNotes ? (
+                <View style={memberListStyles.noteBadge}>
+                  <FontAwesome name="exclamation-triangle" size={DimensionHelper.wp("3%")} color={StyleConstants.yellowColor} style={memberListStyles.noteIcon} />
+                  <Text style={memberListStyles.noteText} numberOfLines={1}>{person.nametagNotes}</Text>
+                </View>
+              ) : null}
               {getCondensedGroupList(person)}
             </View>
             <View style={memberListStyles.expandIconContainer}>
@@ -221,6 +227,29 @@ const memberListStyles = {
   expandIcon: {
     color: StyleConstants.baseColor,
     opacity: 0.7
+  },
+
+  noteBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: StyleConstants.yellowColor + "20",
+    borderRadius: 6,
+    paddingHorizontal: DimensionHelper.wp("2%"),
+    paddingVertical: DimensionHelper.wp("1%"),
+    marginBottom: DimensionHelper.wp("1%"),
+    borderWidth: 1,
+    borderColor: StyleConstants.yellowColor + "60",
+    alignSelf: "flex-start"
+  },
+
+  noteIcon: {
+    marginRight: DimensionHelper.wp("1.5%")
+  },
+
+  noteText: {
+    fontSize: DimensionHelper.wp("3.2%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor
   }
 };
 
