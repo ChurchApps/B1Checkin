@@ -9,7 +9,6 @@ import Subheader from "../src/components/Subheader";
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
-
 interface Props { navigation: screenNavigationProps }
 
 const AddGuest = (props: Props) => {

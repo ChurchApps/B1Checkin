@@ -5,8 +5,8 @@ export class ApiHelper {
 
   static apiConfigs: ApiConfig[] = [];
   static isAuthenticated = false;
-  static onRequest: (url:string, requestOptions:any) => void;
-  static onError: (url:string, requestOptions:any, error: any) => void;
+  static onRequest: (url: string, requestOptions: any) => void;
+  static onError: (url: string, requestOptions: any, error: any) => void;
 
   static getConfig(keyName: string): ApiConfig | null {
     let result: ApiConfig | null = null;

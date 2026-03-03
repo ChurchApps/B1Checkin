@@ -75,7 +75,6 @@ const CheckinComplete = (props: Props) => {
       });
   };
 
-
   const getLabelView = () => {
     if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />);
     else return <></>;

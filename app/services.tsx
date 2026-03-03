@@ -67,7 +67,6 @@ const Services = (props: Props) => {
         }
         console.log(JSON.stringify(CachedData.serviceTimes));
 
-
         router.navigate("/lookup");
         setIsLoading(false);
       })
@@ -219,6 +218,5 @@ const serviceStyles = {
     textAlign: "center"
   }
 };
-
 
 export default Services;

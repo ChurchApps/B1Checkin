@@ -65,7 +65,6 @@ const PrintUI = (props: Props) => {
 
   const loadNextLabel = () => { setHtml(props.htmlLabels[printIndex]); };
 
-
   return (
     <>
       <Text style={Styles.H1}>{t("print.printing")}</Text>

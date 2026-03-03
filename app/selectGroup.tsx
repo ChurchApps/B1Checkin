@@ -9,7 +9,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { DimensionHelper, FirebaseHelper, GroupInterface } from "../src/helpers";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
-
 // type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
 // interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 interface GroupCategoryInterface { key: number, name: string, items: GroupInterface[] }
@@ -29,12 +28,7 @@ const SelectGroup = (props: any) => {
     let category = "";
     const gt: GroupCategoryInterface[] = [];
 
-
-
     const sortedGroups = [...(serviceTimes?.groups || [])].sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
-
-
-
 
     sortedGroups?.forEach(g => {
       if (g.categoryName !== category) gt.push({ key: gt.length, name: g.categoryName || "", items: [] });

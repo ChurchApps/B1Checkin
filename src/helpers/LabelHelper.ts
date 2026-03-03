@@ -64,7 +64,6 @@ export class LabelHelper {
     return result;
   }
 
-
   private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
     const childList: string[] = [];
     const allergiesList: string[] = [];
@@ -82,7 +81,6 @@ export class LabelHelper {
     result = result.replace(/\[Allergies\]/g, allergiesBullets);
     return result;
   }
-
 
   private static getChildVisits() {
     const result: VisitInterface[] = [];
@@ -144,5 +142,3 @@ export class LabelHelper {
     }
   }
 }
-
-

@@ -1,6 +1,5 @@
 import { ApiHelper } from "./ApiHelper";
 
-
 const CONTENT_ROOT = "https://content.staging.churchapps.org";
 const MEMBERSHIP_API = "https://api.staging.churchapps.org/membership";
 const ATTENDANCE_API = "https://api.staging.churchapps.org/attendance";
@@ -11,11 +10,9 @@ export class EnvironmentHelper {
 
   static ContentRoot = "";
 
-
   static init = () => {
     // let stage = STAGE;
     const stage = "prod";
-
 
     //stage = "staging";
 
@@ -34,8 +31,6 @@ export class EnvironmentHelper {
     EnvironmentHelper.ContentRoot = CONTENT_ROOT || EnvironmentHelper.ContentRoot;
   };
 
-
-
   //NOTE: None of these values are secret.
   static initStaging = () => {
     EnvironmentHelper.MembershipApi = "https://api.staging.churchapps.org/membership";
@@ -50,5 +45,3 @@ export class EnvironmentHelper {
     EnvironmentHelper.ContentRoot = "https://content.churchapps.org";
   };
 }
-
-

@@ -16,7 +16,6 @@ export class CachedData {
 
   static churchAppearance: AppearanceInterface | null = null;
 
-
   static printer: AvailablePrinter = { model: "none", ipAddress: "" };
 }
 

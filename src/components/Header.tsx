@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
 
-
 interface Props {
   navigation: screenNavigationProps,
   logo?: boolean,
@@ -14,7 +13,6 @@ interface Props {
   title?: string,
   subtitle?: string
 }
-
 
 const Header = (props: Props) => {
   const { t } = useTranslation();

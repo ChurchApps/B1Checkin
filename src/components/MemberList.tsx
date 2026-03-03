@@ -48,8 +48,6 @@ const MemberList = (props: Props) => {
     return (<View style={memberListStyles.groupContainer}>{groups}</View>);
   };
 
-
-
   React.useEffect(() => {
     Dimensions.addEventListener("change", () => {
       const dim = Dimensions.get("screen");

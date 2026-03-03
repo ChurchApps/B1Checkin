@@ -1,3 +1,4 @@
+const js = require("@eslint/js");
 const tseslint = require("@typescript-eslint/eslint-plugin");
 const tsParser = require("@typescript-eslint/parser");
 const unusedImports = require("eslint-plugin-unused-imports");
@@ -7,14 +8,15 @@ const reactHooksPlugin = require("eslint-plugin-react-hooks");
 
 module.exports = [
   { ignores: ["node_modules/", "dist/", "build/", ".next/", "coverage/", "*.config.js", ".expo/", "android/", "ios/"] },
+  js.configs.recommended,
   {
-    files: ["**/*.{ts,tsx,js,jsx}"],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
+        ecmaFeatures: { jsx: true },
         ecmaVersion: "latest",
-        sourceType: "module",
-        ecmaFeatures: { jsx: true }
+        sourceType: "module"
       }
     },
     plugins: {
@@ -31,11 +33,7 @@ module.exports = [
       // --- Code quality ---
       "prefer-const": "error",
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", {
-        args: "all",
-        argsIgnorePattern: "^_",
-        varsIgnorePattern: "^_"
-      }],
+      "@typescript-eslint/no-unused-vars": ["warn", { args: "all", argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "unused-imports/no-unused-imports": "error",
 
       // --- Formatting (ESLint is the sole formatter — no Prettier) ---
@@ -54,17 +52,12 @@ module.exports = [
 
       // --- Compact / single-line formatting ---
       "brace-style": ["error", "1tbs", { allowSingleLine: true }],
-      curly: ["error", "multi-line"],
+      "curly": ["error", "multi-line"],
       "nonblock-statement-body-position": ["error", "beside"],
 
       // Objects
       "object-curly-spacing": ["error", "always"],
-      "object-curly-newline": ["error", {
-        ObjectExpression: { multiline: true },
-        ObjectPattern: { multiline: true },
-        ImportDeclaration: { multiline: true },
-        ExportDeclaration: { multiline: true }
-      }],
+      "object-curly-newline": ["error", { ObjectExpression: { multiline: true }, ObjectPattern: { multiline: true }, ImportDeclaration: { multiline: true }, ExportDeclaration: { multiline: true } }],
       "object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
 
       // Arrays
@@ -77,20 +70,17 @@ module.exports = [
       "function-call-argument-newline": ["error", "consistent"],
 
       // Generous line length
-      "max-len": ["warn", {
-        code: 250,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-        ignoreComments: true,
-        ignoreUrls: true,
-        ignoreRegExpLiterals: true
-      }],
+      "max-len": ["warn", { code: 250, ignoreStrings: true, ignoreTemplateLiterals: true, ignoreComments: true, ignoreUrls: true, ignoreRegExpLiterals: true }],
 
       // --- React Native specific ---
       "react-native/no-inline-styles": "off",
       "react-hooks/exhaustive-deps": "off",
       "react/react-in-jsx-scope": "off",
-      "react/display-name": "off"
+      "react/display-name": "off",
+
+      // --- TypeScript overrides (avoid conflicts with TS-aware rules) ---
+      "no-undef": "off",
+      "no-unused-vars": "off"
     }
   }
 ];

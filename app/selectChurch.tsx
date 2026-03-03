@@ -65,8 +65,6 @@ function SelectChurch() {
 
   };
 
-
-
   const getChurchLogo = (userChurch: LoginUserChurchInterface) => {
     const churchId = userChurch.church?.id;
     const logoUrl = churchId ? churchLogos[churchId] : null;
