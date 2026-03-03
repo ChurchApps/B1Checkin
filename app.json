@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "church.b1.checkin"
+      "package": "church.b1.checkin",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -46,7 +47,10 @@
           "project": "b1-checkin",
           "organization": "churchapps"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-localization",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true

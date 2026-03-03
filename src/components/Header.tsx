@@ -3,6 +3,7 @@ import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platfo
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
 
@@ -16,6 +17,7 @@ interface Props {
 
 const Header = (props: Props) => {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const [status, setStatus] = React.useState("");
   const [landscape, setLandscape] = React.useState(false);
   const [logoTapCount, setLogoTapCount] = React.useState(0);
@@ -128,7 +130,7 @@ const Header = (props: Props) => {
         <StatusBar backgroundColor={StyleConstants.baseColor} />
 
         {/* Compact Printer Status Bar */}
-        <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
+        <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined }]} onPress={() => { handleClick(); }}>
           <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
         </Ripple>
 
@@ -147,7 +149,7 @@ const Header = (props: Props) => {
   return (
     <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
       <StatusBar backgroundColor={StyleConstants.baseColor} />
-      <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
+      <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined }]} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
       {props.logo !== false && (

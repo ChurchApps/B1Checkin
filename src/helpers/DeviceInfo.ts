@@ -30,7 +30,7 @@ export class DeviceInfo {
       details.buildNumber = Constants.expoConfig?.version ?? "Unknown";
       details.brand = RNDI.brand ?? "Unknown";
       details.device = RNDI.modelName ?? "Unknown";
-      details.deviceId = await AsyncStorage.getItem("deviceId");
+      details.deviceId = (await AsyncStorage.getItem("deviceId")) ?? undefined;
 
       if (!details.deviceId) {
         details.deviceId = (await Application.getAndroidId()) ?? "Unknown";

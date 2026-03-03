@@ -1,4 +1,4 @@
-import Snackbar from "react-native-snackbar";
+import { Snackbar } from "react-native-snackbar";
 import { StyleConstants } from "./Styles";
 
 export class Utils {

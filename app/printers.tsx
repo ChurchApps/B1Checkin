@@ -13,12 +13,14 @@ import Subheader from "../src/components/Subheader";
 import { FontAwesome } from "@expo/vector-icons";
 import PrintUI from "../src/components/PrintUI";
 import RNRestart from "react-native-restart";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
 const Printers = (props: Props) => {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer" }]);
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer" });
   const [dimension, _setDimension] = React.useState(Dimensions.get("window"));
@@ -199,7 +201,7 @@ const Printers = (props: Props) => {
       </View>
 
       {/* Action Buttons */}
-      <View style={printerStyles.buttonContainer}>
+      <View style={[printerStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%") }]}>
         <Ripple
           style={[printerStyles.actionButton, printerStyles.testButton]}
           onPress={testPrint}
