@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, NativeModules, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator } from "react-native";
+import { View, Text, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
@@ -14,6 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import PrintUI from "../src/components/PrintUI";
 import RNRestart from "react-native-restart";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as PrinterHelper from "printer-helper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -53,29 +54,25 @@ const Printers = (props: Props) => {
       console.error("Error loading saved printer:", error);
     }
 
-    if (NativeModules.PrinterHelper) {
-      NativeModules.PrinterHelper.scan()
-        .then((data: string) => {
-          console.log("Scan callback", data);
-          const items = data.split(",");
-          const result: AvailablePrinter[] = [];
-          items.forEach(item => {
-            if (item.length > 0) {
-              const splitItem = item.split("~");
-              result.push({ ipAddress: splitItem[1], model: splitItem[0] });
-            }
-          });
-          result.push({ model: "No Printer", ipAddress: "No Printer" });
-          setPrinters(result);
-          setIsScanning(false);
-        })
-        .catch(error => {
-          console.error("Error scanning for printers:", error);
-          setIsScanning(false);
+    PrinterHelper.scan()
+      .then((data: string) => {
+        console.log("Scan callback", data);
+        const items = data.split(",");
+        const result: AvailablePrinter[] = [];
+        items.forEach(item => {
+          if (item.length > 0) {
+            const splitItem = item.split("~");
+            result.push({ ipAddress: splitItem[1], model: splitItem[0] });
+          }
         });
-    } else {
-      setIsScanning(false);
-    }
+        result.push({ model: "No Printer", ipAddress: "No Printer" });
+        setPrinters(result);
+        setIsScanning(false);
+      })
+      .catch(error => {
+        console.error("Error scanning for printers:", error);
+        setIsScanning(false);
+      });
     return null;
 
   };
@@ -88,10 +85,7 @@ const Printers = (props: Props) => {
     await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer));
     console.log(JSON.stringify(CachedData.printer));
 
-    //NativeModules.PrinterHelper.bind(receiveNativeStatus);
-    if (NativeModules.PrinterHelper) {
-      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
-    }
+    PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
 
   };
 

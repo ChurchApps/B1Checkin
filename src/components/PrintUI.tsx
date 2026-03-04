@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, NativeModules } from "react-native";
+import { View, Text } from "react-native";
 import { WebView } from "react-native-webview";
 import ViewShot, { captureRef } from "react-native-view-shot";
 import { useTranslation } from "react-i18next";
 import { Styles } from "../helpers";
+import * as PrinterHelper from "printer-helper";
 
 interface Props {
   htmlLabels: string[],
@@ -41,9 +42,7 @@ const PrintUI = (props: Props) => {
       setPrintIndex(printIndex + 1);
       setUris(urisCopy);
     } else {
-      if (NativeModules.PrinterHelper) {
-        NativeModules.PrinterHelper.printUris(urisCopy.toString());
-      }
+      PrinterHelper.printUris(urisCopy.toString());
       resetPrint();
       props.onPrintComplete();
     }

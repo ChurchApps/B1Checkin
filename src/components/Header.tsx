@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert } from "react-native";
+import { View, Image, StatusBar, Text, Dimensions, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHel
 import { router } from "expo-router";
 import PinEntryModal from "./PinEntryModal";
 import { useCheckinTheme } from "../context/CheckinThemeContext";
+import * as PrinterHelper from "printer-helper";
 
 interface Props {
   navigation: screenNavigationProps,
@@ -27,8 +28,6 @@ const Header = (props: Props) => {
   const logoTapTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const [showPinModal, setShowPinModal] = React.useState(false);
   const pendingAdminAction = React.useRef<"settings" | "printers">("settings");
-
-  let eventEmitter: NativeEventEmitter;
 
   const handleClick = () => {
     if (CachedData.kioskLocked && CachedData.kioskPin) {
@@ -81,18 +80,16 @@ const Header = (props: Props) => {
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); };
 
   const init = () => {
-    console.log(Platform.OS);
-    if (Platform.OS === "android" && NativeModules.PrinterHelper) {
+    try {
       console.log("print", CachedData.printer);
-      console.log(receiveNativeStatus);
-
-      NativeModules.PrinterHelper.bind(receiveNativeStatus);
-      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
-      eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
-      eventEmitter.addListener("StatusUpdated", (event: any) => {
+      PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
+      const subscription = PrinterHelper.addStatusListener((event) => {
         if (event.status.indexOf("ready") > -1) CachedData.printer.ipAddress = "ready";
         setStatus(event.status);
       });
+      return () => subscription.remove();
+    } catch (e) {
+      console.log("PrinterHelper not available:", e);
     }
   };
 

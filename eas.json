@@ -19,6 +19,9 @@
       "android": {
         "buildType": "app-bundle",
         "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
       }
     },
     "amazon": {
@@ -36,9 +39,13 @@
       "android": {
         "serviceAccountKeyPath": "./google-service-account.json"
       }
-    }, "Amazon": {
+    },
+    "Amazon": {
       "android": {
       }
+    },
+    "AppStore": {
+      "ios": {}
     }
   }
 }

@@ -23,12 +23,22 @@
       "package": "church.b1.checkin",
       "googleServicesFile": "./google-services.json"
     },
+    "ios": {
+      "bundleIdentifier": "church.b1.checkin",
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "B1 Checkin needs local network access to find and communicate with Brother label printers on your WiFi network."
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "./modules/printer-helper/app.plugin.js",
       "expo-router",
       [
         "expo-splash-screen",

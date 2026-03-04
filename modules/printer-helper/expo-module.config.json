@@ -1,0 +1,9 @@
+{
+  "platforms": ["android", "ios"],
+  "android": {
+    "modules": ["church.b1.checkin.printer.PrinterHelperModule"]
+  },
+  "apple": {
+    "modules": ["PrinterHelperModule"]
+  }
+}

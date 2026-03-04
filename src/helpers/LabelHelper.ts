@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import fs from "react-native-fs";
 import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
@@ -48,8 +49,11 @@ export class LabelHelper {
   }
 
   private static readHtml(fileName: string) {
-    //*** IMPORTANT: This is reading from /android/app/src/main/assets rather than the /assets folder.  I'd like to change this but am not sure how. */
-    return fs.readFileAssets("labels/" + fileName);
+    if (Platform.OS === "android") {
+      return fs.readFileAssets("labels/" + fileName);
+    } else {
+      return fs.readFile(fs.MainBundlePath + "/labels/" + fileName, "utf8");
+    }
   }
 
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
