@@ -7,15 +7,13 @@ import { ApiHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { FontAwesome } from "@expo/vector-icons";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { useRouter } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
 
 const AddGuest = (props: Props) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const _params = useLocalSearchParams(); // ✅ Retrieve route parameters
-
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
 
@@ -23,18 +21,13 @@ const AddGuest = (props: Props) => {
     if (firstName === "") { Utils.snackBar(t("addGuest.enterFirstName")); } else if (lastName === "") { Utils.snackBar(t("addGuest.enterLastName")); } else {
       getOrCreatePerson(firstName, lastName)
         .then(person => {
-          // console.log(person)
-          // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
           CachedData.householdMembers.push(person);
-          // props.navigation.navigate("Household");
           router.push("/household");
-          // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
         })
         .catch(error => {
           console.error("Error adding guest:", error);
         });
     }
-    // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
   };
 
   const getOrCreatePerson = async (firstname: string, lastname: string) => {
@@ -43,30 +36,21 @@ const AddGuest = (props: Props) => {
     if (person === null) {
       person = { householdId: CachedData.householdId, name: { display: fullName, first: firstName, last: lastName }, contactInfo: {} };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
-      console.log("data", data);
       if (data && data.length > 0) person.id = data[0].id;
     }
-    console.log("zzz", person);
     return person;
   };
 
   const searchForGuest = async (fullName: string) => {
-    // AppCenterHelper.trackEvent("Search for Guest", { name: fullName });
     let result: PersonInterface | null = null;
-    console.log("sssss", fullName);
-    const url = "/people/search?term=" + escape(fullName);
-    console.log("ss", url);
+    const url = "/people/search?term=" + encodeURIComponent(fullName);
     const people: PersonInterface[] = await ApiHelper.get(url, "MembershipApi");
-    console.log("urllll", people);
     people.forEach(p => { if (p.membershipStatus !== "Member") result = p; });
-    console.log("reuslt", result);
-    return (result === undefined) ? null : result;
+    return result ?? null;
   };
 
-  // const cancelGuest = () => { props.navigation.goBack(); };
-
   const cancelGuest = () => {
-    router.back(); // Replaced props.navigation.goBack()
+    router.back();
   };
 
   return (

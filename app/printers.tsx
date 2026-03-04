@@ -1,12 +1,11 @@
 import React from "react";
-import { View, Text, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator } from "react-native";
+import { View, Text, FlatList, Alert, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
 import { AvailablePrinter, CachedData, screenNavigationProps, StyleConstants } from "../src/helpers";
-// import CodePush from "react-native-code-push";
 import { DimensionHelper, FirebaseHelper } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
@@ -16,38 +15,33 @@ import RNRestart from "react-native-restart";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as PrinterHelper from "printer-helper";
 
+const NO_PRINTER: AvailablePrinter = { model: "none", ipAddress: "", brand: "" };
+
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
 const Printers = (props: Props) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer", brand: "" }]);
-  const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer", brand: "" });
-  const [dimension, _setDimension] = React.useState(Dimensions.get("window"));
+  const [printers, setPrinters] = React.useState<AvailablePrinter[]>([NO_PRINTER]);
+  const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>(NO_PRINTER);
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
 
+  const isNoPrinterSelected = (printer: AvailablePrinter) => !printer.ipAddress || printer.model === "none";
+
   const init = async () => {
     FirebaseHelper.addOpenScreenEvent("Printers");
-    console.log("Scanning");
     setIsScanning(true);
 
-    // Load saved printer selection if available
+    // Load saved printer from AsyncStorage (single source of truth)
     try {
-      if (CachedData.printer && CachedData.printer.model !== "none") {
-        setSelectedPrinter(CachedData.printer);
-        console.log("Loaded saved printer selection from CachedData:", CachedData.printer);
-      } else {
-        // Fallback: try to load directly from AsyncStorage
-        const savedPrinter = await AsyncStorage.getItem("@Printer");
-        if (savedPrinter) {
-          const printer = JSON.parse(savedPrinter);
-          if (printer && printer.model !== "none") {
-            setSelectedPrinter(printer);
-            CachedData.printer = printer; // Update CachedData too
-            console.log("Loaded saved printer selection from AsyncStorage:", printer);
-          }
+      const savedPrinter = await AsyncStorage.getItem("@Printer");
+      if (savedPrinter) {
+        const printer = JSON.parse(savedPrinter);
+        if (printer && printer.model !== "none") {
+          setSelectedPrinter(printer);
+          CachedData.printer = printer;
         }
       }
     } catch (error) {
@@ -56,7 +50,6 @@ const Printers = (props: Props) => {
 
     PrinterHelper.scan()
       .then((data: string) => {
-        console.log("Scan callback", data);
         const items = data.split(",");
         const result: AvailablePrinter[] = [];
         items.forEach(item => {
@@ -65,7 +58,7 @@ const Printers = (props: Props) => {
             result.push({ brand: splitItem[0], model: splitItem[1], ipAddress: splitItem[2] });
           }
         });
-        result.push({ model: "No Printer", ipAddress: "No Printer", brand: "" });
+        result.push(NO_PRINTER);
         setPrinters(result);
         setIsScanning(false);
       })
@@ -73,33 +66,21 @@ const Printers = (props: Props) => {
         console.error("Error scanning for printers:", error);
         setIsScanning(false);
       });
-    return null;
-
   };
 
   const saveSelectedPrinter = async () => {
-    let printer = selectedPrinter;
-    if (printer.model === "No Printer") { printer = { model: "none", ipAddress: "", brand: "" }; }
-
+    const printer = isNoPrinterSelected(selectedPrinter) ? NO_PRINTER : selectedPrinter;
     CachedData.printer = printer;
-    await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer));
-    console.log(JSON.stringify(CachedData.printer));
-
-    PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "", CachedData.printer?.brand || "");
-
+    await AsyncStorage.setItem("@Printer", JSON.stringify(printer));
+    PrinterHelper.checkInit(printer.ipAddress || "", printer.model || "", printer.brand || "");
   };
 
   React.useEffect(() => { init(); }, []);
 
-  const _wd = (number: string) => {
-    const givenWidth = typeof number === "number" ? number : parseFloat(number);
-    return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
-  };
-
   const getPrinterRow = (data: any) => {
     const printer: AvailablePrinter = data.item;
     const isSelected = printer.ipAddress === selectedPrinter.ipAddress;
-    const isNoPrinter = printer.model === "No Printer";
+    const noPrinter = isNoPrinterSelected(printer);
 
     return (
       <Ripple
@@ -108,16 +89,16 @@ const Printers = (props: Props) => {
       >
         <View style={printerStyles.printerIconContainer}>
           <FontAwesome
-            name={isNoPrinter ? "times-circle" : "print"}
+            name={noPrinter ? "times-circle" : "print"}
             size={DimensionHelper.wp("5%")}
             color={isSelected ? StyleConstants.whiteColor : StyleConstants.baseColor}
           />
         </View>
         <View style={printerStyles.printerInfo}>
           <Text style={[printerStyles.printerName, isSelected && printerStyles.selectedText]} numberOfLines={1}>
-            {isNoPrinter ? t("printers.noPrinter") : `${printer.brand} ${printer.model}`}
+            {noPrinter ? t("printers.noPrinter") : `${printer.brand} ${printer.model}`}
           </Text>
-          {!isNoPrinter && (
+          {!noPrinter && (
             <Text style={[printerStyles.printerIp, isSelected && printerStyles.selectedSubtext]} numberOfLines={1}>
               {printer.ipAddress}
             </Text>
@@ -137,7 +118,7 @@ const Printers = (props: Props) => {
   };
 
   const testPrint = () => {
-    if (selectedPrinter.model === "No Printer") Alert.alert(t("printers.noPrinterSelected"));
+    if (isNoPrinterSelected(selectedPrinter)) Alert.alert(t("printers.noPrinterSelected"));
     else {
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
@@ -164,7 +145,7 @@ const Printers = (props: Props) => {
     return (
       <>
         <FlatList
-          data={printers as any[]}
+          data={printers}
           renderItem={getPrinterRow}
           keyExtractor={(printer: AvailablePrinter) => printer.ipAddress}
           contentContainerStyle={printerStyles.listContent}

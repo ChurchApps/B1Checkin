@@ -64,7 +64,6 @@ export class LabelHelper {
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
     result = result.replace(/\[Allergies\]/g, (person.nametagNotes) ? person.nametagNotes : "");
-    //console.log(result);
     return result;
   }
 

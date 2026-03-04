@@ -32,7 +32,7 @@ const SetPin = () => {
         visible={true}
         mode="setup"
         onSuccess={handlePinSet}
-        onCancel={() => {}}
+        onCancel={() => router.back()}
         dismissible={false}
       />
     </View>

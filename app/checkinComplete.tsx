@@ -65,10 +65,9 @@ const CheckinComplete = (props: Props) => {
 
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
-    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
+    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(","));
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi")
       .then(data => {
-        console.log("Checkin Complete");
         if (data?.streaks) {
           const hits: { personId: string; streak: number }[] = [];
           for (const [personId, streak] of Object.entries(data.streaks as Record<string, number>)) {

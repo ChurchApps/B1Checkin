@@ -19,6 +19,7 @@ const PrintUI = (props: Props) => {
   const [printIndex, setPrintIndex] = React.useState(-1);
   const [uris, setUris] = React.useState<string[]>([]);
   const [firstTag, setFirstTag] = React.useState(true);
+  const timeoutIds = React.useRef<ReturnType<typeof setTimeout>[]>([]);
 
   React.useEffect(() => { resetPrint(); }, []);
   React.useEffect(() => { setPrintIndex((props.htmlLabels.length === 0) ? -1 : 0); }, [props.htmlLabels]);
@@ -29,12 +30,19 @@ const PrintUI = (props: Props) => {
       else timeout(300).then(handleHtmlLoaded);
     }
   }, [html]);
-  const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
+
+  React.useEffect(() => {
+    return () => { timeoutIds.current.forEach(id => clearTimeout(id)); };
+  }, []);
+
+  const timeout = (ms: number) => new Promise(resolve => {
+    const id = setTimeout(() => { resolve(null); }, ms);
+    timeoutIds.current.push(id);
+  });
 
   const resetPrint = () => { setPrintIndex(-1); setUris([]); };
 
   const handleCaptureComplete = (uri: string) => {
-    console.log("capture complete");
     const urisCopy = [...uris];
     urisCopy.push(uri);
 
@@ -50,8 +58,6 @@ const PrintUI = (props: Props) => {
 
   const handleHtmlLoaded = async () => {
     if (firstTag) setFirstTag(false);
-    console.log("html loaded");
-    //await timeout(500);
     captureRef(shotRef, { format: "jpg", quality: 1 })
       .then(async result => {
         await timeout(500);

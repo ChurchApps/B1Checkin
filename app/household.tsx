@@ -21,12 +21,6 @@ const Household = (props: Props) => {
   const { t } = useTranslation();
   const { theme } = useCheckinTheme();
   const [pendingVisits, setPendingVisits] = React.useState<VisitInterface[]>([]);
-  // const init = () => {
-  //   // AppCenterHelper.trackEvent("Household screen");
-  //   props.navigation.addListener("focus", () => {
-  //     setPendingVisits([...CachedData.pendingVisits]);
-  //   });
-  // };
 
   useFocusEffect(
     useCallback(() => {
@@ -59,9 +53,6 @@ const Household = (props: Props) => {
     }
   };
   const addGuest = () => { router.navigate("/addGuest"); };
-
-
-  // console.log(props.navigation)
 
   React.useEffect(() => { FirebaseHelper.addOpenScreenEvent("Household"); }, []);
 

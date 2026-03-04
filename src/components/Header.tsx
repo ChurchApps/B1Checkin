@@ -81,15 +81,14 @@ const Header = (props: Props) => {
 
   const init = () => {
     try {
-      console.log("print", CachedData.printer);
       PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "", CachedData.printer?.brand || "");
       const subscription = PrinterHelper.addStatusListener((event) => {
         if (event.status.indexOf("ready") > -1) CachedData.printer.ipAddress = "ready";
         setStatus(event.status);
       });
       return () => subscription.remove();
-    } catch (e) {
-      console.log("PrinterHelper not available:", e);
+    } catch (_e) {
+      // PrinterHelper not available on this platform
     }
   };
 
@@ -106,16 +105,11 @@ const Header = (props: Props) => {
   };
 
   React.useEffect(() => {
-    Dimensions.addEventListener("change", () => {
-      isLandscape() ? setLandscape(true) : setLandscape(false);
+    const subscription = Dimensions.addEventListener("change", () => {
+      setLandscape(isLandscape());
     });
+    return () => subscription.remove();
   }, []);
-
-  React.useEffect(() => {
-    Dimensions.addEventListener("change", () => {
-      isLandscape() ? setLandscape(true) : setLandscape(false);
-    });
-  }, [landscape]);
 
   const getLogoUrl = () => {
     if (CachedData.churchAppearance?.logoLight) return { uri: CachedData.churchAppearance?.logoLight };

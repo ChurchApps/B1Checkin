@@ -8,7 +8,6 @@ import { EnvironmentHelper, ApiHelper, LoginResponseInterface, CachedData, Dimen
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 export default function Splash() {
-  console.log("Splash component called");
   const { t } = useTranslation();
   const { loadTheme } = useCheckinTheme();
   const [statusMessage, setStatusMessage] = React.useState("");
@@ -24,9 +23,7 @@ export default function Splash() {
     if (hasNavigated.current) return;
 
     if (!isNavigationReady) {
-      // Store the pending navigation path to be executed when ready
       pendingNavigation.current = path;
-      console.log("Navigation deferred, layout not ready:", path);
       return;
     }
 
@@ -56,7 +53,6 @@ export default function Splash() {
     if (isNavigationReady && pendingNavigation.current && !hasNavigated.current) {
       const path = pendingNavigation.current;
       pendingNavigation.current = null;
-      console.log("Executing deferred navigation:", path);
       safeNavigate(path);
     }
   }, [isNavigationReady, safeNavigate]);
@@ -112,7 +108,6 @@ export default function Splash() {
           const parsed = JSON.parse(savedPrinter[1]);
           if (!parsed.brand) parsed.brand = "Brother";
           CachedData.printer = parsed;
-          console.log("Loaded saved printer:", CachedData.printer);
         } catch (error) {
           console.error("Error parsing saved printer:", error);
         }
@@ -191,17 +186,11 @@ export default function Splash() {
           safeNavigate("/selectChurch");
         }
       } else {
-        // No stored credentials, go to login
-        setTimeout(() => {
-          safeNavigate("/login");
-        }, 1500);
+        safeNavigate("/login");
       }
     } catch (error) {
       console.error("Auto-login error:", error);
-      // On any error, go to login screen
-      setTimeout(() => {
-        safeNavigate("/login");
-      }, 1500);
+      safeNavigate("/login");
     }
   };
 

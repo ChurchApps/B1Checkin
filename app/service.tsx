@@ -7,6 +7,7 @@ import Subheader from "../src/components/Subheader";
 import { screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
+import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -32,10 +33,10 @@ const Services = (props: Props) => {
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Service");
-    Dimensions.addEventListener("change", () => {
-      const dim = Dimensions.get("screen");
-      setDimension(dim);
+    const subscription = Dimensions.addEventListener("change", () => {
+      setDimension(Dimensions.get("screen"));
     });
+    return () => subscription.remove();
   }, []);
 
   const wd = (number: string) => {
@@ -65,7 +66,7 @@ const Services = (props: Props) => {
         }
 
         setIsLoading(false);
-        props.navigation.navigate("Lookup");
+        router.navigate("/lookup");
       })
       .catch(error => {
         console.error("Error loading service data:", error);

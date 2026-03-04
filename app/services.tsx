@@ -20,11 +20,8 @@ const Services = (props: Props) => {
 
   const loadData = () => {
     setIsLoading(true);
-    // AppCenterHelper.trackEvent("Services Screen");
-    console.log("LOADING SERVICES");
     ApiHelper.get("/services", "AttendanceApi")
       .then(data => {
-        console.log("Services Data: ", JSON.stringify(data));
         setServices(data); setIsLoading(false);
       })
       .catch(error => {
@@ -35,13 +32,13 @@ const Services = (props: Props) => {
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Services");
-    Dimensions.addEventListener("change", () => {
-      const dim = Dimensions.get("screen");
-      setDimension(dim);
+    const subscription = Dimensions.addEventListener("change", () => {
+      setDimension(Dimensions.get("screen"));
     });
     if (CachedData.userChurch?.church?.id) {
       loadTheme(CachedData.userChurch.church.id);
     }
+    return () => subscription.remove();
   }, []);
 
   const wd = (number: string) => {
@@ -70,8 +67,6 @@ const Services = (props: Props) => {
             }
           });
         }
-        console.log(JSON.stringify(CachedData.serviceTimes));
-
         router.navigate("/lookup");
         setIsLoading(false);
       })

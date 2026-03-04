@@ -45,7 +45,7 @@ const Lookup = (props: Props) => {
   const loadExistingVisits = async () => {
     CachedData.existingVisits = [];
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
-    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(",")) + "&include=visitSessions";
+    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(",")) + "&include=visitSessions";
     CachedData.existingVisits = await ApiHelper.get(url, "AttendanceApi");
     CachedData.pendingVisits = [...CachedData.existingVisits];
     setIsLoading(false);
@@ -182,15 +182,15 @@ const Lookup = (props: Props) => {
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Lookup");
-    Dimensions.addEventListener("change", () => {
-      const dim = Dimensions.get("screen");
-      setDimension(dim);
+    const subscription = Dimensions.addEventListener("change", () => {
+      setDimension(Dimensions.get("screen"));
     });
     if (CachedData.userChurch?.church?.id) {
       ApiHelper.getAnonymous("/settings/public/" + CachedData.userChurch.church.id, "MembershipApi")
         .then((settings: any) => { setShowQR(settings?.enableQRGuestRegistration === "true"); })
         .catch(() => { setShowQR(false); });
     }
+    return () => subscription.remove();
   }, []);
 
   const wd = (number: string) => {

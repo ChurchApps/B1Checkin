@@ -7,6 +7,19 @@ export class ApiHelper {
   static isAuthenticated = false;
   static onRequest: (url: string, requestOptions: any) => void;
   static onError: (url: string, requestOptions: any, error: any) => void;
+  static requestTimeoutMs = 30000;
+
+  static isJwtExpired(jwt: string): boolean {
+    try {
+      const parts = jwt.split(".");
+      if (parts.length !== 3) return true;
+      const payload = JSON.parse(atob(parts[1]));
+      if (!payload.exp) return false;
+      return (payload.exp * 1000) < Date.now();
+    } catch {
+      return true;
+    }
+  }
 
   static getConfig(keyName: string): ApiConfig | null {
     let result: ApiConfig | null = null;
@@ -95,10 +108,25 @@ export class ApiHelper {
   }
 
   private static async fetchWithErrorHandling(url: string, requestOptions: any) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.requestTimeoutMs);
+
     try {
       if (this.onRequest) this.onRequest(url, requestOptions);
 
-      const response = await fetch(url, requestOptions);
+      // Check JWT expiration for authenticated requests
+      const authHeader = requestOptions.headers?.Authorization;
+      if (authHeader) {
+        const jwt = authHeader.replace("Bearer ", "");
+        if (jwt && this.isJwtExpired(jwt)) {
+          clearTimeout(timeoutId);
+          this.clearPermissions();
+          throw new Error("JWT token has expired. Please log in again.");
+        }
+      }
+
+      const response = await fetch(url, { ...requestOptions, signal: controller.signal });
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -117,6 +145,7 @@ export class ApiHelper {
         return responseText;
       }
     } catch (error) {
+      clearTimeout(timeoutId);
       if (this.onError) this.onError(url, requestOptions, error);
       const errorMessage = error instanceof Error ? error.message : String(error);
       ErrorHelper.logError("ApiHelper", `Request failed: ${url} - ${errorMessage}`);
