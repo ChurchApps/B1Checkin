@@ -68,6 +68,8 @@
     "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
     "noMatchTitle": "Ingen treff funnet",
     "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Skann for å registrere deg som gjest",
     "registerGuest": "Registrer som gjest",
     "readySubtitle": "Oppgi et telefonnummer for å finne personer",

@@ -68,6 +68,8 @@
     "noMatchSubtitleName": "Subukang maghanap gamit ang ibang apelyido",
     "noMatchTitle": "Walang Nahanap na Tugma",
     "phonePlaceholder": "Ilagay ang huling apat na numero ng mobile number",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Mag-scan upang magparehistro bilang bisita",
     "registerGuest": "Magparehistro bilang bisita",
     "readySubtitle": "Maglagay ng numero ng telepono upang makahanap ng mga tao",

@@ -78,6 +78,8 @@
     "searching": "Searching...",
     "subtitle": "Enter last four digits of mobile number",
     "title": "Search by Phone Number",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Scan to register as a guest",
     "registerGuest": "Register as guest"
   },

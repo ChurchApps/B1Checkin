@@ -68,6 +68,8 @@
     "noMatchSubtitleName": "Попробуйте поиск с другой фамилией",
     "noMatchTitle": "Совпадений не найдено",
     "phonePlaceholder": "Введите последние четыре цифры мобильного номера",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Отсканируйте для регистрации в качестве гостя",
     "registerGuest": "Зарегистрироваться как гость",
     "readySubtitle": "Введите номер телефона для поиска людей",

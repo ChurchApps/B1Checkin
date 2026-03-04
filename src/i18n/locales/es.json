@@ -68,6 +68,8 @@
     "noMatchSubtitleName": "Intente buscar con un apellido diferente",
     "noMatchTitle": "No se Encontraron Coincidencias",
     "phonePlaceholder": "Ingrese los últimos cuatro dígitos del número móvil",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Escanee para registrarse como invitado",
     "registerGuest": "Registrarse como invitado",
     "readySubtitle": "Ingrese un número de teléfono para encontrar personas",

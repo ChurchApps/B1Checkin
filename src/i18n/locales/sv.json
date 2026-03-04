@@ -77,6 +77,8 @@
     "searching": "Söker...",
     "subtitle": "Ange de fyra sista siffrorna i mobilnumret",
     "title": "Sök med telefonnummer",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Skanna för att registrera dig som gäst",
     "registerGuest": "Registrera som gäst"
   },

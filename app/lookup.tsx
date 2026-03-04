@@ -121,17 +121,20 @@ const Lookup = (props: Props) => {
   const getRow = (data: any) => {
     const person: PersonInterface = data.item;
     return (
-      <Ripple style={[lookupStyles.personCard, { width: wd("90%"), shadowColor: theme.colors.primary }]} onPress={() => { selectPerson(person); }}>
-        <Image
-          source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
-          style={lookupStyles.personPhoto}
-        />
-        <View style={lookupStyles.personInfo}>
-          <Text style={lookupStyles.personName}>{person?.name?.display}</Text>
+      <Ripple style={lookupStyles.personCard} onPress={() => { selectPerson(person); }}>
+        <View style={lookupStyles.personCardInner}>
+          <Image
+            source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
+            style={lookupStyles.personPhoto}
+          />
+          <View style={lookupStyles.personInfo}>
+            <Text style={lookupStyles.personName}>{person?.name?.display}</Text>
+          </View>
+          <View style={lookupStyles.arrowContainer}>
+            <Text style={[lookupStyles.arrow, { color: theme.colors.primary }]}>›</Text>
+          </View>
         </View>
-        <View style={lookupStyles.arrowContainer}>
-          <Text style={[lookupStyles.arrow, { color: theme.colors.primary }]}>›</Text>
-        </View>
+        <View style={[lookupStyles.personCardAccent, { backgroundColor: theme.colors.primary }]} />
       </Ripple>
     );
   };
@@ -168,6 +171,11 @@ const Lookup = (props: Props) => {
       }
       return (
         <View style={lookupStyles.resultsContainer}>
+          <View style={lookupStyles.resultsDivider}>
+            <View style={lookupStyles.resultsDividerLine} />
+            <Text style={lookupStyles.resultsDividerText}>{people.length === 1 ? "1 Result Found" : people.length + " Results Found"}</Text>
+            <View style={lookupStyles.resultsDividerLine} />
+          </View>
           <FlatList
             data={people}
             renderItem={getRow}
@@ -214,9 +222,16 @@ const Lookup = (props: Props) => {
 
       {/* Main Content */}
       <View style={lookupStyles.mainContent}>
+        {/* Greeting */}
+        <View style={lookupStyles.greeting}>
+          <Text style={lookupStyles.greetingWave}>👋</Text>
+          <Text style={lookupStyles.greetingTitle}>{t("lookup.welcomeTitle")}</Text>
+          <Text style={lookupStyles.greetingSubtitle}>{t("lookup.welcomeSubtitle")}</Text>
+        </View>
+
         {/* Search Input */}
         <View style={lookupStyles.searchSection}>
-          <View style={[lookupStyles.modeToggleContainer, { shadowColor: theme.colors.primary }]}>
+          <View style={lookupStyles.modeToggleContainer}>
             <Ripple
               style={[lookupStyles.modeButton, searchMode === "phone" && [lookupStyles.modeButtonActive, { backgroundColor: theme.colors.buttonBackground }]]}
               onPress={() => handleModeChange("phone")}
@@ -231,7 +246,7 @@ const Lookup = (props: Props) => {
             </Ripple>
           </View>
           {searchMode === "phone" ? (
-            <View style={[lookupStyles.searchView, { width: wd("90%"), shadowColor: theme.colors.primary }]}>
+            <View style={[lookupStyles.searchView, { shadowColor: theme.colors.primary }]}>
               <TextInput
                 placeholder={String(t("lookup.phonePlaceholder"))}
                 onChangeText={(value) => { setPhone(value); }}
@@ -250,7 +265,7 @@ const Lookup = (props: Props) => {
               </Ripple>
             </View>
           ) : (
-            <View style={[lookupStyles.searchView, { width: wd("90%"), shadowColor: theme.colors.primary }]}>
+            <View style={[lookupStyles.searchView, { shadowColor: theme.colors.primary }]}>
               <TextInput
                 placeholder={String(t("lookup.namePlaceholder"))}
                 onChangeText={(value) => { setLastName(value); }}
@@ -267,26 +282,30 @@ const Lookup = (props: Props) => {
               </Ripple>
             </View>
           )}
-        </View>
 
-        {/* QR Guest Registration */}
-        {showQR && CachedData.userChurch?.church?.subDomain && (
-          <View style={lookupStyles.qrSection}>
-            {qrExpanded ? (
-              <View style={lookupStyles.qrContainer}>
-                <QRCode
-                  value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
-                  size={DimensionHelper.wp("20%")}
-                  backgroundColor={StyleConstants.whiteColor}
-                  color={theme.colors.primary}
-                />
-                <Text style={[lookupStyles.qrLabel, { color: theme.colors.primary }]}>{t("lookup.qrGuest")}</Text>
-              </View>
-            ) : (
-              <Ripple onPress={() => setQrExpanded(true)}>
-                <Text style={[lookupStyles.guestLink, { color: theme.colors.primary }]}>{t("lookup.registerGuest")}</Text>
+          {/* Search Meta Row */}
+          <View style={lookupStyles.searchMeta}>
+            <Text style={lookupStyles.searchHint}>{searchMode === "phone" ? t("lookup.subtitle") : t("lookup.minLetters")}</Text>
+            {showQR && CachedData.userChurch?.church?.subDomain && !qrExpanded && (
+              <Ripple style={[lookupStyles.guestButton, { borderColor: theme.colors.primary + "66" }]} onPress={() => setQrExpanded(true)}>
+                <Text style={[lookupStyles.guestButtonText, { color: theme.colors.primary }]}>{t("lookup.registerGuest")}</Text>
               </Ripple>
             )}
+          </View>
+        </View>
+
+        {/* QR Code (expanded) */}
+        {showQR && qrExpanded && CachedData.userChurch?.church?.subDomain && (
+          <View style={lookupStyles.qrSection}>
+            <View style={lookupStyles.qrContainer}>
+              <QRCode
+                value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
+                size={DimensionHelper.wp("20%")}
+                backgroundColor={StyleConstants.whiteColor}
+                color={theme.colors.primary}
+              />
+              <Text style={[lookupStyles.qrLabel, { color: theme.colors.primary }]}>{t("lookup.qrGuest")}</Text>
+            </View>
           </View>
         )}
 
@@ -332,26 +351,66 @@ const lookupStyles = StyleSheet.create({
     paddingHorizontal: DimensionHelper.wp("4%")
   },
 
-  searchSection: { marginBottom: DimensionHelper.wp("3%") },
+  greeting: {
+    alignItems: "center",
+    marginTop: DimensionHelper.wp("4%"),
+    marginBottom: DimensionHelper.wp("3%")
+  },
+
+  greetingWave: {
+    fontSize: DimensionHelper.wp("8%"),
+    marginBottom: DimensionHelper.wp("1%")
+  },
+
+  greetingTitle: {
+    fontSize: DimensionHelper.wp("4.5%"),
+    fontFamily: StyleConstants.RobotoLight,
+    color: StyleConstants.darkColor,
+    marginBottom: DimensionHelper.wp("0.5%"),
+    textAlign: "center"
+  },
+
+  greetingSubtitle: {
+    fontSize: DimensionHelper.wp("2.8%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.lightGray,
+    textAlign: "center"
+  },
+
+  searchSection: {
+    marginBottom: DimensionHelper.wp("3%"),
+    width: DimensionHelper.wp("90%"),
+    maxWidth: 640,
+    alignSelf: "center"
+  },
+
+  searchMeta: {
+    flexDirection: "row" as const,
+    justifyContent: "space-between" as const,
+    alignItems: "center" as const,
+    marginTop: DimensionHelper.wp("1.5%"),
+    paddingHorizontal: DimensionHelper.wp("0.5%")
+  },
+
+  searchHint: {
+    fontSize: DimensionHelper.wp("2.5%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.lightGray
+  },
 
   modeToggleContainer: {
     flexDirection: "row",
-    alignSelf: "center",
+    alignSelf: "stretch",
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 999,
-    padding: DimensionHelper.wp("0.6%"),
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    shadowColor: StyleConstants.baseColor,
-    width: DimensionHelper.wp("46%")
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: "#e0e0e0",
+    overflow: "hidden" as const
   },
 
   modeButton: {
     flex: 1,
-    borderRadius: 999,
-    paddingVertical: DimensionHelper.wp("1.5%"),
+    paddingVertical: DimensionHelper.wp("2%"),
     alignItems: "center",
     justifyContent: "center"
   },
@@ -368,35 +427,34 @@ const lookupStyles = StyleSheet.create({
 
   searchView: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
+    borderRadius: 16,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: DimensionHelper.wp("3%"),
-    paddingVertical: DimensionHelper.wp("1.2%"),
-    shadowOffset: { width: 0, height: 2 },
+    overflow: "hidden" as const,
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
+    shadowRadius: 12,
     elevation: 5,
     shadowColor: StyleConstants.baseColor,
-    alignSelf: "center",
+    alignSelf: "stretch",
     marginVertical: DimensionHelper.wp("2%")
   },
 
   searchTextInput: {
     flex: 1,
-    fontSize: DimensionHelper.wp("3.2%"),
+    fontSize: DimensionHelper.wp("4%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.darkColor,
-    paddingVertical: DimensionHelper.wp("1.5%"),
-    paddingHorizontal: DimensionHelper.wp("1.5%")
+    paddingVertical: DimensionHelper.wp("2.5%"),
+    paddingHorizontal: DimensionHelper.wp("3%")
   },
 
   searchButton: {
     backgroundColor: StyleConstants.baseColor,
-    paddingHorizontal: DimensionHelper.wp("4.5%"),
-    paddingVertical: DimensionHelper.wp("2.2%"),
-    borderRadius: 8,
-    marginLeft: DimensionHelper.wp("2%")
+    paddingHorizontal: DimensionHelper.wp("5%"),
+    paddingVertical: DimensionHelper.wp("2.8%"),
+    alignItems: "center" as const,
+    justifyContent: "center" as const
   },
 
   searchButtonText: {
@@ -422,32 +480,66 @@ const lookupStyles = StyleSheet.create({
     marginTop: 0
   },
 
-  resultsSection: { flex: 1 },
+  resultsSection: {
+    flex: 1,
+    width: DimensionHelper.wp("90%"),
+    maxWidth: 640,
+    alignSelf: "center"
+  },
 
   resultsContainer: { flex: 1 },
 
   resultsList: { paddingBottom: DimensionHelper.wp("3%") },
 
+  resultsDivider: {
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    marginBottom: DimensionHelper.wp("2%"),
+    paddingHorizontal: DimensionHelper.wp("1%")
+  },
+
+  resultsDividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#e0e0e0"
+  },
+
+  resultsDividerText: {
+    fontSize: DimensionHelper.wp("2.2%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.lightGray,
+    textTransform: "uppercase" as const,
+    letterSpacing: 1.5,
+    paddingHorizontal: DimensionHelper.wp("2%")
+  },
+
   personCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
+    borderRadius: 16,
     marginVertical: DimensionHelper.wp("1%"),
-    padding: DimensionHelper.wp("3%"),
+    overflow: "hidden" as const,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
+    shadowRadius: 8,
     elevation: 4,
-    shadowColor: StyleConstants.baseColor,
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "center",
-    minHeight: DimensionHelper.wp("14%")
+    shadowColor: StyleConstants.baseColor
+  },
+
+  personCardInner: {
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    padding: DimensionHelper.wp("3%")
+  },
+
+  personCardAccent: {
+    height: 3,
+    backgroundColor: StyleConstants.baseColor
   },
 
   personPhoto: {
     width: DimensionHelper.wp("9%"),
     height: DimensionHelper.wp("9%"),
-    borderRadius: DimensionHelper.wp("4.5%"),
+    borderRadius: 14,
     marginRight: DimensionHelper.wp("3%")
   },
 
@@ -543,13 +635,18 @@ const lookupStyles = StyleSheet.create({
     textAlign: "center"
   },
 
-  guestLink: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    textDecorationLine: "underline" as const,
-    opacity: 0.7,
-    textAlign: "center" as const,
-    paddingVertical: DimensionHelper.wp("0.8%")
+  guestButton: {
+    borderWidth: 1,
+    borderColor: StyleConstants.baseColor + "66",
+    borderRadius: 8,
+    paddingHorizontal: DimensionHelper.wp("2.5%"),
+    paddingVertical: DimensionHelper.wp("1%")
+  },
+
+  guestButtonText: {
+    fontSize: DimensionHelper.wp("2.4%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.baseColor
   },
 
   noResultsState: {

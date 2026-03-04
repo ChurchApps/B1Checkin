@@ -68,6 +68,8 @@
     "noMatchSubtitleName": "किसी अन्य उपनाम से खोजने का प्रयास करें",
     "noMatchTitle": "कोई मेल नहीं मिला",
     "phonePlaceholder": "मोबाइल नंबर के अंतिम चार अंक दर्ज करें",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "अतिथि के रूप में पंजीकरण करने के लिए स्कैन करें",
     "registerGuest": "अतिथि के रूप में पंजीकरण करें",
     "readySubtitle": "लोगों को खोजने के लिए फोन नंबर दर्ज करें",

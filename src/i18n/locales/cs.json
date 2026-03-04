@@ -77,6 +77,8 @@
     "searching": "Vyhledávání...",
     "subtitle": "Zadejte poslední čtyři číslice mobilního čísla",
     "title": "Hledat podle telefonního čísla",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Naskenujte pro registraci jako host",
     "registerGuest": "Registrovat se jako host"
   },
