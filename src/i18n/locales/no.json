@@ -29,6 +29,7 @@
     "milestoneWeeks": "Uker på rad!"
   },
   "common": {
+    "back": "Tilbake",
     "cancel": "Avbryt",
     "login": "Logg inn",
     "logout": "Logg ut",

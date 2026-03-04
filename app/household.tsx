@@ -68,6 +68,7 @@ const Household = (props: Props) => {
         icon="👥"
         title={t("household.title")}
         subtitle={t("household.subtitle")}
+        onBack={() => router.back()}
       />
 
       {/* Main Content */}

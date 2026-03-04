@@ -29,6 +29,7 @@
     "milestoneWeeks": "Semanas seguidas!"
   },
   "common": {
+    "back": "Voltar",
     "cancel": "Cancelar",
     "login": "Entrar",
     "logout": "Sair",

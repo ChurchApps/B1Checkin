@@ -28,6 +28,7 @@
     "milestoneWeeks": "Veckor i rad!"
   },
   "common": {
+    "back": "Tillbaka",
     "cancel": "Avbryt",
     "login": "Logga in",
     "logout": "Logga ut",

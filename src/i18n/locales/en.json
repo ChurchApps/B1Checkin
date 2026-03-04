@@ -29,6 +29,7 @@
     "milestoneWeeks": "Weeks in a Row!"
   },
   "common": {
+    "back": "Back",
     "cancel": "Cancel",
     "login": "Login",
     "logout": "Logout",

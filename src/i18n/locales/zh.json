@@ -29,6 +29,7 @@
     "milestoneWeeks": "连续周！"
   },
   "common": {
+    "back": "返回",
     "cancel": "取消",
     "login": "登录",
     "logout": "退出登录",

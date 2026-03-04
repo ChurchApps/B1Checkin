@@ -29,6 +29,7 @@
     "milestoneWeeks": "Недель подряд!"
   },
   "common": {
+    "back": "Назад",
     "cancel": "Отмена",
     "login": "Вход",
     "logout": "Выход",

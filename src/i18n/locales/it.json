@@ -29,6 +29,7 @@
     "milestoneWeeks": "Settimane consecutive!"
   },
   "common": {
+    "back": "Indietro",
     "cancel": "Annulla",
     "login": "Accedi",
     "logout": "Esci",

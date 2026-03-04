@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
+import Ripple from "react-native-material-ripple";
+import { FontAwesome } from "@expo/vector-icons";
 import { StyleConstants, DimensionHelper } from "../helpers";
 import { useCheckinTheme } from "../context/CheckinThemeContext";
 
@@ -7,6 +9,7 @@ interface Props {
   icon: string;
   title: string;
   subtitle: string;
+  onBack?: () => void;
 }
 
 const Subheader = (props: Props) => {
@@ -15,6 +18,11 @@ const Subheader = (props: Props) => {
   <View style={[subheaderStyles.textSection, { backgroundColor: theme.colors.subheaderBackground, shadowColor: theme.colors.primary }]}>
     <View style={subheaderStyles.headerTextContainer}>
       <View style={subheaderStyles.titleRow}>
+        {props.onBack && (
+          <Ripple style={subheaderStyles.backButton} onPress={props.onBack}>
+            <FontAwesome name="arrow-left" size={DimensionHelper.wp("4%")} color="rgba(255,255,255,0.9)" />
+          </Ripple>
+        )}
         <View style={subheaderStyles.titleIconContainer}>
           <Text style={subheaderStyles.titleIcon}>{props.icon}</Text>
         </View>
@@ -50,6 +58,16 @@ const subheaderStyles = {
     flexDirection: "row",
     alignItems: "center",
     width: "100%"
+  },
+
+  backButton: {
+    width: DimensionHelper.wp("8%"),
+    height: DimensionHelper.wp("8%"),
+    borderRadius: DimensionHelper.wp("4%"),
+    backgroundColor: "rgba(255,255,255,0.2)",
+    justifyContent: "center" as const,
+    alignItems: "center" as const,
+    marginRight: DimensionHelper.wp("2.5%")
   },
 
   titleIconContainer: {

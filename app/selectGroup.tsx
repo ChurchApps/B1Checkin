@@ -122,6 +122,7 @@ const SelectGroup = (props: any) => {
         icon="👥"
         title={t("selectGroup.title")}
         subtitle={t("selectGroup.subtitle", { serviceName: serviceTimes?.name || "this service" })}
+        onBack={() => router.back()}
       />
 
       {/* Main Content */}
