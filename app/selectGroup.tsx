@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
@@ -9,16 +9,18 @@ import { FontAwesome } from "@expo/vector-icons";
 import { DimensionHelper, FirebaseHelper, GroupInterface } from "../src/helpers";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
-// type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
-// interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 interface GroupCategoryInterface { key: number, name: string, items: GroupInterface[] }
 
 const SelectGroup = (props: any) => {
   const { t } = useTranslation();
 
   const router = useRouter();
-  const { personId, serviceTime } = useLocalSearchParams();
-  const serviceTimes = JSON.parse(serviceTime);
+  const params = useLocalSearchParams();
+  const personIdStr = String(params.personId ?? "");
+  const serviceTimes = React.useMemo(() => {
+    try { return JSON.parse(String(params.serviceTime ?? "{}")); }
+    catch { return {}; }
+  }, [params.serviceTime]);
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
   const [groupTree, setGroupTree] = React.useState<GroupCategoryInterface[]>([]);
@@ -42,39 +44,23 @@ const SelectGroup = (props: any) => {
   const handleCategoryClick = (value: number) => { setSelectedCategory((selectedCategory === value) ? -1 : value); };
   const handleNone = () => { selectGroup("", "NONE"); };
 
-  // const selectGroup = (id: string, name: string) => {
-  //   // AppCenterHelper.trackEvent("Select Group", name);
-  //   const personId = props.route.params.personId;
-  //   let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
-  //   if (visit === null) {
-  //     visit = { personId: personId, serviceId: CachedData.serviceId, visitSessions: [] };
-  //     CachedData.pendingVisits.push(visit);
-  //   }
-  //   const vs = visit?.visitSessions || [];
-  //   const serviceTimeId = props.route.params.serviceTime.id || "";
-  //   VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
-  //   // props.navigation.goBack();
-  //   router.back();
-  // };
-
   const selectGroup = (id: string, name: string) => {
 
-    let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
+    let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personIdStr);
 
     if (!visit) {
-      visit = { personId, serviceId: CachedData.serviceId, visitSessions: [] };
+      visit = { personId: personIdStr, serviceId: CachedData.serviceId, visitSessions: [] };
       CachedData.pendingVisits.push(visit);
     }
 
     const vs = visit?.visitSessions || [];
-    const serviceTimeId = serviceTimes.id || ""; // ✅ Use serviceTimeId from params
+    const serviceTimeId = serviceTimes.id || "";
     VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
 
     router.back();
   };
 
-  const getRow = (data: any) => {
-    const item: GroupCategoryInterface = data.item;
+  const getRow = (item: GroupCategoryInterface) => {
     const isExpanded = selectedCategory === item.key;
     return (
       <View style={selectGroupStyles.categoryContainer}>
@@ -132,7 +118,7 @@ const SelectGroup = (props: any) => {
     return <View style={selectGroupStyles.expandedContainer}>{result}</View>;
   };
 
-  React.useEffect(buildTree, []);
+  React.useEffect(buildTree, [serviceTimes]);
 
   return (
     <View style={selectGroupStyles.container}>
@@ -154,13 +140,13 @@ const SelectGroup = (props: any) => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={selectGroupStyles.scrollContent}
         >
-          <FlatList
-            data={groupTree}
-            renderItem={getRow}
-            keyExtractor={(item: GroupCategoryInterface) => item.name}
-            scrollEnabled={false}
-            contentContainerStyle={selectGroupStyles.listContainer}
-          />
+          <View style={selectGroupStyles.listContainer}>
+            {groupTree.map((item) => (
+              <React.Fragment key={item.name}>
+                {getRow(item)}
+              </React.Fragment>
+            ))}
+          </View>
         </ScrollView>
       </View>
 
