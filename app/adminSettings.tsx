@@ -14,6 +14,11 @@ import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 interface Props { navigation: screenNavigationProps; }
 
+const getVersion = () => {
+  const pkg = require("../package.json");
+  return "v" + pkg.version;
+};
+
 const AdminSettings = (props: Props) => {
   const { t } = useTranslation();
   const { theme } = useCheckinTheme();
@@ -94,6 +99,7 @@ const AdminSettings = (props: Props) => {
             <Text style={[adminStyles.arrow, { color: theme.colors.primary }, item.destructive && adminStyles.destructiveText]}>›</Text>
           </Ripple>
         ))}
+        <Text style={adminStyles.versionText}>{getVersion()}</Text>
       </View>
 
       <View style={[adminStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%"), borderTopColor: theme.colors.primary + "20" }]}>
@@ -125,57 +131,65 @@ const adminStyles = {
   },
   mainContent: {
     flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("2%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingTop: DimensionHelper.wp("1.5%"),
   },
   menuCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    marginVertical: DimensionHelper.wp("1.5%"),
-    padding: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    marginVertical: DimensionHelper.wp("1%"),
+    padding: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     flexDirection: "row" as const,
     alignItems: "center",
-    minHeight: DimensionHelper.wp("16%"),
+    minHeight: DimensionHelper.wp("12%"),
   },
   destructiveCard: {
     borderWidth: 1,
     borderColor: StyleConstants.redColor + "30",
   },
   iconContainer: {
-    width: DimensionHelper.wp("10%"),
-    height: DimensionHelper.wp("10%"),
-    borderRadius: DimensionHelper.wp("5%"),
+    width: DimensionHelper.wp("8%"),
+    height: DimensionHelper.wp("8%"),
+    borderRadius: DimensionHelper.wp("4%"),
     backgroundColor: StyleConstants.baseColor + "15",
     justifyContent: "center",
     alignItems: "center",
-    marginRight: DimensionHelper.wp("3%"),
+    marginRight: DimensionHelper.wp("2.5%"),
   },
   destructiveIconContainer: {
     backgroundColor: StyleConstants.redColor + "15",
   },
   menuLabel: {
     flex: 1,
-    fontSize: DimensionHelper.wp("4.5%"),
+    fontSize: DimensionHelper.wp("3.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
   },
   destructiveText: {
     color: StyleConstants.redColor,
   },
+  versionText: {
+    textAlign: "center" as const,
+    fontSize: DimensionHelper.wp("2.8%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.baseColor,
+    marginTop: DimensionHelper.wp("3%"),
+    opacity: 0.6,
+  },
   arrow: {
-    fontSize: DimensionHelper.wp("6%"),
+    fontSize: DimensionHelper.wp("5%"),
     color: StyleConstants.baseColor,
     opacity: 0.7,
-    marginLeft: DimensionHelper.wp("2%"),
+    marginLeft: DimensionHelper.wp("1.5%"),
   },
   buttonContainer: {
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingVertical: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingVertical: DimensionHelper.wp("2%"),
     backgroundColor: StyleConstants.whiteColor,
     borderTopWidth: 1,
     borderTopColor: StyleConstants.baseColor + "20",
@@ -190,17 +204,17 @@ const adminStyles = {
     justifyContent: "center",
     backgroundColor: StyleConstants.baseColor,
     borderRadius: 8,
-    paddingVertical: DimensionHelper.wp("3.5%"),
+    paddingVertical: DimensionHelper.wp("2.5%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 3,
   },
   buttonIcon: {
-    marginRight: DimensionHelper.wp("2%"),
+    marginRight: DimensionHelper.wp("1.5%"),
   },
   backButtonText: {
-    fontSize: DimensionHelper.wp("4.2%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.whiteColor,
   },

@@ -108,7 +108,7 @@ function SelectChurch() {
     ? (
       <View style={Styles.churchSelectionLoader}>
         <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-        <Text style={{ marginTop: DimensionHelper.wp("4%"), fontSize: DimensionHelper.wp("3.5%"), color: StyleConstants.grayColor, fontFamily: StyleConstants.RobotoRegular }}>{t("selectChurch.loading")}</Text>
+        <Text style={{ marginTop: DimensionHelper.wp("3%"), fontSize: DimensionHelper.wp("2.8%"), color: StyleConstants.grayColor, fontFamily: StyleConstants.RobotoRegular }}>{t("selectChurch.loading")}</Text>
       </View>
     )
     : (
@@ -124,15 +124,15 @@ function SelectChurch() {
   return (
     <View style={Styles.churchSelectionContainer}>
       {/* Header with Logo */}
-      <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("6%") }}>
+      <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("4%") }}>
         <Image
           source={require("../src/images/logo1.png")}
           style={{
-            width: DimensionHelper.wp("20%"),
-            height: DimensionHelper.wp("20%"),
+            width: DimensionHelper.wp("14%"),
+            height: DimensionHelper.wp("14%"),
             resizeMode: "contain",
-            marginBottom: DimensionHelper.wp("2%"),
-            borderRadius: DimensionHelper.wp("5%")
+            marginBottom: DimensionHelper.wp("1.5%"),
+            borderRadius: DimensionHelper.wp("3%")
           }}
         />
         <Text style={Styles.churchSelectionTitle}>{t("selectChurch.title")}</Text>

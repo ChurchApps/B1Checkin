@@ -321,40 +321,37 @@ const Lookup = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles matching ChumsApp
 const lookupStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: StyleConstants.ghostWhite
   },
 
-  // Main Content
   mainContent: {
     flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%")
+    paddingHorizontal: DimensionHelper.wp("4%")
   },
 
-  // Search Section
-  searchSection: { marginBottom: DimensionHelper.wp("5%") },
+  searchSection: { marginBottom: DimensionHelper.wp("3%") },
 
   modeToggleContainer: {
     flexDirection: "row",
     alignSelf: "center",
     backgroundColor: StyleConstants.whiteColor,
     borderRadius: 999,
-    padding: DimensionHelper.wp("0.8%"),
+    padding: DimensionHelper.wp("0.6%"),
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
     shadowColor: StyleConstants.baseColor,
-    width: DimensionHelper.wp("60%")
+    width: DimensionHelper.wp("46%")
   },
 
   modeButton: {
     flex: 1,
     borderRadius: 999,
-    paddingVertical: DimensionHelper.wp("2%"),
+    paddingVertical: DimensionHelper.wp("1.5%"),
     alignItems: "center",
     justifyContent: "center"
   },
@@ -362,7 +359,7 @@ const lookupStyles = StyleSheet.create({
   modeButtonActive: { backgroundColor: StyleConstants.baseColor },
 
   modeButtonText: {
-    fontSize: DimensionHelper.wp("3.5%"),
+    fontSize: DimensionHelper.wp("2.8%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.baseColor
   },
@@ -371,40 +368,40 @@ const lookupStyles = StyleSheet.create({
 
   searchView: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
+    borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("2%"),
+    paddingHorizontal: DimensionHelper.wp("3%"),
+    paddingVertical: DimensionHelper.wp("1.2%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: 6,
     elevation: 5,
     shadowColor: StyleConstants.baseColor,
     alignSelf: "center",
-    marginVertical: DimensionHelper.wp("3%")
+    marginVertical: DimensionHelper.wp("2%")
   },
 
   searchTextInput: {
     flex: 1,
-    fontSize: DimensionHelper.wp("4%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.darkColor,
-    paddingVertical: DimensionHelper.wp("2%"),
-    paddingHorizontal: DimensionHelper.wp("2%")
+    paddingVertical: DimensionHelper.wp("1.5%"),
+    paddingHorizontal: DimensionHelper.wp("1.5%")
   },
 
   searchButton: {
     backgroundColor: StyleConstants.baseColor,
-    paddingHorizontal: DimensionHelper.wp("6%"),
-    paddingVertical: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("4.5%"),
+    paddingVertical: DimensionHelper.wp("2.2%"),
     borderRadius: 8,
-    marginLeft: DimensionHelper.wp("3%")
+    marginLeft: DimensionHelper.wp("2%")
   },
 
   searchButtonText: {
     color: StyleConstants.whiteColor,
-    fontSize: DimensionHelper.wp("3.8%"),
+    fontSize: DimensionHelper.wp("3%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600"
   },
@@ -425,35 +422,33 @@ const lookupStyles = StyleSheet.create({
     marginTop: 0
   },
 
-  // Results Section
   resultsSection: { flex: 1 },
 
   resultsContainer: { flex: 1 },
 
-  resultsList: { paddingBottom: DimensionHelper.wp("5%") },
+  resultsList: { paddingBottom: DimensionHelper.wp("3%") },
 
-  // Person Cards (Professional Material Design)
   personCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    marginVertical: DimensionHelper.wp("1.5%"),
-    padding: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    marginVertical: DimensionHelper.wp("1%"),
+    padding: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "center",
-    minHeight: DimensionHelper.wp("18%")
+    minHeight: DimensionHelper.wp("14%")
   },
 
   personPhoto: {
-    width: DimensionHelper.wp("12%"),
-    height: DimensionHelper.wp("12%"),
-    borderRadius: DimensionHelper.wp("6%"),
-    marginRight: DimensionHelper.wp("4%")
+    width: DimensionHelper.wp("9%"),
+    height: DimensionHelper.wp("9%"),
+    borderRadius: DimensionHelper.wp("4.5%"),
+    marginRight: DimensionHelper.wp("3%")
   },
 
   personInfo: {
@@ -462,132 +457,128 @@ const lookupStyles = StyleSheet.create({
   },
 
   personName: {
-    fontSize: DimensionHelper.wp("4.5%"),
+    fontSize: DimensionHelper.wp("3.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
-    lineHeight: DimensionHelper.wp("5.5%")
+    lineHeight: DimensionHelper.wp("4.5%")
   },
 
   arrowContainer: {
-    marginLeft: DimensionHelper.wp("3%"),
+    marginLeft: DimensionHelper.wp("2%"),
     justifyContent: "center",
     alignItems: "center"
   },
 
   arrow: {
-    fontSize: DimensionHelper.wp("6%"),
+    fontSize: DimensionHelper.wp("5%"),
     color: StyleConstants.baseColor,
     opacity: 0.7
   },
 
-  // Loading State
   loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: DimensionHelper.wp("20%")
-  },
-
-  loadingText: {
-    fontSize: DimensionHelper.wp("4%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor,
-    marginTop: DimensionHelper.wp("4%"),
-    textAlign: "center"
-  },
-
-  // Empty States
-  emptyState: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: DimensionHelper.wp("20%")
-  },
-
-  emptyStateIcon: {
-    fontSize: DimensionHelper.wp("16%"),
-    marginBottom: DimensionHelper.wp("4%")
-  },
-
-  emptyStateTitle: {
-    fontSize: DimensionHelper.wp("5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("2%"),
-    textAlign: "center"
-  },
-
-  emptyStateSubtitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.lightGray,
-    textAlign: "center",
-    lineHeight: DimensionHelper.wp("5%")
-  },
-
-  // QR Guest Registration
-  qrSection: {
-    alignItems: "center",
-    marginBottom: DimensionHelper.wp("3%")
-  },
-
-  qrContainer: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("3%"),
-    alignItems: "center",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  qrLabel: {
-    fontSize: DimensionHelper.wp("3%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.baseColor,
-    marginTop: DimensionHelper.wp("2%"),
-    textAlign: "center"
-  },
-
-  guestLink: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    textDecorationLine: "underline" as const,
-    opacity: 0.7,
-    textAlign: "center" as const,
-    paddingVertical: DimensionHelper.wp("1%")
-  },
-
-  // No Results State
-  noResultsState: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingTop: DimensionHelper.wp("15%")
   },
 
+  loadingText: {
+    fontSize: DimensionHelper.wp("3.2%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.baseColor,
+    marginTop: DimensionHelper.wp("3%"),
+    textAlign: "center"
+  },
+
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: DimensionHelper.wp("12%")
+  },
+
+  emptyStateIcon: {
+    fontSize: DimensionHelper.wp("10%"),
+    marginBottom: DimensionHelper.wp("3%")
+  },
+
+  emptyStateTitle: {
+    fontSize: DimensionHelper.wp("4%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor,
+    marginBottom: DimensionHelper.wp("1.5%"),
+    textAlign: "center"
+  },
+
+  emptyStateSubtitle: {
+    fontSize: DimensionHelper.wp("3%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.lightGray,
+    textAlign: "center",
+    lineHeight: DimensionHelper.wp("4%")
+  },
+
+  qrSection: {
+    alignItems: "center",
+    marginBottom: DimensionHelper.wp("2%")
+  },
+
+  qrContainer: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 10,
+    padding: DimensionHelper.wp("2.5%"),
+    alignItems: "center",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
+    shadowColor: StyleConstants.baseColor
+  },
+
+  qrLabel: {
+    fontSize: DimensionHelper.wp("2.5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.baseColor,
+    marginTop: DimensionHelper.wp("1.5%"),
+    textAlign: "center"
+  },
+
+  guestLink: {
+    fontSize: DimensionHelper.wp("2.8%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    textDecorationLine: "underline" as const,
+    opacity: 0.7,
+    textAlign: "center" as const,
+    paddingVertical: DimensionHelper.wp("0.8%")
+  },
+
+  noResultsState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: DimensionHelper.wp("10%")
+  },
+
   noResultsIcon: {
-    fontSize: DimensionHelper.wp("16%"),
-    marginBottom: DimensionHelper.wp("4%")
+    fontSize: DimensionHelper.wp("10%"),
+    marginBottom: DimensionHelper.wp("3%")
   },
 
   noResultsTitle: {
-    fontSize: DimensionHelper.wp("5%"),
+    fontSize: DimensionHelper.wp("4%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
     textAlign: "center"
   },
 
   noResultsSubtitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
+    fontSize: DimensionHelper.wp("3%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.lightGray,
     textAlign: "center",
-    lineHeight: DimensionHelper.wp("5%"),
-    paddingHorizontal: DimensionHelper.wp("10%")
+    lineHeight: DimensionHelper.wp("4%"),
+    paddingHorizontal: DimensionHelper.wp("8%")
   }
 });
 

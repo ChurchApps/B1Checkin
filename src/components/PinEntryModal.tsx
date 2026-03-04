@@ -226,7 +226,7 @@ const PinEntryModal = (props: PinEntryModalProps) => {
       disabled={lockedUntil > 0}
     >
       {isIcon
-        ? <FontAwesome name="arrow-left" size={DimensionHelper.wp("5%")} color={StyleConstants.darkColor} />
+        ? <FontAwesome name="arrow-left" size={DimensionHelper.wp("3.5%")} color={StyleConstants.darkColor} />
         : <Text style={pinStyles.keypadButtonText}>{value}</Text>}
     </Pressable>
   );
@@ -239,11 +239,11 @@ const PinEntryModal = (props: PinEntryModalProps) => {
         <Animated.View style={[pinStyles.card, { transform: [{ translateX: shakeAnim }] }]}>
           {dismissible && (
             <Pressable style={pinStyles.closeButton} onPress={onCancel}>
-              <FontAwesome name="times" size={DimensionHelper.wp("5%")} color={StyleConstants.grayColor} />
+              <FontAwesome name="times" size={DimensionHelper.wp("3.5%")} color={StyleConstants.grayColor} />
             </Pressable>
           )}
 
-          <FontAwesome name="lock" size={DimensionHelper.wp("8%")} color={StyleConstants.baseColor} style={pinStyles.lockIcon} />
+          <FontAwesome name="lock" size={DimensionHelper.wp("6%")} color={StyleConstants.baseColor} style={pinStyles.lockIcon} />
           <Text style={pinStyles.title}>{getTitle()}</Text>
 
           {mode === "setup" && step === "enter" && (
@@ -305,10 +305,10 @@ const pinStyles = {
   },
   card: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 16,
-    padding: DimensionHelper.wp("6%"),
-    width: DimensionHelper.wp("85%"),
-    maxWidth: 450,
+    borderRadius: 14,
+    padding: DimensionHelper.wp("4%"),
+    width: DimensionHelper.wp("70%"),
+    maxWidth: 400,
     alignItems: "center",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
@@ -317,40 +317,40 @@ const pinStyles = {
   },
   closeButton: {
     position: "absolute" as const,
-    top: DimensionHelper.wp("3%"),
-    right: DimensionHelper.wp("3%"),
-    padding: DimensionHelper.wp("2%"),
+    top: DimensionHelper.wp("2%"),
+    right: DimensionHelper.wp("2%"),
+    padding: DimensionHelper.wp("1.5%"),
     zIndex: 1,
   },
   lockIcon: {
-    marginBottom: DimensionHelper.wp("3%"),
-    marginTop: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("2%"),
+    marginTop: DimensionHelper.wp("1.5%"),
   },
   title: {
-    fontSize: DimensionHelper.wp("5%"),
+    fontSize: DimensionHelper.wp("3.8%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("1%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
     textAlign: "center" as const,
   },
   subtitle: {
-    fontSize: DimensionHelper.wp("3.2%"),
+    fontSize: DimensionHelper.wp("2.5%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.grayColor,
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
     textAlign: "center" as const,
   },
   digitRow: {
     flexDirection: "row" as const,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: DimensionHelper.wp("4%"),
-    gap: DimensionHelper.wp("2.5%"),
+    marginVertical: DimensionHelper.wp("3%"),
+    gap: DimensionHelper.wp("2%"),
   },
   digitCircle: {
-    width: DimensionHelper.wp("4%"),
-    height: DimensionHelper.wp("4%"),
-    borderRadius: DimensionHelper.wp("2%"),
+    width: DimensionHelper.wp("3%"),
+    height: DimensionHelper.wp("3%"),
+    borderRadius: DimensionHelper.wp("1.5%"),
     borderWidth: 2,
     borderColor: StyleConstants.baseColor,
     backgroundColor: "transparent",
@@ -363,18 +363,18 @@ const pinStyles = {
     borderStyle: "dashed" as const,
   },
   errorText: {
-    fontSize: DimensionHelper.wp("3.2%"),
+    fontSize: DimensionHelper.wp("2.5%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.redColor,
     textAlign: "center" as const,
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
   },
   lockoutText: {
-    fontSize: DimensionHelper.wp("6%"),
+    fontSize: DimensionHelper.wp("4.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.redColor,
     textAlign: "center" as const,
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
   },
   keypadGrid: {
     width: "100%",
@@ -383,31 +383,31 @@ const pinStyles = {
   keypadRow: {
     flexDirection: "row" as const,
     justifyContent: "center",
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
   },
   keypadButton: {
-    width: DimensionHelper.wp("16%"),
-    height: DimensionHelper.wp("12%"),
-    borderRadius: DimensionHelper.wp("2%"),
+    width: DimensionHelper.wp("12%"),
+    height: DimensionHelper.wp("9%"),
+    borderRadius: DimensionHelper.wp("1.5%"),
     backgroundColor: StyleConstants.ghostWhite,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: DimensionHelper.wp("1.5%"),
+    marginHorizontal: DimensionHelper.wp("1%"),
   },
   keypadButtonPressed: {
     backgroundColor: StyleConstants.lightGrayColor,
   },
   keypadButtonText: {
-    fontSize: DimensionHelper.wp("6%"),
+    fontSize: DimensionHelper.wp("4.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
   },
   submitButton: {
     backgroundColor: StyleConstants.baseColor,
     borderRadius: 8,
-    paddingVertical: DimensionHelper.wp("3%"),
-    paddingHorizontal: DimensionHelper.wp("12%"),
-    marginTop: DimensionHelper.wp("2%"),
+    paddingVertical: DimensionHelper.wp("2.2%"),
+    paddingHorizontal: DimensionHelper.wp("10%"),
+    marginTop: DimensionHelper.wp("1.5%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -419,7 +419,7 @@ const pinStyles = {
     shadowOpacity: 0,
   },
   submitButtonText: {
-    fontSize: DimensionHelper.wp("4.2%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.whiteColor,
     textAlign: "center" as const,

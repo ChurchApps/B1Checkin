@@ -52,17 +52,17 @@ function Login(_props: Props) {
       >
         <View style={Styles.loginCard}>
           {/* Logo */}
-          <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("4%") }}>
+          <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("3%") }}>
             <Image
               source={require("../src/images/logo1.png")}
               style={{
-                width: DimensionHelper.wp("28%"),
-                height: DimensionHelper.wp("28%"),
+                width: DimensionHelper.wp("18%"),
+                height: DimensionHelper.wp("18%"),
                 resizeMode: "contain",
                 marginBottom: DimensionHelper.wp("1%")
               }}
             />
-            <Text style={{ fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor }}>{t("login.title")}</Text>
+            <Text style={{ fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor }}>{t("login.title")}</Text>
           </View>
 
           {/* Title */}

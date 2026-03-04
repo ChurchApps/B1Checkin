@@ -113,29 +113,27 @@ const householdStyles = {
     backgroundColor: StyleConstants.ghostWhite
   },
 
-  // Main Content
   mainContent: {
     flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%")
+    paddingHorizontal: DimensionHelper.wp("4%")
   },
 
-  scrollContent: { paddingBottom: DimensionHelper.wp("5%") },
+  scrollContent: { paddingBottom: DimensionHelper.wp("3%") },
 
-  // Add Guest Section
   addGuestSection: {
-    marginTop: DimensionHelper.wp("5%"),
-    marginBottom: DimensionHelper.wp("3%")
+    marginTop: DimensionHelper.wp("3%"),
+    marginBottom: DimensionHelper.wp("2%")
   },
 
   addGuestButton: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    paddingVertical: DimensionHelper.wp("4%"),
-    paddingHorizontal: DimensionHelper.wp("6%"),
+    borderRadius: 10,
+    paddingVertical: DimensionHelper.wp("2.5%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     flexDirection: "row",
     alignItems: "center",
@@ -147,50 +145,49 @@ const householdStyles = {
   },
 
   addGuestIcon: {
-    fontSize: DimensionHelper.wp("5%"),
-    marginRight: DimensionHelper.wp("3%")
+    fontSize: DimensionHelper.wp("3.5%"),
+    marginRight: DimensionHelper.wp("2%")
   },
 
   addGuestText: {
     color: StyleConstants.baseColor,
-    fontSize: DimensionHelper.wp("4%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600"
   },
 
-  // Check-in Section
   checkinSection: {
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingVertical: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingVertical: DimensionHelper.wp("2%"),
     backgroundColor: StyleConstants.whiteColor,
     borderTopWidth: 1,
     borderTopColor: StyleConstants.lightGrayColor,
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: 6,
     elevation: 5,
     shadowColor: StyleConstants.baseColor
   },
 
   checkinButton: {
     backgroundColor: StyleConstants.baseColor,
-    borderRadius: 12,
-    paddingVertical: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    paddingVertical: DimensionHelper.wp("3%"),
     justifyContent: "center",
     alignItems: "center",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
-    shadowRadius: 8,
+    shadowRadius: 6,
     elevation: 5,
     shadowColor: StyleConstants.baseColor
   },
 
   checkinButtonText: {
     color: StyleConstants.whiteColor,
-    fontSize: DimensionHelper.wp("4.5%"),
+    fontSize: DimensionHelper.wp("3.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
-    letterSpacing: 1
+    letterSpacing: 0.5
   }
 };
 

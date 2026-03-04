@@ -114,7 +114,7 @@ const CheckinComplete = (props: Props) => {
             <FontAwesome
               name="check-circle"
               style={checkinCompleteStyles.successIcon}
-              size={DimensionHelper.wp("15%")}
+              size={DimensionHelper.wp("10%")}
             />
           </View>
           <Text style={checkinCompleteStyles.successTitle}>{t("checkinComplete.welcomeTitle")}</Text>
@@ -138,58 +138,56 @@ const checkinCompleteStyles = {
     backgroundColor: StyleConstants.ghostWhite
   },
 
-  // Main Content
   mainContent: {
     flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("5%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingTop: DimensionHelper.wp("3%"),
     justifyContent: "center",
     alignItems: "center"
   },
 
-  // Success Card (Professional Material Design)
   successCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 16,
-    padding: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("5%"),
+    borderRadius: 14,
+    padding: DimensionHelper.wp("5%"),
+    marginBottom: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    shadowRadius: 12,
+    shadowRadius: 10,
     elevation: 8,
     shadowColor: StyleConstants.baseColor,
     alignItems: "center",
-    minWidth: DimensionHelper.wp("80%"),
-    maxWidth: DimensionHelper.wp("90%")
+    minWidth: DimensionHelper.wp("70%"),
+    maxWidth: DimensionHelper.wp("85%")
   },
 
   successIconContainer: {
     backgroundColor: StyleConstants.greenColor + "20",
-    borderRadius: DimensionHelper.wp("8%"),
-    width: DimensionHelper.wp("20%"),
-    height: DimensionHelper.wp("20%"),
+    borderRadius: DimensionHelper.wp("6%"),
+    width: DimensionHelper.wp("14%"),
+    height: DimensionHelper.wp("14%"),
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: DimensionHelper.wp("5%")
+    marginBottom: DimensionHelper.wp("3%")
   },
 
   successIcon: { color: StyleConstants.greenColor },
 
   successTitle: {
-    fontSize: DimensionHelper.wp("6%"),
+    fontSize: DimensionHelper.wp("4.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
     color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("3%"),
+    marginBottom: DimensionHelper.wp("2%"),
     textAlign: "center"
   },
 
   successMessage: {
-    fontSize: DimensionHelper.wp("4.2%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.darkColor,
     textAlign: "center",
-    lineHeight: DimensionHelper.wp("5.5%"),
+    lineHeight: DimensionHelper.wp("4.5%"),
     opacity: 0.8,
     paddingHorizontal: DimensionHelper.wp("2%")
   }

@@ -127,13 +127,8 @@ const Header = (props: Props) => {
       <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
         <StatusBar backgroundColor={theme.colors.headerBackground} />
 
-        {/* Compact Printer Status Bar */}
-        <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined, backgroundColor: theme.colors.headerBackground }]} onPress={() => { handleClick(); }}>
-          <Text style={{ backgroundColor: theme.colors.headerBackground, color: theme.colors.primaryContrast }}>{getVersion()} - {status}</Text>
-        </Ripple>
-
         {/* Logo Section with Dark Blue Background */}
-        <View style={[headerStyles.logoSection, { backgroundColor: theme.colors.headerBackground }]}>
+        <View style={[headerStyles.logoSection, { backgroundColor: theme.colors.headerBackground, paddingTop: insets.top + DimensionHelper.wp("2.5%") }]}>
           {/* Prominent Church Logo in White Box - Tappable for secret logout */}
           <Ripple style={headerStyles.logoContainer} onPress={handleLogoTap}>
             <Image source={getLogoUrl()} style={headerStyles.prominentLogo} />
@@ -151,11 +146,8 @@ const Header = (props: Props) => {
   }
 
   return (
-    <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
+    <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, { paddingTop: insets.top }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
       <StatusBar backgroundColor={theme.colors.headerBackground} />
-      <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined, backgroundColor: theme.colors.headerBackground }]} onPress={() => { handleClick(); }}>
-        <Text style={{ backgroundColor: theme.colors.headerBackground, color: theme.colors.primaryContrast }}>{getVersion()} - {status}</Text>
-      </Ripple>
       {props.logo !== false && (
         <Ripple onPress={handleLogoTap} style={{ alignItems: "center", justifyContent: "center" }}>
           <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
@@ -171,23 +163,20 @@ const Header = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles for prominent logo mode
 const headerStyles = {
-  // Logo Section (Dark blue background)
   logoSection: {
-    backgroundColor: StyleConstants.baseColor, // Dark blue #1565C0
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("5%"),
-    paddingBottom: DimensionHelper.wp("5%"),
+    backgroundColor: StyleConstants.baseColor,
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingTop: DimensionHelper.wp("2.5%"),
+    paddingBottom: DimensionHelper.wp("2.5%"),
     alignItems: "center"
   },
 
-  // Prominent White Box for Logo within Blue Header
   logoContainer: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    width: DimensionHelper.wp("70%"), // 70% of blue box width
-    height: DimensionHelper.wp("16%"),
+    borderRadius: 10,
+    width: DimensionHelper.wp("60%"),
+    height: DimensionHelper.wp("11%"),
     justifyContent: "center",
     alignItems: "center",
     shadowOffset: { width: 0, height: 2 },
@@ -197,8 +186,8 @@ const headerStyles = {
   },
 
   prominentLogo: {
-    width: DimensionHelper.wp("65%"), // Slightly smaller than container for padding
-    height: DimensionHelper.wp("14%"),
+    width: DimensionHelper.wp("55%"),
+    height: DimensionHelper.wp("9%"),
     resizeMode: "contain"
   }
 };

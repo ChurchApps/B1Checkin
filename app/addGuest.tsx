@@ -171,39 +171,37 @@ const addGuestStyles = {
   scrollView: { flex: 1 },
 
   scrollContent: {
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("3%"),
-    paddingBottom: DimensionHelper.wp("10%")
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingTop: DimensionHelper.wp("2%"),
+    paddingBottom: DimensionHelper.wp("6%")
   },
 
-  // Form Card (Professional Material Design)
   formCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("5%"),
+    borderRadius: 10,
+    padding: DimensionHelper.wp("4%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     maxWidth: DimensionHelper.wp("90%"),
     alignSelf: "center",
     width: "100%"
   },
 
-  // Input Groups
-  inputGroup: { marginBottom: DimensionHelper.wp("5%") },
+  inputGroup: { marginBottom: DimensionHelper.wp("3.5%") },
 
   labelContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: DimensionHelper.wp("2%")
+    marginBottom: DimensionHelper.wp("1.5%")
   },
 
-  labelIcon: { marginRight: DimensionHelper.wp("2%") },
+  labelIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
   label: {
-    fontSize: DimensionHelper.wp("4%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
     color: StyleConstants.darkColor
@@ -212,20 +210,19 @@ const addGuestStyles = {
   textInput: {
     backgroundColor: StyleConstants.ghostWhite,
     borderRadius: 8,
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("3.5%"),
-    fontSize: DimensionHelper.wp("4.2%"),
+    paddingHorizontal: DimensionHelper.wp("3%"),
+    paddingVertical: DimensionHelper.wp("2.5%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.darkColor,
     borderWidth: 1,
     borderColor: StyleConstants.baseColor + "20"
   },
 
-  // Action Buttons
   buttonContainer: {
     flexDirection: "row",
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingVertical: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingVertical: DimensionHelper.wp("2%"),
     backgroundColor: StyleConstants.whiteColor,
     borderTopWidth: 1,
     borderTopColor: StyleConstants.baseColor + "20",
@@ -240,7 +237,7 @@ const addGuestStyles = {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: DimensionHelper.wp("3.5%"),
+    paddingVertical: DimensionHelper.wp("2.5%"),
     borderRadius: 8,
     marginHorizontal: DimensionHelper.wp("1.5%")
   },
@@ -259,17 +256,17 @@ const addGuestStyles = {
     elevation: 3
   },
 
-  buttonIcon: { marginRight: DimensionHelper.wp("2%") },
+  buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
   cancelButtonText: {
-    fontSize: DimensionHelper.wp("4.2%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
     color: StyleConstants.baseColor
   },
 
   addButtonText: {
-    fontSize: DimensionHelper.wp("4.2%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
     color: StyleConstants.whiteColor

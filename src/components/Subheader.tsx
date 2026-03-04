@@ -29,15 +29,14 @@ const Subheader = (props: Props) => {
 };
 
 const subheaderStyles = {
-  // Text Section (Light blue background)
   textSection: {
-    backgroundColor: "#568BDA", // Light blue background
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("5%"),
-    paddingBottom: DimensionHelper.wp("5%"),
-    borderBottomLeftRadius: DimensionHelper.wp("8%"),
-    borderBottomRightRadius: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("2%"),
+    backgroundColor: "#568BDA",
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingTop: DimensionHelper.wp("2.5%"),
+    paddingBottom: DimensionHelper.wp("2.5%"),
+    borderBottomLeftRadius: DimensionHelper.wp("5%"),
+    borderBottomRightRadius: DimensionHelper.wp("5%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
@@ -56,28 +55,28 @@ const subheaderStyles = {
   titleIconContainer: {
     backgroundColor: "rgba(255,255,255,0.2)",
     borderRadius: 8,
-    width: DimensionHelper.wp("12%"),
-    height: DimensionHelper.wp("12%"),
+    width: DimensionHelper.wp("8%"),
+    height: DimensionHelper.wp("8%"),
     justifyContent: "center",
     alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
+    marginRight: DimensionHelper.wp("2.5%")
   },
 
-  titleIcon: { fontSize: DimensionHelper.wp("6%") },
+  titleIcon: { fontSize: DimensionHelper.wp("4%") },
 
   titleTextContainer: { flex: 1 },
 
   headerTitle: {
-    fontSize: DimensionHelper.wp("5.5%"),
+    fontSize: DimensionHelper.wp("4.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
     color: StyleConstants.whiteColor,
-    marginBottom: DimensionHelper.wp("1%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
     textAlign: "left"
   },
 
   headerSubtitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
+    fontSize: DimensionHelper.wp("3%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: "rgba(255,255,255,0.9)",
     textAlign: "left"

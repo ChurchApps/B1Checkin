@@ -181,27 +181,25 @@ const selectGroupStyles = {
     backgroundColor: StyleConstants.ghostWhite
   },
 
-  // Main Content
   mainContent: {
     flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%")
+    paddingHorizontal: DimensionHelper.wp("4%")
   },
 
-  scrollContent: { paddingBottom: DimensionHelper.wp("5%") },
+  scrollContent: { paddingBottom: DimensionHelper.wp("3%") },
 
-  listContainer: { paddingBottom: DimensionHelper.wp("3%") },
+  listContainer: { paddingBottom: DimensionHelper.wp("2%") },
 
-  // Category Cards
-  categoryContainer: { marginBottom: DimensionHelper.wp("3%") },
+  categoryContainer: { marginBottom: DimensionHelper.wp("2%") },
 
   categoryCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    padding: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     alignSelf: "center",
     width: DimensionHelper.wp("90%")
@@ -216,20 +214,20 @@ const selectGroupStyles = {
   categoryInfo: { flex: 1 },
 
   categoryName: {
-    fontSize: DimensionHelper.wp("4.5%"),
+    fontSize: DimensionHelper.wp("3.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("1%")
+    marginBottom: DimensionHelper.wp("0.5%")
   },
 
   categoryCount: {
-    fontSize: DimensionHelper.wp("3.5%"),
+    fontSize: DimensionHelper.wp("2.8%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.baseColor
   },
 
   expandIconContainer: {
-    marginLeft: DimensionHelper.wp("3%"),
+    marginLeft: DimensionHelper.wp("2%"),
     justifyContent: "center",
     alignItems: "center"
   },
@@ -239,16 +237,15 @@ const selectGroupStyles = {
     opacity: 0.7
   },
 
-  // Expanded Group Items
   expandedContainer: {
-    marginTop: DimensionHelper.wp("2%"),
-    paddingHorizontal: DimensionHelper.wp("5%")
+    marginTop: DimensionHelper.wp("1.5%"),
+    paddingHorizontal: DimensionHelper.wp("4%")
   },
 
   groupItem: {
     backgroundColor: StyleConstants.ghostWhite,
     borderRadius: 8,
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%"),
     borderLeftWidth: 3,
     borderLeftColor: StyleConstants.baseColor,
     shadowOffset: { width: 0, height: 1 },
@@ -261,70 +258,69 @@ const selectGroupStyles = {
   groupItemContent: {
     flexDirection: "row",
     alignItems: "center",
-    padding: DimensionHelper.wp("3%")
+    padding: DimensionHelper.wp("2.5%")
   },
 
   groupIconContainer: {
-    width: DimensionHelper.wp("8%"),
-    height: DimensionHelper.wp("8%"),
-    borderRadius: DimensionHelper.wp("4%"),
+    width: DimensionHelper.wp("6%"),
+    height: DimensionHelper.wp("6%"),
+    borderRadius: DimensionHelper.wp("3%"),
     backgroundColor: StyleConstants.baseColor + "20",
     justifyContent: "center",
     alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
+    marginRight: DimensionHelper.wp("2.5%")
   },
 
   groupIcon: { color: StyleConstants.baseColor },
 
   groupName: {
     flex: 1,
-    fontSize: DimensionHelper.wp("4%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.darkColor
   },
 
-  selectIconContainer: { marginLeft: DimensionHelper.wp("2%") },
+  selectIconContainer: { marginLeft: DimensionHelper.wp("1.5%") },
 
   selectIcon: {
     color: StyleConstants.baseColor,
     opacity: 0.6
   },
 
-  // None Button Section
   noneSection: {
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingVertical: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingVertical: DimensionHelper.wp("2%"),
     backgroundColor: StyleConstants.whiteColor,
     borderTopWidth: 1,
     borderTopColor: StyleConstants.lightGrayColor,
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: 6,
     elevation: 5,
     shadowColor: StyleConstants.baseColor
   },
 
   noneButton: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    paddingVertical: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    paddingVertical: DimensionHelper.wp("3%"),
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 2,
     borderColor: StyleConstants.lightGray,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: 6,
     elevation: 3,
     shadowColor: StyleConstants.baseColor
   },
 
   noneButtonText: {
     color: StyleConstants.lightGray,
-    fontSize: DimensionHelper.wp("4%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     fontWeight: "600",
-    letterSpacing: 1
+    letterSpacing: 0.5
   }
 };
 

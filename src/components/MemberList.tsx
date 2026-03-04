@@ -82,7 +82,7 @@ const MemberList = (props: Props) => {
           <View style={[memberListStyles.memberPhoto, memberListStyles.placeholderPhoto]}>
             <FontAwesome
               name="user"
-              size={DimensionHelper.wp("7%")}
+              size={DimensionHelper.wp("5%")}
               color={StyleConstants.whiteColor}
             />
           </View>
@@ -142,24 +142,22 @@ const MemberList = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles for member list
 const memberListStyles = {
-  listContainer: { paddingBottom: DimensionHelper.wp("5%") },
+  listContainer: { paddingBottom: DimensionHelper.wp("3%") },
 
-  memberContainer: { marginBottom: DimensionHelper.wp("3%") },
+  memberContainer: { marginBottom: DimensionHelper.wp("2%") },
 
-  // Member Cards (Professional Material Design)
   memberCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    padding: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     alignSelf: "center",
-    minHeight: DimensionHelper.wp("18%")
+    minHeight: DimensionHelper.wp("14%")
   },
 
   memberContent: {
@@ -169,10 +167,10 @@ const memberListStyles = {
   },
 
   memberPhoto: {
-    width: DimensionHelper.wp("14%"),
-    height: DimensionHelper.wp("14%"),
-    borderRadius: DimensionHelper.wp("7%"),
-    marginRight: DimensionHelper.wp("4%")
+    width: DimensionHelper.wp("10%"),
+    height: DimensionHelper.wp("10%"),
+    borderRadius: DimensionHelper.wp("5%"),
+    marginRight: DimensionHelper.wp("3%")
   },
 
   placeholderPhoto: {
@@ -187,10 +185,10 @@ const memberListStyles = {
   },
 
   memberName: {
-    fontSize: DimensionHelper.wp("4.5%"),
+    fontSize: DimensionHelper.wp("3.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("1%")
+    marginBottom: DimensionHelper.wp("0.5%")
   },
 
   groupContainer: {
@@ -201,10 +199,10 @@ const memberListStyles = {
 
   groupChip: {
     backgroundColor: StyleConstants.baseColor + "15",
-    borderRadius: 8,
-    paddingHorizontal: DimensionHelper.wp("2.5%"),
-    paddingVertical: DimensionHelper.wp("1.5%"),
-    marginBottom: DimensionHelper.wp("1%"),
+    borderRadius: 6,
+    paddingHorizontal: DimensionHelper.wp("2%"),
+    paddingVertical: DimensionHelper.wp("1%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
     borderWidth: 1,
     borderColor: StyleConstants.baseColor + "30",
     maxWidth: "100%",
@@ -217,20 +215,20 @@ const memberListStyles = {
   },
 
   serviceTimeLabel: {
-    fontSize: DimensionHelper.wp("2.8%"),
+    fontSize: DimensionHelper.wp("2.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.baseColor,
-    marginBottom: DimensionHelper.wp("0.5%")
+    marginBottom: DimensionHelper.wp("0.3%")
   },
 
   groupName: {
-    fontSize: DimensionHelper.wp("3.2%"),
+    fontSize: DimensionHelper.wp("2.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor
   },
 
   expandIconContainer: {
-    marginLeft: DimensionHelper.wp("3%"),
+    marginLeft: DimensionHelper.wp("2%"),
     justifyContent: "center",
     alignItems: "center"
   },
@@ -245,18 +243,18 @@ const memberListStyles = {
     alignItems: "center",
     backgroundColor: StyleConstants.greenColor + "20",
     borderRadius: 6,
-    paddingHorizontal: DimensionHelper.wp("2%"),
-    paddingVertical: DimensionHelper.wp("0.8%"),
-    marginBottom: DimensionHelper.wp("1%"),
+    paddingHorizontal: DimensionHelper.wp("1.5%"),
+    paddingVertical: DimensionHelper.wp("0.5%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
     alignSelf: "flex-start"
   },
 
   checkedInIcon: {
-    marginRight: DimensionHelper.wp("1.5%")
+    marginRight: DimensionHelper.wp("1%")
   },
 
   checkedInText: {
-    fontSize: DimensionHelper.wp("2.8%"),
+    fontSize: DimensionHelper.wp("2.2%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.greenColor
   },
@@ -266,20 +264,20 @@ const memberListStyles = {
     alignItems: "center",
     backgroundColor: StyleConstants.yellowColor + "20",
     borderRadius: 6,
-    paddingHorizontal: DimensionHelper.wp("2%"),
-    paddingVertical: DimensionHelper.wp("1%"),
-    marginBottom: DimensionHelper.wp("1%"),
+    paddingHorizontal: DimensionHelper.wp("1.5%"),
+    paddingVertical: DimensionHelper.wp("0.5%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
     borderWidth: 1,
     borderColor: StyleConstants.yellowColor + "60",
     alignSelf: "flex-start"
   },
 
   noteIcon: {
-    marginRight: DimensionHelper.wp("1.5%")
+    marginRight: DimensionHelper.wp("1%")
   },
 
   noteText: {
-    fontSize: DimensionHelper.wp("3.2%"),
+    fontSize: DimensionHelper.wp("2.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor
   }
