@@ -25,7 +25,8 @@
     "subtitle": "La tua famiglia è stata registrata con successo",
     "title": "Check-in Completato",
     "welcomeMessage": "La tua famiglia è stata registrata con successo.",
-    "welcomeTitle": "Benvenuto!"
+    "welcomeTitle": "Benvenuto!",
+    "milestoneWeeks": "Settimane consecutive!"
   },
   "common": {
     "cancel": "Annulla",
@@ -68,6 +69,7 @@
     "noMatchTitle": "Nessun Risultato Trovato",
     "phonePlaceholder": "Inserisci le ultime quattro cifre del numero di cellulare",
     "qrGuest": "Scansiona per registrarti come ospite",
+    "registerGuest": "Registrati come ospite",
     "readySubtitle": "Inserisci un numero di telefono per trovare persone",
     "readyTitle": "Pronto per la Ricerca",
     "searchError": "Impossibile completare la ricerca. Riprova.",

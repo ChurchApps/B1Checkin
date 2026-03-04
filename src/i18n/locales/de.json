@@ -25,7 +25,8 @@
     "subtitle": "Ihre Familie wurde erfolgreich eingecheckt",
     "title": "Check-in abgeschlossen",
     "welcomeMessage": "Ihre Familie wurde erfolgreich eingecheckt.",
-    "welcomeTitle": "Willkommen!"
+    "welcomeTitle": "Willkommen!",
+    "milestoneWeeks": "Wochen in Folge!"
   },
   "common": {
     "cancel": "Abbrechen",
@@ -68,6 +69,7 @@
     "noMatchTitle": "Keine Übereinstimmungen gefunden",
     "phonePlaceholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
     "qrGuest": "Scannen, um sich als Gast zu registrieren",
+    "registerGuest": "Als Gast registrieren",
     "readySubtitle": "Geben Sie eine Telefonnummer ein, um Personen zu finden",
     "readyTitle": "Bereit zur Suche",
     "searchError": "Die Suche konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",

@@ -35,6 +35,7 @@ const Lookup = (props: Props) => {
   const [searchMode, setSearchMode] = React.useState<"phone" | "name">("phone");
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
   const [showQR, setShowQR] = React.useState(false);
+  const [qrExpanded, setQrExpanded] = React.useState(false);
 
   const loadHouseholdMembers = async () => {
     CachedData.householdMembers = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
@@ -271,15 +272,21 @@ const Lookup = (props: Props) => {
         {/* QR Guest Registration */}
         {showQR && CachedData.userChurch?.church?.subDomain && (
           <View style={lookupStyles.qrSection}>
-            <View style={lookupStyles.qrContainer}>
-              <QRCode
-                value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
-                size={DimensionHelper.wp("20%")}
-                backgroundColor={StyleConstants.whiteColor}
-                color={theme.colors.primary}
-              />
-              <Text style={[lookupStyles.qrLabel, { color: theme.colors.primary }]}>{t("lookup.qrGuest")}</Text>
-            </View>
+            {qrExpanded ? (
+              <View style={lookupStyles.qrContainer}>
+                <QRCode
+                  value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
+                  size={DimensionHelper.wp("20%")}
+                  backgroundColor={StyleConstants.whiteColor}
+                  color={theme.colors.primary}
+                />
+                <Text style={[lookupStyles.qrLabel, { color: theme.colors.primary }]}>{t("lookup.qrGuest")}</Text>
+              </View>
+            ) : (
+              <Ripple onPress={() => setQrExpanded(true)}>
+                <Text style={[lookupStyles.guestLink, { color: theme.colors.primary }]}>{t("lookup.registerGuest")}</Text>
+              </Ripple>
+            )}
           </View>
         )}
 
@@ -542,6 +549,15 @@ const lookupStyles = StyleSheet.create({
     color: StyleConstants.baseColor,
     marginTop: DimensionHelper.wp("2%"),
     textAlign: "center"
+  },
+
+  guestLink: {
+    fontSize: DimensionHelper.wp("3.2%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    textDecorationLine: "underline" as const,
+    opacity: 0.7,
+    textAlign: "center" as const,
+    paddingVertical: DimensionHelper.wp("1%")
   },
 
   // No Results State

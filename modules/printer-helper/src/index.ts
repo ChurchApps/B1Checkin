@@ -6,8 +6,8 @@ export function scan(): Promise<string> {
   return PrinterHelperModule.scan();
 }
 
-export function checkInit(ip: string, model: string): void {
-  PrinterHelperModule.checkInit(ip, model);
+export function checkInit(ip: string, model: string, brand: string): void {
+  PrinterHelperModule.checkInit(ip, model, brand);
 }
 
 export function printUris(uriList: string): void {

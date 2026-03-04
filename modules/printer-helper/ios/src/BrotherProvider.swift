@@ -2,7 +2,8 @@ import Foundation
 import UIKit
 import BRLMPrinterKit
 
-class BrotherProvider {
+class BrotherProvider: PrintProviderProtocol {
+    let brand = "Brother"
     var printerIP = ""
     var printerModel = "QL-1110NWB"
     var status = "Pending init"

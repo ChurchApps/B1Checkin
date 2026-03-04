@@ -22,8 +22,8 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 const Printers = (props: Props) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer" }]);
-  const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer" });
+  const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer", brand: "" }]);
+  const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer", brand: "" });
   const [dimension, _setDimension] = React.useState(Dimensions.get("window"));
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
@@ -62,10 +62,10 @@ const Printers = (props: Props) => {
         items.forEach(item => {
           if (item.length > 0) {
             const splitItem = item.split("~");
-            result.push({ ipAddress: splitItem[1], model: splitItem[0] });
+            result.push({ brand: splitItem[0], model: splitItem[1], ipAddress: splitItem[2] });
           }
         });
-        result.push({ model: "No Printer", ipAddress: "No Printer" });
+        result.push({ model: "No Printer", ipAddress: "No Printer", brand: "" });
         setPrinters(result);
         setIsScanning(false);
       })
@@ -79,13 +79,13 @@ const Printers = (props: Props) => {
 
   const saveSelectedPrinter = async () => {
     let printer = selectedPrinter;
-    if (printer.model === "No Printer") { printer = { model: "none", ipAddress: "" }; }
+    if (printer.model === "No Printer") { printer = { model: "none", ipAddress: "", brand: "" }; }
 
     CachedData.printer = printer;
     await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer));
     console.log(JSON.stringify(CachedData.printer));
 
-    PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
+    PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "", CachedData.printer?.brand || "");
 
   };
 
@@ -115,7 +115,7 @@ const Printers = (props: Props) => {
         </View>
         <View style={printerStyles.printerInfo}>
           <Text style={[printerStyles.printerName, isSelected && printerStyles.selectedText]} numberOfLines={1}>
-            {isNoPrinter ? t("printers.noPrinter") : printer.model}
+            {isNoPrinter ? t("printers.noPrinter") : `${printer.brand} ${printer.model}`}
           </Text>
           {!isNoPrinter && (
             <Text style={[printerStyles.printerIp, isSelected && printerStyles.selectedSubtext]} numberOfLines={1}>

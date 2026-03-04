@@ -29,6 +29,7 @@ dependencies {
   implementation project(':expo-modules-core')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
   implementation files('libs/BrotherPrintLibrary.aar')
+  implementation files('libs/ZSDK_ANDROID_API.jar')
 }
 
 def safeExtGet(prop, fallback) {

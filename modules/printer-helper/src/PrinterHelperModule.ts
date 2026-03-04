@@ -3,7 +3,7 @@ import { PrinterHelperModuleEvents } from "./PrinterHelper.types";
 
 declare class PrinterHelperModule extends NativeModule<PrinterHelperModuleEvents> {
   scan(): Promise<string>;
-  checkInit(ip: string, model: string): void;
+  checkInit(ip: string, model: string, brand: string): void;
   printUris(uriList: string): void;
   configure(): void;
   getStatus(): string;

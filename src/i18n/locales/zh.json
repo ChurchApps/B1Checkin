@@ -25,7 +25,8 @@
     "subtitle": "您的家人已成功签到",
     "title": "签到完成",
     "welcomeMessage": "您的家人已成功签到。",
-    "welcomeTitle": "欢迎！"
+    "welcomeTitle": "欢迎！",
+    "milestoneWeeks": "连续周！"
   },
   "common": {
     "cancel": "取消",
@@ -68,6 +69,7 @@
     "noMatchTitle": "未找到匹配项",
     "phonePlaceholder": "输入手机号码后四位",
     "qrGuest": "扫描以注册为访客",
+    "registerGuest": "注册为访客",
     "readySubtitle": "输入电话号码以查找人员",
     "readyTitle": "准备搜索",
     "searchError": "无法完成搜索。请重试。",

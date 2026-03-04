@@ -25,7 +25,8 @@
     "subtitle": "가족이 성공적으로 체크인되었습니다",
     "title": "체크인 완료",
     "welcomeMessage": "가족이 성공적으로 체크인되었습니다.",
-    "welcomeTitle": "환영합니다!"
+    "welcomeTitle": "환영합니다!",
+    "milestoneWeeks": "연속 주!"
   },
   "common": {
     "cancel": "취소",
@@ -68,6 +69,7 @@
     "noMatchTitle": "일치하는 항목 없음",
     "phonePlaceholder": "휴대전화 번호의 마지막 네 자리를 입력하세요",
     "qrGuest": "게스트로 등록하려면 스캔하세요",
+    "registerGuest": "게스트로 등록",
     "readySubtitle": "사람을 찾으려면 전화번호를 입력하세요",
     "readyTitle": "검색 준비 완료",
     "searchError": "검색을 완료할 수 없습니다. 다시 시도해주세요.",

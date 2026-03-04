@@ -109,7 +109,9 @@ export default function Splash() {
       // Load saved printer if available
       if (savedPrinter[1]) {
         try {
-          CachedData.printer = JSON.parse(savedPrinter[1]);
+          const parsed = JSON.parse(savedPrinter[1]);
+          if (!parsed.brand) parsed.brand = "Brother";
+          CachedData.printer = parsed;
           console.log("Loaded saved printer:", CachedData.printer);
         } catch (error) {
           console.error("Error parsing saved printer:", error);

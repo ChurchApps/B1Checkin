@@ -14,16 +14,17 @@ import com.brother.sdk.lmprinter.PrinterModel
 import com.brother.sdk.lmprinter.setting.PrintImageSettings
 import com.brother.sdk.lmprinter.setting.QLPrintSettings
 
-class BrotherProvider {
+class BrotherProvider : PrintProviderInterface {
+    override val brand = "Brother"
     var context: Context? = null
     var readyToPrint = false
     var printerIP = ""
     var printerModel = "QL-1110NWB"
 
-    var onError: ((source: String, message: String) -> Unit)? = null
-    var onEvent: ((eventType: String, source: String, message: String) -> Unit)? = null
+    override var onError: ((source: String, message: String) -> Unit)? = null
+    override var onEvent: ((eventType: String, source: String, message: String) -> Unit)? = null
 
-    fun scan(): Array<String> {
+    override fun scan(): Array<String> {
         val result = mutableListOf<String>()
         val printers = Printer()
         val models = arrayOf(
@@ -40,14 +41,14 @@ class BrotherProvider {
         return result.toTypedArray()
     }
 
-    fun checkInit(c: Context, ip: String, model: String) {
+    override fun checkInit(ctx: Context, ip: String, model: String) {
         printerIP = ip
         printerModel = model
-        context = c
+        context = ctx
         onEvent?.invoke("Model Selected", "BrotherProvider.kt", "Printer Model - $printerModel")
     }
 
-    fun configure() {
+    override fun configure() {
         // Reserved for future configuration
     }
 
@@ -66,7 +67,7 @@ class BrotherProvider {
         return settings
     }
 
-    fun printBitmaps(bmps: List<Bitmap>) {
+    override fun printBitmaps(bmps: List<Bitmap>) {
         val channel = Channel.newWifiChannel(printerIP)
         val result = PrinterDriverGenerator.openChannel(channel)
 

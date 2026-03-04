@@ -6,6 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import PrintUI from "../src/components/PrintUI";
+import ConfettiCelebration from "../src/components/ConfettiCelebration";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { router } from "expo-router";
@@ -16,17 +17,18 @@ const CheckinComplete = (props: Props) => {
   const { t } = useTranslation();
   const { theme } = useCheckinTheme();
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
+  const [milestones, setMilestones] = React.useState<{ personId: string; streak: number }[]>([]);
+  const milestonesRef = React.useRef<{ personId: string; streak: number }[]>([]);
 
   const loadData = () => {
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     const promises: Promise<any>[] = [];
     promises.push(checkin());
     if (CachedData.printer?.ipAddress) print();
-    //print();
 
     Promise.all(promises)
       .then(() => {
-        if (!CachedData.printer?.ipAddress) startOver();
+        if (!CachedData.printer?.ipAddress) startOver(milestonesRef.current.length > 0);
       })
       .catch(error => {
         console.error("Error during checkin:", error);
@@ -34,15 +36,16 @@ const CheckinComplete = (props: Props) => {
       });
   };
 
-  const startOver = () => {
+  const startOver = (hasMilestone?: boolean) => {
     CachedData.existingVisits = [];
     CachedData.pendingVisits = [];
     setHtmlLabels([]);
-    redirectToLookup();
+    redirectToLookup(hasMilestone);
   };
 
-  const redirectToLookup = () => {
-    timeout(3000).then(() => {
+  const redirectToLookup = (hasMilestone?: boolean) => {
+    const delay = hasMilestone ? 6000 : 3000;
+    timeout(delay).then(() => {
       router.replace("/lookup");
     });
   };
@@ -64,12 +67,18 @@ const CheckinComplete = (props: Props) => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi")
-      .then(_data => {
+      .then(data => {
         console.log("Checkin Complete");
-        //console.log(data)
-        // AppCenterHelper.trackEvent("Checkin Complete");
-        //router.navigate('/checkinComplete')
-        // props.navigation.navigate("CheckinComplete");
+        if (data?.streaks) {
+          const hits: { personId: string; streak: number }[] = [];
+          for (const [personId, streak] of Object.entries(data.streaks as Record<string, number>)) {
+            if (streak > 0 && streak % 5 === 0) hits.push({ personId, streak });
+          }
+          if (hits.length > 0) {
+            milestonesRef.current = hits;
+            setMilestones(hits);
+          }
+        }
       })
       .catch(error => {
         console.error("Error during checkin:", error);
@@ -117,6 +126,7 @@ const CheckinComplete = (props: Props) => {
 
         {getLabelView()}
       </View>
+      <ConfettiCelebration milestones={milestones} />
     </View>
   );
 

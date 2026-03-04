@@ -6,9 +6,14 @@ import android.provider.MediaStore
 import androidx.core.os.bundleOf
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import java.util.concurrent.Executors
 
 class PrinterHelperModule : Module() {
-    private val provider = BrotherProvider()
+    private val providers: Map<String, PrintProviderInterface> = mapOf(
+        "Brother" to BrotherProvider(),
+        "Zebra" to ZebraProvider()
+    )
+    private var activeProvider: PrintProviderInterface? = null
     private var status = "Pending init"
 
     override fun definition() = ModuleDefinition {
@@ -16,22 +21,43 @@ class PrinterHelperModule : Module() {
 
         Events("StatusUpdated", "onError", "onEvent")
 
-        provider.onError = { source, message ->
-            sendEvent("onError", bundleOf("source" to source, "message" to message))
-        }
-
-        provider.onEvent = { eventType, source, message ->
-            sendEvent("onEvent", bundleOf("eventType" to eventType, "source" to source, "message" to message))
+        // Wire up callbacks for all providers
+        for ((_, provider) in providers) {
+            provider.onError = { source, message ->
+                sendEvent("onError", bundleOf("source" to source, "message" to message))
+            }
+            provider.onEvent = { eventType, source, message ->
+                sendEvent("onEvent", bundleOf("eventType" to eventType, "source" to source, "message" to message))
+            }
         }
 
         AsyncFunction("scan") {
-            val results = provider.scan()
-            results.joinToString(",")
+            val executor = Executors.newFixedThreadPool(providers.size)
+            val futures = providers.map { (brand, provider) ->
+                brand to executor.submit<Array<String>> { provider.scan() }
+            }
+
+            val allResults = mutableListOf<String>()
+            for ((brand, future) in futures) {
+                try {
+                    val results = future.get()
+                    for (result in results) {
+                        allResults.add("$brand~$result")
+                    }
+                } catch (_: Exception) {
+                    // Skip providers that fail to scan
+                }
+            }
+            executor.shutdown()
+
+            allResults.joinToString(",")
         }
 
-        Function("checkInit") { ip: String, model: String ->
+        Function("checkInit") { ip: String, model: String, brand: String ->
             val context = appContext.reactContext ?: return@Function
-            provider.checkInit(context, ip, model)
+            val providerBrand = brand.ifEmpty { "Brother" }
+            activeProvider = providers[providerBrand] ?: providers["Brother"]
+            activeProvider?.checkInit(context, ip, model)
             if (ip.isNotEmpty()) {
                 updateStatus(ip)
             } else {
@@ -41,6 +67,7 @@ class PrinterHelperModule : Module() {
 
         Function("printUris") { uriList: String ->
             val context = appContext.reactContext ?: return@Function
+            val provider = activeProvider ?: return@Function
             val uris = uriList.split(",")
             val bmps = mutableListOf<Bitmap>()
 
@@ -61,7 +88,7 @@ class PrinterHelperModule : Module() {
         }
 
         Function("configure") {
-            provider.configure()
+            activeProvider?.configure()
         }
 
         Function("getStatus") {

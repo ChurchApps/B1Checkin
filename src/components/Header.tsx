@@ -82,7 +82,7 @@ const Header = (props: Props) => {
   const init = () => {
     try {
       console.log("print", CachedData.printer);
-      PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
+      PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "", CachedData.printer?.brand || "");
       const subscription = PrinterHelper.addStatusListener((event) => {
         if (event.status.indexOf("ready") > -1) CachedData.printer.ipAddress = "ready";
         setStatus(event.status);

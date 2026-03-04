@@ -25,7 +25,8 @@
     "subtitle": "Familien din har blitt sjekket inn",
     "title": "Innsjekking fullført",
     "welcomeMessage": "Familien din har blitt sjekket inn.",
-    "welcomeTitle": "Velkommen!"
+    "welcomeTitle": "Velkommen!",
+    "milestoneWeeks": "Uker på rad!"
   },
   "common": {
     "cancel": "Avbryt",
@@ -68,6 +69,7 @@
     "noMatchTitle": "Ingen treff funnet",
     "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
     "qrGuest": "Skann for å registrere deg som gjest",
+    "registerGuest": "Registrer som gjest",
     "readySubtitle": "Oppgi et telefonnummer for å finne personer",
     "readyTitle": "Klar til å søke",
     "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",

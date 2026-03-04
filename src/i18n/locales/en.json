@@ -25,7 +25,8 @@
     "subtitle": "Your family has been successfully checked in",
     "title": "Check-in Complete",
     "welcomeMessage": "Your family has been checked in successfully.",
-    "welcomeTitle": "Welcome!"
+    "welcomeTitle": "Welcome!",
+    "milestoneWeeks": "Weeks in a Row!"
   },
   "common": {
     "cancel": "Cancel",
@@ -77,7 +78,8 @@
     "searching": "Searching...",
     "subtitle": "Enter last four digits of mobile number",
     "title": "Search by Phone Number",
-    "qrGuest": "Scan to register as a guest"
+    "qrGuest": "Scan to register as a guest",
+    "registerGuest": "Register as guest"
   },
   "members": {
     "error": "Error",

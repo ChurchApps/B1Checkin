@@ -24,7 +24,8 @@
     "subtitle": "Din familj har checkats in",
     "title": "Incheckning klar",
     "welcomeMessage": "Din familj har checkats in.",
-    "welcomeTitle": "Välkommen!"
+    "welcomeTitle": "Välkommen!",
+    "milestoneWeeks": "Veckor i rad!"
   },
   "common": {
     "cancel": "Avbryt",
@@ -76,7 +77,8 @@
     "searching": "Söker...",
     "subtitle": "Ange de fyra sista siffrorna i mobilnumret",
     "title": "Sök med telefonnummer",
-    "qrGuest": "Skanna för att registrera dig som gäst"
+    "qrGuest": "Skanna för att registrera dig som gäst",
+    "registerGuest": "Registrera som gäst"
   },
   "members": {
     "error": "Fel",

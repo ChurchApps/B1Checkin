@@ -24,7 +24,8 @@
     "subtitle": "Vaše rodina byla úspěšně přihlášena",
     "title": "Přihlášení dokončeno",
     "welcomeMessage": "Vaše rodina byla úspěšně přihlášena.",
-    "welcomeTitle": "Vítejte!"
+    "welcomeTitle": "Vítejte!",
+    "milestoneWeeks": "Týdnů v řadě!"
   },
   "common": {
     "cancel": "Zrušit",
@@ -76,7 +77,8 @@
     "searching": "Vyhledávání...",
     "subtitle": "Zadejte poslední čtyři číslice mobilního čísla",
     "title": "Hledat podle telefonního čísla",
-    "qrGuest": "Naskenujte pro registraci jako host"
+    "qrGuest": "Naskenujte pro registraci jako host",
+    "registerGuest": "Registrovat se jako host"
   },
   "members": {
     "error": "Chyba",

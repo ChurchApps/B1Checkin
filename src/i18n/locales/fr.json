@@ -25,7 +25,8 @@
     "subtitle": "Votre famille a été enregistrée avec succès",
     "title": "Enregistrement terminé",
     "welcomeMessage": "Votre famille a été enregistrée avec succès.",
-    "welcomeTitle": "Bienvenue !"
+    "welcomeTitle": "Bienvenue !",
+    "milestoneWeeks": "Semaines d'affilée !"
   },
   "common": {
     "cancel": "Annuler",
@@ -68,6 +69,7 @@
     "noMatchTitle": "Aucun résultat trouvé",
     "phonePlaceholder": "Entrez les quatre derniers chiffres du numéro de mobile",
     "qrGuest": "Scannez pour vous inscrire en tant qu'invité",
+    "registerGuest": "S'inscrire en tant qu'invité",
     "readySubtitle": "Entrez un numéro de téléphone pour trouver des personnes",
     "readyTitle": "Prêt à rechercher",
     "searchError": "Impossible de terminer la recherche. Veuillez réessayer.",
