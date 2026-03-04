@@ -5,10 +5,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Updates from "expo-updates";
 import { useTranslation } from "react-i18next";
 import { EnvironmentHelper, ApiHelper, LoginResponseInterface, CachedData, DimensionHelper, StyleConstants } from "../src/helpers";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 export default function Splash() {
   console.log("Splash component called");
   const { t } = useTranslation();
+  const { loadTheme } = useCheckinTheme();
   const [statusMessage, setStatusMessage] = React.useState("");
   const navigationState = useRootNavigationState();
   const hasNavigated = useRef(false);
@@ -173,6 +175,9 @@ export default function Splash() {
                 );
                 await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
               }
+
+              // Load check-in theme for this church
+              loadTheme(previousChurch.church.id);
 
               // Go directly to services screen
               safeNavigate("/services");

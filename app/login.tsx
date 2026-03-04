@@ -6,11 +6,13 @@ import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src
 import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "../src/helpers";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { router } from "expo-router";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 interface Props { navigation: screenNavigationProps }
 
 function Login(_props: Props) {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -109,7 +111,7 @@ function Login(_props: Props) {
 
           {/* Login Button */}
           <TouchableOpacity
-            style={Styles.loginButton}
+            style={[Styles.loginButton, { backgroundColor: theme.colors.buttonBackground }]}
             onPress={login}
             activeOpacity={0.8}
           >

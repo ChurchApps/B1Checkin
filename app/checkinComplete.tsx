@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { screenNavigationProps, CachedData, LabelHelper, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import PrintUI from "../src/components/PrintUI";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
@@ -13,6 +14,7 @@ interface Props { navigation: screenNavigationProps; }
 
 const CheckinComplete = (props: Props) => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const loadData = () => {
@@ -98,7 +100,7 @@ const CheckinComplete = (props: Props) => {
 
       {/* Main Content */}
       <View style={checkinCompleteStyles.mainContent}>
-        <View style={checkinCompleteStyles.successCard}>
+        <View style={[checkinCompleteStyles.successCard, { shadowColor: theme.colors.primary }]}>
           <View style={checkinCompleteStyles.successIconContainer}>
             <FontAwesome
               name="check-circle"

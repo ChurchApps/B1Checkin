@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { StyleConstants, DimensionHelper } from "../helpers";
+import { useCheckinTheme } from "../context/CheckinThemeContext";
 
 interface Props {
   icon: string;
@@ -8,8 +9,10 @@ interface Props {
   subtitle: string;
 }
 
-const Subheader = (props: Props) => (
-  <View style={subheaderStyles.textSection}>
+const Subheader = (props: Props) => {
+  const { theme } = useCheckinTheme();
+  return (
+  <View style={[subheaderStyles.textSection, { backgroundColor: theme.colors.subheaderBackground, shadowColor: theme.colors.primary }]}>
     <View style={subheaderStyles.headerTextContainer}>
       <View style={subheaderStyles.titleRow}>
         <View style={subheaderStyles.titleIconContainer}>
@@ -22,7 +25,8 @@ const Subheader = (props: Props) => (
       </View>
     </View>
   </View>
-);
+  );
+};
 
 const subheaderStyles = {
   // Text Section (Light blue background)

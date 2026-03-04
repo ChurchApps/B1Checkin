@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet } from "react-native";
+import { TextInput, View, Text, Image, ImageBackground, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
@@ -10,6 +10,9 @@ import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterfac
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import QRCode from "react-native-qrcode-svg";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
+import { useInactivityTimer } from "../src/hooks/useInactivityTimer";
+import IdleScreen from "../src/components/IdleScreen";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -17,6 +20,11 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 const Lookup = (props: Props) => {
   // const Lookup = () => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
+  const { isIdle, resetTimer, dismiss } = useInactivityTimer(
+    theme.idleScreen.timeoutSeconds,
+    theme.idleScreen.enabled && (theme.idleScreen.slides || []).length > 0
+  );
   const router = useRouter();
   const params = useLocalSearchParams();
   const [hasSearched, setHasSearched] = React.useState<boolean>(false);
@@ -112,7 +120,7 @@ const Lookup = (props: Props) => {
   const getRow = (data: any) => {
     const person: PersonInterface = data.item;
     return (
-      <Ripple style={[lookupStyles.personCard, { width: wd("90%") }]} onPress={() => { selectPerson(person); }}>
+      <Ripple style={[lookupStyles.personCard, { width: wd("90%"), shadowColor: theme.colors.primary }]} onPress={() => { selectPerson(person); }}>
         <Image
           source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
           style={lookupStyles.personPhoto}
@@ -121,7 +129,7 @@ const Lookup = (props: Props) => {
           <Text style={lookupStyles.personName}>{person?.name?.display}</Text>
         </View>
         <View style={lookupStyles.arrowContainer}>
-          <Text style={lookupStyles.arrow}>›</Text>
+          <Text style={[lookupStyles.arrow, { color: theme.colors.primary }]}>›</Text>
         </View>
       </Ripple>
     );
@@ -139,7 +147,7 @@ const Lookup = (props: Props) => {
     } else if (isLoading) {
       return (
         <View style={lookupStyles.loadingContainer}>
-          <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
+          <ActivityIndicator size="large" color={theme.colors.primary} animating={isLoading} />
           <Text style={lookupStyles.loadingText}>{t("lookup.searching")}</Text>
         </View>
       );
@@ -189,8 +197,8 @@ const Lookup = (props: Props) => {
     return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
   };
 
-  return (
-    <View style={lookupStyles.container}>
+  const screenContent = (
+    <>
       <Header
         navigation={props.navigation}
         prominentLogo={true}
@@ -207,22 +215,22 @@ const Lookup = (props: Props) => {
       <View style={lookupStyles.mainContent}>
         {/* Search Input */}
         <View style={lookupStyles.searchSection}>
-          <View style={lookupStyles.modeToggleContainer}>
+          <View style={[lookupStyles.modeToggleContainer, { shadowColor: theme.colors.primary }]}>
             <Ripple
-              style={[lookupStyles.modeButton, searchMode === "phone" && lookupStyles.modeButtonActive]}
+              style={[lookupStyles.modeButton, searchMode === "phone" && [lookupStyles.modeButtonActive, { backgroundColor: theme.colors.buttonBackground }]]}
               onPress={() => handleModeChange("phone")}
             >
-              <Text style={[lookupStyles.modeButtonText, searchMode === "phone" && lookupStyles.modeButtonTextActive]}>{t("lookup.modePhone")}</Text>
+              <Text style={[lookupStyles.modeButtonText, { color: theme.colors.primary }, searchMode === "phone" && lookupStyles.modeButtonTextActive]}>{t("lookup.modePhone")}</Text>
             </Ripple>
             <Ripple
-              style={[lookupStyles.modeButton, searchMode === "name" && lookupStyles.modeButtonActive]}
+              style={[lookupStyles.modeButton, searchMode === "name" && [lookupStyles.modeButtonActive, { backgroundColor: theme.colors.buttonBackground }]]}
               onPress={() => handleModeChange("name")}
             >
-              <Text style={[lookupStyles.modeButtonText, searchMode === "name" && lookupStyles.modeButtonTextActive]}>{t("lookup.modeName")}</Text>
+              <Text style={[lookupStyles.modeButtonText, { color: theme.colors.primary }, searchMode === "name" && lookupStyles.modeButtonTextActive]}>{t("lookup.modeName")}</Text>
             </Ripple>
           </View>
           {searchMode === "phone" ? (
-            <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
+            <View style={[lookupStyles.searchView, { width: wd("90%"), shadowColor: theme.colors.primary }]}>
               <TextInput
                 placeholder={String(t("lookup.phonePlaceholder"))}
                 onChangeText={(value) => { setPhone(value); }}
@@ -236,12 +244,12 @@ const Lookup = (props: Props) => {
                 numberOfLines={1}
                 editable={true}
               />
-              <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
+              <Ripple style={[lookupStyles.searchButton, { backgroundColor: theme.colors.buttonBackground }]} onPress={handleSearch}>
                 <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
               </Ripple>
             </View>
           ) : (
-            <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
+            <View style={[lookupStyles.searchView, { width: wd("90%"), shadowColor: theme.colors.primary }]}>
               <TextInput
                 placeholder={String(t("lookup.namePlaceholder"))}
                 onChangeText={(value) => { setLastName(value); }}
@@ -253,7 +261,7 @@ const Lookup = (props: Props) => {
                 placeholderTextColor={StyleConstants.lightGray}
                 editable={true}
               />
-              <Ripple style={[lookupStyles.searchButton, lookupStyles.nameSearchButton]} onPress={handleSearch}>
+              <Ripple style={[lookupStyles.searchButton, lookupStyles.nameSearchButton, { backgroundColor: theme.colors.buttonBackground }]} onPress={handleSearch}>
                 <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
               </Ripple>
             </View>
@@ -268,9 +276,9 @@ const Lookup = (props: Props) => {
                 value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
                 size={DimensionHelper.wp("20%")}
                 backgroundColor={StyleConstants.whiteColor}
-                color={StyleConstants.baseColor}
+                color={theme.colors.primary}
               />
-              <Text style={lookupStyles.qrLabel}>{t("lookup.qrGuest")}</Text>
+              <Text style={[lookupStyles.qrLabel, { color: theme.colors.primary }]}>{t("lookup.qrGuest")}</Text>
             </View>
           </View>
         )}
@@ -280,6 +288,28 @@ const Lookup = (props: Props) => {
           {getResults()}
         </View>
       </View>
+    </>
+  );
+
+  if (theme.backgroundImage) {
+    return (
+      <ImageBackground
+        source={{ uri: theme.backgroundImage }}
+        style={{ flex: 1 }}
+        resizeMode="cover"
+      >
+        <View style={[lookupStyles.container, { backgroundColor: "rgba(246,246,248,0.85)" }]} onTouchStart={resetTimer}>
+          {screenContent}
+          <IdleScreen visible={isIdle} onDismiss={dismiss} />
+        </View>
+      </ImageBackground>
+    );
+  }
+
+  return (
+    <View style={lookupStyles.container} onTouchStart={resetTimer}>
+      {screenContent}
+      <IdleScreen visible={isIdle} onDismiss={dismiss} />
     </View>
   );
 };

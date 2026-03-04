@@ -10,11 +10,13 @@ import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PinEntryModal from "../src/components/PinEntryModal";
 import { CachedData, StyleConstants, DimensionHelper, screenNavigationProps } from "../src/helpers";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 interface Props { navigation: screenNavigationProps; }
 
 const AdminSettings = (props: Props) => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
   const insets = useSafeAreaInsets();
   const [showChangePinModal, setShowChangePinModal] = React.useState(false);
 
@@ -79,23 +81,23 @@ const AdminSettings = (props: Props) => {
             style={[adminStyles.menuCard, item.destructive && adminStyles.destructiveCard]}
             onPress={item.onPress}
           >
-            <View style={[adminStyles.iconContainer, item.destructive && adminStyles.destructiveIconContainer]}>
+            <View style={[adminStyles.iconContainer, { backgroundColor: theme.colors.primary + "15" }, item.destructive && adminStyles.destructiveIconContainer]}>
               <FontAwesome
                 name={item.icon}
                 size={DimensionHelper.wp("5%")}
-                color={item.destructive ? StyleConstants.redColor : StyleConstants.baseColor}
+                color={item.destructive ? StyleConstants.redColor : theme.colors.primary}
               />
             </View>
             <Text style={[adminStyles.menuLabel, item.destructive && adminStyles.destructiveText]}>
               {item.label}
             </Text>
-            <Text style={[adminStyles.arrow, item.destructive && adminStyles.destructiveText]}>›</Text>
+            <Text style={[adminStyles.arrow, { color: theme.colors.primary }, item.destructive && adminStyles.destructiveText]}>›</Text>
           </Ripple>
         ))}
       </View>
 
-      <View style={[adminStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%") }]}>
-        <Ripple style={adminStyles.backButton} onPress={handleBack}>
+      <View style={[adminStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%"), borderTopColor: theme.colors.primary + "20" }]}>
+        <Ripple style={[adminStyles.backButton, { backgroundColor: theme.colors.buttonBackground }]} onPress={handleBack}>
           <FontAwesome
             name="arrow-left"
             size={DimensionHelper.wp("4%")}

@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
 import PinEntryModal from "./PinEntryModal";
+import { useCheckinTheme } from "../context/CheckinThemeContext";
 
 interface Props {
   navigation: screenNavigationProps,
@@ -18,6 +19,7 @@ interface Props {
 
 const Header = (props: Props) => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
   const insets = useSafeAreaInsets();
   const [status, setStatus] = React.useState("");
   const [landscape, setLandscape] = React.useState(false);
@@ -126,15 +128,15 @@ const Header = (props: Props) => {
   if (props.prominentLogo) {
     return (
       <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-        <StatusBar backgroundColor={StyleConstants.baseColor} />
+        <StatusBar backgroundColor={theme.colors.headerBackground} />
 
         {/* Compact Printer Status Bar */}
-        <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined }]} onPress={() => { handleClick(); }}>
-          <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
+        <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined, backgroundColor: theme.colors.headerBackground }]} onPress={() => { handleClick(); }}>
+          <Text style={{ backgroundColor: theme.colors.headerBackground, color: theme.colors.primaryContrast }}>{getVersion()} - {status}</Text>
         </Ripple>
 
         {/* Logo Section with Dark Blue Background */}
-        <View style={headerStyles.logoSection}>
+        <View style={[headerStyles.logoSection, { backgroundColor: theme.colors.headerBackground }]}>
           {/* Prominent Church Logo in White Box - Tappable for secret logout */}
           <Ripple style={headerStyles.logoContainer} onPress={handleLogoTap}>
             <Image source={getLogoUrl()} style={headerStyles.prominentLogo} />
@@ -153,9 +155,9 @@ const Header = (props: Props) => {
 
   return (
     <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
-      <StatusBar backgroundColor={StyleConstants.baseColor} />
-      <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined }]} onPress={() => { handleClick(); }}>
-        <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
+      <StatusBar backgroundColor={theme.colors.headerBackground} />
+      <Ripple style={[Styles.printerStatus, { paddingTop: insets.top, height: undefined, backgroundColor: theme.colors.headerBackground }]} onPress={() => { handleClick(); }}>
+        <Text style={{ backgroundColor: theme.colors.headerBackground, color: theme.colors.primaryContrast }}>{getVersion()} - {status}</Text>
       </Ripple>
       {props.logo !== false && (
         <Ripple onPress={handleLogoTap} style={{ alignItems: "center", justifyContent: "center" }}>

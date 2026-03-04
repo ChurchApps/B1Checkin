@@ -7,11 +7,13 @@ import Subheader from "../src/components/Subheader";
 import { screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
 import { router } from "expo-router";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 interface Props { navigation: screenNavigationProps }
 
 const Services = (props: Props) => {
   const { t } = useTranslation();
+  const { theme, loadTheme } = useCheckinTheme();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [services, setServices] = React.useState([]);
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
@@ -37,6 +39,9 @@ const Services = (props: Props) => {
       const dim = Dimensions.get("screen");
       setDimension(dim);
     });
+    if (CachedData.userChurch?.church?.id) {
+      loadTheme(CachedData.userChurch.church.id);
+    }
   }, []);
 
   const wd = (number: string) => {
@@ -80,12 +85,12 @@ const Services = (props: Props) => {
   const getRow = (data: any) => {
     const item = data.item;
     return (
-      <Ripple style={[serviceStyles.serviceCard, { width: wd("90%") }]} onPress={() => { selectService(item.id); }}>
+      <Ripple style={[serviceStyles.serviceCard, { width: wd("90%"), shadowColor: theme.colors.primary }]} onPress={() => { selectService(item.id); }}>
         <View style={serviceStyles.serviceCardContent}>
           <Text style={serviceStyles.serviceName}>{item.name}</Text>
         </View>
         <View style={serviceStyles.arrowContainer}>
-          <Text style={serviceStyles.arrow}>›</Text>
+          <Text style={[serviceStyles.arrow, { color: theme.colors.primary }]}>›</Text>
         </View>
       </Ripple>
     );
@@ -95,8 +100,8 @@ const Services = (props: Props) => {
     if (isLoading) {
       return (
         <View style={serviceStyles.loadingContainer}>
-          <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-          <Text style={serviceStyles.loadingText}>{t("services.loading")}</Text>
+          <ActivityIndicator size="large" color={theme.colors.primary} animating={isLoading} />
+          <Text style={[serviceStyles.loadingText, { color: theme.colors.primary }]}>{t("services.loading")}</Text>
         </View>
       );
     } else {

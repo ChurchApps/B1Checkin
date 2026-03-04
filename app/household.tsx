@@ -11,6 +11,7 @@ import MemberList from "../src/components/MemberList";
 import { screenNavigationProps, CachedData, VisitHelper, StyleConstants, DimensionHelper } from "../src/helpers";
 import { FirebaseHelper, VisitInterface } from "../src/helpers";
 import { router, useFocusEffect } from "expo-router";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { ScreenList } from "../src/screenList";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
@@ -18,6 +19,7 @@ interface Props { navigation: screenNavigationProps; }
 
 const Household = (props: Props) => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
   const [pendingVisits, setPendingVisits] = React.useState<VisitInterface[]>([]);
   // const init = () => {
   //   // AppCenterHelper.trackEvent("Household screen");
@@ -87,18 +89,18 @@ const Household = (props: Props) => {
 
           {/* Add Guest Button */}
           <View style={householdStyles.addGuestSection}>
-            <Ripple style={householdStyles.addGuestButton} onPress={addGuest}>
+            <Ripple style={[householdStyles.addGuestButton, { shadowColor: theme.colors.primary, borderColor: theme.colors.primary }]} onPress={addGuest}>
               <Text style={householdStyles.addGuestIcon}>👤</Text>
-              <Text style={householdStyles.addGuestText}>{t("household.addGuest")}</Text>
+              <Text style={[householdStyles.addGuestText, { color: theme.colors.primary }]}>{t("household.addGuest")}</Text>
             </Ripple>
           </View>
         </ScrollView>
       </View>
 
       {/* Check-in Button */}
-      <View style={householdStyles.checkinSection}>
-        <Ripple style={householdStyles.checkinButton} onPress={checkin}>
-          <Text style={householdStyles.checkinButtonText}>{t("household.checkin")}</Text>
+      <View style={[householdStyles.checkinSection, { shadowColor: theme.colors.primary }]}>
+        <Ripple style={[householdStyles.checkinButton, { backgroundColor: theme.colors.buttonBackground, shadowColor: theme.colors.primary }]} onPress={checkin}>
+          <Text style={[householdStyles.checkinButtonText, { color: theme.colors.buttonText }]}>{t("household.checkin")}</Text>
         </Ripple>
       </View>
     </View>
