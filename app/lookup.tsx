@@ -8,7 +8,6 @@ import { ScreenList } from "../src/screenList";
 import { EnvironmentHelper, screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
-import Subheader from "../src/components/Subheader";
 import QRCode from "react-native-qrcode-svg";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { useInactivityTimer } from "../src/hooks/useInactivityTimer";
@@ -213,13 +212,6 @@ const Lookup = (props: Props) => {
         prominentLogo={true}
       />
 
-      {/* Search Section */}
-      <Subheader
-        icon="🔍"
-        title={t("lookup.title")}
-        subtitle={t("lookup.subtitle")}
-      />
-
       {/* Main Content */}
       <View style={lookupStyles.mainContent}>
         {/* Greeting */}
@@ -353,13 +345,13 @@ const lookupStyles = StyleSheet.create({
 
   greeting: {
     alignItems: "center",
-    marginTop: DimensionHelper.wp("4%"),
-    marginBottom: DimensionHelper.wp("3%")
+    marginTop: DimensionHelper.wp("6%"),
+    marginBottom: DimensionHelper.wp("5%")
   },
 
   greetingWave: {
     fontSize: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("1%")
+    marginBottom: DimensionHelper.wp("1.5%")
   },
 
   greetingTitle: {
@@ -378,7 +370,7 @@ const lookupStyles = StyleSheet.create({
   },
 
   searchSection: {
-    marginBottom: DimensionHelper.wp("3%"),
+    marginBottom: DimensionHelper.wp("5%"),
     width: DimensionHelper.wp("90%"),
     maxWidth: 640,
     alignSelf: "center"
@@ -405,7 +397,8 @@ const lookupStyles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 2,
     borderColor: "#e0e0e0",
-    overflow: "hidden" as const
+    overflow: "hidden" as const,
+    marginBottom: DimensionHelper.wp("0.5%")
   },
 
   modeButton: {
@@ -437,7 +430,8 @@ const lookupStyles = StyleSheet.create({
     elevation: 5,
     shadowColor: StyleConstants.baseColor,
     alignSelf: "stretch",
-    marginVertical: DimensionHelper.wp("2%")
+    marginTop: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("1.5%")
   },
 
   searchTextInput: {
@@ -494,7 +488,7 @@ const lookupStyles = StyleSheet.create({
   resultsDivider: {
     flexDirection: "row" as const,
     alignItems: "center" as const,
-    marginBottom: DimensionHelper.wp("2%"),
+    marginBottom: DimensionHelper.wp("2.5%"),
     paddingHorizontal: DimensionHelper.wp("1%")
   },
 
