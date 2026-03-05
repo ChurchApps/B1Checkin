@@ -1,0 +1,143 @@
+{
+  "admin": {
+    "backToKiosk": "Tillbaka till kiosken",
+    "changePin": "Ändra admin-PIN",
+    "changePrinter": "Byt skrivare",
+    "changeService": "Byt gudstjänst",
+    "pinChanged": "PIN-koden har ändrats",
+    "subtitle": "Hantera inställningar för kioskenheten",
+    "title": "Admininställningar"
+  },
+  "addGuest": {
+    "addButton": "Lägg till gäst",
+    "enterFirstName": "Ange förnamn",
+    "enterLastName": "Ange efternamn",
+    "firstName": "Förnamn",
+    "firstNamePlaceholder": "Ange förnamn",
+    "lastName": "Efternamn",
+    "lastNamePlaceholder": "Ange efternamn",
+    "subtitle": "Ange gästinformation för att lägga till dem i ditt hushåll",
+    "title": "Lägg till gäst"
+  },
+  "checkinComplete": {
+    "printingMessage": "Dina etiketter skrivs ut nu.",
+    "subtitle": "Din familj har checkats in",
+    "title": "Incheckning klar",
+    "welcomeMessage": "Din familj har checkats in.",
+    "welcomeTitle": "Välkommen!",
+    "milestoneWeeks": "Veckor i rad!"
+  },
+  "common": {
+    "back": "Tillbaka",
+    "cancel": "Avbryt",
+    "login": "Logga in",
+    "logout": "Logga ut",
+    "search": "Sök"
+  },
+  "header": {
+    "logoutConfirm": "Är du säker på att du vill logga ut?",
+    "secretMenuTitle": "Hemlig meny"
+  },
+  "household": {
+    "addGuest": "Lägg till en gäst",
+    "alreadyCheckedIn": "Redan incheckad",
+    "checkin": "CHECKA IN",
+    "duplicateConfirm": "Checka in igen",
+    "duplicateMessage": "{{names}} har redan checkats in för denna gudstjänst. Checka in igen för att uppdatera deras grupper.",
+    "duplicateTitle": "Redan incheckad",
+    "subtitle": "Välj vilka som checkar in idag",
+    "title": "Välj hushållsmedlemmar"
+  },
+  "login": {
+    "emailPlaceholder": "E-post",
+    "enterEmail": "Ange din e-postadress",
+    "enterPassword": "Ange ditt lösenord",
+    "loginFailed": "Inloggningen misslyckades.",
+    "passwordPlaceholder": "Lösenord",
+    "privacyConsent": "Genom att logga in bekräftar jag att jag har läst",
+    "privacyPolicy": "integritetspolicyn",
+    "title": "Incheckningssystem",
+    "validEmail": "Ange en giltig e-postadress",
+    "welcomeBack": "Välkommen tillbaka"
+  },
+  "lookup": {
+    "enterPhone": "Ange telefonnummer eller de fyra sista siffrorna",
+    "invalidNumbers": "Ange giltiga siffror.",
+    "minDigits": "Ange minst fyra siffror.",
+    "minLetters": "Ange minst två bokstäver av efternamnet.",
+    "modeName": "Namn",
+    "modePhone": "Telefon",
+    "namePlaceholder": "Ange efternamn",
+    "noMatchSubtitle": "Försök söka med ett annat telefonnummer",
+    "noMatchSubtitleName": "Försök söka med ett annat efternamn",
+    "noMatchTitle": "Inga träffar hittades",
+    "phonePlaceholder": "Ange de fyra sista siffrorna i mobilnumret",
+    "readySubtitle": "Ange ett telefonnummer för att hitta personer",
+    "readyTitle": "Redo att söka",
+    "searchError": "Sökningen kunde inte slutföras. Försök igen.",
+    "searching": "Söker...",
+    "subtitle": "Ange de fyra sista siffrorna i mobilnumret",
+    "title": "Sök med telefonnummer",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
+    "qrGuest": "Skanna för att registrera dig som gäst",
+    "registerGuest": "Registrera som gäst"
+  },
+  "members": {
+    "error": "Fel",
+    "selectGroup": "Välj grupp",
+    "unknown": "Okänd"
+  },
+  "print": {
+    "printing": "Skriver ut"
+  },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} försök kvar",
+    "backspace": "Radera",
+    "enterPin": "Ange admin-PIN",
+    "tooManyAttempts": "För många misslyckade försök. Vänta.",
+    "wrongPin": "Felaktig PIN-kod. Försök igen."
+  },
+  "printers": {
+    "noPrinter": "Ingen skrivare",
+    "noPrinterSelected": "Ingen skrivare vald",
+    "saveAndContinue": "Spara och fortsätt",
+    "saveRestart": "Spara och starta om",
+    "scanning": "Söker efter skrivare...",
+    "subtitle": "Välj en skrivare för att skriva ut namnbrickor och etiketter",
+    "testPrint": "Testutskrift",
+    "title": "Välj en skrivare"
+  },
+  "setPin": {
+    "confirmPin": "Bekräfta din PIN-kod",
+    "enterPin": "Ange en PIN-kod",
+    "pinMismatch": "PIN-koderna matchar inte. Försök igen.",
+    "pinSet": "PIN-koden har ställts in",
+    "pinTooShort": "PIN-koden måste vara minst 4 siffror",
+    "subtitle": "Skapa en 4–6-siffrig PIN-kod för att skydda admininställningar",
+    "title": "Ställ in admin-PIN"
+  },
+  "selectChurch": {
+    "loading": "Laddar församlingar...",
+    "title": "Välj en församling"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} grupper",
+    "none": "Ingen",
+    "subtitle": "Välj en grupp för {{serviceName}}",
+    "title": "Välj en grupp"
+  },
+  "services": {
+    "loading": "Laddar gudstjänster...",
+    "selectService": "Välj en gudstjänst:",
+    "subtitle": "Välj vilken gudstjänst du vill checka in för",
+    "title": "Välj en gudstjänst"
+  },
+  "splash": {
+    "checkingUpdates": "Söker efter uppdateringar...",
+    "downloadingUpdate": "Laddar ner uppdatering...",
+    "initializing": "Initierar...",
+    "loadingChurch": "Laddar församlingsdata...",
+    "loggingIn": "Loggar in..."
+  }
+}

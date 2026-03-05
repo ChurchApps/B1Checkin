@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import { screenNavigationProps, CachedData, LabelHelper, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import PrintUI from "../src/components/PrintUI";
+import ConfettiCelebration from "../src/components/ConfettiCelebration";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { router } from "expo-router";
@@ -13,18 +15,20 @@ interface Props { navigation: screenNavigationProps; }
 
 const CheckinComplete = (props: Props) => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
+  const [milestones, setMilestones] = React.useState<{ personId: string; streak: number }[]>([]);
+  const milestonesRef = React.useRef<{ personId: string; streak: number }[]>([]);
 
   const loadData = () => {
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     const promises: Promise<any>[] = [];
     promises.push(checkin());
     if (CachedData.printer?.ipAddress) print();
-    //print();
 
     Promise.all(promises)
       .then(() => {
-        if (!CachedData.printer?.ipAddress) startOver();
+        if (!CachedData.printer?.ipAddress) startOver(milestonesRef.current.length > 0);
       })
       .catch(error => {
         console.error("Error during checkin:", error);
@@ -32,15 +36,16 @@ const CheckinComplete = (props: Props) => {
       });
   };
 
-  const startOver = () => {
+  const startOver = (hasMilestone?: boolean) => {
     CachedData.existingVisits = [];
     CachedData.pendingVisits = [];
     setHtmlLabels([]);
-    redirectToLookup();
+    redirectToLookup(hasMilestone);
   };
 
-  const redirectToLookup = () => {
-    timeout(3000).then(() => {
+  const redirectToLookup = (hasMilestone?: boolean) => {
+    const delay = hasMilestone ? 6000 : 3000;
+    timeout(delay).then(() => {
       router.replace("/lookup");
     });
   };
@@ -60,14 +65,19 @@ const CheckinComplete = (props: Props) => {
 
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
-    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
+    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(","));
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi")
-      .then(_data => {
-        console.log("Checkin Complete");
-        //console.log(data)
-        // AppCenterHelper.trackEvent("Checkin Complete");
-        //router.navigate('/checkinComplete')
-        // props.navigation.navigate("CheckinComplete");
+      .then(data => {
+        if (data?.streaks) {
+          const hits: { personId: string; streak: number }[] = [];
+          for (const [personId, streak] of Object.entries(data.streaks as Record<string, number>)) {
+            if (streak > 0 && streak % 5 === 0) hits.push({ personId, streak });
+          }
+          if (hits.length > 0) {
+            milestonesRef.current = hits;
+            setMilestones(hits);
+          }
+        }
       })
       .catch(error => {
         console.error("Error during checkin:", error);
@@ -98,12 +108,12 @@ const CheckinComplete = (props: Props) => {
 
       {/* Main Content */}
       <View style={checkinCompleteStyles.mainContent}>
-        <View style={checkinCompleteStyles.successCard}>
+        <View style={[checkinCompleteStyles.successCard, { shadowColor: theme.colors.primary }]}>
           <View style={checkinCompleteStyles.successIconContainer}>
             <FontAwesome
               name="check-circle"
               style={checkinCompleteStyles.successIcon}
-              size={DimensionHelper.wp("15%")}
+              size={DimensionHelper.wp("10%")}
             />
           </View>
           <Text style={checkinCompleteStyles.successTitle}>{t("checkinComplete.welcomeTitle")}</Text>
@@ -115,72 +125,39 @@ const CheckinComplete = (props: Props) => {
 
         {getLabelView()}
       </View>
+      <ConfettiCelebration milestones={milestones} />
     </View>
   );
 
 };
 
 const checkinCompleteStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  // Main Content
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("5%"),
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("3%"), justifyContent: "center", alignItems: "center" },
 
-  // Success Card (Professional Material Design)
   successCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 16,
-    padding: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("5%"),
+    borderRadius: 14,
+    padding: DimensionHelper.wp("5%"),
+    marginBottom: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    shadowRadius: 12,
+    shadowRadius: 10,
     elevation: 8,
     shadowColor: StyleConstants.baseColor,
     alignItems: "center",
-    minWidth: DimensionHelper.wp("80%"),
-    maxWidth: DimensionHelper.wp("90%")
+    minWidth: DimensionHelper.wp("70%"),
+    maxWidth: DimensionHelper.wp("85%")
   },
 
-  successIconContainer: {
-    backgroundColor: StyleConstants.greenColor + "20",
-    borderRadius: DimensionHelper.wp("8%"),
-    width: DimensionHelper.wp("20%"),
-    height: DimensionHelper.wp("20%"),
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: DimensionHelper.wp("5%")
-  },
+  successIconContainer: { backgroundColor: StyleConstants.greenColor + "20", borderRadius: DimensionHelper.wp("6%"), width: DimensionHelper.wp("14%"), height: DimensionHelper.wp("14%"), justifyContent: "center", alignItems: "center", marginBottom: DimensionHelper.wp("3%") },
 
   successIcon: { color: StyleConstants.greenColor },
 
-  successTitle: {
-    fontSize: DimensionHelper.wp("6%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("3%"),
-    textAlign: "center"
-  },
+  successTitle: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("2%"), textAlign: "center" },
 
-  successMessage: {
-    fontSize: DimensionHelper.wp("4.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor,
-    textAlign: "center",
-    lineHeight: DimensionHelper.wp("5.5%"),
-    opacity: 0.8,
-    paddingHorizontal: DimensionHelper.wp("2%")
-  }
+  successMessage: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor, textAlign: "center", lineHeight: DimensionHelper.wp("4.5%"), opacity: 0.8, paddingHorizontal: DimensionHelper.wp("2%") }
 };
 
 export default CheckinComplete;

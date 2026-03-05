@@ -15,6 +15,11 @@ const MemberList = (props: Props) => {
 
   const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); };
 
+  const isCheckedIn = (personId: string): boolean => {
+    const visit = VisitHelper.getByPersonId(CachedData.existingVisits, personId);
+    return visit !== null && visit !== undefined && visit.id !== null && visit.id !== undefined;
+  };
+
   const getCondensedGroupList = (person: PersonInterface) => {
     if (selectedMemberId === person.id) return <></>;
 
@@ -77,7 +82,7 @@ const MemberList = (props: Props) => {
           <View style={[memberListStyles.memberPhoto, memberListStyles.placeholderPhoto]}>
             <FontAwesome
               name="user"
-              size={DimensionHelper.wp("7%")}
+              size={DimensionHelper.wp("5%")}
               color={StyleConstants.whiteColor}
             />
           </View>
@@ -92,6 +97,18 @@ const MemberList = (props: Props) => {
             {getPhotoElement()}
             <View style={memberListStyles.memberInfo}>
               <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || t("members.unknown")}</Text>
+              {isCheckedIn(person.id || "") && (
+                <View style={memberListStyles.checkedInBadge}>
+                  <FontAwesome name="check-circle" size={DimensionHelper.wp("3%")} color={StyleConstants.greenColor} style={memberListStyles.checkedInIcon} />
+                  <Text style={memberListStyles.checkedInText}>{t("household.alreadyCheckedIn")}</Text>
+                </View>
+              )}
+              {person.nametagNotes ? (
+                <View style={memberListStyles.noteBadge}>
+                  <FontAwesome name="exclamation-triangle" size={DimensionHelper.wp("3%")} color={StyleConstants.yellowColor} style={memberListStyles.noteIcon} />
+                  <Text style={memberListStyles.noteText} numberOfLines={1}>{person.nametagNotes}</Text>
+                </View>
+              ) : null}
               {getCondensedGroupList(person)}
             </View>
             <View style={memberListStyles.expandIconContainer}>
@@ -125,103 +142,89 @@ const MemberList = (props: Props) => {
   );
 };
 
-// Professional tablet-optimized styles for member list
 const memberListStyles = {
-  listContainer: { paddingBottom: DimensionHelper.wp("5%") },
+  listContainer: { paddingBottom: DimensionHelper.wp("3%") },
 
-  memberContainer: { marginBottom: DimensionHelper.wp("3%") },
+  memberContainer: { marginBottom: DimensionHelper.wp("2%") },
 
-  // Member Cards (Professional Material Design)
   memberCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("4%"),
+    borderRadius: 10,
+    padding: DimensionHelper.wp("3%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     alignSelf: "center",
-    minHeight: DimensionHelper.wp("18%")
+    minHeight: DimensionHelper.wp("14%")
   },
 
-  memberContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-  },
+  memberContent: { flexDirection: "row", alignItems: "center", width: "100%" },
 
-  memberPhoto: {
-    width: DimensionHelper.wp("14%"),
-    height: DimensionHelper.wp("14%"),
-    borderRadius: DimensionHelper.wp("7%"),
-    marginRight: DimensionHelper.wp("4%")
-  },
+  memberPhoto: { width: DimensionHelper.wp("10%"), height: DimensionHelper.wp("10%"), borderRadius: DimensionHelper.wp("5%"), marginRight: DimensionHelper.wp("3%") },
 
-  placeholderPhoto: {
-    backgroundColor: StyleConstants.baseColor,
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  placeholderPhoto: { backgroundColor: StyleConstants.baseColor, justifyContent: "center", alignItems: "center" },
 
-  memberInfo: {
-    flex: 1,
-    justifyContent: "center"
-  },
+  memberInfo: { flex: 1, justifyContent: "center" },
 
-  memberName: {
-    fontSize: DimensionHelper.wp("4.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("1%")
-  },
+  memberName: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%") },
 
-  groupContainer: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    flex: 1
-  },
+  groupContainer: { flexDirection: "column", alignItems: "flex-start", flex: 1 },
 
   groupChip: {
     backgroundColor: StyleConstants.baseColor + "15",
-    borderRadius: 8,
-    paddingHorizontal: DimensionHelper.wp("2.5%"),
-    paddingVertical: DimensionHelper.wp("1.5%"),
-    marginBottom: DimensionHelper.wp("1%"),
+    borderRadius: 6,
+    paddingHorizontal: DimensionHelper.wp("2%"),
+    paddingVertical: DimensionHelper.wp("1%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
     borderWidth: 1,
     borderColor: StyleConstants.baseColor + "30",
     maxWidth: "100%",
     alignSelf: "flex-start"
   },
 
-  groupInfo: {
-    flexDirection: "column",
-    alignItems: "flex-start"
+  groupInfo: { flexDirection: "column", alignItems: "flex-start" },
+
+  serviceTimeLabel: { fontSize: DimensionHelper.wp("2.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.baseColor, marginBottom: DimensionHelper.wp("0.3%") },
+
+  groupName: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
+
+  expandIconContainer: { marginLeft: DimensionHelper.wp("2%"), justifyContent: "center", alignItems: "center" },
+
+  expandIcon: { color: StyleConstants.baseColor, opacity: 0.7 },
+
+  checkedInBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: StyleConstants.greenColor + "20",
+    borderRadius: 6,
+    paddingHorizontal: DimensionHelper.wp("1.5%"),
+    paddingVertical: DimensionHelper.wp("0.5%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
+    alignSelf: "flex-start"
   },
 
-  serviceTimeLabel: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.baseColor,
-    marginBottom: DimensionHelper.wp("0.5%")
+  checkedInIcon: { marginRight: DimensionHelper.wp("1%") },
+
+  checkedInText: { fontSize: DimensionHelper.wp("2.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.greenColor },
+
+  noteBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: StyleConstants.yellowColor + "20",
+    borderRadius: 6,
+    paddingHorizontal: DimensionHelper.wp("1.5%"),
+    paddingVertical: DimensionHelper.wp("0.5%"),
+    marginBottom: DimensionHelper.wp("0.5%"),
+    borderWidth: 1,
+    borderColor: StyleConstants.yellowColor + "60",
+    alignSelf: "flex-start"
   },
 
-  groupName: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor
-  },
+  noteIcon: { marginRight: DimensionHelper.wp("1%") },
 
-  expandIconContainer: {
-    marginLeft: DimensionHelper.wp("3%"),
-    justifyContent: "center",
-    alignItems: "center"
-  },
-
-  expandIcon: {
-    color: StyleConstants.baseColor,
-    opacity: 0.7
-  }
+  noteText: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor }
 };
 
 export default MemberList;

@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, Image, StatusBar, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
+import PinEntryModal from "./PinEntryModal";
+import { useCheckinTheme } from "../context/CheckinThemeContext";
+import * as PrinterHelper from "printer-helper";
 
 interface Props {
   navigation: screenNavigationProps,
@@ -16,16 +19,32 @@ interface Props {
 
 const Header = (props: Props) => {
   const { t } = useTranslation();
+  const { theme } = useCheckinTheme();
+  const insets = useSafeAreaInsets();
   const [status, setStatus] = React.useState("");
   const [landscape, setLandscape] = React.useState(false);
   const [logoTapCount, setLogoTapCount] = React.useState(0);
   const logoTapTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
-  let eventEmitter: NativeEventEmitter;
+  const [showPinModal, setShowPinModal] = React.useState(false);
+  const pendingAdminAction = React.useRef<"settings" | "printers">("settings");
 
   const handleClick = () => {
-    router.navigate("/printers");
-    // props.navigation?.navigate("/printers");
+    if (CachedData.kioskLocked && CachedData.kioskPin) {
+      pendingAdminAction.current = "printers";
+      setShowPinModal(true);
+    } else {
+      router.navigate("/printers");
+    }
+  };
+
+  const handlePinSuccess = () => {
+    setShowPinModal(false);
+    if (pendingAdminAction.current === "printers") {
+      router.navigate("/printers");
+    } else {
+      router.navigate("/adminSettings");
+    }
+    pendingAdminAction.current = "settings";
   };
 
   const handleLogoTap = () => {
@@ -39,34 +58,16 @@ const Header = (props: Props) => {
     setLogoTapCount(newTapCount);
 
     if (newTapCount >= 7) {
-      // Show logout confirmation after 7 taps
-      Alert.alert(
-        t("header.secretMenuTitle"),
-        t("header.logoutConfirm"),
-        [
-          {
-            text: t("common.cancel"),
-            style: "cancel",
-            onPress: () => setLogoTapCount(0)
-          },
-          {
-            text: t("common.logout"),
-            onPress: async () => {
-              // Clear stored credentials and church selection
-              await AsyncStorage.multiRemove(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@UserChurches", "@Login"]);
-
-              // Clear cached data
-              CachedData.userChurch = null;
-              CachedData.churchAppearance = null;
-
-              // Navigate to login screen
-              router.replace("/login");
-            },
-            style: "destructive"
-          }
-        ]
-      );
       setLogoTapCount(0);
+
+      if (CachedData.kioskLocked && CachedData.kioskPin) {
+        // PIN is set — require PIN to access admin settings
+        pendingAdminAction.current = "settings";
+        setShowPinModal(true);
+      } else {
+        // No PIN set — go directly to admin settings
+        router.navigate("/adminSettings");
+      }
     } else {
       // Reset tap count after 2 seconds of no taps
       logoTapTimeoutRef.current = setTimeout(() => {
@@ -78,18 +79,15 @@ const Header = (props: Props) => {
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); };
 
   const init = () => {
-    console.log(Platform.OS);
-    if (Platform.OS === "android" && NativeModules.PrinterHelper) {
-      console.log("print", CachedData.printer);
-      console.log(receiveNativeStatus);
-
-      NativeModules.PrinterHelper.bind(receiveNativeStatus);
-      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
-      eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
-      eventEmitter.addListener("StatusUpdated", (event: any) => {
+    try {
+      PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "", CachedData.printer?.brand || "");
+      const subscription = PrinterHelper.addStatusListener((event) => {
         if (event.status.indexOf("ready") > -1) CachedData.printer.ipAddress = "ready";
         setStatus(event.status);
       });
+      return () => subscription.remove();
+    } catch (_e) {
+      // PrinterHelper not available on this platform
     }
   };
 
@@ -106,16 +104,11 @@ const Header = (props: Props) => {
   };
 
   React.useEffect(() => {
-    Dimensions.addEventListener("change", () => {
-      isLandscape() ? setLandscape(true) : setLandscape(false);
+    const subscription = Dimensions.addEventListener("change", () => {
+      setLandscape(isLandscape());
     });
+    return () => subscription.remove();
   }, []);
-
-  React.useEffect(() => {
-    Dimensions.addEventListener("change", () => {
-      isLandscape() ? setLandscape(true) : setLandscape(false);
-    });
-  }, [landscape]);
 
   const getLogoUrl = () => {
     if (CachedData.churchAppearance?.logoLight) return { uri: CachedData.churchAppearance?.logoLight };
@@ -125,57 +118,52 @@ const Header = (props: Props) => {
   if (props.prominentLogo) {
     return (
       <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-        <StatusBar backgroundColor={StyleConstants.baseColor} />
-
-        {/* Compact Printer Status Bar */}
-        <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
-          <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
-        </Ripple>
+        <StatusBar backgroundColor={theme.colors.headerBackground} />
 
         {/* Logo Section with Dark Blue Background */}
-        <View style={headerStyles.logoSection}>
+        <View style={[headerStyles.logoSection, { backgroundColor: theme.colors.headerBackground, paddingTop: insets.top + DimensionHelper.wp("2.5%") }]}>
           {/* Prominent Church Logo in White Box - Tappable for secret logout */}
           <Ripple style={headerStyles.logoContainer} onPress={handleLogoTap}>
             <Image source={getLogoUrl()} style={headerStyles.prominentLogo} />
           </Ripple>
         </View>
 
+        <PinEntryModal
+          visible={showPinModal}
+          mode="verify"
+          onSuccess={handlePinSuccess}
+          onCancel={() => setShowPinModal(false)}
+        />
       </View>
     );
   }
 
   return (
-    <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
-      <StatusBar backgroundColor={StyleConstants.baseColor} />
-      <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
-        <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
-      </Ripple>
+    <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, { paddingTop: insets.top }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
+      <StatusBar backgroundColor={theme.colors.headerBackground} />
       {props.logo !== false && (
         <Ripple onPress={handleLogoTap} style={{ alignItems: "center", justifyContent: "center" }}>
           <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
         </Ripple>
       )}
+      <PinEntryModal
+        visible={showPinModal}
+        mode="verify"
+        onSuccess={handlePinSuccess}
+        onCancel={() => setShowPinModal(false)}
+      />
     </View>
   );
 };
 
-// Professional tablet-optimized styles for prominent logo mode
 const headerStyles = {
-  // Logo Section (Dark blue background)
-  logoSection: {
-    backgroundColor: StyleConstants.baseColor, // Dark blue #1565C0
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("5%"),
-    paddingBottom: DimensionHelper.wp("5%"),
-    alignItems: "center"
-  },
+  logoSection: { backgroundColor: StyleConstants.baseColor, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2.5%"), paddingBottom: DimensionHelper.wp("2.5%"), alignItems: "center" },
 
-  // Prominent White Box for Logo within Blue Header
   logoContainer: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    width: DimensionHelper.wp("70%"), // 70% of blue box width
-    height: DimensionHelper.wp("16%"),
+    borderRadius: 10,
+    width: DimensionHelper.wp("60%"),
+    height: DimensionHelper.wp("11%"),
     justifyContent: "center",
     alignItems: "center",
     shadowOffset: { width: 0, height: 2 },
@@ -184,11 +172,7 @@ const headerStyles = {
     elevation: 4
   },
 
-  prominentLogo: {
-    width: DimensionHelper.wp("65%"), // Slightly smaller than container for padding
-    height: DimensionHelper.wp("14%"),
-    resizeMode: "contain"
-  }
+  prominentLogo: { width: DimensionHelper.wp("55%"), height: DimensionHelper.wp("9%"), resizeMode: "contain" }
 };
 
 export default Header;

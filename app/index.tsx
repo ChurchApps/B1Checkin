@@ -5,10 +5,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Updates from "expo-updates";
 import { useTranslation } from "react-i18next";
 import { EnvironmentHelper, ApiHelper, LoginResponseInterface, CachedData, DimensionHelper, StyleConstants } from "../src/helpers";
+import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 
 export default function Splash() {
-  console.log("Splash component called");
   const { t } = useTranslation();
+  const { loadTheme } = useCheckinTheme();
   const [statusMessage, setStatusMessage] = React.useState("");
   const navigationState = useRootNavigationState();
   const hasNavigated = useRef(false);
@@ -22,9 +23,7 @@ export default function Splash() {
     if (hasNavigated.current) return;
 
     if (!isNavigationReady) {
-      // Store the pending navigation path to be executed when ready
       pendingNavigation.current = path;
-      console.log("Navigation deferred, layout not ready:", path);
       return;
     }
 
@@ -54,7 +53,6 @@ export default function Splash() {
     if (isNavigationReady && pendingNavigation.current && !hasNavigated.current) {
       const path = pendingNavigation.current;
       pendingNavigation.current = null;
-      console.log("Executing deferred navigation:", path);
       safeNavigate(path);
     }
   }, [isNavigationReady, safeNavigate]);
@@ -102,16 +100,25 @@ export default function Splash() {
   const checkStoredCredentials = async () => {
     try {
       // Check if user has stored credentials and saved printer
-      const [email, password, selectedChurchId, churchAppearance, savedPrinter] = await AsyncStorage.multiGet(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer"]);
+      const [email, password, selectedChurchId, churchAppearance, savedPrinter, kioskPin, kioskLocked] = await AsyncStorage.multiGet(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked"]);
 
       // Load saved printer if available
       if (savedPrinter[1]) {
         try {
-          CachedData.printer = JSON.parse(savedPrinter[1]);
-          console.log("Loaded saved printer:", CachedData.printer);
+          const parsed = JSON.parse(savedPrinter[1]);
+          if (!parsed.brand) parsed.brand = "Brother";
+          CachedData.printer = parsed;
         } catch (error) {
           console.error("Error parsing saved printer:", error);
         }
+      }
+
+      // Load kiosk PIN state
+      if (kioskPin[1]) {
+        CachedData.kioskPin = kioskPin[1];
+      }
+      if (kioskLocked[1] === "true") {
+        CachedData.kioskLocked = true;
       }
 
       if (email[1] && password[1]) {
@@ -166,6 +173,9 @@ export default function Splash() {
                 await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
               }
 
+              // Load check-in theme for this church
+              loadTheme(previousChurch.church.id);
+
               // Go directly to services screen
               safeNavigate("/services");
               return;
@@ -176,17 +186,11 @@ export default function Splash() {
           safeNavigate("/selectChurch");
         }
       } else {
-        // No stored credentials, go to login
-        setTimeout(() => {
-          safeNavigate("/login");
-        }, 1500);
+        safeNavigate("/login");
       }
     } catch (error) {
       console.error("Auto-login error:", error);
-      // On any error, go to login screen
-      setTimeout(() => {
-        safeNavigate("/login");
-      }, 1500);
+      safeNavigate("/login");
     }
   };
 
@@ -205,30 +209,10 @@ export default function Splash() {
 }
 
 const splashStyles = {
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: StyleConstants.whiteColor
-  },
-  logo: {
-    width: DimensionHelper.wp("40%"),
-    height: DimensionHelper.wp("40%"),
-    resizeMode: "contain",
-    marginBottom: DimensionHelper.wp("8%")
-  },
-  title: {
-    fontSize: DimensionHelper.wp("6%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("8%")
-  },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: StyleConstants.whiteColor },
+  logo: { width: DimensionHelper.wp("40%"), height: DimensionHelper.wp("40%"), resizeMode: "contain", marginBottom: DimensionHelper.wp("8%") },
+  title: { fontSize: DimensionHelper.wp("6%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("8%") },
   loadingContainer: { alignItems: "center" },
-  statusText: {
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.grayColor,
-    marginTop: DimensionHelper.wp("3%")
-  }
+  statusText: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor, marginTop: DimensionHelper.wp("3%") }
 };
 

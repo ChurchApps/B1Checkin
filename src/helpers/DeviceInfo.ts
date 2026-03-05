@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as RNDI from "expo-device";
 import Constants from "expo-constants";
@@ -30,10 +31,14 @@ export class DeviceInfo {
       details.buildNumber = Constants.expoConfig?.version ?? "Unknown";
       details.brand = RNDI.brand ?? "Unknown";
       details.device = RNDI.modelName ?? "Unknown";
-      details.deviceId = await AsyncStorage.getItem("deviceId");
+      details.deviceId = (await AsyncStorage.getItem("deviceId")) ?? undefined;
 
       if (!details.deviceId) {
-        details.deviceId = (await Application.getAndroidId()) ?? "Unknown";
+        if (Platform.OS === "android") {
+          details.deviceId = (await Application.getAndroidId()) ?? "Unknown";
+        } else {
+          details.deviceId = (await Application.getIosIdForVendorAsync()) ?? "Unknown";
+        }
         await AsyncStorage.setItem("deviceId", details.deviceId);
       }
 

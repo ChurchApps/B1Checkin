@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Back to Kiosk",
+    "changePin": "Change Admin PIN",
+    "changePrinter": "Change Printer",
+    "changeService": "Change Service",
+    "pinChanged": "PIN has been changed successfully",
+    "setPin": "Set Admin PIN",
+    "subtitle": "Manage your kiosk device settings",
+    "title": "Admin Settings"
+  },
   "addGuest": {
     "addButton": "Add Guest",
     "enterFirstName": "Please enter first name",
@@ -15,9 +25,11 @@
     "subtitle": "Your family has been successfully checked in",
     "title": "Check-in Complete",
     "welcomeMessage": "Your family has been checked in successfully.",
-    "welcomeTitle": "Welcome!"
+    "welcomeTitle": "Welcome!",
+    "milestoneWeeks": "Weeks in a Row!"
   },
   "common": {
+    "back": "Back",
     "cancel": "Cancel",
     "login": "Login",
     "logout": "Logout",
@@ -29,7 +41,11 @@
   },
   "household": {
     "addGuest": "Add a Guest",
+    "alreadyCheckedIn": "Already checked in",
     "checkin": "CHECK IN",
+    "duplicateConfirm": "Check In Again",
+    "duplicateMessage": "{{names}} already checked in for this service. Check in again to update their groups.",
+    "duplicateTitle": "Already Checked In",
     "subtitle": "Choose who is checking in today",
     "title": "Select Household Members"
   },
@@ -56,14 +72,17 @@
     "noMatchSubtitle": "Try searching with a different phone number",
     "noMatchSubtitleName": "Try searching with a different last name",
     "noMatchTitle": "No Matches Found",
-    "phonePlaceholder": "Enter last four digits of mobile number",
+    "phonePlaceholder": "Last 4 digits of mobile number",
     "readySubtitle": "Enter a phone number to find people",
     "readyTitle": "Ready to Search",
     "searchError": "Unable to complete search. Please try again.",
     "searching": "Searching...",
     "subtitle": "Enter last four digits of mobile number",
     "title": "Search by Phone Number",
-    "qrGuest": "Scan to register as a guest"
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
+    "qrGuest": "Scan to register as a guest",
+    "registerGuest": "Register as guest"
   },
   "members": {
     "error": "Error",
@@ -73,14 +92,31 @@
   "print": {
     "printing": "Printing"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} attempts remaining",
+    "backspace": "Delete",
+    "enterPin": "Enter Admin PIN",
+    "tooManyAttempts": "Too many failed attempts. Please wait.",
+    "wrongPin": "Incorrect PIN. Please try again."
+  },
   "printers": {
     "noPrinter": "No Printer",
     "noPrinterSelected": "No printer selected",
+    "saveAndContinue": "Save & Continue",
     "saveRestart": "Save & Restart",
     "scanning": "Scanning for printers...",
     "subtitle": "Choose a printer for printing name tags and labels",
     "testPrint": "Test Print",
     "title": "Select a Printer"
+  },
+  "setPin": {
+    "confirmPin": "Confirm your PIN",
+    "enterPin": "Enter a PIN",
+    "pinMismatch": "PINs do not match. Please try again.",
+    "pinSet": "PIN has been set successfully",
+    "pinTooShort": "PIN must be at least 4 digits",
+    "subtitle": "Create a 4-6 digit PIN to protect admin settings",
+    "title": "Set Admin PIN"
   },
   "selectChurch": {
     "loading": "Loading churches...",

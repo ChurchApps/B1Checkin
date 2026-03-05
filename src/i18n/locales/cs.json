@@ -1,0 +1,143 @@
+{
+  "admin": {
+    "backToKiosk": "Zpět na kiosek",
+    "changePin": "Změnit administrátorský PIN",
+    "changePrinter": "Změnit tiskárnu",
+    "changeService": "Změnit bohoslužbu",
+    "pinChanged": "PIN byl úspěšně změněn",
+    "subtitle": "Spravujte nastavení kioskového zařízení",
+    "title": "Nastavení administrátora"
+  },
+  "addGuest": {
+    "addButton": "Přidat hosta",
+    "enterFirstName": "Zadejte křestní jméno",
+    "enterLastName": "Zadejte příjmení",
+    "firstName": "Křestní jméno",
+    "firstNamePlaceholder": "Zadejte křestní jméno",
+    "lastName": "Příjmení",
+    "lastNamePlaceholder": "Zadejte příjmení",
+    "subtitle": "Zadejte informace o hostovi pro přidání do vaší domácnosti",
+    "title": "Přidat hosta"
+  },
+  "checkinComplete": {
+    "printingMessage": "Vaše štítky se nyní tisknou.",
+    "subtitle": "Vaše rodina byla úspěšně přihlášena",
+    "title": "Přihlášení dokončeno",
+    "welcomeMessage": "Vaše rodina byla úspěšně přihlášena.",
+    "welcomeTitle": "Vítejte!",
+    "milestoneWeeks": "Týdnů v řadě!"
+  },
+  "common": {
+    "back": "Zpět",
+    "cancel": "Zrušit",
+    "login": "Přihlásit se",
+    "logout": "Odhlásit se",
+    "search": "Hledat"
+  },
+  "header": {
+    "logoutConfirm": "Opravdu se chcete odhlásit?",
+    "secretMenuTitle": "Skrytá nabídka"
+  },
+  "household": {
+    "addGuest": "Přidat hosta",
+    "alreadyCheckedIn": "Již přihlášen",
+    "checkin": "PŘIHLÁSIT",
+    "duplicateConfirm": "Přihlásit znovu",
+    "duplicateMessage": "{{names}} již byli přihlášeni na tuto bohoslužbu. Přihlaste je znovu pro aktualizaci jejich skupin.",
+    "duplicateTitle": "Již přihlášen",
+    "subtitle": "Vyberte, kdo se dnes přihlašuje",
+    "title": "Vyberte členy domácnosti"
+  },
+  "login": {
+    "emailPlaceholder": "E-mail",
+    "enterEmail": "Zadejte svou e-mailovou adresu",
+    "enterPassword": "Zadejte své heslo",
+    "loginFailed": "Přihlášení se nezdařilo.",
+    "passwordPlaceholder": "Heslo",
+    "privacyConsent": "Přihlášením potvrzuji, že jsem si přečetl/a",
+    "privacyPolicy": "zásady ochrany osobních údajů",
+    "title": "Systém přihlášení",
+    "validEmail": "Zadejte platnou e-mailovou adresu",
+    "welcomeBack": "Vítejte zpět"
+  },
+  "lookup": {
+    "enterPhone": "Zadejte telefonní číslo nebo poslední čtyři číslice",
+    "invalidNumbers": "Zadejte platná čísla.",
+    "minDigits": "Zadejte alespoň čtyři číslice.",
+    "minLetters": "Zadejte alespoň dvě písmena příjmení.",
+    "modeName": "Jméno",
+    "modePhone": "Telefon",
+    "namePlaceholder": "Zadejte příjmení",
+    "noMatchSubtitle": "Zkuste vyhledat jiné telefonní číslo",
+    "noMatchSubtitleName": "Zkuste vyhledat jiné příjmení",
+    "noMatchTitle": "Nebyly nalezeny žádné shody",
+    "phonePlaceholder": "Zadejte poslední čtyři číslice mobilního čísla",
+    "readySubtitle": "Zadejte telefonní číslo pro vyhledání osob",
+    "readyTitle": "Připraveno k vyhledávání",
+    "searchError": "Vyhledávání se nepodařilo dokončit. Zkuste to znovu.",
+    "searching": "Vyhledávání...",
+    "subtitle": "Zadejte poslední čtyři číslice mobilního čísla",
+    "title": "Hledat podle telefonního čísla",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
+    "qrGuest": "Naskenujte pro registraci jako host",
+    "registerGuest": "Registrovat se jako host"
+  },
+  "members": {
+    "error": "Chyba",
+    "selectGroup": "Vyberte skupinu",
+    "unknown": "Neznámý"
+  },
+  "print": {
+    "printing": "Tisk"
+  },
+  "pinEntry": {
+    "attemptsRemaining": "Zbývá {{count}} pokusů",
+    "backspace": "Smazat",
+    "enterPin": "Zadejte administrátorský PIN",
+    "tooManyAttempts": "Příliš mnoho neúspěšných pokusů. Počkejte prosím.",
+    "wrongPin": "Nesprávný PIN. Zkuste to znovu."
+  },
+  "printers": {
+    "noPrinter": "Žádná tiskárna",
+    "noPrinterSelected": "Nebyla vybrána žádná tiskárna",
+    "saveAndContinue": "Uložit a pokračovat",
+    "saveRestart": "Uložit a restartovat",
+    "scanning": "Vyhledávání tiskáren...",
+    "subtitle": "Vyberte tiskárnu pro tisk jmenovek a štítků",
+    "testPrint": "Zkušební tisk",
+    "title": "Vyberte tiskárnu"
+  },
+  "setPin": {
+    "confirmPin": "Potvrďte svůj PIN",
+    "enterPin": "Zadejte PIN",
+    "pinMismatch": "PIN kódy se neshodují. Zkuste to znovu.",
+    "pinSet": "PIN byl úspěšně nastaven",
+    "pinTooShort": "PIN musí mít alespoň 4 číslice",
+    "subtitle": "Vytvořte 4–6místný PIN pro ochranu nastavení administrátora",
+    "title": "Nastavit administrátorský PIN"
+  },
+  "selectChurch": {
+    "loading": "Načítání sborů...",
+    "title": "Vyberte sbor"
+  },
+  "selectGroup": {
+    "groupCount": "{{count}} skupin",
+    "none": "Žádná",
+    "subtitle": "Vyberte skupinu pro {{serviceName}}",
+    "title": "Vyberte skupinu"
+  },
+  "services": {
+    "loading": "Načítání bohoslužeb...",
+    "selectService": "Vyberte bohoslužbu:",
+    "subtitle": "Vyberte bohoslužbu, na kterou se chcete přihlásit",
+    "title": "Vyberte bohoslužbu"
+  },
+  "splash": {
+    "checkingUpdates": "Kontrola aktualizací...",
+    "downloadingUpdate": "Stahování aktualizace...",
+    "initializing": "Inicializace...",
+    "loadingChurch": "Načítání dat sboru...",
+    "loggingIn": "Přihlašování..."
+  }
+}

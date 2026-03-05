@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Bumalik sa Kiosk",
+    "changePin": "Baguhin ang Admin PIN",
+    "changePrinter": "Baguhin ang Printer",
+    "changeService": "Baguhin ang Serbisyo",
+    "pinChanged": "Matagumpay na nabago ang PIN",
+    "setPin": "Itakda ang Admin PIN",
+    "subtitle": "Pamahalaan ang mga setting ng kiosk device",
+    "title": "Mga Setting ng Admin"
+  },
   "addGuest": {
     "addButton": "Magdagdag ng Bisita",
     "enterFirstName": "Pakiusap na ilagay ang pangalan",
@@ -15,9 +25,11 @@
     "subtitle": "Matagumpay na naka-check in ang inyong pamilya",
     "title": "Tapos na ang Check-in",
     "welcomeMessage": "Matagumpay na naka-check in ang inyong pamilya.",
-    "welcomeTitle": "Maligayang Pagdating!"
+    "welcomeTitle": "Maligayang Pagdating!",
+    "milestoneWeeks": "Sunod-sunod na Linggo!"
   },
   "common": {
+    "back": "Bumalik",
     "cancel": "Kanselahin",
     "login": "Mag-login",
     "logout": "Mag-logout",
@@ -57,7 +69,10 @@
     "noMatchSubtitleName": "Subukang maghanap gamit ang ibang apelyido",
     "noMatchTitle": "Walang Nahanap na Tugma",
     "phonePlaceholder": "Ilagay ang huling apat na numero ng mobile number",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Mag-scan upang magparehistro bilang bisita",
+    "registerGuest": "Magparehistro bilang bisita",
     "readySubtitle": "Maglagay ng numero ng telepono upang makahanap ng mga tao",
     "readyTitle": "Handa nang Maghanap",
     "searchError": "Hindi makumpleto ang paghahanap. Pakiusap na subukan muli.",
@@ -73,14 +88,31 @@
   "print": {
     "printing": "Nag-i-print"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} pagkakataon na lang",
+    "backspace": "Burahin",
+    "enterPin": "Ilagay ang Admin PIN",
+    "tooManyAttempts": "Masyadong maraming nabigong pagsubok. Maghintay.",
+    "wrongPin": "Maling PIN. Subukan muli."
+  },
   "printers": {
     "noPrinter": "Walang Printer",
     "noPrinterSelected": "Walang napiling printer",
+    "saveAndContinue": "I-save at Magpatuloy",
     "saveRestart": "I-save at I-restart",
     "scanning": "Nagha-scan ng mga printer...",
     "subtitle": "Pumili ng printer para sa pag-print ng mga name tag at label",
     "testPrint": "Test Print",
     "title": "Pumili ng Printer"
+  },
+  "setPin": {
+    "confirmPin": "Kumpirmahin ang iyong PIN",
+    "enterPin": "Maglagay ng PIN",
+    "pinMismatch": "Hindi magkatugma ang mga PIN. Subukan muli.",
+    "pinSet": "Matagumpay na naitakda ang PIN",
+    "pinTooShort": "Ang PIN ay dapat hindi bababa sa 4 na numero",
+    "subtitle": "Gumawa ng 4-6 na digit na PIN upang protektahan ang mga admin setting",
+    "title": "Itakda ang Admin PIN"
   },
   "selectChurch": {
     "loading": "Nilo-load ang mga simbahan...",

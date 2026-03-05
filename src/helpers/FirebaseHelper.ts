@@ -12,10 +12,7 @@ export class FirebaseHelper {
 
   static async addOpenScreenEvent(screenName: string) {
     try {
-      await analytics().logScreenView({
-        screen_name: screenName,
-        screen_class: screenName
-      });
+      await analytics().logScreenView({ screen_name: screenName, screen_class: screenName });
       console.log(`[FirebaseHelper] Screen opened: ${screenName}`);
     } catch (error) {
       console.error(`[FirebaseHelper] Error logging screen view ${screenName}:`, error);

@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Tilbake til kiosken",
+    "changePin": "Endre admin-PIN",
+    "changePrinter": "Endre skriver",
+    "changeService": "Endre gudstjeneste",
+    "pinChanged": "PIN er endret",
+    "setPin": "Sett admin-PIN",
+    "subtitle": "Administrer innstillingene for kioskenheten",
+    "title": "Admin-innstillinger"
+  },
   "addGuest": {
     "addButton": "Legg til gjest",
     "enterFirstName": "Vennligst oppgi fornavn",
@@ -15,9 +25,11 @@
     "subtitle": "Familien din har blitt sjekket inn",
     "title": "Innsjekking fullført",
     "welcomeMessage": "Familien din har blitt sjekket inn.",
-    "welcomeTitle": "Velkommen!"
+    "welcomeTitle": "Velkommen!",
+    "milestoneWeeks": "Uker på rad!"
   },
   "common": {
+    "back": "Tilbake",
     "cancel": "Avbryt",
     "login": "Logg inn",
     "logout": "Logg ut",
@@ -57,7 +69,10 @@
     "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
     "noMatchTitle": "Ingen treff funnet",
     "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Skann for å registrere deg som gjest",
+    "registerGuest": "Registrer som gjest",
     "readySubtitle": "Oppgi et telefonnummer for å finne personer",
     "readyTitle": "Klar til å søke",
     "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",
@@ -73,14 +88,31 @@
   "print": {
     "printing": "Skriver ut"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} forsøk igjen",
+    "backspace": "Slett",
+    "enterPin": "Skriv inn admin-PIN",
+    "tooManyAttempts": "For mange mislykkede forsøk. Vennligst vent.",
+    "wrongPin": "Feil PIN. Prøv igjen."
+  },
   "printers": {
     "noPrinter": "Ingen skriver",
     "noPrinterSelected": "Ingen skriver valgt",
+    "saveAndContinue": "Lagre og fortsett",
     "saveRestart": "Lagre og start på nytt",
     "scanning": "Søker etter skrivere...",
     "subtitle": "Velg en skriver for utskrift av navnelapper og etiketter",
     "testPrint": "Testutskrift",
     "title": "Velg en skriver"
+  },
+  "setPin": {
+    "confirmPin": "Bekreft din PIN",
+    "enterPin": "Skriv inn en PIN",
+    "pinMismatch": "PIN-kodene stemmer ikke. Prøv igjen.",
+    "pinSet": "PIN er satt",
+    "pinTooShort": "PIN må ha minst 4 sifre",
+    "subtitle": "Opprett en 4-6-sifret PIN for å beskytte admin-innstillingene",
+    "title": "Sett admin-PIN"
   },
   "selectChurch": {
     "loading": "Laster kirker...",

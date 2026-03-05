@@ -148,3 +148,4 @@ expo-env.d.ts
 
 .env.local
 Notes.md
+*.plist

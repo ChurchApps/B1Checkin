@@ -7,15 +7,13 @@ import { ApiHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { FontAwesome } from "@expo/vector-icons";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { useRouter } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
 
 const AddGuest = (props: Props) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const _params = useLocalSearchParams(); // ✅ Retrieve route parameters
-
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
 
@@ -23,18 +21,13 @@ const AddGuest = (props: Props) => {
     if (firstName === "") { Utils.snackBar(t("addGuest.enterFirstName")); } else if (lastName === "") { Utils.snackBar(t("addGuest.enterLastName")); } else {
       getOrCreatePerson(firstName, lastName)
         .then(person => {
-          // console.log(person)
-          // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
           CachedData.householdMembers.push(person);
-          // props.navigation.navigate("Household");
           router.push("/household");
-          // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
         })
         .catch(error => {
           console.error("Error adding guest:", error);
         });
     }
-    // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
   };
 
   const getOrCreatePerson = async (firstname: string, lastname: string) => {
@@ -43,30 +36,21 @@ const AddGuest = (props: Props) => {
     if (person === null) {
       person = { householdId: CachedData.householdId, name: { display: fullName, first: firstName, last: lastName }, contactInfo: {} };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
-      console.log("data", data);
       if (data && data.length > 0) person.id = data[0].id;
     }
-    console.log("zzz", person);
     return person;
   };
 
   const searchForGuest = async (fullName: string) => {
-    // AppCenterHelper.trackEvent("Search for Guest", { name: fullName });
     let result: PersonInterface | null = null;
-    console.log("sssss", fullName);
-    const url = "/people/search?term=" + escape(fullName);
-    console.log("ss", url);
+    const url = "/people/search?term=" + encodeURIComponent(fullName);
     const people: PersonInterface[] = await ApiHelper.get(url, "MembershipApi");
-    console.log("urllll", people);
     people.forEach(p => { if (p.membershipStatus !== "Member") result = p; });
-    console.log("reuslt", result);
-    return (result === undefined) ? null : result;
+    return result ?? null;
   };
 
-  // const cancelGuest = () => { props.navigation.goBack(); };
-
   const cancelGuest = () => {
-    router.back(); // Replaced props.navigation.goBack()
+    router.back();
   };
 
   return (
@@ -163,69 +147,50 @@ const AddGuest = (props: Props) => {
 };
 
 const addGuestStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
   scrollView: { flex: 1 },
 
-  scrollContent: {
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("3%"),
-    paddingBottom: DimensionHelper.wp("10%")
-  },
+  scrollContent: { paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2%"), paddingBottom: DimensionHelper.wp("6%") },
 
-  // Form Card (Professional Material Design)
   formCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("5%"),
+    borderRadius: 10,
+    padding: DimensionHelper.wp("4%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 4,
     shadowColor: StyleConstants.baseColor,
     maxWidth: DimensionHelper.wp("90%"),
     alignSelf: "center",
     width: "100%"
   },
 
-  // Input Groups
-  inputGroup: { marginBottom: DimensionHelper.wp("5%") },
+  inputGroup: { marginBottom: DimensionHelper.wp("3.5%") },
 
-  labelContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: DimensionHelper.wp("2%")
-  },
+  labelContainer: { flexDirection: "row", alignItems: "center", marginBottom: DimensionHelper.wp("1.5%") },
 
-  labelIcon: { marginRight: DimensionHelper.wp("2%") },
+  labelIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
-  label: {
-    fontSize: DimensionHelper.wp("4%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.darkColor
-  },
+  label: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor },
 
   textInput: {
     backgroundColor: StyleConstants.ghostWhite,
     borderRadius: 8,
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("3.5%"),
-    fontSize: DimensionHelper.wp("4.2%"),
+    paddingHorizontal: DimensionHelper.wp("3%"),
+    paddingVertical: DimensionHelper.wp("2.5%"),
+    fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.darkColor,
     borderWidth: 1,
     borderColor: StyleConstants.baseColor + "20"
   },
 
-  // Action Buttons
   buttonContainer: {
     flexDirection: "row",
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingVertical: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingVertical: DimensionHelper.wp("2%"),
     backgroundColor: StyleConstants.whiteColor,
     borderTopWidth: 1,
     borderTopColor: StyleConstants.baseColor + "20",
@@ -235,45 +200,17 @@ const addGuestStyles = {
     elevation: 3
   },
 
-  actionButton: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: DimensionHelper.wp("3.5%"),
-    borderRadius: 8,
-    marginHorizontal: DimensionHelper.wp("1.5%")
-  },
+  actionButton: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: DimensionHelper.wp("2.5%"), borderRadius: 8, marginHorizontal: DimensionHelper.wp("1.5%") },
 
-  cancelButton: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderWidth: 2,
-    borderColor: StyleConstants.baseColor
-  },
+  cancelButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 2, borderColor: StyleConstants.baseColor },
 
-  addButton: {
-    backgroundColor: StyleConstants.baseColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3
-  },
+  addButton: { backgroundColor: StyleConstants.baseColor, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3 },
 
-  buttonIcon: { marginRight: DimensionHelper.wp("2%") },
+  buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
-  cancelButtonText: {
-    fontSize: DimensionHelper.wp("4.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.baseColor
-  },
+  cancelButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.baseColor },
 
-  addButtonText: {
-    fontSize: DimensionHelper.wp("4.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.whiteColor
-  }
+  addButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor }
 };
 
 export default AddGuest;

@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Вернуться к киоску",
+    "changePin": "Изменить PIN администратора",
+    "changePrinter": "Изменить принтер",
+    "changeService": "Изменить служение",
+    "pinChanged": "PIN успешно изменен",
+    "setPin": "Установить PIN администратора",
+    "subtitle": "Управляйте настройками киоска",
+    "title": "Настройки администратора"
+  },
   "addGuest": {
     "addButton": "Добавить гостя",
     "enterFirstName": "Пожалуйста, введите имя",
@@ -15,9 +25,11 @@
     "subtitle": "Ваша семья успешно зарегистрирована",
     "title": "Регистрация завершена",
     "welcomeMessage": "Ваша семья успешно зарегистрирована.",
-    "welcomeTitle": "Добро пожаловать!"
+    "welcomeTitle": "Добро пожаловать!",
+    "milestoneWeeks": "Недель подряд!"
   },
   "common": {
+    "back": "Назад",
     "cancel": "Отмена",
     "login": "Вход",
     "logout": "Выход",
@@ -57,7 +69,10 @@
     "noMatchSubtitleName": "Попробуйте поиск с другой фамилией",
     "noMatchTitle": "Совпадений не найдено",
     "phonePlaceholder": "Введите последние четыре цифры мобильного номера",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Отсканируйте для регистрации в качестве гостя",
+    "registerGuest": "Зарегистрироваться как гость",
     "readySubtitle": "Введите номер телефона для поиска людей",
     "readyTitle": "Готово к поиску",
     "searchError": "Не удалось завершить поиск. Пожалуйста, попробуйте еще раз.",
@@ -73,14 +88,31 @@
   "print": {
     "printing": "Печать"
   },
+  "pinEntry": {
+    "attemptsRemaining": "Осталось {{count}} попыток",
+    "backspace": "Удалить",
+    "enterPin": "Введите PIN администратора",
+    "tooManyAttempts": "Слишком много неудачных попыток. Подождите.",
+    "wrongPin": "Неверный PIN. Попробуйте снова."
+  },
   "printers": {
     "noPrinter": "Без принтера",
     "noPrinterSelected": "Принтер не выбран",
+    "saveAndContinue": "Сохранить и продолжить",
     "saveRestart": "Сохранить и перезапустить",
     "scanning": "Поиск принтеров...",
     "subtitle": "Выберите принтер для печати бирок и этикеток",
     "testPrint": "Тестовая печать",
     "title": "Выберите принтер"
+  },
+  "setPin": {
+    "confirmPin": "Подтвердите ваш PIN",
+    "enterPin": "Введите PIN",
+    "pinMismatch": "PINы не совпадают. Попробуйте снова.",
+    "pinSet": "PIN успешно установлен",
+    "pinTooShort": "PIN должен содержать минимум 4 цифры",
+    "subtitle": "Создайте PIN из 4-6 цифр для защиты настроек администратора",
+    "title": "Установить PIN администратора"
   },
   "selectChurch": {
     "loading": "Загрузка церквей...",

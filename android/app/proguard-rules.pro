@@ -16,3 +16,7 @@
 # Brother Print Library
 -keep class com.brother.** { *; }
 -dontwarn com.brother.**
+
+# Zebra Link-OS SDK
+-keep class com.zebra.** { *; }
+-dontwarn com.zebra.**

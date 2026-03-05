@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
@@ -9,16 +9,17 @@ import { FontAwesome } from "@expo/vector-icons";
 import { DimensionHelper, FirebaseHelper, GroupInterface } from "../src/helpers";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
-// type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
-// interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 interface GroupCategoryInterface { key: number, name: string, items: GroupInterface[] }
 
 const SelectGroup = (props: any) => {
   const { t } = useTranslation();
 
   const router = useRouter();
-  const { personId, serviceTime } = useLocalSearchParams();
-  const serviceTimes = JSON.parse(serviceTime);
+  const params = useLocalSearchParams();
+  const personIdStr = String(params.personId ?? "");
+  const serviceTimes = React.useMemo(() => {
+    try { return JSON.parse(String(params.serviceTime ?? "{}")); } catch { return {}; }
+  }, [params.serviceTime]);
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
   const [groupTree, setGroupTree] = React.useState<GroupCategoryInterface[]>([]);
@@ -42,97 +43,71 @@ const SelectGroup = (props: any) => {
   const handleCategoryClick = (value: number) => { setSelectedCategory((selectedCategory === value) ? -1 : value); };
   const handleNone = () => { selectGroup("", "NONE"); };
 
-  // const selectGroup = (id: string, name: string) => {
-  //   // AppCenterHelper.trackEvent("Select Group", name);
-  //   const personId = props.route.params.personId;
-  //   let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
-  //   if (visit === null) {
-  //     visit = { personId: personId, serviceId: CachedData.serviceId, visitSessions: [] };
-  //     CachedData.pendingVisits.push(visit);
-  //   }
-  //   const vs = visit?.visitSessions || [];
-  //   const serviceTimeId = props.route.params.serviceTime.id || "";
-  //   VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
-  //   // props.navigation.goBack();
-  //   router.back();
-  // };
-
   const selectGroup = (id: string, name: string) => {
 
-    let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
+    let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personIdStr);
 
     if (!visit) {
-      visit = { personId, serviceId: CachedData.serviceId, visitSessions: [] };
+      visit = { personId: personIdStr, serviceId: CachedData.serviceId, visitSessions: [] };
       CachedData.pendingVisits.push(visit);
     }
 
     const vs = visit?.visitSessions || [];
-    const serviceTimeId = serviceTimes.id || ""; // ✅ Use serviceTimeId from params
+    const serviceTimeId = serviceTimes.id || "";
     VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
 
     router.back();
   };
 
-  const getRow = (data: any) => {
-    const item: GroupCategoryInterface = data.item;
+  const getRow = (item: GroupCategoryInterface) => {
     const isExpanded = selectedCategory === item.key;
     return (
-      <View style={selectGroupStyles.categoryContainer}>
-        <Ripple style={selectGroupStyles.categoryCard} onPress={() => { handleCategoryClick(item.key); }}>
+      <View style={selectGroupStyles.categoryCard}>
+        <Ripple style={selectGroupStyles.categoryHeader} onPress={() => { handleCategoryClick(item.key); }}>
           <View style={selectGroupStyles.categoryContent}>
+            <View style={selectGroupStyles.categoryIconBox}>
+              <FontAwesome name="folder-open" style={selectGroupStyles.categoryIconSymbol} size={DimensionHelper.wp("4.5%")} />
+            </View>
             <View style={selectGroupStyles.categoryInfo}>
               <Text style={selectGroupStyles.categoryName}>{item.name}</Text>
               <Text style={selectGroupStyles.categoryCount}>{t("selectGroup.groupCount", { count: item.items.length })}</Text>
             </View>
-            <View style={selectGroupStyles.expandIconContainer}>
+            <View style={selectGroupStyles.chevronCircle}>
               <FontAwesome
                 name={isExpanded ? "chevron-up" : "chevron-down"}
-                style={selectGroupStyles.expandIcon}
-                size={DimensionHelper.wp("5%")}
+                style={selectGroupStyles.chevronIcon}
+                size={DimensionHelper.wp("3.5%")}
               />
             </View>
           </View>
         </Ripple>
-        {getExpanded(selectedCategory, item)}
+        {isExpanded && (
+          <>
+            <View style={selectGroupStyles.categoryDivider} />
+            <View style={selectGroupStyles.groupList}>
+              {item.items.map(g => (
+                <Ripple
+                  key={g.id?.toString()}
+                  style={selectGroupStyles.groupItem}
+                  onPress={() => selectGroup(g.id || "", g.name || "")}
+                >
+                  <View style={selectGroupStyles.groupItemContent}>
+                    <View style={selectGroupStyles.groupIconContainer}>
+                      <FontAwesome name="users" style={selectGroupStyles.groupIcon} size={DimensionHelper.wp("4%")} />
+                    </View>
+                    <Text style={selectGroupStyles.groupName}>{g.name}</Text>
+                    <View style={selectGroupStyles.groupCheckCircle} />
+                  </View>
+                </Ripple>
+              ))}
+            </View>
+          </>
+        )}
       </View>
     );
   };
 
-  const getExpanded = (selectedcategory: number, category: GroupCategoryInterface) => {
-    if (selectedcategory !== category.key) return <></>;
-
-    const result: JSX.Element[] = [];
-    category.items.forEach(g => {
-      result.push(
-        <Ripple
-          key={g.id?.toString()}
-          style={selectGroupStyles.groupItem}
-          onPress={() => selectGroup(g.id || "", g.name || "")}
-        >
-          <View style={selectGroupStyles.groupItemContent}>
-            <View style={selectGroupStyles.groupIconContainer}>
-              <FontAwesome
-                name="users"
-                style={selectGroupStyles.groupIcon}
-                size={DimensionHelper.wp("4%")}
-              />
-            </View>
-            <Text style={selectGroupStyles.groupName}>{g.name}</Text>
-            <View style={selectGroupStyles.selectIconContainer}>
-              <FontAwesome
-                name="check-circle-o"
-                style={selectGroupStyles.selectIcon}
-                size={DimensionHelper.wp("4.5%")}
-              />
-            </View>
-          </View>
-        </Ripple>
-      );
-    });
-    return <View style={selectGroupStyles.expandedContainer}>{result}</View>;
-  };
-
-  React.useEffect(buildTree, []);
+  React.useEffect(buildTree, [serviceTimes]);
 
   return (
     <View style={selectGroupStyles.container}>
@@ -146,6 +121,7 @@ const SelectGroup = (props: any) => {
         icon="👥"
         title={t("selectGroup.title")}
         subtitle={t("selectGroup.subtitle", { serviceName: serviceTimes?.name || "this service" })}
+        onBack={() => router.back()}
       />
 
       {/* Main Content */}
@@ -154,13 +130,13 @@ const SelectGroup = (props: any) => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={selectGroupStyles.scrollContent}
         >
-          <FlatList
-            data={groupTree}
-            renderItem={getRow}
-            keyExtractor={(item: GroupCategoryInterface) => item.name}
-            scrollEnabled={false}
-            contentContainerStyle={selectGroupStyles.listContainer}
-          />
+          <View style={selectGroupStyles.listContainer}>
+            {groupTree.map((item) => (
+              <React.Fragment key={item.name}>
+                {getRow(item)}
+              </React.Fragment>
+            ))}
+          </View>
         </ScrollView>
       </View>
 
@@ -176,156 +152,89 @@ const SelectGroup = (props: any) => {
 };
 
 const selectGroupStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  // Main Content
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%")
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("5%") },
 
-  scrollContent: { paddingBottom: DimensionHelper.wp("5%") },
+  scrollContent: { paddingBottom: DimensionHelper.wp("3%") },
 
-  listContainer: { paddingBottom: DimensionHelper.wp("3%") },
-
-  // Category Cards
-  categoryContainer: { marginBottom: DimensionHelper.wp("3%") },
+  listContainer: { paddingBottom: DimensionHelper.wp("2%") },
 
   categoryCard: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    padding: DimensionHelper.wp("4%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor,
-    alignSelf: "center",
-    width: DimensionHelper.wp("90%")
+    borderRadius: 20,
+    marginBottom: DimensionHelper.wp("4%"),
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
+    shadowColor: "#000",
+    overflow: "hidden" as const
   },
 
-  categoryContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
+  categoryHeader: { paddingVertical: DimensionHelper.wp("4%"), paddingHorizontal: DimensionHelper.wp("5%") },
+
+  categoryContent: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const },
+
+  categoryIconBox: { width: DimensionHelper.wp("11%"), height: DimensionHelper.wp("11%"), borderRadius: 12, backgroundColor: StyleConstants.baseColor + "15", justifyContent: "center" as const, alignItems: "center" as const, marginRight: DimensionHelper.wp("4%") },
+
+  categoryIconSymbol: { color: StyleConstants.baseColor },
 
   categoryInfo: { flex: 1 },
 
-  categoryName: {
-    fontSize: DimensionHelper.wp("4.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("1%")
-  },
+  categoryName: { fontSize: DimensionHelper.wp("4%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%") },
 
-  categoryCount: {
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor
-  },
+  categoryCount: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor },
 
-  expandIconContainer: {
-    marginLeft: DimensionHelper.wp("3%"),
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  chevronCircle: { width: DimensionHelper.wp("9%"), height: DimensionHelper.wp("9%"), borderRadius: DimensionHelper.wp("4.5%"), backgroundColor: StyleConstants.ghostWhite, justifyContent: "center" as const, alignItems: "center" as const, marginLeft: DimensionHelper.wp("2%") },
 
-  expandIcon: {
-    color: StyleConstants.baseColor,
-    opacity: 0.7
-  },
+  chevronIcon: { color: "#94a3b8" },
 
-  // Expanded Group Items
-  expandedContainer: {
-    marginTop: DimensionHelper.wp("2%"),
-    paddingHorizontal: DimensionHelper.wp("5%")
-  },
+  categoryDivider: { height: 1, backgroundColor: "#f1f5f9", marginHorizontal: DimensionHelper.wp("5%") },
 
-  groupItem: {
-    backgroundColor: StyleConstants.ghostWhite,
-    borderRadius: 8,
-    marginBottom: DimensionHelper.wp("2%"),
-    borderLeftWidth: 3,
-    borderLeftColor: StyleConstants.baseColor,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-    shadowColor: StyleConstants.baseColor
-  },
+  groupList: { paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2%"), paddingBottom: DimensionHelper.wp("4%") },
 
-  groupItemContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: DimensionHelper.wp("3%")
-  },
+  groupItem: { backgroundColor: StyleConstants.ghostWhite, borderRadius: 14, marginBottom: DimensionHelper.wp("2%") },
 
-  groupIconContainer: {
-    width: DimensionHelper.wp("8%"),
-    height: DimensionHelper.wp("8%"),
-    borderRadius: DimensionHelper.wp("4%"),
-    backgroundColor: StyleConstants.baseColor + "20",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
-  },
+  groupItemContent: { flexDirection: "row" as const, alignItems: "center" as const, paddingVertical: DimensionHelper.wp("3.5%"), paddingHorizontal: DimensionHelper.wp("4%") },
+
+  groupIconContainer: { width: DimensionHelper.wp("10%"), height: DimensionHelper.wp("10%"), borderRadius: 10, backgroundColor: StyleConstants.baseColor + "18", justifyContent: "center" as const, alignItems: "center" as const, marginRight: DimensionHelper.wp("3.5%") },
 
   groupIcon: { color: StyleConstants.baseColor },
 
-  groupName: {
-    flex: 1,
-    fontSize: DimensionHelper.wp("4%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor
-  },
+  groupName: { flex: 1, fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor },
 
-  selectIconContainer: { marginLeft: DimensionHelper.wp("2%") },
+  groupCheckCircle: { width: DimensionHelper.wp("6.5%"), height: DimensionHelper.wp("6.5%"), borderRadius: DimensionHelper.wp("3.25%"), borderWidth: 2, borderColor: "#e2e8f0", marginLeft: DimensionHelper.wp("2%") },
 
-  selectIcon: {
-    color: StyleConstants.baseColor,
-    opacity: 0.6
-  },
-
-  // None Button Section
   noneSection: {
     paddingHorizontal: DimensionHelper.wp("5%"),
     paddingVertical: DimensionHelper.wp("3%"),
     backgroundColor: StyleConstants.whiteColor,
     borderTopWidth: 1,
-    borderTopColor: StyleConstants.lightGrayColor,
+    borderTopColor: "#f1f5f9",
     shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
     elevation: 5,
-    shadowColor: StyleConstants.baseColor
+    shadowColor: "#000"
   },
 
   noneButton: {
     backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
+    borderRadius: 16,
     paddingVertical: DimensionHelper.wp("4%"),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "center" as const,
+    alignItems: "center" as const,
     borderWidth: 2,
-    borderColor: StyleConstants.lightGray,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-    shadowColor: StyleConstants.baseColor
+    borderColor: "#e2e8f0",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 3,
+    elevation: 2,
+    shadowColor: "#000"
   },
 
-  noneButtonText: {
-    color: StyleConstants.lightGray,
-    fontSize: DimensionHelper.wp("4%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    letterSpacing: 1
-  }
+  noneButtonText: { color: "#64748b", fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "500" as const }
 };
 
 export default SelectGroup;

@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "Retour au kiosque",
+    "changePin": "Changer le PIN admin",
+    "changePrinter": "Changer d'imprimante",
+    "changeService": "Changer de service",
+    "pinChanged": "Le PIN a été changé avec succès",
+    "setPin": "Définir le PIN admin",
+    "subtitle": "Gérez les paramètres du kiosque",
+    "title": "Paramètres admin"
+  },
   "addGuest": {
     "addButton": "Ajouter l'invité",
     "enterFirstName": "Veuillez entrer le prénom",
@@ -15,9 +25,11 @@
     "subtitle": "Votre famille a été enregistrée avec succès",
     "title": "Enregistrement terminé",
     "welcomeMessage": "Votre famille a été enregistrée avec succès.",
-    "welcomeTitle": "Bienvenue !"
+    "welcomeTitle": "Bienvenue !",
+    "milestoneWeeks": "Semaines d'affilée !"
   },
   "common": {
+    "back": "Retour",
     "cancel": "Annuler",
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -57,7 +69,10 @@
     "noMatchSubtitleName": "Essayez de rechercher avec un autre nom de famille",
     "noMatchTitle": "Aucun résultat trouvé",
     "phonePlaceholder": "Entrez les quatre derniers chiffres du numéro de mobile",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Scannez pour vous inscrire en tant qu'invité",
+    "registerGuest": "S'inscrire en tant qu'invité",
     "readySubtitle": "Entrez un numéro de téléphone pour trouver des personnes",
     "readyTitle": "Prêt à rechercher",
     "searchError": "Impossible de terminer la recherche. Veuillez réessayer.",
@@ -73,14 +88,31 @@
   "print": {
     "printing": "Impression"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} tentatives restantes",
+    "backspace": "Supprimer",
+    "enterPin": "Entrez le PIN admin",
+    "tooManyAttempts": "Trop de tentatives échouées. Veuillez patienter.",
+    "wrongPin": "PIN incorrect. Veuillez réessayer."
+  },
   "printers": {
     "noPrinter": "Aucune imprimante",
     "noPrinterSelected": "Aucune imprimante sélectionnée",
+    "saveAndContinue": "Enregistrer et continuer",
     "saveRestart": "Enregistrer et redémarrer",
     "scanning": "Recherche d'imprimantes...",
     "subtitle": "Choisissez une imprimante pour imprimer les badges et étiquettes",
     "testPrint": "Test d'impression",
     "title": "Sélectionner une imprimante"
+  },
+  "setPin": {
+    "confirmPin": "Confirmez votre PIN",
+    "enterPin": "Entrez un PIN",
+    "pinMismatch": "Les PINs ne correspondent pas. Veuillez réessayer.",
+    "pinSet": "Le PIN a été défini avec succès",
+    "pinTooShort": "Le PIN doit comporter au moins 4 chiffres",
+    "subtitle": "Créez un PIN de 4 à 6 chiffres pour protéger les paramètres admin",
+    "title": "Définir le PIN admin"
   },
   "selectChurch": {
     "loading": "Chargement des églises...",

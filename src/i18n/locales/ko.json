@@ -1,4 +1,14 @@
 {
+  "admin": {
+    "backToKiosk": "키오스크로 돌아가기",
+    "changePin": "관리자 PIN 변경",
+    "changePrinter": "프린터 변경",
+    "changeService": "예배 변경",
+    "pinChanged": "PIN이 성공적으로 변경되었습니다",
+    "setPin": "관리자 PIN 설정",
+    "subtitle": "키오스크 장치 설정을 관리하세요",
+    "title": "관리자 설정"
+  },
   "addGuest": {
     "addButton": "게스트 추가",
     "enterFirstName": "이름을 입력해주세요",
@@ -15,9 +25,11 @@
     "subtitle": "가족이 성공적으로 체크인되었습니다",
     "title": "체크인 완료",
     "welcomeMessage": "가족이 성공적으로 체크인되었습니다.",
-    "welcomeTitle": "환영합니다!"
+    "welcomeTitle": "환영합니다!",
+    "milestoneWeeks": "연속 주!"
   },
   "common": {
+    "back": "뒤로",
     "cancel": "취소",
     "login": "로그인",
     "logout": "로그아웃",
@@ -57,7 +69,10 @@
     "noMatchSubtitleName": "다른 성으로 검색해보세요",
     "noMatchTitle": "일치하는 항목 없음",
     "phonePlaceholder": "휴대전화 번호의 마지막 네 자리를 입력하세요",
+    "welcomeTitle": "Welcome! Let's check you in.",
+    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "게스트로 등록하려면 스캔하세요",
+    "registerGuest": "게스트로 등록",
     "readySubtitle": "사람을 찾으려면 전화번호를 입력하세요",
     "readyTitle": "검색 준비 완료",
     "searchError": "검색을 완료할 수 없습니다. 다시 시도해주세요.",
@@ -73,14 +88,31 @@
   "print": {
     "printing": "인쇄 중"
   },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}}회 시도 남음",
+    "backspace": "삭제",
+    "enterPin": "관리자 PIN 입력",
+    "tooManyAttempts": "너무 많은 실패. 잠시 기다려주세요.",
+    "wrongPin": "잘못된 PIN입니다. 다시 시도해주세요."
+  },
   "printers": {
     "noPrinter": "프린터 없음",
     "noPrinterSelected": "선택된 프린터 없음",
+    "saveAndContinue": "저장 및 계속",
     "saveRestart": "저장 및 재시작",
     "scanning": "프린터 검색 중...",
     "subtitle": "명찰 및 라벨 인쇄용 프린터를 선택하세요",
     "testPrint": "테스트 인쇄",
     "title": "프린터 선택"
+  },
+  "setPin": {
+    "confirmPin": "PIN을 확인하세요",
+    "enterPin": "PIN을 입력하세요",
+    "pinMismatch": "PIN이 일치하지 않습니다. 다시 시도해주세요.",
+    "pinSet": "PIN이 성공적으로 설정되었습니다",
+    "pinTooShort": "PIN은 최소 4자리여야 합니다",
+    "subtitle": "관리자 설정을 보호하기 위해 4-6자리 PIN을 만드세요",
+    "title": "관리자 PIN 설정"
   },
   "selectChurch": {
     "loading": "교회 로딩 중...",

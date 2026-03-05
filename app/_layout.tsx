@@ -5,6 +5,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { CheckinThemeProvider } from "../src/context/CheckinThemeContext";
 import "../src/i18n";
 import * as Sentry from "@sentry/react-native";
 
@@ -49,23 +51,29 @@ function RootLayout() {
   }, [loaded]);
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="login" />
-        <Stack.Screen name="lookup" />
-        <Stack.Screen name="household" />
-        <Stack.Screen name="selectChurch" />
-        <Stack.Screen name="services" />
-        <Stack.Screen name="service" />
-        <Stack.Screen name="selectGroup" />
-        <Stack.Screen name="addGuest" />
-        <Stack.Screen name="checkinComplete" />
-        <Stack.Screen name="printers" />
-        <Stack.Screen name="privacyPolicy" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <CheckinThemeProvider>
+        <ThemeProvider value={DefaultTheme}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="login" />
+            <Stack.Screen name="lookup" />
+            <Stack.Screen name="household" />
+            <Stack.Screen name="selectChurch" />
+            <Stack.Screen name="services" />
+            <Stack.Screen name="service" />
+            <Stack.Screen name="selectGroup" />
+            <Stack.Screen name="addGuest" />
+            <Stack.Screen name="checkinComplete" />
+            <Stack.Screen name="printers" />
+            <Stack.Screen name="setPin" />
+            <Stack.Screen name="adminSettings" />
+            <Stack.Screen name="privacyPolicy" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ThemeProvider>
+      </CheckinThemeProvider>
+    </SafeAreaProvider>
   );
 }
 

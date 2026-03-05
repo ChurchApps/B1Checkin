@@ -7,17 +7,29 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development"
+      "channel": "development",
+      "env": {
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
+      }
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "preview",
+      "env": {
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
+      }
     },
     "production": {
       "autoIncrement": false,
       "channel": "production",
+      "env": {
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
+      },
       "android": {
         "buildType": "app-bundle",
+        "image": "latest"
+      },
+      "ios": {
         "image": "latest"
       }
     },
@@ -25,6 +37,9 @@
       "autoIncrement": false,
       "environment": "production",
       "channel": "production",
+      "env": {
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
+      },
       "android": {
         "distribution": "internal",
         "buildType": "apk"
@@ -36,9 +51,13 @@
       "android": {
         "serviceAccountKeyPath": "./google-service-account.json"
       }
-    }, "Amazon": {
+    },
+    "Amazon": {
       "android": {
       }
+    },
+    "AppStore": {
+      "ios": {}
     }
   }
 }

@@ -2,7 +2,7 @@
   "expo": {
     "name": "B1Checkin",
     "slug": "b1-checkin",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "b1checkin",
@@ -20,7 +20,17 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "church.b1.checkin"
+      "package": "church.b1.checkin",
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "church.b1.checkin",
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "B1 Checkin needs local network access to find and communicate with Brother label printers on your WiFi network."
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "web": {
       "bundler": "metro",
@@ -28,6 +38,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "./modules/printer-helper/app.plugin.js",
       "expo-router",
       [
         "expo-splash-screen",
@@ -46,7 +57,10 @@
           "project": "b1-checkin",
           "organization": "churchapps"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-localization",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
@@ -54,6 +68,6 @@
     "updates": {
       "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
     },
-    "runtimeVersion": "1.1.0"
+    "runtimeVersion": "1.2.0"
   }
 }
