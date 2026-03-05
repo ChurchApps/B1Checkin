@@ -61,7 +61,7 @@ const PinEntryModal = (props: PinEntryModalProps) => {
       Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnim, { toValue: -10, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true })
     ]).start();
   };
 
@@ -185,16 +185,11 @@ const PinEntryModal = (props: PinEntryModalProps) => {
 
   const getTitle = () => {
     switch (step) {
-      case "enter":
-        return mode === "setup" ? t("setPin.enterPin") : t("pinEntry.enterPin");
-      case "confirm":
-        return t("setPin.confirmPin");
-      case "verifyOld":
-        return t("pinEntry.enterPin");
-      case "newPin":
-        return t("setPin.enterPin");
-      case "confirmNew":
-        return t("setPin.confirmPin");
+      case "enter": return mode === "setup" ? t("setPin.enterPin") : t("pinEntry.enterPin");
+      case "confirm": return t("setPin.confirmPin");
+      case "verifyOld": return t("pinEntry.enterPin");
+      case "newPin": return t("setPin.enterPin");
+      case "confirmNew": return t("setPin.confirmPin");
     }
   };
 
@@ -210,7 +205,7 @@ const PinEntryModal = (props: PinEntryModalProps) => {
           style={[
             pinStyles.digitCircle,
             i < currentPinValue.length && pinStyles.digitCircleFilled,
-            i >= currentPinValue.length && i >= MIN_PIN_LENGTH && pinStyles.digitCircleOptional,
+            i >= currentPinValue.length && i >= MIN_PIN_LENGTH && pinStyles.digitCircleOptional
           ]}
         />
       );
@@ -287,7 +282,7 @@ const PinEntryModal = (props: PinEntryModalProps) => {
           >
             <Text style={pinStyles.submitButtonText}>
               {(step === "confirm" || step === "confirmNew") ? t("setPin.confirmPin") :
-               (step === "enter" && mode === "setup") || step === "newPin" ? t("common.search").replace(t("common.search"), "OK") : "OK"}
+                (step === "enter" && mode === "setup") || step === "newPin" ? t("common.search").replace(t("common.search"), "OK") : "OK"}
             </Text>
           </Pressable>
         </Animated.View>
@@ -297,12 +292,7 @@ const PinEntryModal = (props: PinEntryModalProps) => {
 };
 
 const pinStyles = {
-  overlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  overlay: { flex: 1, backgroundColor: "rgba(0, 0, 0, 0.7)", justifyContent: "center", alignItems: "center" },
   card: {
     backgroundColor: StyleConstants.whiteColor,
     borderRadius: 14,
@@ -313,95 +303,23 @@ const pinStyles = {
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 12,
-    elevation: 8,
+    elevation: 8
   },
-  closeButton: {
-    position: "absolute" as const,
-    top: DimensionHelper.wp("2%"),
-    right: DimensionHelper.wp("2%"),
-    padding: DimensionHelper.wp("1.5%"),
-    zIndex: 1,
-  },
-  lockIcon: {
-    marginBottom: DimensionHelper.wp("2%"),
-    marginTop: DimensionHelper.wp("1.5%"),
-  },
-  title: {
-    fontSize: DimensionHelper.wp("3.8%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("0.5%"),
-    textAlign: "center" as const,
-  },
-  subtitle: {
-    fontSize: DimensionHelper.wp("2.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.grayColor,
-    marginBottom: DimensionHelper.wp("1.5%"),
-    textAlign: "center" as const,
-  },
-  digitRow: {
-    flexDirection: "row" as const,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: DimensionHelper.wp("3%"),
-    gap: DimensionHelper.wp("2%"),
-  },
-  digitCircle: {
-    width: DimensionHelper.wp("3%"),
-    height: DimensionHelper.wp("3%"),
-    borderRadius: DimensionHelper.wp("1.5%"),
-    borderWidth: 2,
-    borderColor: StyleConstants.baseColor,
-    backgroundColor: "transparent",
-  },
-  digitCircleFilled: {
-    backgroundColor: StyleConstants.baseColor,
-  },
-  digitCircleOptional: {
-    borderColor: StyleConstants.lightGray,
-    borderStyle: "dashed" as const,
-  },
-  errorText: {
-    fontSize: DimensionHelper.wp("2.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.redColor,
-    textAlign: "center" as const,
-    marginBottom: DimensionHelper.wp("1.5%"),
-  },
-  lockoutText: {
-    fontSize: DimensionHelper.wp("4.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.redColor,
-    textAlign: "center" as const,
-    marginBottom: DimensionHelper.wp("1.5%"),
-  },
-  keypadGrid: {
-    width: "100%",
-    alignItems: "center",
-  },
-  keypadRow: {
-    flexDirection: "row" as const,
-    justifyContent: "center",
-    marginBottom: DimensionHelper.wp("1.5%"),
-  },
-  keypadButton: {
-    width: DimensionHelper.wp("12%"),
-    height: DimensionHelper.wp("9%"),
-    borderRadius: DimensionHelper.wp("1.5%"),
-    backgroundColor: StyleConstants.ghostWhite,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: DimensionHelper.wp("1%"),
-  },
-  keypadButtonPressed: {
-    backgroundColor: StyleConstants.lightGrayColor,
-  },
-  keypadButtonText: {
-    fontSize: DimensionHelper.wp("4.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-  },
+  closeButton: { position: "absolute" as const, top: DimensionHelper.wp("2%"), right: DimensionHelper.wp("2%"), padding: DimensionHelper.wp("1.5%"), zIndex: 1 },
+  lockIcon: { marginBottom: DimensionHelper.wp("2%"), marginTop: DimensionHelper.wp("1.5%") },
+  title: { fontSize: DimensionHelper.wp("3.8%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%"), textAlign: "center" as const },
+  subtitle: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor, marginBottom: DimensionHelper.wp("1.5%"), textAlign: "center" as const },
+  digitRow: { flexDirection: "row" as const, justifyContent: "center", alignItems: "center", marginVertical: DimensionHelper.wp("3%"), gap: DimensionHelper.wp("2%") },
+  digitCircle: { width: DimensionHelper.wp("3%"), height: DimensionHelper.wp("3%"), borderRadius: DimensionHelper.wp("1.5%"), borderWidth: 2, borderColor: StyleConstants.baseColor, backgroundColor: "transparent" },
+  digitCircleFilled: { backgroundColor: StyleConstants.baseColor },
+  digitCircleOptional: { borderColor: StyleConstants.lightGray, borderStyle: "dashed" as const },
+  errorText: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.redColor, textAlign: "center" as const, marginBottom: DimensionHelper.wp("1.5%") },
+  lockoutText: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.redColor, textAlign: "center" as const, marginBottom: DimensionHelper.wp("1.5%") },
+  keypadGrid: { width: "100%", alignItems: "center" },
+  keypadRow: { flexDirection: "row" as const, justifyContent: "center", marginBottom: DimensionHelper.wp("1.5%") },
+  keypadButton: { width: DimensionHelper.wp("12%"), height: DimensionHelper.wp("9%"), borderRadius: DimensionHelper.wp("1.5%"), backgroundColor: StyleConstants.ghostWhite, justifyContent: "center", alignItems: "center", marginHorizontal: DimensionHelper.wp("1%") },
+  keypadButtonPressed: { backgroundColor: StyleConstants.lightGrayColor },
+  keypadButtonText: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
   submitButton: {
     backgroundColor: StyleConstants.baseColor,
     borderRadius: 8,
@@ -411,19 +329,10 @@ const pinStyles = {
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
-  submitButtonDisabled: {
-    backgroundColor: StyleConstants.lightGray,
-    elevation: 0,
-    shadowOpacity: 0,
-  },
-  submitButtonText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.whiteColor,
-    textAlign: "center" as const,
-  },
+  submitButtonDisabled: { backgroundColor: StyleConstants.lightGray, elevation: 0, shadowOpacity: 0 },
+  submitButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.whiteColor, textAlign: "center" as const }
 };
 
 export default PinEntryModal;

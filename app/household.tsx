@@ -100,22 +100,13 @@ const Household = (props: Props) => {
 };
 
 const householdStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("4%")
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%") },
 
   scrollContent: { paddingBottom: DimensionHelper.wp("3%") },
 
-  addGuestSection: {
-    marginTop: DimensionHelper.wp("3%"),
-    marginBottom: DimensionHelper.wp("2%")
-  },
+  addGuestSection: { marginTop: DimensionHelper.wp("3%"), marginBottom: DimensionHelper.wp("2%") },
 
   addGuestButton: {
     backgroundColor: StyleConstants.whiteColor,
@@ -136,17 +127,9 @@ const householdStyles = {
     borderColor: StyleConstants.baseColor
   },
 
-  addGuestIcon: {
-    fontSize: DimensionHelper.wp("3.5%"),
-    marginRight: DimensionHelper.wp("2%")
-  },
+  addGuestIcon: { fontSize: DimensionHelper.wp("3.5%"), marginRight: DimensionHelper.wp("2%") },
 
-  addGuestText: {
-    color: StyleConstants.baseColor,
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600"
-  },
+  addGuestText: { color: StyleConstants.baseColor, fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600" },
 
   checkinSection: {
     paddingHorizontal: DimensionHelper.wp("4%"),
@@ -174,13 +157,7 @@ const householdStyles = {
     shadowColor: StyleConstants.baseColor
   },
 
-  checkinButtonText: {
-    color: StyleConstants.whiteColor,
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    letterSpacing: 0.5
-  }
+  checkinButtonText: { color: StyleConstants.whiteColor, fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", letterSpacing: 0.5 }
 };
 
 export default Household;

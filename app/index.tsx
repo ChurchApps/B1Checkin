@@ -209,30 +209,10 @@ export default function Splash() {
 }
 
 const splashStyles = {
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: StyleConstants.whiteColor
-  },
-  logo: {
-    width: DimensionHelper.wp("40%"),
-    height: DimensionHelper.wp("40%"),
-    resizeMode: "contain",
-    marginBottom: DimensionHelper.wp("8%")
-  },
-  title: {
-    fontSize: DimensionHelper.wp("6%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("8%")
-  },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: StyleConstants.whiteColor },
+  logo: { width: DimensionHelper.wp("40%"), height: DimensionHelper.wp("40%"), resizeMode: "contain", marginBottom: DimensionHelper.wp("8%") },
+  title: { fontSize: DimensionHelper.wp("6%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("8%") },
   loadingContainer: { alignItems: "center" },
-  statusText: {
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.grayColor,
-    marginTop: DimensionHelper.wp("3%")
-  }
+  statusText: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor, marginTop: DimensionHelper.wp("3%") }
 };
 

@@ -45,23 +45,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    elevation: 10,
+    elevation: 10
   },
-  emoji: {
-    fontSize: DimensionHelper.wp("12%"),
-  },
-  streakNumber: {
-    fontSize: DimensionHelper.wp("14%"),
-    fontFamily: StyleConstants.RobotoBold,
-    fontWeight: "700",
-    color: StyleConstants.baseColor,
-  },
-  streakLabel: {
-    fontSize: DimensionHelper.wp("5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginTop: DimensionHelper.wp("1%"),
-  },
+  emoji: { fontSize: DimensionHelper.wp("12%") },
+  streakNumber: { fontSize: DimensionHelper.wp("14%"), fontFamily: StyleConstants.RobotoBold, fontWeight: "700", color: StyleConstants.baseColor },
+  streakLabel: { fontSize: DimensionHelper.wp("5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginTop: DimensionHelper.wp("1%") }
 });
 
 export default ConfettiCelebration;

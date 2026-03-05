@@ -103,12 +103,7 @@ export const Styles = StyleSheet.create({
   headerLogoIcon: { width: DimensionHelper.wp("100%"), height: DimensionHelper.hp(12), marginBottom: DimensionHelper.wp("1.5%"), marginTop: DimensionHelper.wp("2%"), resizeMode: "contain", alignSelf: "center" },
 
   //Login Card Styles
-  loginContainer: {
-    flex: 1,
-    backgroundColor: StyleConstants.loginBackground,
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  loginContainer: { flex: 1, backgroundColor: StyleConstants.loginBackground, justifyContent: "center", alignItems: "center" },
   loginCard: {
     backgroundColor: StyleConstants.whiteColor,
     borderRadius: 12,
@@ -122,14 +117,7 @@ export const Styles = StyleSheet.create({
     elevation: 5,
     alignSelf: "center"
   },
-  loginTitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "500",
-    color: StyleConstants.darkColor,
-    textAlign: "center",
-    marginBottom: DimensionHelper.wp("3%")
-  },
+  loginTitle: { fontSize: DimensionHelper.wp("3.8%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "500", color: StyleConstants.darkColor, textAlign: "center", marginBottom: DimensionHelper.wp("3%") },
   loginInputView: {
     flexDirection: "row",
     alignItems: "center",
@@ -141,16 +129,8 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: DimensionHelper.wp("3%"),
     height: DimensionHelper.wp("9%")
   },
-  loginInputIcon: {
-    marginRight: DimensionHelper.wp("1.5%"),
-    opacity: 0.6
-  },
-  loginInput: {
-    flex: 1,
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor
-  },
+  loginInputIcon: { marginRight: DimensionHelper.wp("1.5%"), opacity: 0.6 },
+  loginInput: { flex: 1, fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor },
   loginButton: {
     backgroundColor: StyleConstants.baseColor,
     borderRadius: 8,
@@ -163,41 +143,13 @@ export const Styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 3
   },
-  loginButtonText: {
-    color: StyleConstants.whiteColor,
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    textTransform: "none",
-    letterSpacing: 0.5
-  },
-  privacyText: {
-    fontSize: DimensionHelper.wp("2.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: "rgba(0, 0, 0, 0.6)",
-    textAlign: "center",
-    marginTop: DimensionHelper.wp("2%"),
-    lineHeight: DimensionHelper.wp("3.5%")
-  },
-  privacyLink: {
-    color: StyleConstants.baseColor,
-    textDecorationLine: "underline"
-  },
+  loginButtonText: { color: StyleConstants.whiteColor, fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, textTransform: "none", letterSpacing: 0.5 },
+  privacyText: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoRegular, color: "rgba(0, 0, 0, 0.6)", textAlign: "center", marginTop: DimensionHelper.wp("2%"), lineHeight: DimensionHelper.wp("3.5%") },
+  privacyLink: { color: StyleConstants.baseColor, textDecorationLine: "underline" },
 
   //Church Selection Styles
-  churchSelectionContainer: {
-    flex: 1,
-    backgroundColor: StyleConstants.loginBackground,
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("5%")
-  },
-  churchSelectionTitle: {
-    fontSize: DimensionHelper.wp("4.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "500",
-    color: StyleConstants.darkColor,
-    textAlign: "center",
-    marginBottom: DimensionHelper.wp("4%")
-  },
+  churchSelectionContainer: { flex: 1, backgroundColor: StyleConstants.loginBackground, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("5%") },
+  churchSelectionTitle: { fontSize: DimensionHelper.wp("4.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "500", color: StyleConstants.darkColor, textAlign: "center", marginBottom: DimensionHelper.wp("4%") },
   churchCard: {
     backgroundColor: StyleConstants.whiteColor,
     borderRadius: 10,
@@ -210,32 +162,9 @@ export const Styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center"
   },
-  churchLogoContainer: {
-    width: DimensionHelper.wp("12%"),
-    height: DimensionHelper.wp("10%"),
-    borderRadius: 6,
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
-  },
-  churchLogo: {
-    width: DimensionHelper.wp("11%"),
-    height: DimensionHelper.wp("9%"),
-    borderRadius: 4,
-    resizeMode: "contain"
-  },
+  churchLogoContainer: { width: DimensionHelper.wp("12%"), height: DimensionHelper.wp("10%"), borderRadius: 6, backgroundColor: "transparent", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("3%") },
+  churchLogo: { width: DimensionHelper.wp("11%"), height: DimensionHelper.wp("9%"), borderRadius: 4, resizeMode: "contain" },
   churchPlaceholderIcon: { opacity: 0.6 },
-  churchName: {
-    flex: 1,
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    lineHeight: DimensionHelper.wp("4%")
-  },
-  churchSelectionLoader: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
+  churchName: { flex: 1, fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, lineHeight: DimensionHelper.wp("4%") },
+  churchSelectionLoader: { flex: 1, justifyContent: "center", alignItems: "center" }
 });

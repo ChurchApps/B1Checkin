@@ -147,18 +147,11 @@ const AddGuest = (props: Props) => {
 };
 
 const addGuestStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
   scrollView: { flex: 1 },
 
-  scrollContent: {
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("2%"),
-    paddingBottom: DimensionHelper.wp("6%")
-  },
+  scrollContent: { paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2%"), paddingBottom: DimensionHelper.wp("6%") },
 
   formCard: {
     backgroundColor: StyleConstants.whiteColor,
@@ -176,20 +169,11 @@ const addGuestStyles = {
 
   inputGroup: { marginBottom: DimensionHelper.wp("3.5%") },
 
-  labelContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: DimensionHelper.wp("1.5%")
-  },
+  labelContainer: { flexDirection: "row", alignItems: "center", marginBottom: DimensionHelper.wp("1.5%") },
 
   labelIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
-  label: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.darkColor
-  },
+  label: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor },
 
   textInput: {
     backgroundColor: StyleConstants.ghostWhite,
@@ -216,45 +200,17 @@ const addGuestStyles = {
     elevation: 3
   },
 
-  actionButton: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: DimensionHelper.wp("2.5%"),
-    borderRadius: 8,
-    marginHorizontal: DimensionHelper.wp("1.5%")
-  },
+  actionButton: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: DimensionHelper.wp("2.5%"), borderRadius: 8, marginHorizontal: DimensionHelper.wp("1.5%") },
 
-  cancelButton: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderWidth: 2,
-    borderColor: StyleConstants.baseColor
-  },
+  cancelButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 2, borderColor: StyleConstants.baseColor },
 
-  addButton: {
-    backgroundColor: StyleConstants.baseColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3
-  },
+  addButton: { backgroundColor: StyleConstants.baseColor, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3 },
 
   buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
-  cancelButtonText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.baseColor
-  },
+  cancelButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.baseColor },
 
-  addButtonText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.whiteColor
-  }
+  addButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor }
 };
 
 export default AddGuest;

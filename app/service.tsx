@@ -134,15 +134,9 @@ const Services = (props: Props) => {
 };
 
 const servicePageStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("4%")
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%") },
 
   servicesList: { paddingBottom: DimensionHelper.wp("3%") },
 
@@ -162,51 +156,19 @@ const servicePageStyles = {
     minHeight: DimensionHelper.wp("12%")
   },
 
-  serviceCardContent: {
-    flex: 1,
-    justifyContent: "center"
-  },
+  serviceCardContent: { flex: 1, justifyContent: "center" },
 
-  campusName: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor,
-    marginBottom: DimensionHelper.wp("0.5%")
-  },
+  campusName: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginBottom: DimensionHelper.wp("0.5%") },
 
-  serviceName: {
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    lineHeight: DimensionHelper.wp("4.5%")
-  },
+  serviceName: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, lineHeight: DimensionHelper.wp("4.5%") },
 
-  arrowContainer: {
-    marginLeft: DimensionHelper.wp("2%"),
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  arrowContainer: { marginLeft: DimensionHelper.wp("2%"), justifyContent: "center", alignItems: "center" },
 
-  arrow: {
-    fontSize: DimensionHelper.wp("5%"),
-    color: StyleConstants.baseColor,
-    opacity: 0.7
-  },
+  arrow: { fontSize: DimensionHelper.wp("5%"), color: StyleConstants.baseColor, opacity: 0.7 },
 
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: DimensionHelper.wp("15%")
-  },
+  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center", paddingTop: DimensionHelper.wp("15%") },
 
-  loadingText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor,
-    marginTop: DimensionHelper.wp("3%"),
-    textAlign: "center"
-  }
+  loadingText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("3%"), textAlign: "center" }
 };
 
 export default Services;

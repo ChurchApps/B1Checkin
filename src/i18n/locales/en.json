@@ -72,7 +72,7 @@
     "noMatchSubtitle": "Try searching with a different phone number",
     "noMatchSubtitleName": "Try searching with a different last name",
     "noMatchTitle": "No Matches Found",
-    "phonePlaceholder": "Enter last four digits of mobile number",
+    "phonePlaceholder": "Last 4 digits of mobile number",
     "readySubtitle": "Enter a phone number to find people",
     "readyTitle": "Ready to Search",
     "searchError": "Unable to complete search. Please try again.",

@@ -160,42 +160,17 @@ const memberListStyles = {
     minHeight: DimensionHelper.wp("14%")
   },
 
-  memberContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-  },
+  memberContent: { flexDirection: "row", alignItems: "center", width: "100%" },
 
-  memberPhoto: {
-    width: DimensionHelper.wp("10%"),
-    height: DimensionHelper.wp("10%"),
-    borderRadius: DimensionHelper.wp("5%"),
-    marginRight: DimensionHelper.wp("3%")
-  },
+  memberPhoto: { width: DimensionHelper.wp("10%"), height: DimensionHelper.wp("10%"), borderRadius: DimensionHelper.wp("5%"), marginRight: DimensionHelper.wp("3%") },
 
-  placeholderPhoto: {
-    backgroundColor: StyleConstants.baseColor,
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  placeholderPhoto: { backgroundColor: StyleConstants.baseColor, justifyContent: "center", alignItems: "center" },
 
-  memberInfo: {
-    flex: 1,
-    justifyContent: "center"
-  },
+  memberInfo: { flex: 1, justifyContent: "center" },
 
-  memberName: {
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("0.5%")
-  },
+  memberName: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%") },
 
-  groupContainer: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    flex: 1
-  },
+  groupContainer: { flexDirection: "column", alignItems: "flex-start", flex: 1 },
 
   groupChip: {
     backgroundColor: StyleConstants.baseColor + "15",
@@ -209,34 +184,15 @@ const memberListStyles = {
     alignSelf: "flex-start"
   },
 
-  groupInfo: {
-    flexDirection: "column",
-    alignItems: "flex-start"
-  },
+  groupInfo: { flexDirection: "column", alignItems: "flex-start" },
 
-  serviceTimeLabel: {
-    fontSize: DimensionHelper.wp("2.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.baseColor,
-    marginBottom: DimensionHelper.wp("0.3%")
-  },
+  serviceTimeLabel: { fontSize: DimensionHelper.wp("2.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.baseColor, marginBottom: DimensionHelper.wp("0.3%") },
 
-  groupName: {
-    fontSize: DimensionHelper.wp("2.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor
-  },
+  groupName: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
 
-  expandIconContainer: {
-    marginLeft: DimensionHelper.wp("2%"),
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  expandIconContainer: { marginLeft: DimensionHelper.wp("2%"), justifyContent: "center", alignItems: "center" },
 
-  expandIcon: {
-    color: StyleConstants.baseColor,
-    opacity: 0.7
-  },
+  expandIcon: { color: StyleConstants.baseColor, opacity: 0.7 },
 
   checkedInBadge: {
     flexDirection: "row",
@@ -249,15 +205,9 @@ const memberListStyles = {
     alignSelf: "flex-start"
   },
 
-  checkedInIcon: {
-    marginRight: DimensionHelper.wp("1%")
-  },
+  checkedInIcon: { marginRight: DimensionHelper.wp("1%") },
 
-  checkedInText: {
-    fontSize: DimensionHelper.wp("2.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.greenColor
-  },
+  checkedInText: { fontSize: DimensionHelper.wp("2.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.greenColor },
 
   noteBadge: {
     flexDirection: "row",
@@ -272,15 +222,9 @@ const memberListStyles = {
     alignSelf: "flex-start"
   },
 
-  noteIcon: {
-    marginRight: DimensionHelper.wp("1%")
-  },
+  noteIcon: { marginRight: DimensionHelper.wp("1%") },
 
-  noteText: {
-    fontSize: DimensionHelper.wp("2.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor
-  }
+  noteText: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor }
 };
 
 export default MemberList;

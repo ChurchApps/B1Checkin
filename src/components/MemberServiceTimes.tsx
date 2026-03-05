@@ -98,10 +98,7 @@ const MemberServiceTimes = (props: Props) => {
   );
 };
 const serviceTimeStyles = {
-  container: {
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingBottom: DimensionHelper.wp("1.5%")
-  },
+  container: { paddingHorizontal: DimensionHelper.wp("4%"), paddingBottom: DimensionHelper.wp("1.5%") },
 
   expandedRow: {
     backgroundColor: StyleConstants.ghostWhite,
@@ -115,31 +112,15 @@ const serviceTimeStyles = {
     borderLeftColor: StyleConstants.baseColor
   },
 
-  serviceTimeInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1
-  },
+  serviceTimeInfo: { flexDirection: "row", alignItems: "center", flex: 1 },
 
-  timeIconContainer: {
-    width: DimensionHelper.wp("6%"),
-    height: DimensionHelper.wp("6%"),
-    borderRadius: DimensionHelper.wp("3%"),
-    backgroundColor: StyleConstants.baseColor + "20",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("2%")
-  },
+  timeIconContainer: { width: DimensionHelper.wp("6%"), height: DimensionHelper.wp("6%"), borderRadius: DimensionHelper.wp("3%"), backgroundColor: StyleConstants.baseColor + "20", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2%") },
 
   timeIcon: { color: StyleConstants.baseColor },
 
   serviceTimeTextContainer: { flex: 1 },
 
-  serviceTimeText: {
-    fontSize: DimensionHelper.wp("3%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor
-  },
+  serviceTimeText: { fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
 
   serviceTimeButton: {
     paddingHorizontal: DimensionHelper.wp("3%"),
@@ -158,17 +139,9 @@ const serviceTimeStyles = {
 
   selectedButton: { backgroundColor: StyleConstants.baseColor },
 
-  unselectedButton: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderWidth: 1,
-    borderColor: StyleConstants.baseColor + "40"
-  },
+  unselectedButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 1, borderColor: StyleConstants.baseColor + "40" },
 
-  serviceTimeButtonText: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    marginRight: DimensionHelper.wp("1.5%")
-  },
+  serviceTimeButtonText: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoMedium, marginRight: DimensionHelper.wp("1.5%") },
 
   selectedButtonText: { color: StyleConstants.whiteColor },
 
@@ -176,15 +149,9 @@ const serviceTimeStyles = {
 
   buttonIcon: { marginLeft: DimensionHelper.wp("0.5%") },
 
-  selectedButtonIcon: {
-    color: StyleConstants.whiteColor,
-    opacity: 0.8
-  },
+  selectedButtonIcon: { color: StyleConstants.whiteColor, opacity: 0.8 },
 
-  unselectedButtonIcon: {
-    color: StyleConstants.baseColor,
-    opacity: 0.6
-  },
+  unselectedButtonIcon: { color: StyleConstants.baseColor, opacity: 0.6 },
 
   noteAlert: {
     flexDirection: "row",
@@ -197,16 +164,9 @@ const serviceTimeStyles = {
     borderLeftColor: StyleConstants.yellowColor
   },
 
-  noteAlertIcon: {
-    marginRight: DimensionHelper.wp("1.5%")
-  },
+  noteAlertIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
-  noteAlertText: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    flex: 1
-  }
+  noteAlertText: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, flex: 1 }
 };
 
 export default MemberServiceTimes;

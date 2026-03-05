@@ -20,13 +20,7 @@ export function IconSymbol({
       tintColor={color}
       resizeMode="scaleAspectFit"
       name={name}
-      style={[
-        {
-          width: size,
-          height: size
-        },
-        style
-      ]}
+      style={[{ width: size, height: size }, style]}
     />
   );
 }

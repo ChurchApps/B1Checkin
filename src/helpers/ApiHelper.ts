@@ -67,43 +67,29 @@ export class ApiHelper {
   static async post(path: string, data: any, apiName: ApiListType) {
     const config = this.getConfig(apiName);
     if (!config) throw new Error(`API configuration not found: ${apiName}`);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + config.jwt },
-      body: JSON.stringify(data)
-    };
+    const requestOptions = { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + config.jwt }, body: JSON.stringify(data) };
     return await this.fetchWithErrorHandling(config.url + path, requestOptions);
   }
 
   static async postAnonymous(path: string, data: any, apiName: ApiListType) {
     const config = this.getConfig(apiName);
     if (!config) throw new Error(`API configuration not found: ${apiName}`);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    };
+    const requestOptions = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) };
+    console.log("POST", config.url + path, JSON.stringify(data));
     return await this.fetchWithErrorHandling(config.url + path, requestOptions);
   }
 
   static async patch(path: string, data: any, apiName: ApiListType) {
     const config = this.getConfig(apiName);
     if (!config) throw new Error(`API configuration not found: ${apiName}`);
-    const requestOptions = {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + config.jwt },
-      body: JSON.stringify(data)
-    };
+    const requestOptions = { method: "PATCH", headers: { "Content-Type": "application/json", Authorization: "Bearer " + config.jwt }, body: JSON.stringify(data) };
     return await this.fetchWithErrorHandling(config.url + path, requestOptions);
   }
 
   static async delete(path: string, apiName: ApiListType) {
     const config = this.getConfig(apiName);
     if (!config) throw new Error(`API configuration not found: ${apiName}`);
-    const requestOptions = {
-      method: "DELETE",
-      headers: { Authorization: "Bearer " + config.jwt }
-    };
+    const requestOptions = { method: "DELETE", headers: { Authorization: "Bearer " + config.jwt } };
     return await this.fetchWithErrorHandling(config.url + path, requestOptions);
   }
 

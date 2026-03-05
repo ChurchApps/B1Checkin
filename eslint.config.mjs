@@ -1,13 +1,13 @@
-const js = require("@eslint/js");
-const tseslint = require("@typescript-eslint/eslint-plugin");
-const tsParser = require("@typescript-eslint/parser");
-const unusedImports = require("eslint-plugin-unused-imports");
-const reactPlugin = require("eslint-plugin-react");
-const reactNativePlugin = require("eslint-plugin-react-native");
-const reactHooksPlugin = require("eslint-plugin-react-hooks");
+import js from "@eslint/js";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import unusedImports from "eslint-plugin-unused-imports";
+import reactPlugin from "eslint-plugin-react";
+import reactNativePlugin from "eslint-plugin-react-native";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 
-module.exports = [
-  { ignores: ["node_modules/", "dist/", "build/", ".next/", "coverage/", "*.config.js", ".expo/", "android/", "ios/"] },
+export default [
+  { ignores: ["node_modules/", "dist/", "build/", ".next/", "coverage/", "*.config.js", "*.config.mjs", ".expo/", "android/", "ios/"] },
   js.configs.recommended,
   {
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
@@ -52,12 +52,17 @@ module.exports = [
 
       // --- Compact / single-line formatting ---
       "brace-style": ["error", "1tbs", { allowSingleLine: true }],
-      "curly": ["error", "multi-line"],
+      curly: ["error", "multi-line"],
       "nonblock-statement-body-position": ["error", "beside"],
 
       // Objects
       "object-curly-spacing": ["error", "always"],
-      "object-curly-newline": ["error", { ObjectExpression: { multiline: true }, ObjectPattern: { multiline: true }, ImportDeclaration: { multiline: true }, ExportDeclaration: { multiline: true } }],
+      "object-curly-newline": ["error", {
+        ObjectExpression: { multiline: true },
+        ObjectPattern: { multiline: true },
+        ImportDeclaration: { multiline: true },
+        ExportDeclaration: { multiline: true }
+      }],
       "object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
 
       // Arrays
@@ -70,7 +75,14 @@ module.exports = [
       "function-call-argument-newline": ["error", "consistent"],
 
       // Generous line length
-      "max-len": ["warn", { code: 250, ignoreStrings: true, ignoreTemplateLiterals: true, ignoreComments: true, ignoreUrls: true, ignoreRegExpLiterals: true }],
+      "max-len": ["warn", {
+        code: 250,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreComments: true,
+        ignoreUrls: true,
+        ignoreRegExpLiterals: true
+      }],
 
       // --- React Native specific ---
       "react-native/no-inline-styles": "off",

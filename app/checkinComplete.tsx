@@ -132,18 +132,9 @@ const CheckinComplete = (props: Props) => {
 };
 
 const checkinCompleteStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("3%"),
-    justifyContent: "center",
-    alignItems: "center"
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("3%"), justifyContent: "center", alignItems: "center" },
 
   successCard: {
     backgroundColor: StyleConstants.whiteColor,
@@ -160,36 +151,13 @@ const checkinCompleteStyles = {
     maxWidth: DimensionHelper.wp("85%")
   },
 
-  successIconContainer: {
-    backgroundColor: StyleConstants.greenColor + "20",
-    borderRadius: DimensionHelper.wp("6%"),
-    width: DimensionHelper.wp("14%"),
-    height: DimensionHelper.wp("14%"),
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: DimensionHelper.wp("3%")
-  },
+  successIconContainer: { backgroundColor: StyleConstants.greenColor + "20", borderRadius: DimensionHelper.wp("6%"), width: DimensionHelper.wp("14%"), height: DimensionHelper.wp("14%"), justifyContent: "center", alignItems: "center", marginBottom: DimensionHelper.wp("3%") },
 
   successIcon: { color: StyleConstants.greenColor },
 
-  successTitle: {
-    fontSize: DimensionHelper.wp("4.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("2%"),
-    textAlign: "center"
-  },
+  successTitle: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("2%"), textAlign: "center" },
 
-  successMessage: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor,
-    textAlign: "center",
-    lineHeight: DimensionHelper.wp("4.5%"),
-    opacity: 0.8,
-    paddingHorizontal: DimensionHelper.wp("2%")
-  }
+  successMessage: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor, textAlign: "center", lineHeight: DimensionHelper.wp("4.5%"), opacity: 0.8, paddingHorizontal: DimensionHelper.wp("2%") }
 };
 
 export default CheckinComplete;

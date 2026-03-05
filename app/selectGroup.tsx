@@ -18,8 +18,7 @@ const SelectGroup = (props: any) => {
   const params = useLocalSearchParams();
   const personIdStr = String(params.personId ?? "");
   const serviceTimes = React.useMemo(() => {
-    try { return JSON.parse(String(params.serviceTime ?? "{}")); }
-    catch { return {}; }
+    try { return JSON.parse(String(params.serviceTime ?? "{}")); } catch { return {}; }
   }, [params.serviceTime]);
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
@@ -153,15 +152,9 @@ const SelectGroup = (props: any) => {
 };
 
 const selectGroupStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("5%")
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("5%") },
 
   scrollContent: { paddingBottom: DimensionHelper.wp("3%") },
 
@@ -179,112 +172,39 @@ const selectGroupStyles = {
     overflow: "hidden" as const
   },
 
-  categoryHeader: {
-    paddingVertical: DimensionHelper.wp("4%"),
-    paddingHorizontal: DimensionHelper.wp("5%")
-  },
+  categoryHeader: { paddingVertical: DimensionHelper.wp("4%"), paddingHorizontal: DimensionHelper.wp("5%") },
 
-  categoryContent: {
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-between" as const
-  },
+  categoryContent: { flexDirection: "row" as const, alignItems: "center" as const, justifyContent: "space-between" as const },
 
-  categoryIconBox: {
-    width: DimensionHelper.wp("11%"),
-    height: DimensionHelper.wp("11%"),
-    borderRadius: 12,
-    backgroundColor: StyleConstants.baseColor + "15",
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    marginRight: DimensionHelper.wp("4%")
-  },
+  categoryIconBox: { width: DimensionHelper.wp("11%"), height: DimensionHelper.wp("11%"), borderRadius: 12, backgroundColor: StyleConstants.baseColor + "15", justifyContent: "center" as const, alignItems: "center" as const, marginRight: DimensionHelper.wp("4%") },
 
-  categoryIconSymbol: {
-    color: StyleConstants.baseColor
-  },
+  categoryIconSymbol: { color: StyleConstants.baseColor },
 
   categoryInfo: { flex: 1 },
 
-  categoryName: {
-    fontSize: DimensionHelper.wp("4%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("0.5%")
-  },
+  categoryName: { fontSize: DimensionHelper.wp("4%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%") },
 
-  categoryCount: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor
-  },
+  categoryCount: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor },
 
-  chevronCircle: {
-    width: DimensionHelper.wp("9%"),
-    height: DimensionHelper.wp("9%"),
-    borderRadius: DimensionHelper.wp("4.5%"),
-    backgroundColor: StyleConstants.ghostWhite,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    marginLeft: DimensionHelper.wp("2%")
-  },
+  chevronCircle: { width: DimensionHelper.wp("9%"), height: DimensionHelper.wp("9%"), borderRadius: DimensionHelper.wp("4.5%"), backgroundColor: StyleConstants.ghostWhite, justifyContent: "center" as const, alignItems: "center" as const, marginLeft: DimensionHelper.wp("2%") },
 
-  chevronIcon: {
-    color: "#94a3b8"
-  },
+  chevronIcon: { color: "#94a3b8" },
 
-  categoryDivider: {
-    height: 1,
-    backgroundColor: "#f1f5f9",
-    marginHorizontal: DimensionHelper.wp("5%")
-  },
+  categoryDivider: { height: 1, backgroundColor: "#f1f5f9", marginHorizontal: DimensionHelper.wp("5%") },
 
-  groupList: {
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("2%"),
-    paddingBottom: DimensionHelper.wp("4%")
-  },
+  groupList: { paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2%"), paddingBottom: DimensionHelper.wp("4%") },
 
-  groupItem: {
-    backgroundColor: StyleConstants.ghostWhite,
-    borderRadius: 14,
-    marginBottom: DimensionHelper.wp("2%")
-  },
+  groupItem: { backgroundColor: StyleConstants.ghostWhite, borderRadius: 14, marginBottom: DimensionHelper.wp("2%") },
 
-  groupItemContent: {
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    paddingVertical: DimensionHelper.wp("3.5%"),
-    paddingHorizontal: DimensionHelper.wp("4%")
-  },
+  groupItemContent: { flexDirection: "row" as const, alignItems: "center" as const, paddingVertical: DimensionHelper.wp("3.5%"), paddingHorizontal: DimensionHelper.wp("4%") },
 
-  groupIconContainer: {
-    width: DimensionHelper.wp("10%"),
-    height: DimensionHelper.wp("10%"),
-    borderRadius: 10,
-    backgroundColor: StyleConstants.baseColor + "18",
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    marginRight: DimensionHelper.wp("3.5%")
-  },
+  groupIconContainer: { width: DimensionHelper.wp("10%"), height: DimensionHelper.wp("10%"), borderRadius: 10, backgroundColor: StyleConstants.baseColor + "18", justifyContent: "center" as const, alignItems: "center" as const, marginRight: DimensionHelper.wp("3.5%") },
 
   groupIcon: { color: StyleConstants.baseColor },
 
-  groupName: {
-    flex: 1,
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor
-  },
+  groupName: { flex: 1, fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor },
 
-  groupCheckCircle: {
-    width: DimensionHelper.wp("6.5%"),
-    height: DimensionHelper.wp("6.5%"),
-    borderRadius: DimensionHelper.wp("3.25%"),
-    borderWidth: 2,
-    borderColor: "#e2e8f0",
-    marginLeft: DimensionHelper.wp("2%")
-  },
+  groupCheckCircle: { width: DimensionHelper.wp("6.5%"), height: DimensionHelper.wp("6.5%"), borderRadius: DimensionHelper.wp("3.25%"), borderWidth: 2, borderColor: "#e2e8f0", marginLeft: DimensionHelper.wp("2%") },
 
   noneSection: {
     paddingHorizontal: DimensionHelper.wp("5%"),
@@ -314,12 +234,7 @@ const selectGroupStyles = {
     shadowColor: "#000"
   },
 
-  noneButtonText: {
-    color: "#64748b",
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "500" as const
-  }
+  noneButtonText: { color: "#64748b", fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "500" as const }
 };
 
 export default SelectGroup;

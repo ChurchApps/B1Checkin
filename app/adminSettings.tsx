@@ -48,9 +48,14 @@ const AdminSettings = (props: Props) => {
           style: "destructive",
           onPress: async () => {
             await AsyncStorage.multiRemove([
-              "@Email", "@Password", "@SelectedChurchId",
-              "@ChurchAppearance", "@UserChurches", "@Login",
-              "@KioskPIN", "@KioskLocked"
+              "@Email",
+              "@Password",
+              "@SelectedChurchId",
+              "@ChurchAppearance",
+              "@UserChurches",
+              "@Login",
+              "@KioskPIN",
+              "@KioskLocked"
             ]);
             CachedData.userChurch = null;
             CachedData.churchAppearance = null;
@@ -71,7 +76,7 @@ const AdminSettings = (props: Props) => {
     { icon: "exchange" as const, label: t("admin.changeService"), onPress: handleChangeService, destructive: false },
     { icon: "print" as const, label: t("admin.changePrinter"), onPress: handleChangePrinter, destructive: false },
     { icon: "lock" as const, label: CachedData.kioskPin ? t("admin.changePin") : t("admin.setPin"), onPress: handleChangePin, destructive: false },
-    { icon: "sign-out" as const, label: t("common.logout"), onPress: handleLogout, destructive: true },
+    { icon: "sign-out" as const, label: t("common.logout"), onPress: handleLogout, destructive: true }
   ];
 
   return (
@@ -125,15 +130,8 @@ const AdminSettings = (props: Props) => {
 };
 
 const adminStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite,
-  },
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("1.5%"),
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("1.5%") },
   menuCard: {
     backgroundColor: StyleConstants.whiteColor,
     borderRadius: 10,
@@ -146,47 +144,15 @@ const adminStyles = {
     shadowColor: StyleConstants.baseColor,
     flexDirection: "row" as const,
     alignItems: "center",
-    minHeight: DimensionHelper.wp("12%"),
+    minHeight: DimensionHelper.wp("12%")
   },
-  destructiveCard: {
-    borderWidth: 1,
-    borderColor: StyleConstants.redColor + "30",
-  },
-  iconContainer: {
-    width: DimensionHelper.wp("8%"),
-    height: DimensionHelper.wp("8%"),
-    borderRadius: DimensionHelper.wp("4%"),
-    backgroundColor: StyleConstants.baseColor + "15",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("2.5%"),
-  },
-  destructiveIconContainer: {
-    backgroundColor: StyleConstants.redColor + "15",
-  },
-  menuLabel: {
-    flex: 1,
-    fontSize: DimensionHelper.wp("3.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.darkColor,
-  },
-  destructiveText: {
-    color: StyleConstants.redColor,
-  },
-  versionText: {
-    textAlign: "center" as const,
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor,
-    marginTop: DimensionHelper.wp("3%"),
-    opacity: 0.6,
-  },
-  arrow: {
-    fontSize: DimensionHelper.wp("5%"),
-    color: StyleConstants.baseColor,
-    opacity: 0.7,
-    marginLeft: DimensionHelper.wp("1.5%"),
-  },
+  destructiveCard: { borderWidth: 1, borderColor: StyleConstants.redColor + "30" },
+  iconContainer: { width: DimensionHelper.wp("8%"), height: DimensionHelper.wp("8%"), borderRadius: DimensionHelper.wp("4%"), backgroundColor: StyleConstants.baseColor + "15", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2.5%") },
+  destructiveIconContainer: { backgroundColor: StyleConstants.redColor + "15" },
+  menuLabel: { flex: 1, fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
+  destructiveText: { color: StyleConstants.redColor },
+  versionText: { textAlign: "center" as const, fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("3%"), opacity: 0.6 },
+  arrow: { fontSize: DimensionHelper.wp("5%"), color: StyleConstants.baseColor, opacity: 0.7, marginLeft: DimensionHelper.wp("1.5%") },
   buttonContainer: {
     paddingHorizontal: DimensionHelper.wp("4%"),
     paddingVertical: DimensionHelper.wp("2%"),
@@ -196,7 +162,7 @@ const adminStyles = {
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   backButton: {
     flexDirection: "row" as const,
@@ -208,16 +174,10 @@ const adminStyles = {
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
-  buttonIcon: {
-    marginRight: DimensionHelper.wp("1.5%"),
-  },
-  backButtonText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.whiteColor,
-  },
+  buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
+  backButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.whiteColor }
 };
 
 export default AdminSettings;

@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image } from "react-native";
+import { View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image, Pressable } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
@@ -16,6 +17,7 @@ function Login(_props: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const login = () => {
     if (email === "") { Utils.snackBar(t("login.enterEmail")); } else if (!Utilities.validateEmail(email)) { Utils.snackBar(t("login.validEmail")); } else if (password === "") { Utils.snackBar(t("login.enterPassword")); } else {
@@ -99,14 +101,17 @@ function Login(_props: Props) {
             <TextInput
               placeholder={t("login.passwordPlaceholder")}
               placeholderTextColor="rgba(0, 0, 0, 0.4)"
-              style={Styles.loginInput}
-              secureTextEntry={true}
+              style={[Styles.loginInput, { flex: 1 }]}
+              secureTextEntry={!showPassword}
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="default"
               value={password}
               onChangeText={(value) => setPassword(value)}
             />
+            <Pressable onPress={() => setShowPassword(!showPassword)} style={{ paddingHorizontal: DimensionHelper.wp("2%") }}>
+              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={DimensionHelper.wp("4.5%")} color={StyleConstants.grayColor} />
+            </Pressable>
           </View>
 
           {/* Login Button */}

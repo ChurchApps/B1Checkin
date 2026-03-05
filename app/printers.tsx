@@ -210,20 +210,11 @@ const Printers = (props: Props) => {
 };
 
 const printerStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: StyleConstants.ghostWhite
-  },
+  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
 
-  mainContent: {
-    flex: 1,
-    paddingHorizontal: DimensionHelper.wp("4%")
-  },
+  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%") },
 
-  listContent: {
-    paddingTop: DimensionHelper.wp("1.5%"),
-    paddingBottom: DimensionHelper.wp("3%")
-  },
+  listContent: { paddingTop: DimensionHelper.wp("1.5%"), paddingBottom: DimensionHelper.wp("3%") },
 
   printerCard: {
     backgroundColor: StyleConstants.whiteColor,
@@ -241,67 +232,25 @@ const printerStyles = {
     borderColor: "transparent"
   },
 
-  selectedCard: {
-    backgroundColor: StyleConstants.baseColor,
-    borderColor: StyleConstants.baseColor,
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 6
-  },
+  selectedCard: { backgroundColor: StyleConstants.baseColor, borderColor: StyleConstants.baseColor, shadowOpacity: 0.15, shadowRadius: 8, elevation: 6 },
 
-  printerIconContainer: {
-    width: DimensionHelper.wp("8%"),
-    height: DimensionHelper.wp("8%"),
-    borderRadius: DimensionHelper.wp("4%"),
-    backgroundColor: StyleConstants.baseColor + "15",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("2.5%")
-  },
+  printerIconContainer: { width: DimensionHelper.wp("8%"), height: DimensionHelper.wp("8%"), borderRadius: DimensionHelper.wp("4%"), backgroundColor: StyleConstants.baseColor + "15", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2.5%") },
 
-  printerInfo: {
-    flex: 1,
-    justifyContent: "center"
-  },
+  printerInfo: { flex: 1, justifyContent: "center" },
 
-  printerName: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.darkColor,
-    marginBottom: DimensionHelper.wp("0.3%")
-  },
+  printerName: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.3%") },
 
-  printerIp: {
-    fontSize: DimensionHelper.wp("2.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor,
-    opacity: 0.7
-  },
+  printerIp: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor, opacity: 0.7 },
 
   selectedText: { color: StyleConstants.whiteColor },
 
-  selectedSubtext: {
-    color: StyleConstants.whiteColor,
-    opacity: 0.9
-  },
+  selectedSubtext: { color: StyleConstants.whiteColor, opacity: 0.9 },
 
   checkmarkContainer: { marginLeft: DimensionHelper.wp("1.5%") },
 
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: DimensionHelper.wp("15%")
-  },
+  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center", paddingTop: DimensionHelper.wp("15%") },
 
-  loadingText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.baseColor,
-    marginTop: DimensionHelper.wp("3%"),
-    textAlign: "center"
-  },
+  loadingText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("3%"), textAlign: "center" },
 
   buttonContainer: {
     flexDirection: "row",
@@ -316,45 +265,17 @@ const printerStyles = {
     elevation: 3
   },
 
-  actionButton: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: DimensionHelper.wp("2.5%"),
-    borderRadius: 8,
-    marginHorizontal: DimensionHelper.wp("1.5%")
-  },
+  actionButton: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: DimensionHelper.wp("2.5%"), borderRadius: 8, marginHorizontal: DimensionHelper.wp("1.5%") },
 
-  testButton: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderWidth: 2,
-    borderColor: StyleConstants.baseColor
-  },
+  testButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 2, borderColor: StyleConstants.baseColor },
 
-  doneButton: {
-    backgroundColor: StyleConstants.baseColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3
-  },
+  doneButton: { backgroundColor: StyleConstants.baseColor, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3 },
 
   buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
 
-  testButtonText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.baseColor
-  },
+  testButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.baseColor },
 
-  doneButtonText: {
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.whiteColor
-  }
+  doneButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor }
 };
 
 export default Printers;

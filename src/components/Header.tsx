@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Image, StatusBar, Text, Dimensions, Alert } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, Image, StatusBar, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -158,13 +157,7 @@ const Header = (props: Props) => {
 };
 
 const headerStyles = {
-  logoSection: {
-    backgroundColor: StyleConstants.baseColor,
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("2.5%"),
-    paddingBottom: DimensionHelper.wp("2.5%"),
-    alignItems: "center"
-  },
+  logoSection: { backgroundColor: StyleConstants.baseColor, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2.5%"), paddingBottom: DimensionHelper.wp("2.5%"), alignItems: "center" },
 
   logoContainer: {
     backgroundColor: StyleConstants.whiteColor,
@@ -179,11 +172,7 @@ const headerStyles = {
     elevation: 4
   },
 
-  prominentLogo: {
-    width: DimensionHelper.wp("55%"),
-    height: DimensionHelper.wp("9%"),
-    resizeMode: "contain"
-  }
+  prominentLogo: { width: DimensionHelper.wp("55%"), height: DimensionHelper.wp("9%"), resizeMode: "contain" }
 };
 
 export default Header;
