@@ -26,3 +26,23 @@ export interface CheckinThemeConfig {
   backgroundImage: string;
   idleScreen: IdleScreenConfig;
 }
+
+// New unified app theme types
+export interface AppThemeModeColors {
+  background: string;
+  surface: string;
+  primary: string;
+  primaryContrast: string;
+  secondary: string;
+  textColor: string;
+}
+
+export interface AppThemeConfig {
+  light: AppThemeModeColors;
+  dark: AppThemeModeColors;
+}
+
+export interface CheckinSettingsConfig {
+  backgroundImage: string;
+  idleScreen: IdleScreenConfig;
+}
