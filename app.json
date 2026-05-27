@@ -27,8 +27,10 @@
       "bundleIdentifier": "church.b1.checkin",
       "buildNumber": "1",
       "supportsTablet": true,
+      "icon": "./assets/images/source-icon.png",
       "infoPlist": {
-        "NSLocalNetworkUsageDescription": "B1 Checkin needs local network access to find and communicate with Brother label printers on your WiFi network."
+        "NSLocalNetworkUsageDescription": "B1 Checkin needs local network access to find and communicate with Brother label printers on your WiFi network.",
+        "ITSAppUsesNonExemptEncryption": false
       },
       "googleServicesFile": "./GoogleService-Info.plist"
     },

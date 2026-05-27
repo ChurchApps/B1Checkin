@@ -30,7 +30,8 @@
         "image": "latest"
       },
       "ios": {
-        "image": "latest"
+        "image": "latest",
+        "autoIncrement": true
       }
     },
     "amazon": {
