@@ -146,4 +146,4 @@ expo-env.d.ts
 
 Notes.md
 *.plist
-config.bat
+.env
