@@ -50,12 +50,19 @@ class BrotherProvider: PrintProviderProtocol {
 
     private func getPrinterModel() -> BRLMPrinterModel {
         switch printerModel {
-        case "Brother QL-1100": return .QL_1100
+        // The bundled BRLMPrinterKit.xcframework does not define enum cases for
+        // the QL-1100, QL-580N, or QL-800 models, so each is mapped to its
+        // same-hardware-family sibling. These share DK label media handling, so
+        // the default print settings are equivalent for label printing:
+        //   QL-1100  -> QL-1110NWB (same hardware; 1110NWB adds network/BT)
+        //   QL-580N  -> QL-720NW   (700-series successor; network variant)
+        //   QL-800   -> QL-810W    (same 800 family; 810W adds WiFi)
+        case "Brother QL-1100": return .QL_1110NWB
         case "Brother QL-1110NWB": return .QL_1110NWB
-        case "Brother QL-580N": return .QL_580N
+        case "Brother QL-580N": return .QL_720NW
         case "Brother QL-710W": return .QL_710W
         case "Brother QL-720NW": return .QL_720NW
-        case "Brother QL-800": return .QL_800
+        case "Brother QL-800": return .QL_810W
         case "Brother QL-810W": return .QL_810W
         case "Brother QL-820NWB": return .QL_820NWB
         case "Brother QL-1115NWB": return .QL_1115NWB

@@ -25,7 +25,7 @@
     },
     "ios": {
       "bundleIdentifier": "church.b1.checkin",
-      "buildNumber": "1",
+      "buildNumber": "15",
       "supportsTablet": true,
       "icon": "./assets/images/source-icon.png",
       "infoPlist": {
@@ -41,6 +41,17 @@
     },
     "plugins": [
       "./modules/printer-helper/app.plugin.js",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static",
+            "forceStaticLinking": [
+              "RNFBApp"
+            ]
+          }
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
@@ -62,7 +73,8 @@
       ],
       "expo-font",
       "expo-localization",
-      "expo-web-browser"
+      "expo-web-browser",
+      "./plugins/withFirebaseNonModularFix.js"
     ],
     "experiments": {
       "typedRoutes": true

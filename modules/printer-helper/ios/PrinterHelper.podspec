@@ -22,6 +22,10 @@ Pod::Spec.new do |s|
     'Frameworks/ZSDK_API.xcframework'
   ]
   s.libraries = 'xml2', 'z'
+  # The vendored ZSDK_API (Zebra) library references EAAccessoryManager/EASession
+  # for MFi Bluetooth printer connections, which live in the ExternalAccessory
+  # framework. Link it so those symbols resolve.
+  s.frameworks = 'ExternalAccessory'
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
