@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Alert, ActivityIndicator } from "react-native";
+import { View, Text, FlatList, Alert, ActivityIndicator, ScrollView, Share } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
@@ -27,6 +27,27 @@ const Printers = (props: Props) => {
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>(NO_PRINTER);
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
+  const [debugLog, setDebugLog] = React.useState<string[]>([]);
+
+  const addLog = React.useCallback((message: string) => {
+    const time = new Date().toLocaleTimeString();
+    setDebugLog(prev => {
+      const next = [...prev, `${time}  ${message}`];
+      // Keep the log bounded so it never grows without limit.
+      return next.length > 300 ? next.slice(next.length - 300) : next;
+    });
+  }, []);
+
+  // Surface every native printer event/error and JS capture detail into the
+  // on-screen log so remote TestFlight users can report exactly what failed.
+  React.useEffect(() => {
+    const subs = [
+      PrinterHelper.addEventLogger(e => addLog(`[${e.eventType}] ${e.source}: ${e.message}`)),
+      PrinterHelper.addErrorListener(e => addLog(`ERROR ${e.source}: ${e.message}`)),
+      PrinterHelper.addStatusListener(e => addLog(`STATUS: ${e.status}`))
+    ];
+    return () => subs.forEach(s => s.remove());
+  }, [addLog]);
 
   const isNoPrinterSelected = (printer: AvailablePrinter) => !printer.ipAddress || printer.model === "none";
 
@@ -120,17 +141,45 @@ const Printers = (props: Props) => {
   const testPrint = () => {
     if (isNoPrinterSelected(selectedPrinter)) Alert.alert(t("printers.noPrinterSelected"));
     else {
+      addLog(`--- Test print: ${selectedPrinter.brand} ${selectedPrinter.model} @ ${selectedPrinter.ipAddress} ---`);
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
     }
   };
 
+  const shareLog = () => {
+    Share.share({ message: debugLog.join("\n") || "No log entries." }).catch(() => { /* user dismissed */ });
+  };
+
   const getLabelView = () => {
     if (htmlLabels?.length > 0) {
-      return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />);
+      return (<PrintUI htmlLabels={htmlLabels} onLog={addLog} onPrintComplete={() => { setHtmlLabels([]); }} />);
     }
     return <></>;
   };
+
+  const getDebugPanel = () => (
+    <View style={printerStyles.debugContainer}>
+      <View style={printerStyles.debugHeader}>
+        <Text style={printerStyles.debugTitle}>Printer Debug Log</Text>
+        <View style={printerStyles.debugActions}>
+          <Ripple style={printerStyles.debugButton} onPress={shareLog}>
+            <Text style={printerStyles.debugButtonText}>Share</Text>
+          </Ripple>
+          <Ripple style={printerStyles.debugButton} onPress={() => setDebugLog([])}>
+            <Text style={printerStyles.debugButtonText}>Clear</Text>
+          </Ripple>
+        </View>
+      </View>
+      <ScrollView style={printerStyles.debugScroll} contentContainerStyle={printerStyles.debugScrollContent}>
+        {debugLog.length === 0
+          ? <Text style={printerStyles.debugEmpty}>No log entries yet. Tap Test Print to capture printer diagnostics.</Text>
+          : debugLog.slice().reverse().map((line, i) => (
+            <Text key={i} style={printerStyles.debugLine} selectable>{line}</Text>
+          ))}
+      </ScrollView>
+    </View>
+  );
 
   const getContent = () => {
     if (isScanning) {
@@ -174,6 +223,9 @@ const Printers = (props: Props) => {
       <View style={printerStyles.mainContent}>
         {getContent()}
       </View>
+
+      {/* Debug Log (visible to testers while we stabilize iOS printing) */}
+      {getDebugPanel()}
 
       {/* Action Buttons */}
       <View style={[printerStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%") }]}>
@@ -275,7 +327,47 @@ const printerStyles = {
 
   testButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.baseColor },
 
-  doneButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor }
+  doneButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor },
+
+  debugContainer: {
+    height: DimensionHelper.wp("38%"),
+    marginHorizontal: DimensionHelper.wp("4%"),
+    marginBottom: DimensionHelper.wp("2%"),
+    backgroundColor: "#1E1E1E",
+    borderRadius: 8,
+    overflow: "hidden"
+  },
+
+  debugHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: DimensionHelper.wp("3%"),
+    paddingVertical: DimensionHelper.wp("1.5%"),
+    backgroundColor: "#2D2D2D"
+  },
+
+  debugActions: { flexDirection: "row" },
+
+  debugTitle: { color: "#FFFFFF", fontSize: DimensionHelper.wp("2.8%"), fontWeight: "600" },
+
+  debugButton: {
+    paddingHorizontal: DimensionHelper.wp("2.5%"),
+    paddingVertical: DimensionHelper.wp("1%"),
+    marginLeft: DimensionHelper.wp("1.5%"),
+    backgroundColor: "#3A3A3A",
+    borderRadius: 6
+  },
+
+  debugButtonText: { color: "#4FC3F7", fontSize: DimensionHelper.wp("2.6%"), fontWeight: "600" },
+
+  debugScroll: { flex: 1 },
+
+  debugScrollContent: { padding: DimensionHelper.wp("2%") },
+
+  debugEmpty: { color: "#888888", fontSize: DimensionHelper.wp("2.6%"), fontStyle: "italic" },
+
+  debugLine: { color: "#D4D4D4", fontFamily: "Courier", fontSize: DimensionHelper.wp("2.5%"), marginBottom: 2 }
 };
 
 export default Printers;

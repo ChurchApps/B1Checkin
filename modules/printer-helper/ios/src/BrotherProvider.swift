@@ -71,37 +71,66 @@ class BrotherProvider: PrintProviderProtocol {
     }
 
     func printImages(_ imageURIs: [String]) {
+        let log: (String) -> Void = { [weak self] msg in
+            self?.onEvent?("Debug", "BrotherProvider.swift", msg)
+        }
+
+        log("printImages start — ip=\(printerIP), model=\(printerModel), labels=\(imageURIs.count)")
+
         let channel = BRLMChannel(wifiIPAddress: printerIP)
         let generateResult = BRLMPrinterDriverGenerator.open(channel)
 
         guard generateResult.error.code == .noError,
               let printerDriver = generateResult.driver else {
-            onError?("BrotherProvider.swift", "Error - Open Channel: \(generateResult.error.code)")
+            onError?("BrotherProvider.swift", "Open Channel failed: \(generateResult.error.code) (raw \(generateResult.error.code.rawValue)) for ip=\(printerIP)")
             return
         }
+        log("Channel opened to \(printerIP)")
 
         defer {
             printerDriver.closeChannel()
         }
 
         guard let printSettings = BRLMQLPrintSettings(defaultPrintSettingsWith: getPrinterModel()) else {
-            onError?("BrotherProvider.swift", "Error - Could not create print settings for model: \(printerModel)")
+            onError?("BrotherProvider.swift", "Could not create print settings for model: \(printerModel)")
             return
         }
 
         printSettings.labelSize = .dieCutW29H90
         printSettings.autoCut = true
+        printSettings.printOrientation = .landscape
+        log("Settings ready — sdkModel=\(getPrinterModel().rawValue), labelSize=dieCutW29H90, autoCut=true, orientation=landscape")
 
-        for uriString in imageURIs {
-            guard let url = URL(string: uriString) else { continue }
+        for (index, uriString) in imageURIs.enumerated() {
+            // react-native-view-shot returns a bare filesystem path on iOS (no
+            // "file://" scheme), so build a proper file URL. URL(string:) on a
+            // schemeless path produces a non-file URL the Brother SDK can't read.
+            let path = uriString.hasPrefix("file://")
+                ? (URL(string: uriString)?.path ?? uriString)
+                : uriString
+            let url = URL(fileURLWithPath: path)
+
+            let exists = FileManager.default.fileExists(atPath: path)
+            let attrs = try? FileManager.default.attributesOfItem(atPath: path)
+            let size = (attrs?[.size] as? Int).map { "\($0) bytes" } ?? "n/a"
+            log("Label \(index + 1)/\(imageURIs.count): uri=\(uriString)")
+            log("  -> path=\(path) exists=\(exists) size=\(size)")
+            log("  -> fileURL=\(url.absoluteString)")
+
+            if !exists {
+                onError?("BrotherProvider.swift", "Label \(index + 1): file not found at \(path)")
+                continue
+            }
 
             let printError = printerDriver.printImage(with: url, settings: printSettings)
 
             if printError.code != .noError {
-                onError?("BrotherProvider.swift", "Error - Print Image: \(printError.code)")
+                onError?("BrotherProvider.swift", "Print failed for label \(index + 1): \(printError.code) (raw \(printError.code.rawValue))")
             } else {
-                onEvent?("Print", "BrotherProvider.swift", "Success - Print Image")
+                onEvent?("Print", "BrotherProvider.swift", "Success — label \(index + 1) sent to printer")
             }
         }
+
+        log("printImages complete")
     }
 }

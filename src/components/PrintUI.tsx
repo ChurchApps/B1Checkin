@@ -8,11 +8,13 @@ import * as PrinterHelper from "printer-helper";
 
 interface Props {
   htmlLabels: string[],
-  onPrintComplete: () => void
+  onPrintComplete: () => void,
+  onLog?: (message: string) => void
 }
 
 const PrintUI = (props: Props) => {
   const { t } = useTranslation();
+  const log = (message: string) => props.onLog?.(message);
   const shotRef = React.useRef(null);
   const [html, setHtml] = React.useState("");
 
@@ -50,6 +52,7 @@ const PrintUI = (props: Props) => {
       setPrintIndex(printIndex + 1);
       setUris(urisCopy);
     } else {
+      log(`Sending ${urisCopy.length} label(s) to native printUris`);
       PrinterHelper.printUris(urisCopy.toString());
       resetPrint();
       props.onPrintComplete();
@@ -60,10 +63,12 @@ const PrintUI = (props: Props) => {
     if (firstTag) setFirstTag(false);
     captureRef(shotRef, { format: "jpg", quality: 1 })
       .then(async result => {
+        log(`Captured label ${printIndex + 1}: ${result}`);
         await timeout(500);
         handleCaptureComplete(result);
       })
       .catch(error => {
+        log(`Capture error: ${error?.message ?? String(error)}`);
         console.error("Error capturing print view:", error);
       });
   };
