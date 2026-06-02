@@ -4,6 +4,7 @@
   "version": "1.2.1",
   "packageManager": "yarn@4.15.0",
   "scripts": {
+    "eas-build-pre-install": "corepack enable",
     "preinstall": "node -e \"if(!(process.env.npm_config_user_agent||'').startsWith('yarn')){console.error('\\n[B1Checkin] This project uses Yarn (Berry). Run \\'yarn install\\' instead of npm/pnpm.\\n');process.exit(1)}\"",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
