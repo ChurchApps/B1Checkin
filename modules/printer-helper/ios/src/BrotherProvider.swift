@@ -49,7 +49,16 @@ class BrotherProvider: PrintProviderProtocol {
     }
 
     private func getPrinterModel() -> BRLMPrinterModel {
-        switch printerModel {
+        // The discovered model name has no manufacturer prefix (e.g. "QL-820NWB"),
+        // but strip a leading "Brother " defensively in case a caller includes it.
+        // Without this normalization every model fell through to the default below,
+        // so settings were built for the wrong printer and the SDK returned
+        // SetModelError (code 9) on any non-1110NWB printer.
+        let model = printerModel
+            .replacingOccurrences(of: "Brother ", with: "")
+            .trimmingCharacters(in: .whitespaces)
+
+        switch model {
         // The bundled BRLMPrinterKit.xcframework does not define enum cases for
         // the QL-1100, QL-580N, or QL-800 models, so each is mapped to its
         // same-hardware-family sibling. These share DK label media handling, so
@@ -57,15 +66,15 @@ class BrotherProvider: PrintProviderProtocol {
         //   QL-1100  -> QL-1110NWB (same hardware; 1110NWB adds network/BT)
         //   QL-580N  -> QL-720NW   (700-series successor; network variant)
         //   QL-800   -> QL-810W    (same 800 family; 810W adds WiFi)
-        case "Brother QL-1100": return .QL_1110NWB
-        case "Brother QL-1110NWB": return .QL_1110NWB
-        case "Brother QL-580N": return .QL_720NW
-        case "Brother QL-710W": return .QL_710W
-        case "Brother QL-720NW": return .QL_720NW
-        case "Brother QL-800": return .QL_810W
-        case "Brother QL-810W": return .QL_810W
-        case "Brother QL-820NWB": return .QL_820NWB
-        case "Brother QL-1115NWB": return .QL_1115NWB
+        case "QL-1100": return .QL_1110NWB
+        case "QL-1110NWB": return .QL_1110NWB
+        case "QL-580N": return .QL_720NW
+        case "QL-710W": return .QL_710W
+        case "QL-720NW": return .QL_720NW
+        case "QL-800": return .QL_810W
+        case "QL-810W": return .QL_810W
+        case "QL-820NWB": return .QL_820NWB
+        case "QL-1115NWB": return .QL_1115NWB
         default: return .QL_1110NWB
         }
     }
@@ -125,7 +134,7 @@ class BrotherProvider: PrintProviderProtocol {
             let printError = printerDriver.printImage(with: url, settings: printSettings)
 
             if printError.code != .noError {
-                onError?("BrotherProvider.swift", "Print failed for label \(index + 1): \(printError.code) (raw \(printError.code.rawValue))")
+                onError?("BrotherProvider.swift", "Print failed for label \(index + 1): \(printError.code) (raw \(printError.code.rawValue)) - \(printError.errorDescription)")
             } else {
                 onEvent?("Print", "BrotherProvider.swift", "Success — label \(index + 1) sent to printer")
             }
