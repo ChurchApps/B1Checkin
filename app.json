@@ -25,7 +25,7 @@
     },
     "ios": {
       "bundleIdentifier": "church.b1.checkin",
-      "buildNumber": "18",
+      "buildNumber": "19",
       "supportsTablet": true,
       "icon": "./assets/images/source-icon.png",
       "infoPlist": {

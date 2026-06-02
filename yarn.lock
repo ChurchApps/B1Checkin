@@ -10913,12 +10913,12 @@ __metadata:
 
 "printer-helper@file:./modules/printer-helper::locator=b1checkin%40workspace%3A.":
   version: 1.0.0
-  resolution: "printer-helper@file:./modules/printer-helper#./modules/printer-helper::hash=de786a&locator=b1checkin%40workspace%3A."
+  resolution: "printer-helper@file:./modules/printer-helper#./modules/printer-helper::hash=1ec746&locator=b1checkin%40workspace%3A."
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/8e6897bc9a0d0ab1c60beb15fe85de43fd7fd0d8ded795be345c17ae754758779c722312b86977bebf58d63ae9d0106ad40e4a11f196a3fcca1fdca48295dfaa
+  checksum: 10c0/359f096445dd4d4b881dfe4826b12d5e884728f89d8c19fbdcc4879573fd136646273136a6a02a7de3f4e2576c40fe1f569dab6490ee998809a20347ef03baef
   languageName: node
   linkType: hard
 
