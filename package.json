@@ -3,6 +3,9 @@
   "main": "expo-router/entry",
   "version": "1.2.1",
   "packageManager": "yarn@4.15.0",
+  "workspaces": [
+    "modules/printer-helper"
+  ],
   "scripts": {
     "eas-build-pre-install": "corepack enable",
     "preinstall": "node -e \"if(!(process.env.npm_config_user_agent||'').startsWith('yarn')){console.error('\\n[B1Checkin] This project uses Yarn (Berry). Run \\'yarn install\\' instead of npm/pnpm.\\n');process.exit(1)}\"",
@@ -51,7 +54,7 @@
     "expo-updates": "~55.0.12",
     "expo-web-browser": "~55.0.9",
     "i18next": "^25.8.13",
-    "printer-helper": "file:./modules/printer-helper",
+    "printer-helper": "workspace:*",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-error-boundary": "^6.1.1",

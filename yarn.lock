@@ -4952,7 +4952,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-expo: "npm:~55.0.9"
     patch-package: "npm:^8.0.1"
-    printer-helper: "file:./modules/printer-helper"
+    printer-helper: "workspace:*"
     react: "npm:19.2.0"
     react-dom: "npm:19.2.0"
     react-error-boundary: "npm:^6.1.1"
@@ -10911,16 +10911,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"printer-helper@file:./modules/printer-helper::locator=b1checkin%40workspace%3A.":
-  version: 1.0.0
-  resolution: "printer-helper@file:./modules/printer-helper#./modules/printer-helper::hash=1ec746&locator=b1checkin%40workspace%3A."
+"printer-helper@workspace:*, printer-helper@workspace:modules/printer-helper":
+  version: 0.0.0-use.local
+  resolution: "printer-helper@workspace:modules/printer-helper"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/359f096445dd4d4b881dfe4826b12d5e884728f89d8c19fbdcc4879573fd136646273136a6a02a7de3f4e2576c40fe1f569dab6490ee998809a20347ef03baef
-  languageName: node
-  linkType: hard
+  languageName: unknown
+  linkType: soft
 
 "proc-log@npm:^4.0.0":
   version: 4.2.0
