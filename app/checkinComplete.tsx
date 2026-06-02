@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { useTranslation } from "react-i18next";
-import { screenNavigationProps, CachedData, LabelHelper, StyleConstants } from "../src/helpers";
+import { screenNavigationProps, CachedData, LabelHelper, PrinterLog, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
@@ -21,6 +21,7 @@ const CheckinComplete = (props: Props) => {
   const milestonesRef = React.useRef<{ personId: string; streak: number }[]>([]);
 
   const loadData = () => {
+    PrinterLog.attachNativeListeners();
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     const promises: Promise<any>[] = [];
     promises.push(checkin());
@@ -52,10 +53,15 @@ const CheckinComplete = (props: Props) => {
 
   const print = async () => {
     try {
+      PrinterLog.add(`--- Family check-in print: ${CachedData.printer?.brand} ${CachedData.printer?.model} @ ${CachedData.printer?.ipAddress} ---`);
       const labels = await LabelHelper.getAllLabels();
       setHtmlLabels(labels);
-      if (labels.length === 0) startOver();
+      if (labels.length === 0) {
+        PrinterLog.add("Family print: nothing to print (0 labels)");
+        startOver();
+      }
     } catch (error) {
+      PrinterLog.add(`Family print error: ${error instanceof Error ? error.message : String(error)}`);
       console.error("Error printing labels:", error);
       startOver();
     }
@@ -86,7 +92,7 @@ const CheckinComplete = (props: Props) => {
   };
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />);
+    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onLog={PrinterLog.add} onPrintComplete={startOver} />);
     else return <></>;
   };
 

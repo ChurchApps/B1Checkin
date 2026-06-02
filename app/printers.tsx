@@ -5,7 +5,7 @@ import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
-import { AvailablePrinter, CachedData, screenNavigationProps, StyleConstants } from "../src/helpers";
+import { AvailablePrinter, CachedData, PrinterLog, screenNavigationProps, StyleConstants } from "../src/helpers";
 import { DimensionHelper, FirebaseHelper } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
@@ -27,27 +27,17 @@ const Printers = (props: Props) => {
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>(NO_PRINTER);
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
-  const [debugLog, setDebugLog] = React.useState<string[]>([]);
+  // Read from the persistent app-wide printer log so this panel also shows the
+  // family-print flow that ran earlier on the checkin-complete screen.
+  const [debugLog, setDebugLog] = React.useState<string[]>(PrinterLog.get());
 
-  const addLog = React.useCallback((message: string) => {
-    const time = new Date().toLocaleTimeString();
-    setDebugLog(prev => {
-      const next = [...prev, `${time}  ${message}`];
-      // Keep the log bounded so it never grows without limit.
-      return next.length > 300 ? next.slice(next.length - 300) : next;
-    });
+  React.useEffect(() => {
+    PrinterLog.attachNativeListeners();
+    return PrinterLog.subscribe(setDebugLog);
   }, []);
 
-  // Surface every native printer event/error and JS capture detail into the
-  // on-screen log so remote TestFlight users can report exactly what failed.
-  React.useEffect(() => {
-    const subs = [
-      PrinterHelper.addEventLogger(e => addLog(`[${e.eventType}] ${e.source}: ${e.message}`)),
-      PrinterHelper.addErrorListener(e => addLog(`ERROR ${e.source}: ${e.message}`)),
-      PrinterHelper.addStatusListener(e => addLog(`STATUS: ${e.status}`))
-    ];
-    return () => subs.forEach(s => s.remove());
-  }, [addLog]);
+  // Newest-first for display; recomputed only when the log actually changes.
+  const reversedLog = React.useMemo(() => debugLog.slice().reverse(), [debugLog]);
 
   const isNoPrinterSelected = (printer: AvailablePrinter) => !printer.ipAddress || printer.model === "none";
 
@@ -141,19 +131,19 @@ const Printers = (props: Props) => {
   const testPrint = () => {
     if (isNoPrinterSelected(selectedPrinter)) Alert.alert(t("printers.noPrinterSelected"));
     else {
-      addLog(`--- Test print: ${selectedPrinter.brand} ${selectedPrinter.model} @ ${selectedPrinter.ipAddress} ---`);
+      PrinterLog.add(`--- Test print: ${selectedPrinter.brand} ${selectedPrinter.model} @ ${selectedPrinter.ipAddress} ---`);
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
     }
   };
 
   const shareLog = () => {
-    Share.share({ message: debugLog.join("\n") || "No log entries." }).catch(() => { /* user dismissed */ });
+    Share.share({ message: PrinterLog.get().join("\n") || "No log entries." }).catch(() => { /* user dismissed */ });
   };
 
   const getLabelView = () => {
     if (htmlLabels?.length > 0) {
-      return (<PrintUI htmlLabels={htmlLabels} onLog={addLog} onPrintComplete={() => { setHtmlLabels([]); }} />);
+      return (<PrintUI htmlLabels={htmlLabels} onLog={PrinterLog.add} onPrintComplete={() => { setHtmlLabels([]); }} />);
     }
     return <></>;
   };
@@ -166,15 +156,15 @@ const Printers = (props: Props) => {
           <Ripple style={printerStyles.debugButton} onPress={shareLog}>
             <Text style={printerStyles.debugButtonText}>Share</Text>
           </Ripple>
-          <Ripple style={printerStyles.debugButton} onPress={() => setDebugLog([])}>
+          <Ripple style={printerStyles.debugButton} onPress={() => PrinterLog.clear()}>
             <Text style={printerStyles.debugButtonText}>Clear</Text>
           </Ripple>
         </View>
       </View>
       <ScrollView style={printerStyles.debugScroll} contentContainerStyle={printerStyles.debugScrollContent}>
-        {debugLog.length === 0
+        {reversedLog.length === 0
           ? <Text style={printerStyles.debugEmpty}>No log entries yet. Tap Test Print to capture printer diagnostics.</Text>
-          : debugLog.slice().reverse().map((line, i) => (
+          : reversedLog.map((line, i) => (
             <Text key={i} style={printerStyles.debugLine} selectable>{line}</Text>
           ))}
       </ScrollView>

@@ -3,6 +3,7 @@ export { CachedData } from "./CachedData";
 export { EnvironmentHelper } from "./EnvironmentHelper";
 export * from "./Interfaces";
 export { LabelHelper } from "./LabelHelper";
+export { PrinterLog } from "./PrinterLog";
 export * from "./Styles";
 export { Utilities, screenNavigationProps } from "./Utilities";
 export { VisitHelper } from "./VisitHelper";

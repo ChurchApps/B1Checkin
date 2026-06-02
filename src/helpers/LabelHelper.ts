@@ -4,6 +4,7 @@ import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
 import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
 import { ArrayHelper } from "./ArrayHelper";
+import { PrinterLog } from "./PrinterLog";
 
 export class LabelHelper {
 
@@ -48,11 +49,24 @@ export class LabelHelper {
     return pickupCode;
   }
 
-  private static readHtml(fileName: string) {
+  private static async readHtml(fileName: string) {
     if (Platform.OS === "android") {
       return fs.readFileAssets("labels/" + fileName);
-    } else {
-      return fs.readFile(fs.MainBundlePath + "/labels/" + fileName, "utf8");
+    }
+    // iOS: the config plugin (withBrotherIOS) registers the templates via
+    // addResourceFile, which Xcode copies FLAT into the bundle root — the
+    // "labels" group is NOT preserved as a real directory. So read from the
+    // bundle root first, falling back to a labels/ subdirectory for safety.
+    const base = fs.MainBundlePath;
+    try {
+      return await fs.readFile(base + "/" + fileName, "utf8");
+    } catch {
+      try {
+        return await fs.readFile(base + "/labels/" + fileName, "utf8");
+      } catch (err) {
+        PrinterLog.add(`readHtml: ${fileName} not found in bundle root or labels/`);
+        throw err;
+      }
     }
   }
 
@@ -138,8 +152,10 @@ export class LabelHelper {
       if (childVisits.length > 0 && this.shouldPrintPickup(childVisits)) {
         result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
       }
+      PrinterLog.add(`getAllLabels: produced ${result.length} label(s)`);
       return result;
     } catch (error) {
+      PrinterLog.add(`getAllLabels error: ${error instanceof Error ? error.message : String(error)}`);
       console.error("Error getting labels:", error);
       return [];
     }
