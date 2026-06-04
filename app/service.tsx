@@ -16,10 +16,16 @@ const Services = (props: Props) => {
   const { theme } = useCheckinTheme();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [services, setServices] = React.useState([]);
+  // Campuses are mastered in the membership module; resolve the campus name by id.
+  const [campuses, setCampuses] = React.useState<any[]>([]);
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
   const loadData = () => {
     setIsLoading(true);
+
+    ApiHelper.get("/campuses", "MembershipApi")
+      .then(data => { setCampuses(Array.isArray(data) ? data : []); })
+      .catch(error => { console.error("Error loading campuses:", error); });
 
     ApiHelper.get("/services", "AttendanceApi")
       .then(data => {
@@ -77,10 +83,11 @@ const Services = (props: Props) => {
 
   const getRow = (data: any) => {
     const item = data.item;
+    const campusName = campuses.find((c: any) => c.id === item.campusId)?.name;
     return (
       <Ripple style={[servicePageStyles.serviceCard, { width: wd("90%"), shadowColor: theme.colors.primary }]} onPress={() => { selectService(item.id); }}>
         <View style={servicePageStyles.serviceCardContent}>
-          <Text style={servicePageStyles.campusName}>{item.campus?.name}</Text>
+          {campusName ? <Text style={servicePageStyles.campusName}>{campusName}</Text> : null}
           <Text style={servicePageStyles.serviceName}>{item.name}</Text>
         </View>
         <View style={servicePageStyles.arrowContainer}>
