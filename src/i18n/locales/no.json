@@ -143,7 +143,8 @@
   },
   "selectGroup": {
     "choosingFor": "Velger for {{name}}",
-    "groupCount": "{{count}} grupper",
+    "groupCount_one": "{{count}} gruppe",
+    "groupCount_other": "{{count}} grupper",
     "noGroupOption": "Ingen gruppe denne gangen",
     "noGroups": "Ingen grupper tilgjengelig for dette tidspunktet",
     "none": "Ingen",

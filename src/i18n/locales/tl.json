@@ -143,7 +143,8 @@
   },
   "selectGroup": {
     "choosingFor": "Pumipili para kay {{name}}",
-    "groupCount": "{{count}} mga grupo",
+    "groupCount_one": "{{count}} grupo",
+    "groupCount_other": "{{count}} grupo",
     "noGroupOption": "Walang grupo sa pagkakataong ito",
     "noGroups": "Walang available na grupo para sa oras na ito",
     "none": "Wala",

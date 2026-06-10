@@ -1,5 +1,4 @@
 import { Platform } from "react-native";
-import fs from "react-native-fs";
 import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
 import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
@@ -50,6 +49,8 @@ export class LabelHelper {
   }
 
   private static async readHtml(fileName: string) {
+    // Lazy require: react-native-fs has no web implementation, and printing never runs on web.
+    const fs = require("react-native-fs");
     if (Platform.OS === "android") {
       return fs.readFileAssets("labels/" + fileName);
     }

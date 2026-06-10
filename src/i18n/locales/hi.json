@@ -143,7 +143,8 @@
   },
   "selectGroup": {
     "choosingFor": "{{name}} के लिए चुन रहे हैं",
-    "groupCount": "{{count}} समूह",
+    "groupCount_one": "{{count}} समूह",
+    "groupCount_other": "{{count}} समूह",
     "noGroupOption": "इस बार कोई समूह नहीं",
     "noGroups": "इस समय के लिए कोई समूह उपलब्ध नहीं है",
     "none": "कोई नहीं",

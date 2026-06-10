@@ -2,7 +2,7 @@
   "name": "printer-helper",
   "version": "1.0.0",
   "description": "Brother printer integration for B1Checkin (Android + iOS)",
-  "main": "src/index.ts",
+  "main": "src/index",
   "scripts": {
     "build:plugin": "tsc --project plugin/tsconfig.json"
   },

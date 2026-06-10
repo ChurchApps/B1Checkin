@@ -143,7 +143,8 @@
   },
   "selectGroup": {
     "choosingFor": "Scelta per {{name}}",
-    "groupCount": "{{count}} gruppi",
+    "groupCount_one": "{{count}} gruppo",
+    "groupCount_other": "{{count}} gruppi",
     "noGroupOption": "Nessun gruppo questa volta",
     "noGroups": "Nessun gruppo disponibile per questo orario",
     "none": "Nessuno",

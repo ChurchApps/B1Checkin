@@ -162,3 +162,7 @@ Notes.md
 # modules/printer-helper/ios/Frameworks/*.xcframework), which EAS must upload.
 /GoogleService-Info.plist
 .env
+
+# Playwright
+test-results/
+playwright-report/

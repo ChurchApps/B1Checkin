@@ -143,7 +143,8 @@
   },
   "selectGroup": {
     "choosingFor": "正在为{{name}}选择",
-    "groupCount": "{{count}}个小组",
+    "groupCount_one": "{{count}} 个组",
+    "groupCount_other": "{{count}} 个组",
     "noGroupOption": "这次不选小组",
     "noGroups": "此时段没有可用的小组",
     "none": "无",

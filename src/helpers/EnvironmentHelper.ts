@@ -1,9 +1,5 @@
 import { ApiHelper } from "./ApiHelper";
 
-const CONTENT_ROOT = "https://content.staging.churchapps.org";
-const MEMBERSHIP_API = "https://api.staging.churchapps.org/membership";
-const ATTENDANCE_API = "https://api.staging.churchapps.org/attendance";
-
 export class EnvironmentHelper {
   private static MembershipApi = "";
   private static AttendanceApi = "";
@@ -11,34 +7,30 @@ export class EnvironmentHelper {
   static ContentRoot = "";
 
   static init = () => {
-    // let stage = STAGE;
-    const stage = "prod";
-
-    //stage = "staging";
+    const stage = process.env.EXPO_PUBLIC_STAGE || "prod";
 
     switch (stage) {
+      case "dev": EnvironmentHelper.initDev(); break;
       case "staging": EnvironmentHelper.initStaging(); break;
-      case "prod": EnvironmentHelper.initProd(); break;
-      default: EnvironmentHelper.initDev(); break;
+      default: EnvironmentHelper.initProd(); break;
     }
     ApiHelper.apiConfigs = [{ keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permissions: [] }, { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permissions: [] }];
   };
 
+  //NOTE: None of these values are secret.
   static initDev = () => {
-    this.initStaging();
-    EnvironmentHelper.MembershipApi = MEMBERSHIP_API || EnvironmentHelper.MembershipApi;
-    EnvironmentHelper.AttendanceApi = ATTENDANCE_API || EnvironmentHelper.AttendanceApi;
-    EnvironmentHelper.ContentRoot = CONTENT_ROOT || EnvironmentHelper.ContentRoot;
+    // 127.0.0.1 (not localhost): browsers may resolve localhost to ::1 while the Api listens on IPv4 only
+    EnvironmentHelper.MembershipApi = "http://127.0.0.1:8084/membership";
+    EnvironmentHelper.AttendanceApi = "http://127.0.0.1:8084/attendance";
+    EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
   };
 
-  //NOTE: None of these values are secret.
   static initStaging = () => {
     EnvironmentHelper.MembershipApi = "https://api.staging.churchapps.org/membership";
     EnvironmentHelper.AttendanceApi = "https://api.staging.churchapps.org/attendance";
     EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
   };
 
-  //NOTE: None of these values are secret.
   static initProd = () => {
     EnvironmentHelper.MembershipApi = "https://api.churchapps.org/membership";
     EnvironmentHelper.AttendanceApi = "https://api.churchapps.org/attendance";
