@@ -1,15 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Zpět na kiosek",
-    "changePin": "Změnit administrátorský PIN",
-    "changePrinter": "Změnit tiskárnu",
-    "changeService": "Změnit bohoslužbu",
-    "pinChanged": "PIN byl úspěšně změněn",
-    "subtitle": "Spravujte nastavení kioskového zařízení",
-    "title": "Nastavení administrátora"
-  },
   "addGuest": {
     "addButton": "Přidat hosta",
+    "addFailed": "Hosta se nepodařilo přidat. Zkuste to prosím znovu.",
     "enterFirstName": "Zadejte křestní jméno",
     "enterLastName": "Zadejte příjmení",
     "firstName": "Křestní jméno",
@@ -19,19 +11,38 @@
     "subtitle": "Zadejte informace o hostovi pro přidání do vaší domácnosti",
     "title": "Přidat hosta"
   },
+  "admin": {
+    "backToKiosk": "Zpět na kiosek",
+    "changePin": "Změnit administrátorský PIN",
+    "changePrinter": "Změnit tiskárnu",
+    "changeService": "Změnit bohoslužbu",
+    "pinChanged": "PIN byl úspěšně změněn",
+    "setPin": "Nastavit administrátorský PIN",
+    "subtitle": "Spravujte nastavení kioskového zařízení",
+    "title": "Nastavení administrátora"
+  },
   "checkinComplete": {
+    "allSet": "Vše je hotovo!",
+    "checkinError": "Něco se nepovedlo – obraťte se prosím na dobrovolníka.",
+    "haveAGreatService": "Přejeme vám krásnou bohoslužbu.",
+    "labelsPrinted": "Jmenovky vytištěny",
+    "milestoneWeeks": "Týdnů v řadě!",
+    "printingLabels": "Tiskneme vaše jmenovky…",
     "printingMessage": "Vaše štítky se nyní tisknou.",
+    "returning": "Návrat na začátek…",
     "subtitle": "Vaše rodina byla úspěšně přihlášena",
     "title": "Přihlášení dokončeno",
     "welcomeMessage": "Vaše rodina byla úspěšně přihlášena.",
-    "welcomeTitle": "Vítejte!",
-    "milestoneWeeks": "Týdnů v řadě!"
+    "welcomeTitle": "Vítejte!"
   },
   "common": {
     "back": "Zpět",
     "cancel": "Zrušit",
+    "continue": "Pokračovat",
     "login": "Přihlásit se",
     "logout": "Odhlásit se",
+    "ok": "OK",
+    "retry": "Zkusit znovu",
     "search": "Hledat"
   },
   "header": {
@@ -41,12 +52,18 @@
   "household": {
     "addGuest": "Přidat hosta",
     "alreadyCheckedIn": "Již přihlášen",
-    "checkin": "PŘIHLÁSIT",
+    "checkin": "Přihlásit",
+    "checkinCount": "Přihlásit – {{count}}",
+    "chooseGroupHint": "Vyberte skupinu alespoň pro jednu osobu",
     "duplicateConfirm": "Přihlásit znovu",
     "duplicateMessage": "{{names}} již byli přihlášeni na tuto bohoslužbu. Přihlaste je znovu pro aktualizaci jejich skupin.",
     "duplicateTitle": "Již přihlášen",
+    "emptyTitle": "Nebyli nalezeni žádní členové domácnosti",
     "subtitle": "Vyberte, kdo se dnes přihlašuje",
-    "title": "Vyberte členy domácnosti"
+    "title": "Kdo se přihlašuje?"
+  },
+  "idle": {
+    "tapToCheckin": "Klepněte pro přihlášení"
   },
   "login": {
     "emailPlaceholder": "E-mail",
@@ -61,8 +78,10 @@
     "welcomeBack": "Vítejte zpět"
   },
   "lookup": {
+    "backToKeypad": "Zpět na klávesnici",
     "enterPhone": "Zadejte telefonní číslo nebo poslední čtyři číslice",
     "invalidNumbers": "Zadejte platná čísla.",
+    "keypadHint": "Funguje i celé telefonní číslo",
     "minDigits": "Zadejte alespoň čtyři číslice.",
     "minLetters": "Zadejte alespoň dvě písmena příjmení.",
     "modeName": "Jméno",
@@ -72,24 +91,25 @@
     "noMatchSubtitleName": "Zkuste vyhledat jiné příjmení",
     "noMatchTitle": "Nebyly nalezeny žádné shody",
     "phonePlaceholder": "Zadejte poslední čtyři číslice mobilního čísla",
+    "qrGuest": "Naskenujte pro registraci jako host",
     "readySubtitle": "Zadejte telefonní číslo pro vyhledání osob",
     "readyTitle": "Připraveno k vyhledávání",
+    "registerGuest": "Registrovat se jako host",
+    "resultsFound_one": "{{count}} výsledek",
+    "resultsFound_other": "{{count}} výsledků",
+    "searchByName": "Hledat podle jména",
     "searchError": "Vyhledávání se nepodařilo dokončit. Zkuste to znovu.",
     "searching": "Vyhledávání...",
     "subtitle": "Zadejte poslední čtyři číslice mobilního čísla",
     "title": "Hledat podle telefonního čísla",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
-    "qrGuest": "Naskenujte pro registraci jako host",
-    "registerGuest": "Registrovat se jako host"
+    "usePhone": "Použít telefonní číslo",
+    "welcomeSubtitle": "Najděte svou rodinu podle telefonního čísla nebo jména",
+    "welcomeTitle": "Vítejte! Pojďme vás přihlásit."
   },
   "members": {
     "error": "Chyba",
     "selectGroup": "Vyberte skupinu",
     "unknown": "Neznámý"
-  },
-  "print": {
-    "printing": "Tisk"
   },
   "pinEntry": {
     "attemptsRemaining": "Zbývá {{count}} pokusů",
@@ -98,15 +118,46 @@
     "tooManyAttempts": "Příliš mnoho neúspěšných pokusů. Počkejte prosím.",
     "wrongPin": "Nesprávný PIN. Zkuste to znovu."
   },
+  "print": {
+    "printing": "Tisk"
+  },
   "printers": {
+    "diagnostics": "Diagnostika",
     "noPrinter": "Žádná tiskárna",
     "noPrinterSelected": "Nebyla vybrána žádná tiskárna",
+    "noneFound": "V této síti nebyly nalezeny žádné tiskárny",
+    "rescan": "Hledat znovu",
     "saveAndContinue": "Uložit a pokračovat",
     "saveRestart": "Uložit a restartovat",
+    "saving": "Ukládání…",
     "scanning": "Vyhledávání tiskáren...",
     "subtitle": "Vyberte tiskárnu pro tisk jmenovek a štítků",
     "testPrint": "Zkušební tisk",
     "title": "Vyberte tiskárnu"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Váš účet nemá přístup k žádnému sboru.",
+    "emptyTitle": "Žádné dostupné sbory",
+    "loading": "Načítání sborů...",
+    "title": "Vyberte sbor"
+  },
+  "selectGroup": {
+    "choosingFor": "Vybíráte pro {{name}}",
+    "groupCount": "{{count}} skupin",
+    "noGroupOption": "Tentokrát bez skupiny",
+    "noGroups": "Pro tento čas nejsou k dispozici žádné skupiny",
+    "none": "Žádná",
+    "subtitle": "Vyberte skupinu pro {{serviceName}}",
+    "title": "Vyberte skupinu"
+  },
+  "services": {
+    "emptySubtitle": "Vytvořte bohoslužby v B1 Admin a začněte přihlašovat účastníky.",
+    "emptyTitle": "Zatím nejsou nastaveny žádné bohoslužby",
+    "loadError": "Bohoslužby se nepodařilo načíst.",
+    "loading": "Načítání bohoslužeb...",
+    "selectService": "Vyberte bohoslužbu:",
+    "subtitle": "Vyberte bohoslužbu, na kterou se chcete přihlásit",
+    "title": "Vyberte bohoslužbu"
   },
   "setPin": {
     "confirmPin": "Potvrďte svůj PIN",
@@ -117,27 +168,16 @@
     "subtitle": "Vytvořte 4–6místný PIN pro ochranu nastavení administrátora",
     "title": "Nastavit administrátorský PIN"
   },
-  "selectChurch": {
-    "loading": "Načítání sborů...",
-    "title": "Vyberte sbor"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} skupin",
-    "none": "Žádná",
-    "subtitle": "Vyberte skupinu pro {{serviceName}}",
-    "title": "Vyberte skupinu"
-  },
-  "services": {
-    "loading": "Načítání bohoslužeb...",
-    "selectService": "Vyberte bohoslužbu:",
-    "subtitle": "Vyberte bohoslužbu, na kterou se chcete přihlásit",
-    "title": "Vyberte bohoslužbu"
-  },
   "splash": {
     "checkingUpdates": "Kontrola aktualizací...",
     "downloadingUpdate": "Stahování aktualizace...",
     "initializing": "Inicializace...",
     "loadingChurch": "Načítání dat sboru...",
     "loggingIn": "Přihlašování..."
+  },
+  "steps": {
+    "done": "Hotovo",
+    "find": "Najít",
+    "select": "Vybrat"
   }
 }

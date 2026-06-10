@@ -1,73 +1,49 @@
 import React from "react";
-import { View, Text } from "react-native";
-import Ripple from "react-native-material-ripple";
-import { FontAwesome } from "@expo/vector-icons";
-import { StyleConstants, DimensionHelper } from "../helpers";
-import { useCheckinTheme } from "../context/CheckinThemeContext";
+import { Pressable, Text, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useAppTheme } from "../theme";
 
 interface Props {
-  icon: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   onBack?: () => void;
+  icon?: string;
+  compact?: boolean;
+  centered?: boolean;
 }
 
 const Subheader = (props: Props) => {
-  const { theme } = useCheckinTheme();
+  const theme = useAppTheme();
+  const titleSize = props.compact ? 24 : 30;
+  const titleFont = props.compact ? theme.fonts.semibold : theme.fonts.bold;
+
   return (
-    <View style={[subheaderStyles.textSection, { backgroundColor: theme.colors.subheaderBackground, shadowColor: theme.colors.primary }]}>
-      <View style={subheaderStyles.headerTextContainer}>
-        <View style={subheaderStyles.titleRow}>
-          {props.onBack && (
-            <Ripple style={subheaderStyles.backButton} onPress={props.onBack}>
-              <FontAwesome name="arrow-left" size={DimensionHelper.wp("4%")} color="rgba(255,255,255,0.9)" />
-            </Ripple>
-          )}
-          <View style={subheaderStyles.titleIconContainer}>
-            <Text style={subheaderStyles.titleIcon}>{props.icon}</Text>
-          </View>
-          <View style={subheaderStyles.titleTextContainer}>
-            <Text style={subheaderStyles.headerTitle}>{props.title}</Text>
-            <Text style={subheaderStyles.headerSubtitle}>{props.subtitle}</Text>
-          </View>
-        </View>
+    <View style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.lg, flexDirection: "row", alignItems: "center", gap: theme.spacing.md }}>
+      {props.onBack && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="back"
+          onPress={props.onBack}
+          style={({ pressed }) => ({
+            width: 48,
+            height: 48,
+            borderRadius: 24,
+            backgroundColor: pressed ? theme.colors.primarySoft : theme.colors.surface,
+            borderWidth: 1.5,
+            borderColor: theme.colors.border,
+            alignItems: "center",
+            justifyContent: "center"
+          })}>
+          <MaterialIcons name="arrow-back" size={24} color={theme.colors.textPrimary} />
+        </Pressable>
+      )}
+      <View style={{ flex: 1, alignItems: props.centered ? "center" : "flex-start" }}>
+        <Text style={{ fontSize: titleSize, lineHeight: titleSize + 8, fontFamily: titleFont, color: theme.colors.textPrimary, textAlign: props.centered ? "center" : "left" }}>{props.title}</Text>
+        {!!props.subtitle && <Text style={{ fontSize: 17, lineHeight: 24, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, marginTop: 4, textAlign: props.centered ? "center" : "left" }}>{props.subtitle}</Text>}
       </View>
+      {props.onBack && props.centered && <View style={{ width: 48 }} />}
     </View>
   );
 };
 
-const subheaderStyles = {
-  textSection: {
-    backgroundColor: "#568BDA",
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingTop: DimensionHelper.wp("2.5%"),
-    paddingBottom: DimensionHelper.wp("2.5%"),
-    borderBottomLeftRadius: DimensionHelper.wp("5%"),
-    borderBottomRightRadius: DimensionHelper.wp("5%"),
-    marginBottom: DimensionHelper.wp("1.5%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  headerTextContainer: { width: "100%" },
-
-  titleRow: { flexDirection: "row", alignItems: "center", width: "100%" },
-
-  backButton: { width: DimensionHelper.wp("8%"), height: DimensionHelper.wp("8%"), borderRadius: DimensionHelper.wp("4%"), backgroundColor: "rgba(255,255,255,0.2)", justifyContent: "center" as const, alignItems: "center" as const, marginRight: DimensionHelper.wp("2.5%") },
-
-  titleIconContainer: { backgroundColor: "rgba(255,255,255,0.2)", borderRadius: 8, width: DimensionHelper.wp("8%"), height: DimensionHelper.wp("8%"), justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2.5%") },
-
-  titleIcon: { fontSize: DimensionHelper.wp("4%") },
-
-  titleTextContainer: { flex: 1 },
-
-  headerTitle: { fontSize: DimensionHelper.wp("4.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor, marginBottom: DimensionHelper.wp("0.5%"), textAlign: "left" },
-
-  headerSubtitle: { fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoRegular, color: "rgba(255,255,255,0.9)", textAlign: "left" }
-};
-
 export default Subheader;
-

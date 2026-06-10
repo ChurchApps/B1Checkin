@@ -1,44 +1,49 @@
 import React from "react";
-import { useRouter, useLocalSearchParams } from "expo-router";
-import { TextInput, View, Text, Image, ImageBackground, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio, StyleSheet } from "react-native";
-import Ripple from "react-native-material-ripple";
+import { useRouter } from "expo-router";
+import { FlatList, Pressable, Text, useWindowDimensions, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
+import QRCode from "react-native-qrcode-svg";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
-import { EnvironmentHelper, screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
-import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
+import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, PersonInterface, screenNavigationProps } from "../src/helpers";
 import Header from "../src/components/Header";
-import QRCode from "react-native-qrcode-svg";
+import IdleScreen from "../src/components/IdleScreen";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { useInactivityTimer } from "../src/hooks/useInactivityTimer";
-import IdleScreen from "../src/components/IdleScreen";
+import { useAppTheme } from "../src/theme";
+import { Avatar, Button, EmptyState, ListRow, NumberPad, Screen, Sheet, SkeletonList, TextField } from "../src/components/ui";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
 const Lookup = (props: Props) => {
-  // const Lookup = () => {
   const { t } = useTranslation();
-  const { theme } = useCheckinTheme();
+  const theme = useAppTheme();
+  const { theme: checkinTheme } = useCheckinTheme();
   const { isIdle, resetTimer, dismiss } = useInactivityTimer(
-    theme.idleScreen.timeoutSeconds,
-    theme.idleScreen.enabled && (theme.idleScreen.slides || []).length > 0
+    checkinTheme.idleScreen.timeoutSeconds,
+    checkinTheme.idleScreen.enabled && (checkinTheme.idleScreen.slides || []).length > 0
   );
   const router = useRouter();
-  const params = useLocalSearchParams();
-  const [hasSearched, setHasSearched] = React.useState<boolean>(false);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [people, setPeople] = React.useState([]);
+  const { height: windowHeight } = useWindowDimensions();
+  const [hasSearched, setHasSearched] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [people, setPeople] = React.useState<PersonInterface[]>([]);
   const [phone, setPhone] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [searchMode, setSearchMode] = React.useState<"phone" | "name">("phone");
-  const [dimension, setDimension] = React.useState(Dimensions.get("window"));
   const [showQR, setShowQR] = React.useState(false);
-  const [qrExpanded, setQrExpanded] = React.useState(false);
+  const [qrVisible, setQrVisible] = React.useState(false);
+  const [loadingPersonId, setLoadingPersonId] = React.useState<string | null>(null);
+  const [searchFailed, setSearchFailed] = React.useState(false);
+
+  const keyHeight = windowHeight < 1000 ? 72 : 88;
+  const canSearch = searchMode === "phone" ? phone.length >= 4 : lastName.trim().length >= 2;
 
   const loadHouseholdMembers = async () => {
     CachedData.householdMembers = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
-    loadExistingVisits();
+    await loadExistingVisits();
   };
 
   const loadExistingVisits = async () => {
@@ -47,433 +52,241 @@ const Lookup = (props: Props) => {
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(",")) + "&include=visitSessions";
     CachedData.existingVisits = await ApiHelper.get(url, "AttendanceApi");
     CachedData.pendingVisits = [...CachedData.existingVisits];
-    setIsLoading(false);
+    setLoadingPersonId(null);
     router.navigate("/household");
   };
 
   const selectPerson = (person: PersonInterface) => {
-    setIsLoading(true);
+    if (loadingPersonId) return;
+    setLoadingPersonId(person.id || "");
     CachedData.householdId = person.householdId || "";
-    loadHouseholdMembers();
+    loadHouseholdMembers().catch(() => {
+      setLoadingPersonId(null);
+      setSearchFailed(true);
+    });
   };
 
-  const handleModeChange = (mode: "phone" | "name") => {
+  const switchMode = (mode: "phone" | "name") => {
     if (mode === searchMode) return;
     setSearchMode(mode);
     setHasSearched(false);
+    setSearchFailed(false);
     setPeople([]);
   };
 
+  const resetSearch = () => {
+    setHasSearched(false);
+    setSearchFailed(false);
+    setPeople([]);
+    setPhone("");
+    setLastName("");
+  };
+
   const handleSearch = () => {
-    if (searchMode === "phone") {
-      const nonNumericPattern = /[^\d]/;
-      if (nonNumericPattern.test(phone)) {
-        Utils.snackBar(t("lookup.invalidNumbers"));
-        return;
-      }
-
-      const cleanedPhone = phone.replace(/\D/g, "");
-      if (cleanedPhone === "") {
-        Utils.snackBar(t("lookup.enterPhone"));
-        return;
-      }
-
-      if (cleanedPhone.length < 4) {
-        Utils.snackBar(t("lookup.minDigits"));
-        return;
-      }
-
-      Keyboard.dismiss();
-      setHasSearched(true);
-      setIsLoading(true);
-      const searchQuery = cleanedPhone.length > 4 ? cleanedPhone : cleanedPhone.slice(-4);
-      ApiHelper.get("/people/search/phone?number=" + searchQuery, "MembershipApi")
-        .then(data => {
-          setPeople(data);
-        })
-        .catch(() => {
-          Utils.snackBar(t("lookup.searchError"));
-        })
-        .finally(() => setIsLoading(false));
-    } else {
-      const trimmedLast = lastName.trim();
-      if (trimmedLast.length < 2) {
-        Utils.snackBar(t("lookup.minLetters"));
-        return;
-      }
-
-      Keyboard.dismiss();
-      setHasSearched(true);
-      setIsLoading(true);
-      const url = "/people/search?term=" + encodeURIComponent(trimmedLast);
-      ApiHelper.get(url, "MembershipApi")
-        .then(data => {
-          setPeople(data);
-        })
-        .catch(() => {
-          Utils.snackBar(t("lookup.searchError"));
-        })
-        .finally(() => setIsLoading(false));
-    }
-  };
-
-  const getRow = (data: any) => {
-    const person: PersonInterface = data.item;
-    return (
-      <Ripple style={lookupStyles.personCard} onPress={() => { selectPerson(person); }}>
-        <View style={lookupStyles.personCardInner}>
-          <Image
-            source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
-            style={lookupStyles.personPhoto}
-          />
-          <View style={lookupStyles.personInfo}>
-            <Text style={lookupStyles.personName}>{person?.name?.display}</Text>
-          </View>
-          <View style={lookupStyles.arrowContainer}>
-            <Text style={[lookupStyles.arrow, { color: theme.colors.primary }]}>›</Text>
-          </View>
-        </View>
-        <View style={[lookupStyles.personCardAccent, { backgroundColor: theme.colors.primary }]} />
-      </Ripple>
-    );
-  };
-
-  const getResults = () => {
-    if (!hasSearched) {
-      return (
-        <View style={lookupStyles.emptyState}>
-          <Text style={lookupStyles.emptyStateIcon}>🔍</Text>
-          <Text style={lookupStyles.emptyStateTitle}>{t("lookup.readyTitle")}</Text>
-          <Text style={lookupStyles.emptyStateSubtitle}>{t("lookup.readySubtitle")}</Text>
-        </View>
-      );
-    } else if (isLoading) {
-      return (
-        <View style={lookupStyles.loadingContainer}>
-          <ActivityIndicator size="large" color={theme.colors.primary} animating={isLoading} />
-          <Text style={lookupStyles.loadingText}>{t("lookup.searching")}</Text>
-        </View>
-      );
-    } else {
-      if (people.length === 0) {
-        return (
-          <View style={lookupStyles.noResultsState}>
-            <Text style={lookupStyles.noResultsIcon}>😔</Text>
-            <Text style={lookupStyles.noResultsTitle}>{t("lookup.noMatchTitle")}</Text>
-            <Text style={lookupStyles.noResultsSubtitle}>
-              {searchMode === "phone"
-                ? t("lookup.noMatchSubtitle")
-                : t("lookup.noMatchSubtitleName")}
-            </Text>
-          </View>
-        );
-      }
-      return (
-        <View style={lookupStyles.resultsContainer}>
-          <View style={lookupStyles.resultsDivider}>
-            <View style={lookupStyles.resultsDividerLine} />
-            <Text style={lookupStyles.resultsDividerText}>{people.length === 1 ? "1 Result Found" : people.length + " Results Found"}</Text>
-            <View style={lookupStyles.resultsDividerLine} />
-          </View>
-          <FlatList
-            data={people}
-            renderItem={getRow}
-            keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
-            contentContainerStyle={lookupStyles.resultsList}
-            showsVerticalScrollIndicator={false}
-          />
-        </View>
-      );
-    }
+    if (!canSearch) return;
+    setHasSearched(true);
+    setIsLoading(true);
+    setSearchFailed(false);
+    const url = searchMode === "phone"
+      ? "/people/search/phone?number=" + (phone.length > 4 ? phone : phone.slice(-4))
+      : "/people/search?term=" + encodeURIComponent(lastName.trim());
+    ApiHelper.get(url, "MembershipApi")
+      .then(data => setPeople(data))
+      .catch(() => setSearchFailed(true))
+      .finally(() => setIsLoading(false));
   };
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Lookup");
-    const subscription = Dimensions.addEventListener("change", () => {
-      setDimension(Dimensions.get("screen"));
-    });
     if (CachedData.userChurch?.church?.id) {
       ApiHelper.getAnonymous("/settings/public/" + CachedData.userChurch.church.id, "MembershipApi")
         .then((settings: any) => { setShowQR(settings?.enableQRGuestRegistration === "true"); })
         .catch(() => { setShowQR(false); });
     }
-    return () => subscription.remove();
   }, []);
 
-  const wd = (number: string) => {
-    const givenWidth = typeof number === "number" ? number : parseFloat(number);
-    return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
+  const formatPhoneDisplay = (digits: string) => {
+    if (digits.length <= 4) return digits;
+    if (digits.length <= 7) return digits.slice(0, 3) + "-" + digits.slice(3);
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
   };
 
-  const screenContent = (
-    <>
-      <Header
-        navigation={props.navigation}
-        prominentLogo={true}
+  const getPersonRow = ({ item, index }: { item: PersonInterface; index: number }) => (
+    <Animated.View entering={FadeInDown.duration(200).delay(Math.min(index, 8) * 40)}>
+      <ListRow
+        size="lg"
+        title={item?.name?.display || ""}
+        left={<Avatar name={item?.name?.display || ""} photoUri={item.photo ? EnvironmentHelper.ContentRoot + item.photo : undefined} size={64} />}
+        right={loadingPersonId === item.id ? "spinner" : "chevron"}
+        onPress={() => selectPerson(item)}
+        style={{ marginBottom: theme.spacing.md }}
       />
+    </Animated.View>
+  );
 
-      {/* Main Content */}
-      <View style={lookupStyles.mainContent}>
-        {/* Greeting */}
-        <View style={lookupStyles.greeting}>
-          <Text style={lookupStyles.greetingWave}>👋</Text>
-          <Text style={lookupStyles.greetingTitle}>{t("lookup.welcomeTitle")}</Text>
-          <Text style={lookupStyles.greetingSubtitle}>{t("lookup.welcomeSubtitle")}</Text>
-        </View>
-
-        {/* Search Input */}
-        <View style={lookupStyles.searchSection}>
-          <View style={lookupStyles.modeToggleContainer}>
-            <Ripple
-              style={[lookupStyles.modeButton, searchMode === "phone" && [lookupStyles.modeButtonActive, { backgroundColor: theme.colors.buttonBackground }]]}
-              onPress={() => handleModeChange("phone")}
-            >
-              <Text style={[lookupStyles.modeButtonText, { color: theme.colors.primary }, searchMode === "phone" && lookupStyles.modeButtonTextActive]}>{t("lookup.modePhone")}</Text>
-            </Ripple>
-            <Ripple
-              style={[lookupStyles.modeButton, searchMode === "name" && [lookupStyles.modeButtonActive, { backgroundColor: theme.colors.buttonBackground }]]}
-              onPress={() => handleModeChange("name")}
-            >
-              <Text style={[lookupStyles.modeButtonText, { color: theme.colors.primary }, searchMode === "name" && lookupStyles.modeButtonTextActive]}>{t("lookup.modeName")}</Text>
-            </Ripple>
-          </View>
-          {searchMode === "phone" ? (
-            <View style={[lookupStyles.searchView, { shadowColor: theme.colors.primary }]}>
-              <TextInput
-                placeholder={String(t("lookup.phonePlaceholder"))}
-                onChangeText={(value) => { setPhone(value); }}
-                value={phone}
-                keyboardType="numeric"
-                autoCapitalize="none"
-                returnKeyType="search"
-                onSubmitEditing={handleSearch}
-                style={lookupStyles.searchTextInput}
-                placeholderTextColor={StyleConstants.lightGray}
-                numberOfLines={1}
-                editable={true}
+  const getResultsBody = () => {
+    if (isLoading) return <SkeletonList rows={3} />;
+    if (searchFailed) {
+      return (
+        <EmptyState
+          icon="error-outline"
+          tone="warning"
+          title={t("lookup.searchError")}
+          action={<Button label={t("common.retry")} onPress={resetSearch} fullWidth />}
+        />
+      );
+    }
+    if (people.length === 0) {
+      return (
+        <EmptyState
+          icon="search-off"
+          title={t("lookup.noMatchTitle")}
+          subtitle={searchMode === "phone" ? t("lookup.noMatchSubtitle") : t("lookup.noMatchSubtitleName")}
+          action={
+            <>
+              <Button label={t("common.retry")} onPress={resetSearch} fullWidth />
+              <Button
+                label={searchMode === "phone" ? t("lookup.searchByName") : t("lookup.usePhone")}
+                variant="ghost"
+                onPress={() => {
+                  resetSearch();
+                  switchMode(searchMode === "phone" ? "name" : "phone");
+                }}
+                fullWidth
               />
-              <Ripple style={[lookupStyles.searchButton, { backgroundColor: theme.colors.buttonBackground }]} onPress={handleSearch}>
-                <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
-              </Ripple>
-            </View>
-          ) : (
-            <View style={[lookupStyles.searchView, { shadowColor: theme.colors.primary }]}>
-              <TextInput
-                placeholder={String(t("lookup.namePlaceholder"))}
-                onChangeText={(value) => { setLastName(value); }}
-                value={lastName}
-                autoCapitalize="words"
-                returnKeyType="search"
-                onSubmitEditing={handleSearch}
-                style={[lookupStyles.searchTextInput, lookupStyles.nameTextInput]}
-                placeholderTextColor={StyleConstants.lightGray}
-                editable={true}
-              />
-              <Ripple style={[lookupStyles.searchButton, lookupStyles.nameSearchButton, { backgroundColor: theme.colors.buttonBackground }]} onPress={handleSearch}>
-                <Text style={lookupStyles.searchButtonText}>{t("common.search")}</Text>
-              </Ripple>
-            </View>
-          )}
+            </>
+          }
+        />
+      );
+    }
+    return (
+      <FlatList
+        data={people}
+        renderItem={getPersonRow}
+        keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: theme.spacing.xl }}
+      />
+    );
+  };
 
-          {/* Search Meta Row */}
-          <View style={lookupStyles.searchMeta}>
-            <Text style={lookupStyles.searchHint}>{searchMode === "phone" ? t("lookup.subtitle") : t("lookup.minLetters")}</Text>
-            {showQR && CachedData.userChurch?.church?.subDomain && !qrExpanded && (
-              <Ripple style={[lookupStyles.guestButton, { borderColor: theme.colors.primary + "66" }]} onPress={() => setQrExpanded(true)}>
-                <Text style={[lookupStyles.guestButtonText, { color: theme.colors.primary }]}>{t("lookup.registerGuest")}</Text>
-              </Ripple>
-            )}
-          </View>
-        </View>
-
-        {/* QR Code (expanded) */}
-        {showQR && qrExpanded && CachedData.userChurch?.church?.subDomain && (
-          <View style={lookupStyles.qrSection}>
-            <View style={lookupStyles.qrContainer}>
-              <QRCode
-                value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
-                size={DimensionHelper.wp("20%")}
-                backgroundColor={StyleConstants.whiteColor}
-                color={theme.colors.primary}
-              />
-              <Text style={[lookupStyles.qrLabel, { color: theme.colors.primary }]}>{t("lookup.qrGuest")}</Text>
-            </View>
-          </View>
-        )}
-
-        {/* Results Section */}
-        <View style={lookupStyles.resultsSection}>
-          {getResults()}
-        </View>
+  const results = (
+    <Animated.View entering={FadeIn.duration(200)} style={{ flex: 1 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: theme.spacing.xl, marginBottom: theme.spacing.lg }}>
+        <Text style={{ ...theme.type.overline, color: theme.colors.textMuted }}>
+          {isLoading ? t("lookup.searching") : t("lookup.resultsFound", { count: people.length })}
+        </Text>
+        <Button label={t("lookup.backToKeypad")} variant="ghost" size="md" icon="dialpad" onPress={resetSearch} />
       </View>
+      {getResultsBody()}
+    </Animated.View>
+  );
+
+  const phonePad = (
+    <>
+      <View style={{ height: 72, alignItems: "center", justifyContent: "center" }}>
+        <Text style={{ ...theme.type.display, color: theme.colors.textPrimary, opacity: phone ? 1 : 0.25, letterSpacing: !phone || phone.length <= 4 ? 6 : 0 }}>
+          {phone ? formatPhoneDisplay(phone) : "____"}
+        </Text>
+      </View>
+      <View style={{ flex: 1 }} />
+      <NumberPad
+        keyHeight={keyHeight}
+        onDigit={digit => {
+          if (phone.length < 10) setPhone(phone + digit);
+        }}
+        onBackspace={() => setPhone(phone.slice(0, -1))}
+        onClear={() => setPhone("")}
+        bottomLeft={{ icon: "keyboard", label: t("lookup.searchByName"), onPress: () => switchMode("name") }}
+      />
+      <Button
+        label={t("common.search")}
+        size="xl"
+        fullWidth
+        disabled={!canSearch}
+        onPress={handleSearch}
+        style={{ marginTop: theme.spacing.lg }}
+      />
     </>
   );
 
-  if (theme.backgroundImage) {
-    return (
-      <ImageBackground
-        source={{ uri: theme.backgroundImage }}
-        style={{ flex: 1 }}
-        resizeMode="cover"
-      >
-        <View style={[lookupStyles.container, { backgroundColor: "rgba(246,246,248,0.85)" }]} onTouchStart={resetTimer}>
-          {screenContent}
-          <IdleScreen visible={isIdle} onDismiss={dismiss} />
-        </View>
-      </ImageBackground>
-    );
-  }
+  const namePad = (
+    <>
+      <TextField
+        size="lg"
+        leadingIcon="person-search"
+        placeholder={String(t("lookup.namePlaceholder"))}
+        value={lastName}
+        onChangeText={setLastName}
+        autoCapitalize="words"
+        returnKeyType="search"
+        onSubmitEditing={handleSearch}
+        autoFocus
+        containerStyle={{ marginTop: theme.spacing.xl }}
+      />
+      <Button
+        label={t("common.search")}
+        size="xl"
+        fullWidth
+        disabled={!canSearch}
+        onPress={handleSearch}
+        style={{ marginTop: theme.spacing.lg }}
+      />
+      <Button
+        label={t("lookup.usePhone")}
+        variant="ghost"
+        icon="dialpad"
+        onPress={() => switchMode("phone")}
+        style={{ marginTop: theme.spacing.md }}
+      />
+      <View style={{ flex: 1 }} />
+    </>
+  );
 
-  return (
-    <View style={lookupStyles.container} onTouchStart={resetTimer}>
-      {screenContent}
-      <IdleScreen visible={isIdle} onDismiss={dismiss} />
+  const searchBody = (
+    <View style={{ flex: 1 }}>
+      <View style={{ alignItems: "center", marginTop: theme.spacing.xl }}>
+        <Text style={{ ...theme.type.h1, color: theme.colors.textPrimary, textAlign: "center" }}>{t("lookup.welcomeTitle")}</Text>
+        <Text style={{ ...theme.type.bodyLg, color: theme.colors.textMuted, textAlign: "center", marginTop: theme.spacing.xs }}>
+          {searchMode === "phone" ? t("lookup.welcomeSubtitle") : t("lookup.minLetters")}
+        </Text>
+      </View>
+      {searchMode === "phone" ? phonePad : namePad}
+      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: theme.spacing.lg, marginTop: theme.spacing.md, marginBottom: theme.spacing.lg, minHeight: 40 }}>
+        {searchMode === "phone" && <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.textMuted }}>{t("lookup.keypadHint")}</Text>}
+        {showQR && !!CachedData.userChurch?.church?.subDomain && (
+          <Pressable onPress={() => setQrVisible(true)} style={{ minHeight: 40, justifyContent: "center" }}>
+            <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.primary, textDecorationLine: "underline" }}>{t("lookup.registerGuest")}</Text>
+          </Pressable>
+        )}
+      </View>
     </View>
   );
+
+  return (
+    <>
+      <Screen
+        header={<Header navigation={props.navigation} prominentLogo={true} />}
+        onUserActivity={resetTimer}
+        overlay={<IdleScreen visible={isIdle} onDismiss={dismiss} />}>
+        {hasSearched ? results : searchBody}
+      </Screen>
+      <Sheet visible={qrVisible} onClose={() => setQrVisible(false)} maxWidth={340}>
+        <View style={{ alignItems: "center", gap: theme.spacing.lg }}>
+          {!!CachedData.userChurch?.church?.subDomain && (
+            <QRCode
+              value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
+              size={200}
+              backgroundColor="#FFFFFF"
+              color={theme.colors.primary}
+            />
+          )}
+          <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.textPrimary, textAlign: "center" }}>{t("lookup.qrGuest")}</Text>
+          <Button label={t("common.ok")} onPress={() => setQrVisible(false)} fullWidth />
+        </View>
+      </Sheet>
+    </>
+  );
 };
-
-const lookupStyles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
-
-  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%") },
-
-  greeting: { alignItems: "center", marginTop: DimensionHelper.wp("6%"), marginBottom: DimensionHelper.wp("10%") },
-
-  greetingWave: { fontSize: DimensionHelper.wp("8%"), marginBottom: DimensionHelper.wp("1.5%") },
-
-  greetingTitle: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoLight, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%"), textAlign: "center" },
-
-  greetingSubtitle: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.lightGray, textAlign: "center" },
-
-  searchSection: { marginBottom: DimensionHelper.wp("5%"), width: DimensionHelper.wp("90%"), maxWidth: 640, alignSelf: "center" },
-
-  searchMeta: { flexDirection: "row" as const, justifyContent: "space-between" as const, alignItems: "center" as const, marginTop: DimensionHelper.wp("1.5%"), paddingHorizontal: DimensionHelper.wp("0.5%") },
-
-  searchHint: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.lightGray },
-
-  modeToggleContainer: {
-    flexDirection: "row",
-    alignSelf: "stretch",
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: "#e0e0e0",
-    overflow: "hidden" as const,
-    marginBottom: DimensionHelper.wp("0.5%")
-  },
-
-  modeButton: { flex: 1, paddingVertical: DimensionHelper.wp("2%"), alignItems: "center", justifyContent: "center" },
-
-  modeButtonActive: { backgroundColor: StyleConstants.baseColor },
-
-  modeButtonText: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.baseColor },
-
-  modeButtonTextActive: { color: StyleConstants.whiteColor },
-  searchView: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    overflow: "hidden" as const,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor,
-    alignSelf: "stretch",
-    marginTop: DimensionHelper.wp("2%"),
-    marginBottom: DimensionHelper.wp("1.5%")
-  },
-
-  searchTextInput: { flex: 1, fontSize: DimensionHelper.wp("4%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor, paddingVertical: DimensionHelper.wp("2.5%"), paddingHorizontal: DimensionHelper.wp("3%") },
-
-  searchButton: { backgroundColor: StyleConstants.baseColor, paddingHorizontal: DimensionHelper.wp("5%"), paddingVertical: DimensionHelper.wp("2.8%"), alignItems: "center" as const, justifyContent: "center" as const },
-
-  searchButtonText: { color: StyleConstants.whiteColor, fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600" },
-
-  nameSearchView: { flexDirection: "column", alignItems: "stretch" },
-
-  nameTextInput: { backgroundColor: StyleConstants.whiteColor, borderRadius: 8 },
-
-  nameSearchButton: { alignSelf: "stretch", marginLeft: 0, marginTop: 0 },
-
-  resultsSection: { flex: 1, width: DimensionHelper.wp("90%"), maxWidth: 640, alignSelf: "center" },
-
-  resultsContainer: { flex: 1 },
-
-  resultsList: { paddingBottom: DimensionHelper.wp("3%") },
-
-  resultsDivider: { flexDirection: "row" as const, alignItems: "center" as const, marginBottom: DimensionHelper.wp("2.5%"), paddingHorizontal: DimensionHelper.wp("1%") },
-
-  resultsDividerLine: { flex: 1, height: 1, backgroundColor: "#e0e0e0" },
-
-  resultsDividerText: { fontSize: DimensionHelper.wp("2.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.lightGray, textTransform: "uppercase" as const, letterSpacing: 1.5, paddingHorizontal: DimensionHelper.wp("2%") },
-
-  personCard: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 16,
-    marginVertical: DimensionHelper.wp("1%"),
-    overflow: "hidden" as const,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  personCardInner: { flexDirection: "row" as const, alignItems: "center" as const, padding: DimensionHelper.wp("3%") },
-
-  personCardAccent: { height: 3, backgroundColor: StyleConstants.baseColor },
-
-  personPhoto: { width: DimensionHelper.wp("9%"), height: DimensionHelper.wp("9%"), borderRadius: 14, marginRight: DimensionHelper.wp("3%") },
-
-  personInfo: { flex: 1, justifyContent: "center" },
-
-  personName: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, lineHeight: DimensionHelper.wp("4.5%") },
-
-  arrowContainer: { marginLeft: DimensionHelper.wp("2%"), justifyContent: "center", alignItems: "center" },
-
-  arrow: { fontSize: DimensionHelper.wp("5%"), color: StyleConstants.baseColor, opacity: 0.7 },
-
-  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center", paddingTop: DimensionHelper.wp("15%") },
-
-  loadingText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("3%"), textAlign: "center" },
-
-  emptyState: { flex: 1, justifyContent: "center", alignItems: "center", paddingTop: DimensionHelper.wp("12%") },
-
-  emptyStateIcon: { fontSize: DimensionHelper.wp("10%"), marginBottom: DimensionHelper.wp("3%") },
-
-  emptyStateTitle: { fontSize: DimensionHelper.wp("4%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("1.5%"), textAlign: "center" },
-
-  emptyStateSubtitle: { fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.lightGray, textAlign: "center", lineHeight: DimensionHelper.wp("4%") },
-
-  qrSection: { alignItems: "center", marginBottom: DimensionHelper.wp("2%") },
-
-  qrContainer: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
-    padding: DimensionHelper.wp("2.5%"),
-    alignItems: "center",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  qrLabel: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("1.5%"), textAlign: "center" },
-
-  guestButton: { borderWidth: 1, borderColor: StyleConstants.baseColor + "66", borderRadius: 8, paddingHorizontal: DimensionHelper.wp("2.5%"), paddingVertical: DimensionHelper.wp("1%") },
-
-  guestButtonText: { fontSize: DimensionHelper.wp("2.4%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.baseColor },
-
-  noResultsState: { flex: 1, justifyContent: "center", alignItems: "center", paddingTop: DimensionHelper.wp("10%") },
-
-  noResultsIcon: { fontSize: DimensionHelper.wp("10%"), marginBottom: DimensionHelper.wp("3%") },
-
-  noResultsTitle: { fontSize: DimensionHelper.wp("4%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("1.5%"), textAlign: "center" },
-
-  noResultsSubtitle: { fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.lightGray, textAlign: "center", lineHeight: DimensionHelper.wp("4%"), paddingHorizontal: DimensionHelper.wp("8%") }
-});
 
 export default Lookup;

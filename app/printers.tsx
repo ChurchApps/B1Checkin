@@ -1,19 +1,18 @@
 import React from "react";
-import { View, Text, FlatList, Alert, ActivityIndicator, ScrollView, Share } from "react-native";
+import { Alert, FlatList, ScrollView, Share, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Ripple from "react-native-material-ripple";
 import { useTranslation } from "react-i18next";
+import { MaterialIcons } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/native";
+import RNRestart from "react-native-restart";
+import * as PrinterHelper from "printer-helper";
 import { ScreenList } from "../src/screenList";
-import { AvailablePrinter, CachedData, PrinterLog, screenNavigationProps, StyleConstants } from "../src/helpers";
-import { DimensionHelper, FirebaseHelper } from "../src/helpers";
+import { AvailablePrinter, CachedData, FirebaseHelper, PrinterLog, screenNavigationProps } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { FontAwesome } from "@expo/vector-icons";
 import PrintUI from "../src/components/PrintUI";
-import RNRestart from "react-native-restart";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as PrinterHelper from "printer-helper";
+import { useAppTheme } from "../src/theme";
+import { Button, ListRow, Screen, SkeletonList } from "../src/components/ui";
 
 const NO_PRINTER: AvailablePrinter = { model: "none", ipAddress: "", brand: "" };
 
@@ -22,11 +21,13 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 
 const Printers = (props: Props) => {
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const theme = useAppTheme();
   const [printers, setPrinters] = React.useState<AvailablePrinter[]>([NO_PRINTER]);
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>(NO_PRINTER);
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
+  const [isSaving, setIsSaving] = React.useState<boolean>(false);
+  const [diagnosticsOpen, setDiagnosticsOpen] = React.useState<boolean>(false);
   // Read from the persistent app-wide printer log so this panel also shows the
   // family-print flow that ran earlier on the checkin-complete screen.
   const [debugLog, setDebugLog] = React.useState<string[]>(PrinterLog.get());
@@ -36,7 +37,6 @@ const Printers = (props: Props) => {
     return PrinterLog.subscribe(setDebugLog);
   }, []);
 
-  // Newest-first for display; recomputed only when the log actually changes.
   const reversedLog = React.useMemo(() => debugLog.slice().reverse(), [debugLog]);
 
   const isNoPrinterSelected = (printer: AvailablePrinter) => !printer.ipAddress || printer.model === "none";
@@ -45,7 +45,6 @@ const Printers = (props: Props) => {
     FirebaseHelper.addOpenScreenEvent("Printers");
     setIsScanning(true);
 
-    // Load saved printer from AsyncStorage (single source of truth)
     try {
       const savedPrinter = await AsyncStorage.getItem("@Printer");
       if (savedPrinter) {
@@ -88,43 +87,34 @@ const Printers = (props: Props) => {
 
   React.useEffect(() => { init(); }, []);
 
-  const getPrinterRow = (data: any) => {
-    const printer: AvailablePrinter = data.item;
-    const isSelected = printer.ipAddress === selectedPrinter.ipAddress;
-    const noPrinter = isNoPrinterSelected(printer);
+  const getRadio = (isSelected: boolean) => (
+    isSelected
+      ? (
+        <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: theme.colors.primary, alignItems: "center", justifyContent: "center" }}>
+          <MaterialIcons name="check" size={18} color={theme.colors.onPrimary} />
+        </View>
+      )
+      : <View style={{ width: 28, height: 28, borderRadius: 14, borderWidth: 2, borderColor: theme.colors.border }} />
+  );
+
+  const getPrinterRow = ({ item }: { item: AvailablePrinter }) => {
+    const isSelected = item.ipAddress === selectedPrinter.ipAddress;
+    const noPrinter = isNoPrinterSelected(item);
 
     return (
-      <Ripple
-        style={[printerStyles.printerCard, isSelected && printerStyles.selectedCard]}
-        onPress={() => { setSelectedPrinter(printer); }}
-      >
-        <View style={printerStyles.printerIconContainer}>
-          <FontAwesome
-            name={noPrinter ? "times-circle" : "print"}
-            size={DimensionHelper.wp("5%")}
-            color={isSelected ? StyleConstants.whiteColor : StyleConstants.baseColor}
-          />
-        </View>
-        <View style={printerStyles.printerInfo}>
-          <Text style={[printerStyles.printerName, isSelected && printerStyles.selectedText]} numberOfLines={1}>
-            {noPrinter ? t("printers.noPrinter") : `${printer.brand} ${printer.model}`}
-          </Text>
-          {!noPrinter && (
-            <Text style={[printerStyles.printerIp, isSelected && printerStyles.selectedSubtext]} numberOfLines={1}>
-              {printer.ipAddress}
-            </Text>
-          )}
-        </View>
-        {isSelected && (
-          <View style={printerStyles.checkmarkContainer}>
-            <FontAwesome
-              name="check-circle"
-              size={DimensionHelper.wp("5%")}
-              color={StyleConstants.whiteColor}
-            />
+      <ListRow
+        title={noPrinter ? t("printers.noPrinter") : `${item.brand} ${item.model}`}
+        subtitle={noPrinter ? undefined : item.ipAddress}
+        selected={isSelected}
+        left={
+          <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: noPrinter ? theme.colors.border : theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
+            <MaterialIcons name={noPrinter ? "print-disabled" : "print"} size={22} color={noPrinter ? theme.colors.textMuted : theme.colors.primary} />
           </View>
-        )}
-      </Ripple>
+        }
+        right={getRadio(isSelected)}
+        onPress={() => { setSelectedPrinter(item); }}
+        style={{ marginBottom: theme.spacing.sm }}
+      />
     );
   };
 
@@ -134,6 +124,15 @@ const Printers = (props: Props) => {
       PrinterLog.add(`--- Test print: ${selectedPrinter.brand} ${selectedPrinter.model} @ ${selectedPrinter.ipAddress} ---`);
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
+    }
+  };
+
+  const saveAndRestart = async () => {
+    setIsSaving(true);
+    try {
+      await saveSelectedPrinter();
+    } finally {
+      setTimeout(() => RNRestart.Restart(), 500);
     }
   };
 
@@ -148,217 +147,79 @@ const Printers = (props: Props) => {
     return <></>;
   };
 
-  const getDebugPanel = () => (
-    <View style={printerStyles.debugContainer}>
-      <View style={printerStyles.debugHeader}>
-        <Text style={printerStyles.debugTitle}>Printer Debug Log</Text>
-        <View style={printerStyles.debugActions}>
-          <Ripple style={printerStyles.debugButton} onPress={shareLog}>
-            <Text style={printerStyles.debugButtonText}>Share</Text>
-          </Ripple>
-          <Ripple style={printerStyles.debugButton} onPress={() => PrinterLog.clear()}>
-            <Text style={printerStyles.debugButtonText}>Clear</Text>
-          </Ripple>
+  const getDiagnostics = () => (
+    <View style={{ marginTop: theme.spacing.sm }}>
+      <ListRow
+        title={t("printers.diagnostics")}
+        left={
+          <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: theme.colors.border, alignItems: "center", justifyContent: "center" }}>
+            <MaterialIcons name="terminal" size={22} color={theme.colors.textSecondary} />
+          </View>
+        }
+        right={<MaterialIcons name={diagnosticsOpen ? "expand-less" : "expand-more"} size={28} color={theme.colors.textMuted} />}
+        onPress={() => setDiagnosticsOpen(!diagnosticsOpen)}
+      />
+      {diagnosticsOpen && (
+        <View style={{ backgroundColor: "#1E1E1E", borderRadius: theme.radius.lg, marginTop: theme.spacing.sm, maxHeight: 240, overflow: "hidden" }}>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-end", gap: theme.spacing.sm, padding: theme.spacing.sm, backgroundColor: "#2D2D2D" }}>
+            <Button label="Share" variant="ghost" size="md" onPress={shareLog} />
+            <Button label="Clear" variant="ghost" size="md" onPress={() => PrinterLog.clear()} />
+          </View>
+          <ScrollView style={{ maxHeight: 180 }} contentContainerStyle={{ padding: theme.spacing.md }}>
+            {reversedLog.length === 0
+              ? <Text style={{ color: "#888888", fontSize: 13, fontStyle: "italic" }}>No log entries yet. Tap Test Print to capture printer diagnostics.</Text>
+              : reversedLog.map((line, i) => (
+                <Text key={i} style={{ color: "#D4D4D4", fontFamily: "monospace", fontSize: 12, marginBottom: 2 }} selectable>{line}</Text>
+              ))}
+          </ScrollView>
         </View>
-      </View>
-      <ScrollView style={printerStyles.debugScroll} contentContainerStyle={printerStyles.debugScrollContent}>
-        {reversedLog.length === 0
-          ? <Text style={printerStyles.debugEmpty}>No log entries yet. Tap Test Print to capture printer diagnostics.</Text>
-          : reversedLog.map((line, i) => (
-            <Text key={i} style={printerStyles.debugLine} selectable>{line}</Text>
-          ))}
-      </ScrollView>
+      )}
     </View>
   );
 
-  const getContent = () => {
-    if (isScanning) {
-      return (
-        <View style={printerStyles.loadingContainer}>
-          <ActivityIndicator size="large" color={StyleConstants.baseColor} />
-          <Text style={printerStyles.loadingText}>{t("printers.scanning")}</Text>
-        </View>
-      );
-    }
-
-    return (
-      <>
-        <FlatList
-          data={printers}
-          renderItem={getPrinterRow}
-          keyExtractor={(printer: AvailablePrinter) => printer.ipAddress}
-          contentContainerStyle={printerStyles.listContent}
-          showsVerticalScrollIndicator={false}
-        />
-        {getLabelView()}
-      </>
-    );
-  };
+  const footer = (
+    <View style={{ flexDirection: "row", gap: theme.spacing.md }}>
+      <Button label={t("printers.testPrint")} variant="outline" size="lg" icon="print" onPress={testPrint} style={{ flex: 1 }} />
+      <Button label={isSaving ? t("printers.saving") : t("printers.saveRestart")} size="xl" icon="check" loading={isSaving} onPress={saveAndRestart} style={{ flex: 1.4 }} />
+    </View>
+  );
 
   return (
-    <View style={printerStyles.container}>
-      <Header
-        navigation={props.navigation}
-        prominentLogo={true}
-      />
-
-      {/* Select Printer Section */}
-      <Subheader
-        icon="🖨️"
-        title={t("printers.title")}
-        subtitle={t("printers.subtitle")}
-      />
-
-      {/* Main Content */}
-      <View style={printerStyles.mainContent}>
-        {getContent()}
+    <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} footer={footer}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.md }}>
+        <View style={{ flex: 1 }}>
+          <Subheader compact title={t("printers.title")} subtitle={t("printers.subtitle")} />
+        </View>
+        <Button label={t("printers.rescan")} variant="ghost" size="md" icon="refresh" disabled={isScanning} onPress={init} />
       </View>
-
-      {/* Debug Log (visible to testers while we stabilize iOS printing) */}
-      {getDebugPanel()}
-
-      {/* Action Buttons */}
-      <View style={[printerStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%") }]}>
-        <Ripple
-          style={[printerStyles.actionButton, printerStyles.testButton]}
-          onPress={testPrint}
-        >
-          <FontAwesome
-            name="print"
-            size={DimensionHelper.wp("4%")}
-            color={StyleConstants.baseColor}
-            style={printerStyles.buttonIcon}
-          />
-          <Text style={printerStyles.testButtonText}>{t("printers.testPrint")}</Text>
-        </Ripple>
-        <Ripple
-          style={[printerStyles.actionButton, printerStyles.doneButton]}
-          onPress={() => {
-            saveSelectedPrinter();
-            RNRestart.Restart();
-          }}
-        >
-          <FontAwesome
-            name="check"
-            size={DimensionHelper.wp("4%")}
-            color={StyleConstants.whiteColor}
-            style={printerStyles.buttonIcon}
-          />
-          <Text style={printerStyles.doneButtonText}>{t("printers.saveRestart")}</Text>
-        </Ripple>
-      </View>
-    </View>
+      {isScanning
+        ? (
+          <View style={{ gap: theme.spacing.md }}>
+            <SkeletonList rows={3} rowHeight={64} />
+            <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center" }}>{t("printers.scanning")}</Text>
+          </View>
+        )
+        : (
+          <>
+            {printers.length === 1 && (
+              <View style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.sm, backgroundColor: theme.colors.warningBg, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.md }}>
+                <MaterialIcons name="wifi-find" size={20} color={theme.colors.warning} />
+                <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.warning, flexShrink: 1 }}>{t("printers.noneFound")}</Text>
+              </View>
+            )}
+            <FlatList
+              data={printers}
+              renderItem={getPrinterRow}
+              keyExtractor={(printer: AvailablePrinter) => printer.ipAddress || "none"}
+              showsVerticalScrollIndicator={false}
+              style={{ flexGrow: 0 }}
+            />
+            {getLabelView()}
+            {getDiagnostics()}
+          </>
+        )}
+    </Screen>
   );
-};
-
-const printerStyles = {
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
-
-  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%") },
-
-  listContent: { paddingTop: DimensionHelper.wp("1.5%"), paddingBottom: DimensionHelper.wp("3%") },
-
-  printerCard: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
-    marginVertical: DimensionHelper.wp("1%"),
-    padding: DimensionHelper.wp("3%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    shadowColor: StyleConstants.baseColor,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "transparent"
-  },
-
-  selectedCard: { backgroundColor: StyleConstants.baseColor, borderColor: StyleConstants.baseColor, shadowOpacity: 0.15, shadowRadius: 8, elevation: 6 },
-
-  printerIconContainer: { width: DimensionHelper.wp("8%"), height: DimensionHelper.wp("8%"), borderRadius: DimensionHelper.wp("4%"), backgroundColor: StyleConstants.baseColor + "15", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2.5%") },
-
-  printerInfo: { flex: 1, justifyContent: "center" },
-
-  printerName: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.3%") },
-
-  printerIp: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor, opacity: 0.7 },
-
-  selectedText: { color: StyleConstants.whiteColor },
-
-  selectedSubtext: { color: StyleConstants.whiteColor, opacity: 0.9 },
-
-  checkmarkContainer: { marginLeft: DimensionHelper.wp("1.5%") },
-
-  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center", paddingTop: DimensionHelper.wp("15%") },
-
-  loadingText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("3%"), textAlign: "center" },
-
-  buttonContainer: {
-    flexDirection: "row",
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("2%"),
-    backgroundColor: StyleConstants.whiteColor,
-    borderTopWidth: 1,
-    borderTopColor: StyleConstants.baseColor + "20",
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 3
-  },
-
-  actionButton: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: DimensionHelper.wp("2.5%"), borderRadius: 8, marginHorizontal: DimensionHelper.wp("1.5%") },
-
-  testButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 2, borderColor: StyleConstants.baseColor },
-
-  doneButton: { backgroundColor: StyleConstants.baseColor, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3 },
-
-  buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
-
-  testButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.baseColor },
-
-  doneButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor },
-
-  debugContainer: {
-    height: DimensionHelper.wp("38%"),
-    marginHorizontal: DimensionHelper.wp("4%"),
-    marginBottom: DimensionHelper.wp("2%"),
-    backgroundColor: "#1E1E1E",
-    borderRadius: 8,
-    overflow: "hidden"
-  },
-
-  debugHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: DimensionHelper.wp("3%"),
-    paddingVertical: DimensionHelper.wp("1.5%"),
-    backgroundColor: "#2D2D2D"
-  },
-
-  debugActions: { flexDirection: "row" },
-
-  debugTitle: { color: "#FFFFFF", fontSize: DimensionHelper.wp("2.8%"), fontWeight: "600" },
-
-  debugButton: {
-    paddingHorizontal: DimensionHelper.wp("2.5%"),
-    paddingVertical: DimensionHelper.wp("1%"),
-    marginLeft: DimensionHelper.wp("1.5%"),
-    backgroundColor: "#3A3A3A",
-    borderRadius: 6
-  },
-
-  debugButtonText: { color: "#4FC3F7", fontSize: DimensionHelper.wp("2.6%"), fontWeight: "600" },
-
-  debugScroll: { flex: 1 },
-
-  debugScrollContent: { padding: DimensionHelper.wp("2%") },
-
-  debugEmpty: { color: "#888888", fontSize: DimensionHelper.wp("2.6%"), fontStyle: "italic" },
-
-  debugLine: { color: "#D4D4D4", fontFamily: "Courier", fontSize: DimensionHelper.wp("2.5%"), marginBottom: 2 }
 };
 
 export default Printers;
-

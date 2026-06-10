@@ -1,28 +1,46 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import { screenNavigationProps, CachedData, LabelHelper, PrinterLog, StyleConstants } from "../src/helpers";
-import { FontAwesome } from "@expo/vector-icons";
-import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
-import { useCheckinTheme } from "../src/context/CheckinThemeContext";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming, ZoomIn } from "react-native-reanimated";
+import { router } from "expo-router";
+import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, LabelHelper, PersonInterface, PrinterLog, screenNavigationProps } from "../src/helpers";
 import PrintUI from "../src/components/PrintUI";
 import ConfettiCelebration from "../src/components/ConfettiCelebration";
 import Header from "../src/components/Header";
-import Subheader from "../src/components/Subheader";
-import { router } from "expo-router";
+import { useAppTheme } from "../src/theme";
+import { Avatar, Screen, StepIndicator } from "../src/components/ui";
 
 interface Props { navigation: screenNavigationProps; }
 
 const CheckinComplete = (props: Props) => {
   const { t } = useTranslation();
-  const { theme } = useCheckinTheme();
+  const theme = useAppTheme();
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [milestones, setMilestones] = React.useState<{ personId: string; streak: number }[]>([]);
+  const [printStatus, setPrintStatus] = React.useState<"idle" | "printing" | "done">(CachedData.printer?.ipAddress ? "printing" : "idle");
+  const [checkinFailed, setCheckinFailed] = React.useState(false);
+  const [returnDelay, setReturnDelay] = React.useState(0);
   const milestonesRef = React.useRef<{ personId: string; streak: number }[]>([]);
+  const redirectTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const redirectedRef = React.useRef(false);
+
+  const [checkedInPeople] = React.useState<PersonInterface[]>(() => {
+    const people: PersonInterface[] = [];
+    (CachedData.pendingVisits || []).forEach(v => {
+      if (v.visitSessions && v.visitSessions.length > 0) {
+        const person = (CachedData.householdMembers || []).find(m => m.id === v.personId);
+        if (person) people.push(person);
+      }
+    });
+    return people;
+  });
 
   const loadData = () => {
     PrinterLog.attachNativeListeners();
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
     const promises: Promise<any>[] = [];
     promises.push(checkin());
     if (CachedData.printer?.ipAddress) print();
@@ -33,6 +51,7 @@ const CheckinComplete = (props: Props) => {
       })
       .catch(error => {
         console.error("Error during checkin:", error);
+        setCheckinFailed(true);
         startOver();
       });
   };
@@ -44,11 +63,22 @@ const CheckinComplete = (props: Props) => {
     redirectToLookup(hasMilestone);
   };
 
+  const handlePrintComplete = () => {
+    setPrintStatus("done");
+    startOver(milestonesRef.current.length > 0);
+  };
+
+  const goToLookup = () => {
+    if (redirectedRef.current) return;
+    redirectedRef.current = true;
+    if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
+    router.replace("/lookup");
+  };
+
   const redirectToLookup = (hasMilestone?: boolean) => {
     const delay = hasMilestone ? 6000 : 3000;
-    timeout(delay).then(() => {
-      router.replace("/lookup");
-    });
+    setReturnDelay(delay);
+    redirectTimerRef.current = setTimeout(goToLookup, delay);
   };
 
   const print = async () => {
@@ -58,16 +88,16 @@ const CheckinComplete = (props: Props) => {
       setHtmlLabels(labels);
       if (labels.length === 0) {
         PrinterLog.add("Family print: nothing to print (0 labels)");
+        setPrintStatus("idle");
         startOver();
       }
     } catch (error) {
       PrinterLog.add(`Family print error: ${error instanceof Error ? error.message : String(error)}`);
       console.error("Error printing labels:", error);
+      setCheckinFailed(true);
       startOver();
     }
   };
-
-  const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
 
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
@@ -91,80 +121,111 @@ const CheckinComplete = (props: Props) => {
       });
   };
 
+  React.useEffect(loadData, []);
+  React.useEffect(() => {
+    return () => {
+      if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
+    };
+  }, []);
+
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onLog={PrinterLog.add} onPrintComplete={startOver} />);
+    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onLog={PrinterLog.add} onPrintComplete={handlePrintComplete} />);
     else return <></>;
   };
 
-  React.useEffect(loadData, []);
+  const getAvatarRow = () => {
+    if (checkedInPeople.length === 0) return null;
+    const shown = checkedInPeople.slice(0, 5);
+    const overflow = checkedInPeople.length - shown.length;
+    return (
+      <View style={{ flexDirection: "row", justifyContent: "center", gap: theme.spacing.lg, flexWrap: "wrap", marginTop: theme.spacing.sm }}>
+        {shown.map(person => {
+          const name = person.name?.display || person.displayName || "";
+          return (
+            <View key={person.id} style={{ alignItems: "center", gap: 6, maxWidth: 88 }}>
+              <Avatar name={name} photoUri={person.photo ? EnvironmentHelper.ContentRoot + person.photo : undefined} size={56} />
+              <Text numberOfLines={1} style={{ fontSize: 14, fontFamily: theme.fonts.medium, color: theme.colors.textSecondary }}>{person.name?.first || name}</Text>
+            </View>
+          );
+        })}
+        {overflow > 0 && (
+          <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
+            <Text style={{ fontSize: 17, fontFamily: theme.fonts.semibold, color: theme.colors.primary }}>+{overflow}</Text>
+          </View>
+        )}
+      </View>
+    );
+  };
+
+  const getPrintStatusLine = () => {
+    if (printStatus === "idle") return null;
+    return (
+      <View style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.sm, marginTop: theme.spacing.lg }}>
+        <MaterialIcons name={printStatus === "done" ? "check-circle-outline" : "print"} size={22} color={printStatus === "done" ? theme.colors.success : theme.colors.textMuted} />
+        {printStatus === "printing"
+          ? <PulsingText text={t("checkinComplete.printingLabels")} color={theme.colors.textMuted} fontFamily={theme.fonts.regular} />
+          : <Text style={{ fontSize: 17, fontFamily: theme.fonts.regular, color: theme.colors.success }}>{t("checkinComplete.labelsPrinted")}</Text>}
+      </View>
+    );
+  };
 
   return (
-    <View style={checkinCompleteStyles.container}>
-      <Header
-        navigation={props.navigation}
-        prominentLogo={true}
-      />
-
-      {/* Check-in Complete Section */}
-      <Subheader
-        icon="✅"
-        title={t("checkinComplete.title")}
-        subtitle={t("checkinComplete.subtitle")}
-      />
-
-      {/* Main Content */}
-      <View style={checkinCompleteStyles.mainContent}>
-        <View style={[checkinCompleteStyles.successCard, { shadowColor: theme.colors.primary }]}>
-          <View style={checkinCompleteStyles.successIconContainer}>
-            <FontAwesome
-              name="check-circle"
-              style={checkinCompleteStyles.successIcon}
-              size={DimensionHelper.wp("10%")}
-            />
+    <>
+      <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} scroll={false}>
+        <Pressable style={{ flex: 1 }} onPress={goToLookup} disabled={returnDelay === 0}>
+          <StepIndicator steps={[t("steps.find"), t("steps.select"), t("steps.done")]} current={2} style={{ marginTop: theme.spacing.lg }} />
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: theme.spacing.md }}>
+            <Animated.View
+              entering={ZoomIn.springify().damping(12)}
+              style={{ width: 112, height: 112, borderRadius: 56, backgroundColor: theme.colors.successBg, alignItems: "center", justifyContent: "center" }}>
+              <MaterialIcons name="check" size={60} color={theme.colors.success} />
+            </Animated.View>
+            <Text style={{ ...theme.type.h1, color: theme.colors.textPrimary, textAlign: "center", marginTop: theme.spacing.sm }}>{t("checkinComplete.allSet")}</Text>
+            <Text style={{ ...theme.type.bodyLg, color: theme.colors.textMuted, textAlign: "center" }}>{t("checkinComplete.haveAGreatService")}</Text>
+            {getAvatarRow()}
+            {getPrintStatusLine()}
+            {checkinFailed && (
+              <View style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.sm, backgroundColor: theme.colors.warningBg, borderRadius: theme.radius.md, padding: theme.spacing.md, marginTop: theme.spacing.sm }}>
+                <MaterialIcons name="warning-amber" size={20} color={theme.colors.warning} />
+                <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.warning, flexShrink: 1 }}>{t("checkinComplete.checkinError")}</Text>
+              </View>
+            )}
+            {getLabelView()}
           </View>
-          <Text style={checkinCompleteStyles.successTitle}>{t("checkinComplete.welcomeTitle")}</Text>
-          <Text style={checkinCompleteStyles.successMessage}>
-            {t("checkinComplete.welcomeMessage")}
-            {CachedData.printer?.ipAddress ? " " + t("checkinComplete.printingMessage") : ""}
-          </Text>
-        </View>
-
-        {getLabelView()}
-      </View>
+          {returnDelay > 0 && (
+            <View style={{ alignItems: "center", gap: theme.spacing.sm, paddingBottom: theme.spacing.lg }}>
+              <Text style={{ fontSize: 14, fontFamily: theme.fonts.regular, color: theme.colors.textMuted }}>{t("checkinComplete.returning")}</Text>
+              <ReturnProgress duration={returnDelay} />
+            </View>
+          )}
+        </Pressable>
+      </Screen>
       <ConfettiCelebration milestones={milestones} />
-    </View>
+    </>
   );
-
 };
 
-const checkinCompleteStyles = {
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
+const PulsingText: React.FC<{ text: string; color: string; fontFamily: string }> = ({ text, color, fontFamily }) => {
+  const opacity = useSharedValue(0.5);
+  React.useEffect(() => {
+    opacity.value = withRepeat(withTiming(1, { duration: 700 }), -1, true);
+  }, []);
+  const style = useAnimatedStyle(() => ({ opacity: opacity.value }));
+  return <Animated.Text style={[{ fontSize: 17, fontFamily, color }, style]}>{text}</Animated.Text>;
+};
 
-  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("3%"), justifyContent: "center", alignItems: "center" },
-
-  successCard: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 14,
-    padding: DimensionHelper.wp("5%"),
-    marginBottom: DimensionHelper.wp("3%"),
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 8,
-    shadowColor: StyleConstants.baseColor,
-    alignItems: "center",
-    minWidth: DimensionHelper.wp("70%"),
-    maxWidth: DimensionHelper.wp("85%")
-  },
-
-  successIconContainer: { backgroundColor: StyleConstants.greenColor + "20", borderRadius: DimensionHelper.wp("6%"), width: DimensionHelper.wp("14%"), height: DimensionHelper.wp("14%"), justifyContent: "center", alignItems: "center", marginBottom: DimensionHelper.wp("3%") },
-
-  successIcon: { color: StyleConstants.greenColor },
-
-  successTitle: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("2%"), textAlign: "center" },
-
-  successMessage: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.darkColor, textAlign: "center", lineHeight: DimensionHelper.wp("4.5%"), opacity: 0.8, paddingHorizontal: DimensionHelper.wp("2%") }
+const ReturnProgress: React.FC<{ duration: number }> = ({ duration }) => {
+  const theme = useAppTheme();
+  const progress = useSharedValue(0);
+  React.useEffect(() => {
+    progress.value = withTiming(1, { duration, easing: Easing.linear });
+  }, [duration]);
+  const style = useAnimatedStyle(() => ({ width: `${progress.value * 100}%` }));
+  return (
+    <View style={{ width: 240, height: 4, borderRadius: 2, backgroundColor: theme.colors.primarySelected, overflow: "hidden" }}>
+      <Animated.View style={[{ height: 4, borderRadius: 2, backgroundColor: theme.colors.primary }, style]} />
+    </View>
+  );
 };
 
 export default CheckinComplete;
-

@@ -11,6 +11,7 @@
   },
   "addGuest": {
     "addButton": "Add Guest",
+    "addFailed": "Couldn't add the guest. Please try again.",
     "enterFirstName": "Please enter first name",
     "enterLastName": "Please enter last name",
     "firstName": "First Name",
@@ -21,18 +22,27 @@
     "title": "Add Guest"
   },
   "checkinComplete": {
+    "allSet": "You're all set!",
+    "checkinError": "Something didn't go through — please see a volunteer.",
+    "haveAGreatService": "Have a great service.",
+    "labelsPrinted": "Name tags printed",
+    "milestoneWeeks": "Weeks in a Row!",
+    "printingLabels": "Printing your name tags…",
     "printingMessage": "Your labels are being printed now.",
+    "returning": "Returning to start…",
     "subtitle": "Your family has been successfully checked in",
     "title": "Check-in Complete",
     "welcomeMessage": "Your family has been checked in successfully.",
-    "welcomeTitle": "Welcome!",
-    "milestoneWeeks": "Weeks in a Row!"
+    "welcomeTitle": "Welcome!"
   },
   "common": {
     "back": "Back",
     "cancel": "Cancel",
+    "continue": "Continue",
     "login": "Login",
     "logout": "Logout",
+    "ok": "OK",
+    "retry": "Try again",
     "search": "Search"
   },
   "header": {
@@ -42,12 +52,18 @@
   "household": {
     "addGuest": "Add a Guest",
     "alreadyCheckedIn": "Already checked in",
-    "checkin": "CHECK IN",
+    "checkin": "Check In",
+    "checkinCount": "Check In — {{count}}",
+    "chooseGroupHint": "Choose a group for at least one person",
     "duplicateConfirm": "Check In Again",
     "duplicateMessage": "{{names}} already checked in for this service. Check in again to update their groups.",
     "duplicateTitle": "Already Checked In",
+    "emptyTitle": "No household members found",
     "subtitle": "Choose who is checking in today",
-    "title": "Select Household Members"
+    "title": "Who's checking in?"
+  },
+  "idle": {
+    "tapToCheckin": "Tap to check in"
   },
   "login": {
     "emailPlaceholder": "Email",
@@ -62,8 +78,10 @@
     "welcomeBack": "Welcome Back"
   },
   "lookup": {
+    "backToKeypad": "Back to keypad",
     "enterPhone": "Please enter phone number or last four digits",
     "invalidNumbers": "Please enter valid numbers.",
+    "keypadHint": "Your full number works too",
     "minDigits": "Please enter at least four digits.",
     "minLetters": "Please enter at least two letters of the last name.",
     "modeName": "Name",
@@ -73,16 +91,20 @@
     "noMatchSubtitleName": "Try searching with a different last name",
     "noMatchTitle": "No Matches Found",
     "phonePlaceholder": "Last 4 digits of mobile number",
+    "qrGuest": "Scan to register as a guest",
     "readySubtitle": "Enter a phone number to find people",
     "readyTitle": "Ready to Search",
+    "registerGuest": "Register as guest",
+    "resultsFound_one": "{{count}} result",
+    "resultsFound_other": "{{count}} results",
+    "searchByName": "Search by name",
     "searchError": "Unable to complete search. Please try again.",
     "searching": "Searching...",
     "subtitle": "Enter last four digits of mobile number",
     "title": "Search by Phone Number",
-    "welcomeTitle": "Welcome! Let's check you in.",
+    "usePhone": "Use phone number",
     "welcomeSubtitle": "Search by phone number or name to find your family",
-    "qrGuest": "Scan to register as a guest",
-    "registerGuest": "Register as guest"
+    "welcomeTitle": "Welcome! Let's check you in."
   },
   "members": {
     "error": "Error",
@@ -100,10 +122,14 @@
     "wrongPin": "Incorrect PIN. Please try again."
   },
   "printers": {
+    "diagnostics": "Diagnostics",
     "noPrinter": "No Printer",
     "noPrinterSelected": "No printer selected",
+    "noneFound": "No printers found on this network",
+    "rescan": "Rescan",
     "saveAndContinue": "Save & Continue",
     "saveRestart": "Save & Restart",
+    "saving": "Saving…",
     "scanning": "Scanning for printers...",
     "subtitle": "Choose a printer for printing name tags and labels",
     "testPrint": "Test Print",
@@ -119,16 +145,24 @@
     "title": "Set Admin PIN"
   },
   "selectChurch": {
+    "emptySubtitle": "Your account doesn't have access to any church.",
+    "emptyTitle": "No churches available",
     "loading": "Loading churches...",
     "title": "Select a Church"
   },
   "selectGroup": {
+    "choosingFor": "Choosing for {{name}}",
     "groupCount": "{{count}} groups",
+    "noGroupOption": "No group this time",
+    "noGroups": "No groups available for this time",
     "none": "None",
     "subtitle": "Choose a group for {{serviceName}}",
     "title": "Select a Group"
   },
   "services": {
+    "emptySubtitle": "Create services in B1 Admin to start checking people in.",
+    "emptyTitle": "No services set up yet",
+    "loadError": "Couldn't load services.",
     "loading": "Loading services...",
     "selectService": "Select a service:",
     "subtitle": "Choose which service to check in for",
@@ -140,5 +174,10 @@
     "initializing": "Initializing...",
     "loadingChurch": "Loading church data...",
     "loggingIn": "Logging in..."
+  },
+  "steps": {
+    "done": "Done",
+    "find": "Find",
+    "select": "Select"
   }
 }

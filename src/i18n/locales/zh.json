@@ -1,4 +1,16 @@
 {
+  "addGuest": {
+    "addButton": "添加访客",
+    "addFailed": "无法添加访客，请重试。",
+    "enterFirstName": "请输入名字",
+    "enterLastName": "请输入姓氏",
+    "firstName": "名字",
+    "firstNamePlaceholder": "输入名字",
+    "lastName": "姓氏",
+    "lastNamePlaceholder": "输入姓氏",
+    "subtitle": "输入访客信息以将其添加到您的家庭",
+    "title": "添加访客"
+  },
   "admin": {
     "backToKiosk": "返回自助终端",
     "changePin": "更改管理员PIN",
@@ -9,30 +21,28 @@
     "subtitle": "管理自助终端设备设置",
     "title": "管理员设置"
   },
-  "addGuest": {
-    "addButton": "添加访客",
-    "enterFirstName": "请输入名字",
-    "enterLastName": "请输入姓氏",
-    "firstName": "名字",
-    "firstNamePlaceholder": "输入名字",
-    "lastName": "姓氏",
-    "lastNamePlaceholder": "输入姓氏",
-    "subtitle": "输入访客信息以将其添加到您的家庭",
-    "title": "添加访客"
-  },
   "checkinComplete": {
+    "allSet": "全部完成！",
+    "checkinError": "签到未能完成，请联系现场志愿者。",
+    "haveAGreatService": "祝您聚会愉快。",
+    "labelsPrinted": "名牌已打印",
+    "milestoneWeeks": "连续周！",
+    "printingLabels": "正在打印您的名牌…",
     "printingMessage": "您的标签正在打印中。",
+    "returning": "正在返回首页…",
     "subtitle": "您的家人已成功签到",
     "title": "签到完成",
     "welcomeMessage": "您的家人已成功签到。",
-    "welcomeTitle": "欢迎！",
-    "milestoneWeeks": "连续周！"
+    "welcomeTitle": "欢迎！"
   },
   "common": {
     "back": "返回",
     "cancel": "取消",
+    "continue": "继续",
     "login": "登录",
     "logout": "退出登录",
+    "ok": "确定",
+    "retry": "重试",
     "search": "搜索"
   },
   "header": {
@@ -41,9 +51,19 @@
   },
   "household": {
     "addGuest": "添加访客",
+    "alreadyCheckedIn": "已签到",
     "checkin": "签到",
+    "checkinCount": "签到（{{count}}人）",
+    "chooseGroupHint": "请至少为一人选择小组",
+    "duplicateConfirm": "再次签到",
+    "duplicateMessage": "{{names}}已为本次服务签到。再次签到即可更新他们的小组。",
+    "duplicateTitle": "已签到",
+    "emptyTitle": "未找到家庭成员",
     "subtitle": "选择今天签到的人员",
-    "title": "选择家庭成员"
+    "title": "今天谁来签到？"
+  },
+  "idle": {
+    "tapToCheckin": "轻触屏幕开始签到"
   },
   "login": {
     "emailPlaceholder": "电子邮箱",
@@ -58,8 +78,10 @@
     "welcomeBack": "欢迎回来"
   },
   "lookup": {
+    "backToKeypad": "返回数字键盘",
     "enterPhone": "请输入电话号码或后四位数字",
     "invalidNumbers": "请输入有效的数字。",
+    "keypadHint": "输入完整号码也可以",
     "minDigits": "请至少输入四位数字。",
     "minLetters": "请输入至少两个姓氏字母。",
     "modeName": "姓名",
@@ -69,24 +91,25 @@
     "noMatchSubtitleName": "请尝试使用其他姓氏搜索",
     "noMatchTitle": "未找到匹配项",
     "phonePlaceholder": "输入手机号码后四位",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "扫描以注册为访客",
-    "registerGuest": "注册为访客",
     "readySubtitle": "输入电话号码以查找人员",
     "readyTitle": "准备搜索",
+    "registerGuest": "注册为访客",
+    "resultsFound_one": "{{count}}个结果",
+    "resultsFound_other": "{{count}}个结果",
+    "searchByName": "按姓名搜索",
     "searchError": "无法完成搜索。请重试。",
     "searching": "搜索中...",
     "subtitle": "输入手机号码后四位",
-    "title": "通过电话号码搜索"
+    "title": "通过电话号码搜索",
+    "usePhone": "使用电话号码",
+    "welcomeSubtitle": "通过电话号码或姓名搜索，找到您的家人",
+    "welcomeTitle": "欢迎！让我们为您签到吧。"
   },
   "members": {
     "error": "错误",
     "selectGroup": "选择小组",
     "unknown": "未知"
-  },
-  "print": {
-    "printing": "打印中"
   },
   "pinEntry": {
     "attemptsRemaining": "剩余{{count}}次尝试",
@@ -95,15 +118,46 @@
     "tooManyAttempts": "失败次数过多。请稍候。",
     "wrongPin": "PIN错误。请重试。"
   },
+  "print": {
+    "printing": "打印中"
+  },
   "printers": {
+    "diagnostics": "诊断",
     "noPrinter": "无打印机",
     "noPrinterSelected": "未选择打印机",
+    "noneFound": "在此网络中未找到打印机",
+    "rescan": "重新扫描",
     "saveAndContinue": "保存并继续",
     "saveRestart": "保存并重启",
+    "saving": "保存中…",
     "scanning": "扫描打印机中...",
     "subtitle": "选择用于打印名牌和标签的打印机",
     "testPrint": "测试打印",
     "title": "选择打印机"
+  },
+  "selectChurch": {
+    "emptySubtitle": "您的账户无权访问任何教会。",
+    "emptyTitle": "没有可用的教会",
+    "loading": "加载教会中...",
+    "title": "选择教会"
+  },
+  "selectGroup": {
+    "choosingFor": "正在为{{name}}选择",
+    "groupCount": "{{count}}个小组",
+    "noGroupOption": "这次不选小组",
+    "noGroups": "此时段没有可用的小组",
+    "none": "无",
+    "subtitle": "为{{serviceName}}选择小组",
+    "title": "选择小组"
+  },
+  "services": {
+    "emptySubtitle": "请在 B1 Admin 中创建服务以开始签到。",
+    "emptyTitle": "尚未设置服务",
+    "loadError": "无法加载服务。",
+    "loading": "加载服务中...",
+    "selectService": "选择服务：",
+    "subtitle": "选择要签到的服务",
+    "title": "选择服务"
   },
   "setPin": {
     "confirmPin": "确认您的PIN",
@@ -114,27 +168,16 @@
     "subtitle": "创建4-6位PIN以保护管理员设置",
     "title": "设置管理员PIN"
   },
-  "selectChurch": {
-    "loading": "加载教会中...",
-    "title": "选择教会"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}}个小组",
-    "none": "无",
-    "subtitle": "为{{serviceName}}选择小组",
-    "title": "选择小组"
-  },
-  "services": {
-    "loading": "加载服务中...",
-    "selectService": "选择服务：",
-    "subtitle": "选择要签到的服务",
-    "title": "选择服务"
-  },
   "splash": {
     "checkingUpdates": "检查更新中...",
     "downloadingUpdate": "下载更新中...",
     "initializing": "初始化中...",
     "loadingChurch": "加载教会数据中...",
     "loggingIn": "登录中..."
+  },
+  "steps": {
+    "done": "完成",
+    "find": "查找",
+    "select": "选择"
   }
 }

@@ -1,25 +1,23 @@
-import { Link, Stack } from "expo-router";
-import { StyleSheet } from "react-native";
-
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import React from "react";
+import { router, Stack } from "expo-router";
+import { View } from "react-native";
+import { Button, EmptyState } from "../src/components/ui";
+import { useAppTheme } from "../src/theme";
 
 function NotFoundScreen() {
+  const theme = useAppTheme();
   return (
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
-      <ThemedView style={styles.container}>
-        <ThemedText type="title">This screen doesn't exist.</ThemedText>
-        <Link href="/" style={styles.link}>
-          <ThemedText type="link">Go to home screen!</ThemedText>
-        </Link>
-      </ThemedView>
+      <View style={{ flex: 1, backgroundColor: theme.colors.canvas, alignItems: "center", justifyContent: "center", padding: theme.spacing.xl }}>
+        <EmptyState
+          icon="explore-off"
+          title="This screen doesn't exist."
+          action={<Button label="Go to home screen" onPress={() => router.replace("/")} fullWidth />}
+        />
+      </View>
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center", padding: 20 },
-  link: { marginTop: 15, paddingVertical: 15 }
-});
 export default NotFoundScreen;

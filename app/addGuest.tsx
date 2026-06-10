@@ -1,40 +1,52 @@
 import React from "react";
-import { TextInput, View, Text, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import Ripple from "react-native-material-ripple";
+import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import { screenNavigationProps, CachedData, StyleConstants, DimensionHelper } from "../src/helpers";
-import { ApiHelper, PersonInterface, Utils } from "../src/helpers";
+import { useRouter } from "expo-router";
+import { MaterialIcons } from "@expo/vector-icons";
+import { ApiHelper, CachedData, PersonInterface, screenNavigationProps } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { FontAwesome } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useAppTheme } from "../src/theme";
+import { Button, Card, Screen, TextField } from "../src/components/ui";
 
 interface Props { navigation: screenNavigationProps }
 
 const AddGuest = (props: Props) => {
   const { t } = useTranslation();
+  const theme = useAppTheme();
   const router = useRouter();
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
+  const [firstNameError, setFirstNameError] = React.useState("");
+  const [lastNameError, setLastNameError] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
+  const [submitFailed, setSubmitFailed] = React.useState(false);
 
   const addGuest = () => {
-    if (firstName === "") { Utils.snackBar(t("addGuest.enterFirstName")); } else if (lastName === "") { Utils.snackBar(t("addGuest.enterLastName")); } else {
-      getOrCreatePerson(firstName, lastName)
-        .then(person => {
-          CachedData.householdMembers.push(person);
-          router.push("/household");
-        })
-        .catch(error => {
-          console.error("Error adding guest:", error);
-        });
-    }
+    const first = firstName.trim();
+    const last = lastName.trim();
+    setFirstNameError(first === "" ? t("addGuest.enterFirstName") : "");
+    setLastNameError(last === "" ? t("addGuest.enterLastName") : "");
+    if (first === "" || last === "") return;
+
+    setSubmitting(true);
+    setSubmitFailed(false);
+    getOrCreatePerson(first, last)
+      .then(person => {
+        CachedData.householdMembers.push(person);
+        router.push("/household");
+      })
+      .catch(() => {
+        setSubmitFailed(true);
+      })
+      .finally(() => setSubmitting(false));
   };
 
   const getOrCreatePerson = async (firstname: string, lastname: string) => {
     const fullName = firstname + " " + lastname;
     let person: PersonInterface | null = await searchForGuest(fullName);
     if (person === null) {
-      person = { householdId: CachedData.householdId, name: { display: fullName, first: firstName, last: lastName }, contactInfo: {} };
+      person = { householdId: CachedData.householdId, name: { display: fullName, first: firstname, last: lastname }, contactInfo: {} };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
       if (data && data.length > 0) person.id = data[0].id;
     }
@@ -49,169 +61,61 @@ const AddGuest = (props: Props) => {
     return result ?? null;
   };
 
-  const cancelGuest = () => {
-    router.back();
-  };
+  const footer = (
+    <View style={{ gap: theme.spacing.sm }}>
+      {submitFailed && (
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: theme.spacing.sm, backgroundColor: theme.colors.dangerBg, borderRadius: theme.radius.md, padding: theme.spacing.md }}>
+          <MaterialIcons name="error-outline" size={20} color={theme.colors.danger} />
+          <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.danger }}>{t("addGuest.addFailed")}</Text>
+        </View>
+      )}
+      <View style={{ flexDirection: "row", gap: theme.spacing.md }}>
+        <Button label={t("common.cancel")} variant="ghost" size="lg" onPress={() => router.back()} style={{ flex: 1 }} />
+        <Button label={t("addGuest.addButton")} size="xl" icon="person-add-alt" loading={submitting} onPress={addGuest} style={{ flex: 2 }} />
+      </View>
+    </View>
+  );
 
   return (
-    <KeyboardAvoidingView
-      style={addGuestStyles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <Header
-        navigation={props.navigation}
-        prominentLogo={true}
-      />
-
-      {/* Add Guest Section */}
-      <Subheader
-        icon="👤"
-        title={t("addGuest.title")}
-        subtitle={t("addGuest.subtitle")}
-      />
-
-      {/* Main Content */}
-      <ScrollView
-        style={addGuestStyles.scrollView}
-        contentContainerStyle={addGuestStyles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={addGuestStyles.formCard}>
-          <View style={addGuestStyles.inputGroup}>
-            <View style={addGuestStyles.labelContainer}>
-              <FontAwesome
-                name="user"
-                size={DimensionHelper.wp("4%")}
-                color={StyleConstants.baseColor}
-                style={addGuestStyles.labelIcon}
-              />
-              <Text style={addGuestStyles.label}>{t("addGuest.firstName")}</Text>
-            </View>
-            <TextInput
-              placeholder={t("addGuest.firstNamePlaceholder")}
-              onChangeText={(value) => { setFirstName(value); }}
-              style={addGuestStyles.textInput}
-              placeholderTextColor={StyleConstants.darkColor + "50"}
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} footer={footer} scroll={false}>
+        <Subheader title={t("addGuest.title")} subtitle={t("addGuest.subtitle")} onBack={() => router.back()} />
+        <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={{ flex: 1 }}>
+          <Card padding="xl">
+            <TextField
+              label={t("addGuest.firstName")}
+              placeholder={String(t("addGuest.firstNamePlaceholder"))}
+              value={firstName}
+              onChangeText={value => {
+                setFirstName(value);
+                if (firstNameError) setFirstNameError("");
+              }}
+              error={firstNameError}
+              size="lg"
+              autoCapitalize="words"
+              autoFocus
+              returnKeyType="next"
+              containerStyle={{ marginBottom: theme.spacing.lg }}
             />
-          </View>
-
-          <View style={addGuestStyles.inputGroup}>
-            <View style={addGuestStyles.labelContainer}>
-              <FontAwesome
-                name="user"
-                size={DimensionHelper.wp("4%")}
-                color={StyleConstants.baseColor}
-                style={addGuestStyles.labelIcon}
-              />
-              <Text style={addGuestStyles.label}>{t("addGuest.lastName")}</Text>
-            </View>
-            <TextInput
-              placeholder={t("addGuest.lastNamePlaceholder")}
-              onChangeText={(value) => { setLastName(value); }}
-              style={addGuestStyles.textInput}
-              placeholderTextColor={StyleConstants.darkColor + "50"}
+            <TextField
+              label={t("addGuest.lastName")}
+              placeholder={String(t("addGuest.lastNamePlaceholder"))}
+              value={lastName}
+              onChangeText={value => {
+                setLastName(value);
+                if (lastNameError) setLastNameError("");
+              }}
+              error={lastNameError}
+              size="lg"
+              autoCapitalize="words"
+              returnKeyType="done"
+              onSubmitEditing={addGuest}
             />
-          </View>
-        </View>
-      </ScrollView>
-
-      {/* Action Buttons */}
-      <View style={addGuestStyles.buttonContainer}>
-        <Ripple
-          style={[addGuestStyles.actionButton, addGuestStyles.cancelButton]}
-          onPress={cancelGuest}
-        >
-          <FontAwesome
-            name="times"
-            size={DimensionHelper.wp("4%")}
-            color={StyleConstants.baseColor}
-            style={addGuestStyles.buttonIcon}
-          />
-          <Text style={addGuestStyles.cancelButtonText}>{t("common.cancel")}</Text>
-        </Ripple>
-        <Ripple
-          style={[addGuestStyles.actionButton, addGuestStyles.addButton]}
-          onPress={addGuest}
-        >
-          <FontAwesome
-            name="plus"
-            size={DimensionHelper.wp("4%")}
-            color={StyleConstants.whiteColor}
-            style={addGuestStyles.buttonIcon}
-          />
-          <Text style={addGuestStyles.addButtonText}>{t("addGuest.addButton")}</Text>
-        </Ripple>
-      </View>
+          </Card>
+        </ScrollView>
+      </Screen>
     </KeyboardAvoidingView>
   );
 };
 
-const addGuestStyles = {
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
-
-  scrollView: { flex: 1 },
-
-  scrollContent: { paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("2%"), paddingBottom: DimensionHelper.wp("6%") },
-
-  formCard: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
-    padding: DimensionHelper.wp("4%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    shadowColor: StyleConstants.baseColor,
-    maxWidth: DimensionHelper.wp("90%"),
-    alignSelf: "center",
-    width: "100%"
-  },
-
-  inputGroup: { marginBottom: DimensionHelper.wp("3.5%") },
-
-  labelContainer: { flexDirection: "row", alignItems: "center", marginBottom: DimensionHelper.wp("1.5%") },
-
-  labelIcon: { marginRight: DimensionHelper.wp("1.5%") },
-
-  label: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.darkColor },
-
-  textInput: {
-    backgroundColor: StyleConstants.ghostWhite,
-    borderRadius: 8,
-    paddingHorizontal: DimensionHelper.wp("3%"),
-    paddingVertical: DimensionHelper.wp("2.5%"),
-    fontSize: DimensionHelper.wp("3.2%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: StyleConstants.darkColor,
-    borderWidth: 1,
-    borderColor: StyleConstants.baseColor + "20"
-  },
-
-  buttonContainer: {
-    flexDirection: "row",
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("2%"),
-    backgroundColor: StyleConstants.whiteColor,
-    borderTopWidth: 1,
-    borderTopColor: StyleConstants.baseColor + "20",
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 3
-  },
-
-  actionButton: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: DimensionHelper.wp("2.5%"), borderRadius: 8, marginHorizontal: DimensionHelper.wp("1.5%") },
-
-  cancelButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 2, borderColor: StyleConstants.baseColor },
-
-  addButton: { backgroundColor: StyleConstants.baseColor, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3 },
-
-  buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
-
-  cancelButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.baseColor },
-
-  addButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", color: StyleConstants.whiteColor }
-};
-
 export default AddGuest;
-

@@ -1,12 +1,12 @@
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { useFonts } from "expo-font";
+import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, useFonts } from "@expo-google-fonts/inter";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { CheckinThemeProvider } from "../src/context/CheckinThemeContext";
+import { ToastHost } from "../src/components/ui";
 import "../src/i18n";
 import * as Sentry from "@sentry/react-native";
 
@@ -33,8 +33,7 @@ Sentry.init({
 SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded, error] = useFonts({ SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf") });
+  const [loaded] = useFonts({ Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold });
 
   useEffect(() => {
     // Force hide splash screen after a timeout regardless of font loading
@@ -54,14 +53,13 @@ function RootLayout() {
     <SafeAreaProvider>
       <CheckinThemeProvider>
         <ThemeProvider value={DefaultTheme}>
-          <Stack screenOptions={{ headerShown: false }}>
+          <Stack screenOptions={{ headerShown: false, animation: "fade_from_bottom", animationDuration: 220 }}>
             <Stack.Screen name="index" />
             <Stack.Screen name="login" />
             <Stack.Screen name="lookup" />
             <Stack.Screen name="household" />
             <Stack.Screen name="selectChurch" />
             <Stack.Screen name="services" />
-            <Stack.Screen name="service" />
             <Stack.Screen name="selectGroup" />
             <Stack.Screen name="addGuest" />
             <Stack.Screen name="checkinComplete" />
@@ -71,6 +69,7 @@ function RootLayout() {
             <Stack.Screen name="privacyPolicy" />
             <Stack.Screen name="+not-found" />
           </Stack>
+          <ToastHost />
         </ThemeProvider>
       </CheckinThemeProvider>
     </SafeAreaProvider>
