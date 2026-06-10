@@ -2,7 +2,7 @@
   "expo": {
     "name": "B1Checkin",
     "slug": "b1-checkin",
-    "version": "1.2.3",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "b1checkin",

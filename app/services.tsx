@@ -20,11 +20,16 @@ const Services = (props: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [loadFailed, setLoadFailed] = React.useState(false);
   const [services, setServices] = React.useState([]);
+  // Campuses are mastered in the membership module; resolve the campus name by id.
+  const [campuses, setCampuses] = React.useState<any[]>([]);
   const [selectingId, setSelectingId] = React.useState<string | null>(null);
 
   const loadData = () => {
     setIsLoading(true);
     setLoadFailed(false);
+    ApiHelper.get("/campuses", "MembershipApi")
+      .then(data => { setCampuses(Array.isArray(data) ? data : []); })
+      .catch(error => { console.error("Error loading campuses:", error); });
     ApiHelper.get("/services", "AttendanceApi")
       .then(data => {
         setServices(data);
@@ -87,6 +92,7 @@ const Services = (props: Props) => {
     <Animated.View entering={FadeInDown.duration(200).delay(Math.min(index, 8) * 40)}>
       <ListRow
         title={item.name}
+        subtitle={campuses.find((c: any) => c.id === item.campusId)?.name}
         left={
           <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
             <MaterialIcons name="event" size={22} color={theme.colors.primary} />
