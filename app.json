@@ -25,7 +25,7 @@
     },
     "ios": {
       "bundleIdentifier": "church.b1.checkin",
-      "buildNumber": "23",
+      "buildNumber": "24",
       "supportsTablet": true,
       "icon": "./assets/images/source-icon.png",
       "infoPlist": {
@@ -82,6 +82,6 @@
     "updates": {
       "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
     },
-    "runtimeVersion": "1.2.0"
+    "runtimeVersion": "2.0.0"
   }
 }
