@@ -1,7 +1,7 @@
 const {
   withInfoPlist,
   withXcodeProject,
-  IOSConfig,
+  IOSConfig
 } = require("expo/config-plugins");
 const path = require("path");
 const fs = require("fs");
@@ -13,7 +13,7 @@ const withBrotherIOS = (config) => {
 
     config.modResults["NSBonjourServices"] = [
       "_pdl-datastream._tcp",
-      "_printer._tcp",
+      "_printer._tcp"
     ];
 
     return config;
@@ -55,7 +55,7 @@ const withBrotherIOS = (config) => {
           project,
           isBuildFile: true,
           targetUuid,
-          verbose: true,
+          verbose: true
         });
       }
     }

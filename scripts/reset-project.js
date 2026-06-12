@@ -42,7 +42,7 @@ export default function RootLayout() {
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
+  output: process.stdout
 });
 
 const moveDirectories = async (userInput) => {

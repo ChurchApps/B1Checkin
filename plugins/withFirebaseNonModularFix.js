@@ -41,7 +41,7 @@ const withFirebaseNonModularFix = (config) =>
       }
 
       return config;
-    },
+    }
   ]);
 
 module.exports = withFirebaseNonModularFix;
