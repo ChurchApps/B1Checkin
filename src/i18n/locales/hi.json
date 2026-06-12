@@ -16,6 +16,8 @@
     "changePin": "एडमिन PIN बदलें",
     "changePrinter": "प्रिंटर बदलें",
     "changeService": "सेवा बदलें",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "PIN सफलतापूर्वक बदल दिया गया है",
     "setPin": "एडमिन PIN सेट करें",
     "subtitle": "अपने कियोस्क डिवाइस की सेटिंग्स प्रबंधित करें",
@@ -35,6 +37,19 @@
     "welcomeMessage": "आपका परिवार सफलतापूर्वक चेक इन हो गया है।",
     "welcomeTitle": "स्वागत है!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "वापस",
     "cancel": "रद्द करें",
@@ -43,7 +58,18 @@
     "logout": "लॉगआउट",
     "ok": "ठीक है",
     "retry": "पुनः प्रयास करें",
+    "save": "Save",
     "search": "खोजें"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "कीपैड पर वापस जाएं",
+    "checkout": "Check out",
     "enterPhone": "कृपया फोन नंबर या अंतिम चार अंक दर्ज करें",
     "invalidNumbers": "कृपया मान्य संख्या दर्ज करें।",
     "keypadHint": "पूरा नंबर भी चलेगा",

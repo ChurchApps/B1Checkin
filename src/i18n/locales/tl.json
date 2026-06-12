@@ -16,6 +16,8 @@
     "changePin": "Baguhin ang Admin PIN",
     "changePrinter": "Baguhin ang Printer",
     "changeService": "Baguhin ang Serbisyo",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "Matagumpay na nabago ang PIN",
     "setPin": "Itakda ang Admin PIN",
     "subtitle": "Pamahalaan ang mga setting ng kiosk device",
@@ -35,6 +37,19 @@
     "welcomeMessage": "Matagumpay na naka-check in ang inyong pamilya.",
     "welcomeTitle": "Maligayang Pagdating!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "Bumalik",
     "cancel": "Kanselahin",
@@ -43,7 +58,18 @@
     "logout": "Mag-logout",
     "ok": "OK",
     "retry": "Subukan muli",
+    "save": "Save",
     "search": "Maghanap"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "Sigurado ka bang gusto mong mag-logout?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Bumalik sa keypad",
+    "checkout": "Check out",
     "enterPhone": "Pakiusap na ilagay ang numero ng telepono o huling apat na numero",
     "invalidNumbers": "Pakiusap na maglagay ng wastong mga numero.",
     "keypadHint": "Puwede rin ang buong numero",

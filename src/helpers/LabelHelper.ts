@@ -1,9 +1,10 @@
 import { Platform } from "react-native";
 import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
-import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
+import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, LabelBlockInterface } from "./Interfaces";
 import { ArrayHelper } from "./ArrayHelper";
 import { PrinterLog } from "./PrinterLog";
+import { LabelContext, LabelRenderer } from "./LabelRenderer";
 
 export class LabelHelper {
 
@@ -100,6 +101,54 @@ export class LabelHelper {
     return result;
   }
 
+  private static getTemplateBlocks(labelType: string): LabelBlockInterface[] | null {
+    const candidates = (CachedData.labelTemplates || []).filter(t => t.labelType === labelType);
+    const template = candidates.find(t => t.isDefault) || candidates[0];
+    if (!template?.content) return null;
+    try {
+      const blocks = JSON.parse(template.content);
+      return Array.isArray(blocks) ? blocks : null;
+    } catch {
+      return null;
+    }
+  }
+
+  private static getCommonContext(pickupCode: string): LabelContext {
+    return {
+      securityCode: pickupCode,
+      date: new Date().toLocaleDateString(),
+      churchName: CachedData.userChurch?.church?.name || ""
+    };
+  }
+
+  private static getNametagContext(visit: VisitInterface, isChild: boolean, pickupCode: string): LabelContext {
+    const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "") || {};
+    return {
+      ...this.getCommonContext(isChild ? pickupCode : ""),
+      "person.displayName": person.name?.display || person.displayName || "",
+      "person.firstName": person.name?.first || person.firstName || "",
+      "person.lastName": person.name?.last || person.lastName || "",
+      "person.nickName": person.name?.nick || person.nickName || "",
+      "person.nametagNotes": person.nametagNotes || "",
+      sessions: VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/,/g, "\n")
+    };
+  }
+
+  private static getPickupContext(childVisits: VisitInterface[], pickupCode: string): LabelContext {
+    const children: string[] = [];
+    const allergies: string[] = [];
+    childVisits.forEach(cv => {
+      const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", cv.personId || "") || {};
+      children.push((person.name?.display || person.displayName || "Unknown") + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
+      if (person.nametagNotes) allergies.push((person.name?.display || person.displayName || "Unknown") + " - " + person.nametagNotes);
+    });
+    return {
+      ...this.getCommonContext(pickupCode),
+      children: children.join("\n"),
+      childrenAllergies: allergies.join("\n")
+    };
+  }
+
   private static getChildVisits() {
     const result: VisitInterface[] = [];
     CachedData.pendingVisits.forEach(pv => {
@@ -136,22 +185,29 @@ export class LabelHelper {
     return shouldPrint;
   }
 
-  public static async getAllLabels() {
+  public static async getAllLabels(securityCode?: string) {
     try {
-      const pickupCode = LabelHelper.generatePickupCode();
+      const pickupCode = securityCode || LabelHelper.generatePickupCode();
       const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
-      const labelTemplate = await this.readHtml("1_1x3_5.html");
-      const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
+      const nametagBlocks = this.getTemplateBlocks("nametag");
+      const pickupBlocks = this.getTemplateBlocks("pickup");
+      const labelTemplate = nametagBlocks ? "" : await this.readHtml("1_1x3_5.html");
+      const pickupTemplate = pickupBlocks ? "" : await this.readHtml("pickup_1_1x3_5.html");
       const result: string[] = [];
 
       CachedData.pendingVisits.forEach(pv => {
         if (pv.visitSessions && pv.visitSessions.length > 0 && this.shouldPrintNametag(pv)) {
-          result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
+          const isChild = childVisits.some(cv => cv.personId === pv.personId);
+          result.push(nametagBlocks
+            ? LabelRenderer.render(nametagBlocks, this.getNametagContext(pv, isChild, pickupCode))
+            : this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
         }
       });
 
       if (childVisits.length > 0 && this.shouldPrintPickup(childVisits)) {
-        result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
+        result.push(pickupBlocks
+          ? LabelRenderer.render(pickupBlocks, this.getPickupContext(childVisits, pickupCode))
+          : this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
       }
       PrinterLog.add(`getAllLabels: produced ${result.length} label(s)`);
       return result;

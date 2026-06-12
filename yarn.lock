@@ -4146,6 +4146,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/qrcode@npm:^1.5.6":
+  version: 1.5.6
+  resolution: "@types/qrcode@npm:1.5.6"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/84844ca63e5f32bc47d44dda0f8a6f7cdcc7ce44e7b24f10f19d50796f31d12c058f702a8f7d352c9e82a023a9abc36fa1ad01ddf0a209dd8ed4562ea76481fc
+  languageName: node
+  linkType: hard
+
 "@types/react-native-material-ripple@npm:^0.9.6":
   version: 0.9.6
   resolution: "@types/react-native-material-ripple@npm:0.9.6"
@@ -4935,6 +4944,7 @@ __metadata:
     "@react-navigation/native": "npm:^7.0.14"
     "@sentry/react-native": "npm:~7.11.0"
     "@types/jest": "npm:29.5.14"
+    "@types/qrcode": "npm:^1.5.6"
     "@types/react": "npm:~19.2.10"
     "@types/react-native-material-ripple": "npm:^0.9.6"
     "@types/react-test-renderer": "npm:^19.1.0"
@@ -4973,6 +4983,7 @@ __metadata:
     jest-expo: "npm:~55.0.9"
     patch-package: "npm:^8.0.1"
     printer-helper: "workspace:*"
+    qrcode: "npm:^1.5.4"
     react: "npm:19.2.0"
     react-dom: "npm:19.2.0"
     react-error-boundary: "npm:^6.1.1"

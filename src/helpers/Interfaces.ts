@@ -191,6 +191,38 @@ export interface AttendanceRecordInterface {
 // Settings interface
 export interface SettingInterface { id?: string; keyName?: string; value?: string; }
 
+// Label template interfaces
+export interface LabelTemplateInterface {
+  id?: string;
+  churchId?: string;
+  name?: string;
+  labelType?: "nametag" | "pickup";
+  width?: number;
+  height?: number;
+  isDefault?: boolean;
+  content?: string;
+}
+
+export interface LabelBlockInterface {
+  id?: string;
+  type: "text" | "field" | "barcode" | "qrcode" | "box";
+  x?: number;
+  y?: number;
+  w?: number;
+  h?: number;
+  text?: string;
+  field?: string;
+  fontSize?: number;
+  bold?: boolean;
+  italic?: boolean;
+  align?: "left" | "center" | "right";
+  symbology?: "code39" | "code128" | "qr";
+  value?: string;
+  fill?: string;
+  border?: boolean;
+  condition?: { field?: string; operator?: "notEmpty" | "empty" | "equals" | "notEquals"; value?: string };
+}
+
 // Form interfaces
 export interface FormInterface {
   id?: string;

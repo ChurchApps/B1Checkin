@@ -1,14 +1,4 @@
 {
-  "admin": {
-    "backToKiosk": "Back to Kiosk",
-    "changePin": "Change Admin PIN",
-    "changePrinter": "Change Printer",
-    "changeService": "Change Service",
-    "pinChanged": "PIN has been changed successfully",
-    "setPin": "Set Admin PIN",
-    "subtitle": "Manage your kiosk device settings",
-    "title": "Admin Settings"
-  },
   "addGuest": {
     "addButton": "Add Guest",
     "addFailed": "Couldn't add the guest. Please try again.",
@@ -20,6 +10,18 @@
     "lastNamePlaceholder": "Enter last name",
     "subtitle": "Enter guest information to add them to your household",
     "title": "Add Guest"
+  },
+  "admin": {
+    "backToKiosk": "Back to Kiosk",
+    "changePin": "Change Admin PIN",
+    "changePrinter": "Change Printer",
+    "changeService": "Change Service",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "pinChanged": "PIN has been changed successfully",
+    "setPin": "Set Admin PIN",
+    "subtitle": "Manage your kiosk device settings",
+    "title": "Admin Settings"
   },
   "checkinComplete": {
     "allSet": "You're all set!",
@@ -35,6 +37,19 @@
     "welcomeMessage": "Your family has been checked in successfully.",
     "welcomeTitle": "Welcome!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "Back",
     "cancel": "Cancel",
@@ -43,7 +58,18 @@
     "logout": "Logout",
     "ok": "OK",
     "retry": "Try again",
+    "save": "Save",
     "search": "Search"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "Are you sure you want to logout?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Back to keypad",
+    "checkout": "Check out",
     "enterPhone": "Please enter phone number or last four digits",
     "invalidNumbers": "Please enter valid numbers.",
     "keypadHint": "Your full number works too",
@@ -111,15 +138,15 @@
     "selectGroup": "Select Group",
     "unknown": "Unknown"
   },
-  "print": {
-    "printing": "Printing"
-  },
   "pinEntry": {
     "attemptsRemaining": "{{count}} attempts remaining",
     "backspace": "Delete",
     "enterPin": "Enter Admin PIN",
     "tooManyAttempts": "Too many failed attempts. Please wait.",
     "wrongPin": "Incorrect PIN. Please try again."
+  },
+  "print": {
+    "printing": "Printing"
   },
   "printers": {
     "diagnostics": "Diagnostics",
@@ -134,15 +161,6 @@
     "subtitle": "Choose a printer for printing name tags and labels",
     "testPrint": "Test Print",
     "title": "Select a Printer"
-  },
-  "setPin": {
-    "confirmPin": "Confirm your PIN",
-    "enterPin": "Enter a PIN",
-    "pinMismatch": "PINs do not match. Please try again.",
-    "pinSet": "PIN has been set successfully",
-    "pinTooShort": "PIN must be at least 4 digits",
-    "subtitle": "Create a 4-6 digit PIN to protect admin settings",
-    "title": "Set Admin PIN"
   },
   "selectChurch": {
     "emptySubtitle": "Your account doesn't have access to any church.",
@@ -168,6 +186,15 @@
     "selectService": "Select a service:",
     "subtitle": "Choose which service to check in for",
     "title": "Select a Service"
+  },
+  "setPin": {
+    "confirmPin": "Confirm your PIN",
+    "enterPin": "Enter a PIN",
+    "pinMismatch": "PINs do not match. Please try again.",
+    "pinSet": "PIN has been set successfully",
+    "pinTooShort": "PIN must be at least 4 digits",
+    "subtitle": "Create a 4-6 digit PIN to protect admin settings",
+    "title": "Set Admin PIN"
   },
   "splash": {
     "checkingUpdates": "Checking for updates...",

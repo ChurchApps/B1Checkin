@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 import { MaterialIcons } from "@expo/vector-icons";
 import Animated, { FadeInDown } from "react-native-reanimated";
@@ -59,7 +60,15 @@ const Services = (props: Props) => {
         CachedData.serviceTimes = times;
       }),
       ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
-      ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; })
+      ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; }),
+      ApiHelper.get("/labeltemplates", "AttendanceApi")
+        .then(templates => {
+          CachedData.labelTemplates = Array.isArray(templates) ? templates : [];
+          return AsyncStorage.setItem("@LabelTemplates", JSON.stringify(CachedData.labelTemplates));
+        })
+        .catch(() => AsyncStorage.getItem("@LabelTemplates").then(cached => {
+          try { CachedData.labelTemplates = cached ? JSON.parse(cached) : []; } catch { CachedData.labelTemplates = []; }
+        }).catch(() => { CachedData.labelTemplates = []; }))
     ];
 
     Promise.all(promises)

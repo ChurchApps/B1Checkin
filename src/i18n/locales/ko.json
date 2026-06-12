@@ -16,6 +16,8 @@
     "changePin": "관리자 PIN 변경",
     "changePrinter": "프린터 변경",
     "changeService": "예배 변경",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "PIN이 성공적으로 변경되었습니다",
     "setPin": "관리자 PIN 설정",
     "subtitle": "키오스크 장치 설정을 관리하세요",
@@ -35,6 +37,19 @@
     "welcomeMessage": "가족이 성공적으로 체크인되었습니다.",
     "welcomeTitle": "환영합니다!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "뒤로",
     "cancel": "취소",
@@ -43,7 +58,18 @@
     "logout": "로그아웃",
     "ok": "확인",
     "retry": "다시 시도",
+    "save": "Save",
     "search": "검색"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "정말 로그아웃하시겠습니까?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "키패드로 돌아가기",
+    "checkout": "Check out",
     "enterPhone": "전화번호 또는 마지막 네 자리를 입력해주세요",
     "invalidNumbers": "유효한 숫자를 입력해주세요.",
     "keypadHint": "전체 번호를 입력해도 됩니다",

@@ -42,8 +42,7 @@ const CheckinComplete = (props: Props) => {
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
     const promises: Promise<any>[] = [];
-    promises.push(checkin());
-    if (CachedData.printer?.ipAddress) print();
+    promises.push(checkin().then(securityCode => { if (CachedData.printer?.ipAddress) print(securityCode); }));
 
     Promise.all(promises)
       .then(() => {
@@ -81,10 +80,10 @@ const CheckinComplete = (props: Props) => {
     redirectTimerRef.current = setTimeout(goToLookup, delay);
   };
 
-  const print = async () => {
+  const print = async (securityCode?: string) => {
     try {
       PrinterLog.add(`--- Family check-in print: ${CachedData.printer?.brand} ${CachedData.printer?.model} @ ${CachedData.printer?.ipAddress} ---`);
-      const labels = await LabelHelper.getAllLabels();
+      const labels = await LabelHelper.getAllLabels(securityCode);
       setHtmlLabels(labels);
       if (labels.length === 0) {
         PrinterLog.add("Family print: nothing to print (0 labels)");
@@ -114,6 +113,7 @@ const CheckinComplete = (props: Props) => {
             setMilestones(hits);
           }
         }
+        return typeof data?.securityCode === "string" ? data.securityCode : "";
       })
       .catch(error => {
         console.error("Error during checkin:", error);

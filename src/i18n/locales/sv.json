@@ -16,6 +16,8 @@
     "changePin": "Ändra admin-PIN",
     "changePrinter": "Byt skrivare",
     "changeService": "Byt gudstjänst",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "PIN-koden har ändrats",
     "setPin": "Ställ in admin-PIN",
     "subtitle": "Hantera inställningar för kioskenheten",
@@ -35,6 +37,19 @@
     "welcomeMessage": "Din familj har checkats in.",
     "welcomeTitle": "Välkommen!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "Tillbaka",
     "cancel": "Avbryt",
@@ -43,7 +58,18 @@
     "logout": "Logga ut",
     "ok": "OK",
     "retry": "Försök igen",
+    "save": "Save",
     "search": "Sök"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "Är du säker på att du vill logga ut?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Tillbaka till knappsatsen",
+    "checkout": "Check out",
     "enterPhone": "Ange telefonnummer eller de fyra sista siffrorna",
     "invalidNumbers": "Ange giltiga siffror.",
     "keypadHint": "Hela numret fungerar också",

@@ -16,6 +16,8 @@
     "changePin": "更改管理员PIN",
     "changePrinter": "更改打印机",
     "changeService": "更改服务",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "PIN已成功更改",
     "setPin": "设置管理员PIN",
     "subtitle": "管理自助终端设备设置",
@@ -35,6 +37,19 @@
     "welcomeMessage": "您的家人已成功签到。",
     "welcomeTitle": "欢迎！"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "返回",
     "cancel": "取消",
@@ -43,7 +58,18 @@
     "logout": "退出登录",
     "ok": "确定",
     "retry": "重试",
+    "save": "Save",
     "search": "搜索"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "您确定要退出登录吗？",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "返回数字键盘",
+    "checkout": "Check out",
     "enterPhone": "请输入电话号码或后四位数字",
     "invalidNumbers": "请输入有效的数字。",
     "keypadHint": "输入完整号码也可以",

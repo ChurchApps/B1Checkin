@@ -16,6 +16,8 @@
     "changePin": "Cambia PIN Admin",
     "changePrinter": "Cambia Stampante",
     "changeService": "Cambia Servizio",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "Il PIN è stato cambiato con successo",
     "setPin": "Imposta PIN Admin",
     "subtitle": "Gestisci le impostazioni del dispositivo chiosco",
@@ -35,6 +37,19 @@
     "welcomeMessage": "La tua famiglia è stata registrata con successo.",
     "welcomeTitle": "Benvenuto!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "Indietro",
     "cancel": "Annulla",
@@ -43,7 +58,18 @@
     "logout": "Esci",
     "ok": "OK",
     "retry": "Riprova",
+    "save": "Save",
     "search": "Cerca"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "Sei sicuro di voler uscire?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Torna al tastierino",
+    "checkout": "Check out",
     "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
     "invalidNumbers": "Inserisci numeri validi.",
     "keypadHint": "Funziona anche il numero completo",

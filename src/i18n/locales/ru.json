@@ -16,6 +16,8 @@
     "changePin": "Изменить PIN администратора",
     "changePrinter": "Изменить принтер",
     "changeService": "Изменить служение",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "PIN успешно изменен",
     "setPin": "Установить PIN администратора",
     "subtitle": "Управляйте настройками киоска",
@@ -35,6 +37,19 @@
     "welcomeMessage": "Ваша семья успешно зарегистрирована.",
     "welcomeTitle": "Добро пожаловать!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "Назад",
     "cancel": "Отмена",
@@ -43,7 +58,18 @@
     "logout": "Выход",
     "ok": "ОК",
     "retry": "Попробовать снова",
+    "save": "Save",
     "search": "Поиск"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "Вы уверены, что хотите выйти?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Назад к клавиатуре",
+    "checkout": "Check out",
     "enterPhone": "Пожалуйста, введите номер телефона или последние четыре цифры",
     "invalidNumbers": "Пожалуйста, введите действительные цифры.",
     "keypadHint": "Можно ввести и полный номер",

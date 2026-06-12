@@ -16,6 +16,8 @@
     "changePin": "Endre admin-PIN",
     "changePrinter": "Endre skriver",
     "changeService": "Endre gudstjeneste",
+    "mannedMode": "Manned station mode",
+    "mannedModeHint": "Adds volunteer check-out and profile editing",
     "pinChanged": "PIN er endret",
     "setPin": "Sett admin-PIN",
     "subtitle": "Administrer innstillingene for kioskenheten",
@@ -35,6 +37,19 @@
     "welcomeMessage": "Familien din har blitt sjekket inn.",
     "welcomeTitle": "Velkommen!"
   },
+  "checkout": {
+    "checkingOut": "Checking out",
+    "checkoutFailed": "Couldn't check out. Please try again.",
+    "codeNotFound": "No active check-ins match that code. Please try again.",
+    "confirm": "Check Out",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "other": "Other",
+    "otherNamePlaceholder": "Enter name",
+    "subtitle": "Enter or scan the security code",
+    "success": "Checked out successfully",
+    "title": "Check Out",
+    "whoPickingUp": "Who is picking up?"
+  },
   "common": {
     "back": "Tilbake",
     "cancel": "Avbryt",
@@ -43,7 +58,18 @@
     "logout": "Logg ut",
     "ok": "OK",
     "retry": "Prøv igjen",
+    "save": "Save",
     "search": "Søk"
+  },
+  "editPerson": {
+    "birthDate": "Birth Date",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Couldn't load this person. Please try again.",
+    "mobilePhone": "Mobile Phone",
+    "nametagNotes": "Name Tag Notes",
+    "saveFailed": "Couldn't save. Please try again.",
+    "title": "Edit Profile"
   },
   "header": {
     "logoutConfirm": "Er du sikker på at du vil logge ut?",
@@ -79,6 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Tilbake til tastaturet",
+    "checkout": "Check out",
     "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
     "invalidNumbers": "Vennligst oppgi gyldige tall.",
     "keypadHint": "Hele nummeret fungerer også",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert, Switch, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,13 @@ const AdminSettings = (props: Props) => {
   const { t } = useTranslation();
   const theme = useAppTheme();
   const [showChangePinModal, setShowChangePinModal] = React.useState(false);
+  const [manned, setManned] = React.useState(CachedData.stationMode === "manned");
+
+  const toggleManned = (value: boolean) => {
+    setManned(value);
+    CachedData.stationMode = value ? "manned" : "self";
+    AsyncStorage.setItem("@StationMode", CachedData.stationMode).catch(() => {});
+  };
 
   const handleLogout = () => {
     Alert.alert(
@@ -82,6 +89,14 @@ const AdminSettings = (props: Props) => {
             style={{ marginBottom: theme.spacing.sm }}
           />
         ))}
+        <ListRow
+          title={t("admin.mannedMode")}
+          subtitle={t("admin.mannedModeHint")}
+          left={getIconCircle("badge")}
+          right={<Switch value={manned} onValueChange={toggleManned} trackColor={{ true: theme.colors.primary }} />}
+          onPress={() => toggleManned(!manned)}
+          style={{ marginBottom: theme.spacing.sm }}
+        />
         <View style={{ height: theme.spacing.lg }} />
         <ListRow
           title={t("common.logout")}

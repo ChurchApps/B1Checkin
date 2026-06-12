@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { FlatList, Pressable, Text, useWindowDimensions, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
@@ -37,6 +37,9 @@ const Lookup = (props: Props) => {
   const [qrVisible, setQrVisible] = React.useState(false);
   const [loadingPersonId, setLoadingPersonId] = React.useState<string | null>(null);
   const [searchFailed, setSearchFailed] = React.useState(false);
+  const [manned, setManned] = React.useState(CachedData.stationMode === "manned");
+
+  useFocusEffect(React.useCallback(() => { setManned(CachedData.stationMode === "manned"); }, []));
 
   const keyHeight = windowHeight < 1000 ? 72 : 88;
   const canSearch = searchMode === "phone" ? phone.length >= 4 : lastName.trim().length >= 2;
@@ -259,6 +262,7 @@ const Lookup = (props: Props) => {
             <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.primary, textDecorationLine: "underline" }}>{t("lookup.registerGuest")}</Text>
           </Pressable>
         )}
+        {manned && <Button label={t("lookup.checkout")} variant="ghost" size="md" icon="logout" onPress={() => router.navigate("/checkout")} />}
       </View>
     </View>
   );
