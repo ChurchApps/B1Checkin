@@ -122,8 +122,6 @@
     "readySubtitle": "Введите номер телефона для поиска людей",
     "readyTitle": "Готово к поиску",
     "registerGuest": "Зарегистрироваться как гость",
-    "resultsFound_few": "{{count}} результата",
-    "resultsFound_many": "{{count}} результатов",
     "resultsFound_one": "{{count}} результат",
     "resultsFound_other": "{{count}} результатов",
     "searchByName": "Искать по имени",
@@ -172,8 +170,6 @@
   },
   "selectGroup": {
     "choosingFor": "Выбираем для {{name}}",
-    "groupCount_few": "{{count}} группы",
-    "groupCount_many": "{{count}} групп",
     "groupCount_one": "{{count}} группа",
     "groupCount_other": "{{count}} группы",
     "noGroupOption": "Без группы в этот раз",

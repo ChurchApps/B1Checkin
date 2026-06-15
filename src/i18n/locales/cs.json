@@ -122,7 +122,6 @@
     "readySubtitle": "Zadejte telefonní číslo pro vyhledání osob",
     "readyTitle": "Připraveno k vyhledávání",
     "registerGuest": "Registrovat se jako host",
-    "resultsFound_few": "{{count}} výsledky",
     "resultsFound_one": "{{count}} výsledek",
     "resultsFound_other": "{{count}} výsledků",
     "searchByName": "Hledat podle jména",
@@ -171,7 +170,6 @@
   },
   "selectGroup": {
     "choosingFor": "Vybíráte pro {{name}}",
-    "groupCount_few": "{{count}} skupiny",
     "groupCount_one": "{{count}} skupina",
     "groupCount_other": "{{count}} skupin",
     "noGroupOption": "Tentokrát bez skupiny",
