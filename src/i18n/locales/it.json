@@ -16,8 +16,8 @@
     "changePin": "Cambia PIN Admin",
     "changePrinter": "Cambia Stampante",
     "changeService": "Cambia Servizio",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Modalità postazione presidiata",
+    "mannedModeHint": "Aggiunge il check-out tramite volontario e la modifica del profilo",
     "pinChanged": "Il PIN è stato cambiato con successo",
     "setPin": "Imposta PIN Admin",
     "subtitle": "Gestisci le impostazioni del dispositivo chiosco",
@@ -38,17 +38,17 @@
     "welcomeTitle": "Benvenuto!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Check-out in corso",
+    "checkoutFailed": "Impossibile effettuare il check-out. Riprova.",
+    "codeNotFound": "Nessun check-in attivo corrisponde a questo codice. Riprova.",
+    "confirm": "Check-out",
+    "lookupError": "Impossibile cercare questo codice. Riprova.",
+    "other": "Altra persona",
+    "otherNamePlaceholder": "Inserisci il nome",
+    "subtitle": "Inserisci o scansiona il codice di sicurezza",
+    "success": "Check-out effettuato con successo",
+    "title": "Check-out",
+    "whoPickingUp": "Chi viene a prendere?"
   },
   "common": {
     "back": "Indietro",
@@ -62,14 +62,14 @@
     "search": "Cerca"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Data di nascita",
     "birthDatePlaceholder": "YYYY-MM-DD",
     "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "loadFailed": "Impossibile caricare questa persona. Riprova.",
+    "mobilePhone": "Cellulare",
+    "nametagNotes": "Note per il cartellino",
+    "saveFailed": "Impossibile salvare. Riprova.",
+    "title": "Modifica profilo"
   },
   "header": {
     "logoutConfirm": "Sei sicuro di voler uscire?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Torna al tastierino",
-    "checkout": "Check out",
+    "checkout": "Check-out",
     "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
     "invalidNumbers": "Inserisci numeri validi.",
     "keypadHint": "Funziona anche il numero completo",

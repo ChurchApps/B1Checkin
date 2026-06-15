@@ -16,8 +16,8 @@
     "changePin": "एडमिन PIN बदलें",
     "changePrinter": "प्रिंटर बदलें",
     "changeService": "सेवा बदलें",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "नियंत्रित स्टेशन मोड",
+    "mannedModeHint": "स्वयंसेवक द्वारा चेक-आउट और प्रोफ़ाइल संपादन जोड़ता है",
     "pinChanged": "PIN सफलतापूर्वक बदल दिया गया है",
     "setPin": "एडमिन PIN सेट करें",
     "subtitle": "अपने कियोस्क डिवाइस की सेटिंग्स प्रबंधित करें",
@@ -38,17 +38,17 @@
     "welcomeTitle": "स्वागत है!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "चेक आउट हो रहा है",
+    "checkoutFailed": "चेक आउट नहीं हो सका। कृपया पुनः प्रयास करें।",
+    "codeNotFound": "उस कोड से कोई सक्रिय चेक-इन मेल नहीं खाता। कृपया पुनः प्रयास करें।",
+    "confirm": "चेक आउट करें",
+    "lookupError": "उस कोड को खोजा नहीं जा सका। कृपया पुनः प्रयास करें।",
+    "other": "अन्य व्यक्ति",
+    "otherNamePlaceholder": "नाम दर्ज करें",
+    "subtitle": "सुरक्षा कोड दर्ज करें या स्कैन करें",
+    "success": "सफलतापूर्वक चेक आउट किया गया",
+    "title": "चेक आउट",
+    "whoPickingUp": "कौन ले जा रहा है?"
   },
   "common": {
     "back": "वापस",
@@ -62,14 +62,14 @@
     "search": "खोजें"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "जन्म तिथि",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "ईमेल",
+    "loadFailed": "इस व्यक्ति को लोड नहीं किया जा सका। कृपया पुनः प्रयास करें।",
+    "mobilePhone": "मोबाइल फ़ोन",
+    "nametagNotes": "नाम टैग नोट्स",
+    "saveFailed": "सहेजा नहीं जा सका। कृपया पुनः प्रयास करें।",
+    "title": "प्रोफ़ाइल संपादित करें"
   },
   "header": {
     "logoutConfirm": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "कीपैड पर वापस जाएं",
-    "checkout": "Check out",
+    "checkout": "चेक आउट",
     "enterPhone": "कृपया फोन नंबर या अंतिम चार अंक दर्ज करें",
     "invalidNumbers": "कृपया मान्य संख्या दर्ज करें।",
     "keypadHint": "पूरा नंबर भी चलेगा",

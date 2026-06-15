@@ -16,8 +16,8 @@
     "changePin": "관리자 PIN 변경",
     "changePrinter": "프린터 변경",
     "changeService": "예배 변경",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "유인 스테이션 모드",
+    "mannedModeHint": "자원봉사자 체크아웃 및 프로필 편집을 추가합니다",
     "pinChanged": "PIN이 성공적으로 변경되었습니다",
     "setPin": "관리자 PIN 설정",
     "subtitle": "키오스크 장치 설정을 관리하세요",
@@ -38,17 +38,17 @@
     "welcomeTitle": "환영합니다!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "체크아웃 중",
+    "checkoutFailed": "체크아웃하지 못했습니다. 다시 시도해주세요.",
+    "codeNotFound": "해당 코드와 일치하는 활성 체크인이 없습니다. 다시 시도해주세요.",
+    "confirm": "체크아웃",
+    "lookupError": "해당 코드를 조회하지 못했습니다. 다시 시도해주세요.",
+    "other": "기타",
+    "otherNamePlaceholder": "이름 입력",
+    "subtitle": "보안 코드를 입력하거나 스캔하세요",
+    "success": "체크아웃되었습니다",
+    "title": "체크아웃",
+    "whoPickingUp": "누가 데려가나요?"
   },
   "common": {
     "back": "뒤로",
@@ -62,14 +62,14 @@
     "search": "검색"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "생년월일",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "이메일",
+    "loadFailed": "이 사람을 불러오지 못했습니다. 다시 시도해주세요.",
+    "mobilePhone": "휴대폰",
+    "nametagNotes": "명찰 메모",
+    "saveFailed": "저장하지 못했습니다. 다시 시도해주세요.",
+    "title": "프로필 편집"
   },
   "header": {
     "logoutConfirm": "정말 로그아웃하시겠습니까?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "키패드로 돌아가기",
-    "checkout": "Check out",
+    "checkout": "체크아웃",
     "enterPhone": "전화번호 또는 마지막 네 자리를 입력해주세요",
     "invalidNumbers": "유효한 숫자를 입력해주세요.",
     "keypadHint": "전체 번호를 입력해도 됩니다",

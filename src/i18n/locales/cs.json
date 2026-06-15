@@ -16,8 +16,8 @@
     "changePin": "Změnit administrátorský PIN",
     "changePrinter": "Změnit tiskárnu",
     "changeService": "Změnit bohoslužbu",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Režim obsluhované stanice",
+    "mannedModeHint": "Přidá odhlašování dobrovolníkem a úpravu profilu",
     "pinChanged": "PIN byl úspěšně změněn",
     "setPin": "Nastavit administrátorský PIN",
     "subtitle": "Spravujte nastavení kioskového zařízení",
@@ -38,17 +38,17 @@
     "welcomeTitle": "Vítejte!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Odhlašování",
+    "checkoutFailed": "Nepodařilo se odhlásit. Zkuste to prosím znovu.",
+    "codeNotFound": "Tomuto kódu neodpovídá žádné aktivní přihlášení. Zkuste to prosím znovu.",
+    "confirm": "Odhlásit",
+    "lookupError": "Kód se nepodařilo vyhledat. Zkuste to prosím znovu.",
+    "other": "Jiná osoba",
+    "otherNamePlaceholder": "Zadejte jméno",
+    "subtitle": "Zadejte nebo naskenujte bezpečnostní kód",
+    "success": "Odhlášení proběhlo úspěšně",
+    "title": "Odhlášení",
+    "whoPickingUp": "Kdo vyzvedává?"
   },
   "common": {
     "back": "Zpět",
@@ -62,14 +62,14 @@
     "search": "Hledat"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Datum narození",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "E-mail",
+    "loadFailed": "Tuto osobu se nepodařilo načíst. Zkuste to prosím znovu.",
+    "mobilePhone": "Mobilní telefon",
+    "nametagNotes": "Poznámky na jmenovku",
+    "saveFailed": "Nepodařilo se uložit. Zkuste to prosím znovu.",
+    "title": "Upravit profil"
   },
   "header": {
     "logoutConfirm": "Opravdu se chcete odhlásit?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Zpět na klávesnici",
-    "checkout": "Check out",
+    "checkout": "Odhlásit",
     "enterPhone": "Zadejte telefonní číslo nebo poslední čtyři číslice",
     "invalidNumbers": "Zadejte platná čísla.",
     "keypadHint": "Funguje i celé telefonní číslo",

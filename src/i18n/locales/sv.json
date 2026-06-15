@@ -16,8 +16,8 @@
     "changePin": "Ändra admin-PIN",
     "changePrinter": "Byt skrivare",
     "changeService": "Byt gudstjänst",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Bemannat stationsläge",
+    "mannedModeHint": "Lägger till utcheckning av volontär och profilredigering",
     "pinChanged": "PIN-koden har ändrats",
     "setPin": "Ställ in admin-PIN",
     "subtitle": "Hantera inställningar för kioskenheten",
@@ -38,17 +38,17 @@
     "welcomeTitle": "Välkommen!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Checkar ut",
+    "checkoutFailed": "Det gick inte att checka ut. Försök igen.",
+    "codeNotFound": "Ingen aktiv incheckning matchar koden. Försök igen.",
+    "confirm": "Checka ut",
+    "lookupError": "Det gick inte att slå upp koden. Försök igen.",
+    "other": "Annan person",
+    "otherNamePlaceholder": "Ange namn",
+    "subtitle": "Ange eller skanna säkerhetskoden",
+    "success": "Utcheckning lyckades",
+    "title": "Checka ut",
+    "whoPickingUp": "Vem hämtar?"
   },
   "common": {
     "back": "Tillbaka",
@@ -62,14 +62,14 @@
     "search": "Sök"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Födelsedatum",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "E-post",
+    "loadFailed": "Det gick inte att läsa in den här personen. Försök igen.",
+    "mobilePhone": "Mobiltelefon",
+    "nametagNotes": "Anteckningar för namnbricka",
+    "saveFailed": "Det gick inte att spara. Försök igen.",
+    "title": "Redigera profil"
   },
   "header": {
     "logoutConfirm": "Är du säker på att du vill logga ut?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Tillbaka till knappsatsen",
-    "checkout": "Check out",
+    "checkout": "Checka ut",
     "enterPhone": "Ange telefonnummer eller de fyra sista siffrorna",
     "invalidNumbers": "Ange giltiga siffror.",
     "keypadHint": "Hela numret fungerar också",

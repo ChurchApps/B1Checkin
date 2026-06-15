@@ -16,8 +16,8 @@
     "changePin": "Baguhin ang Admin PIN",
     "changePrinter": "Baguhin ang Printer",
     "changeService": "Baguhin ang Serbisyo",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Naka-staff na istasyon",
+    "mannedModeHint": "Nagdaragdag ng check-out ng boluntaryo at pag-edit ng profile",
     "pinChanged": "Matagumpay na nabago ang PIN",
     "setPin": "Itakda ang Admin PIN",
     "subtitle": "Pamahalaan ang mga setting ng kiosk device",
@@ -38,17 +38,17 @@
     "welcomeTitle": "Maligayang Pagdating!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Nagche-check out",
+    "checkoutFailed": "Hindi ma-check out. Pakisubukan muli.",
+    "codeNotFound": "Walang aktibong check-in na tumutugma sa code na iyon. Pakisubukan muli.",
+    "confirm": "Mag-Check Out",
+    "lookupError": "Hindi mahanap ang code na iyon. Pakisubukan muli.",
+    "other": "Ibang tao",
+    "otherNamePlaceholder": "Ilagay ang pangalan",
+    "subtitle": "Ilagay o i-scan ang security code",
+    "success": "Matagumpay na nag-check out",
+    "title": "Mag-Check Out",
+    "whoPickingUp": "Sino ang susundo?"
   },
   "common": {
     "back": "Bumalik",
@@ -62,14 +62,14 @@
     "search": "Maghanap"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Petsa ng Kapanganakan",
     "birthDatePlaceholder": "YYYY-MM-DD",
     "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "loadFailed": "Hindi ma-load ang taong ito. Pakisubukan muli.",
+    "mobilePhone": "Mobile na Telepono",
+    "nametagNotes": "Mga Tala sa Name Tag",
+    "saveFailed": "Hindi ma-save. Pakisubukan muli.",
+    "title": "I-edit ang Profile"
   },
   "header": {
     "logoutConfirm": "Sigurado ka bang gusto mong mag-logout?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Bumalik sa keypad",
-    "checkout": "Check out",
+    "checkout": "Mag-Check Out",
     "enterPhone": "Pakiusap na ilagay ang numero ng telepono o huling apat na numero",
     "invalidNumbers": "Pakiusap na maglagay ng wastong mga numero.",
     "keypadHint": "Puwede rin ang buong numero",

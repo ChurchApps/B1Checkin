@@ -16,8 +16,8 @@
     "changePin": "Admin-PIN ändern",
     "changePrinter": "Drucker ändern",
     "changeService": "Gottesdienst ändern",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Betreuter Stationsmodus",
+    "mannedModeHint": "Fügt Check-out durch Mitarbeiter und Profilbearbeitung hinzu",
     "pinChanged": "PIN wurde erfolgreich geändert",
     "setPin": "Admin-PIN festlegen",
     "subtitle": "Verwalten Sie die Kioskgeräte-Einstellungen",
@@ -38,17 +38,17 @@
     "welcomeTitle": "Willkommen!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Wird ausgecheckt",
+    "checkoutFailed": "Auschecken nicht möglich. Bitte versuchen Sie es erneut.",
+    "codeNotFound": "Kein aktiver Check-in passt zu diesem Code. Bitte versuchen Sie es erneut.",
+    "confirm": "Auschecken",
+    "lookupError": "Code konnte nicht gefunden werden. Bitte versuchen Sie es erneut.",
+    "other": "Andere Person",
+    "otherNamePlaceholder": "Namen eingeben",
+    "subtitle": "Sicherheitscode eingeben oder scannen",
+    "success": "Erfolgreich ausgecheckt",
+    "title": "Auschecken",
+    "whoPickingUp": "Wer holt ab?"
   },
   "common": {
     "back": "Zurück",
@@ -62,14 +62,14 @@
     "search": "Suchen"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Geburtsdatum",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "E-Mail",
+    "loadFailed": "Diese Person konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+    "mobilePhone": "Mobiltelefon",
+    "nametagNotes": "Notizen für Namensschild",
+    "saveFailed": "Speichern nicht möglich. Bitte versuchen Sie es erneut.",
+    "title": "Profil bearbeiten"
   },
   "header": {
     "logoutConfirm": "Möchten Sie sich wirklich abmelden?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Zurück zum Ziffernfeld",
-    "checkout": "Check out",
+    "checkout": "Auschecken",
     "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
     "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
     "keypadHint": "Die vollständige Nummer funktioniert auch",

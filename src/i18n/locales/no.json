@@ -16,8 +16,8 @@
     "changePin": "Endre admin-PIN",
     "changePrinter": "Endre skriver",
     "changeService": "Endre gudstjeneste",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Betjent stasjonsmodus",
+    "mannedModeHint": "Legger til utsjekking av frivillig og profilredigering",
     "pinChanged": "PIN er endret",
     "setPin": "Sett admin-PIN",
     "subtitle": "Administrer innstillingene for kioskenheten",
@@ -38,17 +38,17 @@
     "welcomeTitle": "Velkommen!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Sjekker ut",
+    "checkoutFailed": "Kunne ikke sjekke ut. Vennligst prøv igjen.",
+    "codeNotFound": "Ingen aktive innsjekkinger samsvarer med koden. Vennligst prøv igjen.",
+    "confirm": "Sjekk ut",
+    "lookupError": "Kunne ikke slå opp koden. Vennligst prøv igjen.",
+    "other": "Annen person",
+    "otherNamePlaceholder": "Skriv inn navn",
+    "subtitle": "Skriv inn eller skann sikkerhetskoden",
+    "success": "Utsjekking fullført",
+    "title": "Sjekk ut",
+    "whoPickingUp": "Hvem henter?"
   },
   "common": {
     "back": "Tilbake",
@@ -62,14 +62,14 @@
     "search": "Søk"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Fødselsdato",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "E-post",
+    "loadFailed": "Kunne ikke laste denne personen. Vennligst prøv igjen.",
+    "mobilePhone": "Mobiltelefon",
+    "nametagNotes": "Notater til navnelapp",
+    "saveFailed": "Kunne ikke lagre. Vennligst prøv igjen.",
+    "title": "Rediger profil"
   },
   "header": {
     "logoutConfirm": "Er du sikker på at du vil logge ut?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Tilbake til tastaturet",
-    "checkout": "Check out",
+    "checkout": "Sjekk ut",
     "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
     "invalidNumbers": "Vennligst oppgi gyldige tall.",
     "keypadHint": "Hele nummeret fungerer også",

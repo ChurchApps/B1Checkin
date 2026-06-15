@@ -16,8 +16,8 @@
     "changePin": "更改管理员PIN",
     "changePrinter": "更改打印机",
     "changeService": "更改服务",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "有人值守站点模式",
+    "mannedModeHint": "添加志愿者签退和资料编辑功能",
     "pinChanged": "PIN已成功更改",
     "setPin": "设置管理员PIN",
     "subtitle": "管理自助终端设备设置",
@@ -38,17 +38,17 @@
     "welcomeTitle": "欢迎！"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "正在签退",
+    "checkoutFailed": "无法签退，请重试。",
+    "codeNotFound": "没有与该代码匹配的有效签到，请重试。",
+    "confirm": "签退",
+    "lookupError": "无法查找该代码，请重试。",
+    "other": "其他人",
+    "otherNamePlaceholder": "输入姓名",
+    "subtitle": "输入或扫描安全码",
+    "success": "签退成功",
+    "title": "签退",
+    "whoPickingUp": "谁来接？"
   },
   "common": {
     "back": "返回",
@@ -62,14 +62,14 @@
     "search": "搜索"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "出生日期",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "电子邮件",
+    "loadFailed": "无法加载此人，请重试。",
+    "mobilePhone": "手机",
+    "nametagNotes": "名牌备注",
+    "saveFailed": "无法保存，请重试。",
+    "title": "编辑资料"
   },
   "header": {
     "logoutConfirm": "您确定要退出登录吗？",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "返回数字键盘",
-    "checkout": "Check out",
+    "checkout": "签退",
     "enterPhone": "请输入电话号码或后四位数字",
     "invalidNumbers": "请输入有效的数字。",
     "keypadHint": "输入完整号码也可以",

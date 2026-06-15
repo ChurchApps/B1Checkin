@@ -16,8 +16,8 @@
     "changePin": "Cambiar PIN de Admin",
     "changePrinter": "Cambiar Impresora",
     "changeService": "Cambiar Servicio",
-    "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedMode": "Modo de estación atendida",
+    "mannedModeHint": "Agrega salida por voluntario y edición de perfil",
     "pinChanged": "El PIN ha sido cambiado exitosamente",
     "setPin": "Establecer PIN de Admin",
     "subtitle": "Administre la configuración del dispositivo kiosco",
@@ -38,17 +38,17 @@
     "welcomeTitle": "¡Bienvenido!"
   },
   "checkout": {
-    "checkingOut": "Checking out",
-    "checkoutFailed": "Couldn't check out. Please try again.",
-    "codeNotFound": "No active check-ins match that code. Please try again.",
-    "confirm": "Check Out",
-    "lookupError": "Couldn't look up that code. Please try again.",
-    "other": "Other",
-    "otherNamePlaceholder": "Enter name",
-    "subtitle": "Enter or scan the security code",
-    "success": "Checked out successfully",
-    "title": "Check Out",
-    "whoPickingUp": "Who is picking up?"
+    "checkingOut": "Registrando salida",
+    "checkoutFailed": "No se pudo registrar la salida. Por favor intente de nuevo.",
+    "codeNotFound": "Ningún registro activo coincide con ese código. Por favor intente de nuevo.",
+    "confirm": "Registrar salida",
+    "lookupError": "No se pudo buscar ese código. Por favor intente de nuevo.",
+    "other": "Otra persona",
+    "otherNamePlaceholder": "Ingrese el nombre",
+    "subtitle": "Ingrese o escanee el código de seguridad",
+    "success": "Salida registrada correctamente",
+    "title": "Salida",
+    "whoPickingUp": "¿Quién va a recoger?"
   },
   "common": {
     "back": "Volver",
@@ -62,14 +62,14 @@
     "search": "Buscar"
   },
   "editPerson": {
-    "birthDate": "Birth Date",
+    "birthDate": "Fecha de nacimiento",
     "birthDatePlaceholder": "YYYY-MM-DD",
-    "email": "Email",
-    "loadFailed": "Couldn't load this person. Please try again.",
-    "mobilePhone": "Mobile Phone",
-    "nametagNotes": "Name Tag Notes",
-    "saveFailed": "Couldn't save. Please try again.",
-    "title": "Edit Profile"
+    "email": "Correo electrónico",
+    "loadFailed": "No se pudo cargar esta persona. Por favor intente de nuevo.",
+    "mobilePhone": "Teléfono móvil",
+    "nametagNotes": "Notas de la etiqueta",
+    "saveFailed": "No se pudo guardar. Por favor intente de nuevo.",
+    "title": "Editar perfil"
   },
   "header": {
     "logoutConfirm": "¿Está seguro de que desea cerrar sesión?",
@@ -105,7 +105,7 @@
   },
   "lookup": {
     "backToKeypad": "Volver al teclado",
-    "checkout": "Check out",
+    "checkout": "Salida",
     "enterPhone": "Por favor ingrese el número de teléfono o los últimos cuatro dígitos",
     "invalidNumbers": "Por favor ingrese números válidos.",
     "keypadHint": "También funciona tu número completo",
