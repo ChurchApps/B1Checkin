@@ -1,138 +1,128 @@
 import * as React from "react";
-import { Text, FlatList, ActivityIndicator, View, Image, TouchableOpacity } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleConstants, Styles, CachedData } from "../src/helpers";
-import { ApiHelper, DimensionHelper, FirebaseHelper, LoginUserChurchInterface } from "../src/helpers";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { MaterialIcons } from "@expo/vector-icons";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
+import { ApiHelper, CachedData, FirebaseHelper, LoginUserChurchInterface, Utils } from "../src/helpers";
+import { useAppTheme } from "../src/theme";
+import { Button, EmptyState, ListRow, Screen, TextField } from "../src/components/ui";
 
 function SelectChurch() {
   const { t } = useTranslation();
+  const theme = useAppTheme();
   const router = useRouter();
   const [userChurches, setUserChurches] = React.useState<LoginUserChurchInterface[]>([]);
-  const [isLoading, setLoading] = React.useState<boolean>(false);
-  const [churchLogos, setChurchLogos] = React.useState<{[key: string]: string}>({});
+  const [churchLogos, setChurchLogos] = React.useState<{ [key: string]: string }>({});
+  const [filter, setFilter] = React.useState("");
+  const [selectingId, setSelectingId] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Select Church");
-    setLoading(true);
     (async () => {
-      const userChurch = await AsyncStorage.getItem("@UserChurches");
-      const churches = JSON.parse(userChurch || "");
+      const stored = await AsyncStorage.getItem("@UserChurches");
+      let churches: LoginUserChurchInterface[] = [];
+      try { churches = JSON.parse(stored || "[]"); } catch { churches = []; }
       setUserChurches(churches);
 
-      // Fetch church logos
-      const logos: {[key: string]: string} = {};
-
-      for (const church of churches) {
-        try {
-          if (church.church?.id) {
-            const appearance = await ApiHelper.getAnonymous("/settings/public/" + church.church.id, "MembershipApi");
-
-            if (appearance?.logoLight) {
-              logos[church.church.id] = appearance.logoLight;
-            } else if (appearance?.logo) {
-              logos[church.church.id] = appearance.logo;
-            }
-          }
-        } catch (_error) {
-          // Silently continue if logo fetch fails
-        }
-      }
-
-      setChurchLogos(logos);
-      setLoading(false);
+      churches.forEach(church => {
+        const churchId = church.church?.id;
+        if (!churchId) return;
+        ApiHelper.getAnonymous("/settings/public/" + churchId, "MembershipApi")
+          .then(appearance => {
+            const logo = appearance?.logoLight || appearance?.logo;
+            if (logo) setChurchLogos(prev => ({ ...prev, [churchId]: logo }));
+          })
+          .catch(() => {});
+      });
     })();
   }, []);
 
   const select = async (userChurch: LoginUserChurchInterface) => {
-    CachedData.userChurch = userChurch;
-    userChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
-    await AsyncStorage.setItem("@SelectedChurchId", userChurch.church?.id?.toString() || "");
-    CachedData.churchAppearance = await ApiHelper.getAnonymous("/settings/public/" + userChurch.church.id, "MembershipApi");
-    await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
-
-    router.replace("/services");
-
+    if (selectingId) return;
+    setSelectingId(userChurch.church?.id || "");
+    try {
+      CachedData.userChurch = userChurch;
+      userChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
+      await AsyncStorage.setItem("@SelectedChurchId", userChurch.church?.id?.toString() || "");
+      CachedData.churchAppearance = await ApiHelper.getAnonymous("/settings/public/" + (userChurch.church?.id || ""), "MembershipApi");
+      await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
+      router.replace("/services");
+    } catch {
+      setSelectingId(null);
+      Utils.snackBar(t("services.loadError"), "error");
+    }
   };
 
   const getChurchLogo = (userChurch: LoginUserChurchInterface) => {
     const churchId = userChurch.church?.id;
     const logoUrl = churchId ? churchLogos[churchId] : null;
-
-    if (logoUrl) {
-      return (
-        <View style={Styles.churchLogoContainer}>
-          <Image
-            source={{ uri: logoUrl }}
-            style={Styles.churchLogo}
-          />
-        </View>
-      );
-    } else {
-      // Placeholder church icon when no logo is available
-      return (
-        <View style={Styles.churchLogoContainer}>
-          <MaterialIcons
-            name="location-city"
-            size={DimensionHelper.wp("3.5%")}
-            color={StyleConstants.baseColor}
-            style={Styles.churchPlaceholderIcon}
-          />
-        </View>
-      );
-    }
+    return (
+      <View style={{ width: 56, height: 48, borderRadius: theme.radius.sm, borderWidth: 1, borderColor: theme.colors.border, backgroundColor: theme.colors.surface, alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+        {logoUrl
+          ? <Animated.View entering={FadeIn.duration(250)}><Image source={{ uri: logoUrl }} style={{ width: 52, height: 42, resizeMode: "contain" }} /></Animated.View>
+          : <MaterialIcons name="location-city" size={24} color={theme.colors.textMuted} />}
+      </View>
+    );
   };
 
-  const getRow = (userChurch: LoginUserChurchInterface) => (
-    <TouchableOpacity
-      style={Styles.churchCard}
-      onPress={() => select(userChurch)}
-      activeOpacity={0.8}
-    >
-      {getChurchLogo(userChurch)}
-      <Text style={Styles.churchName}>{userChurch.church?.name}</Text>
-    </TouchableOpacity>
+  const filtered = filter.trim()
+    ? userChurches.filter(c => (c.church?.name || "").toLowerCase().includes(filter.trim().toLowerCase()))
+    : userChurches;
+
+  const getRow = ({ item, index }: { item: LoginUserChurchInterface; index: number }) => (
+    <Animated.View entering={FadeInDown.duration(200).delay(Math.min(index, 8) * 40)}>
+      <ListRow
+        title={item.church?.name || ""}
+        left={getChurchLogo(item)}
+        right={selectingId === item.church?.id ? "spinner" : "chevron"}
+        onPress={() => select(item)}
+        style={{ marginBottom: theme.spacing.sm }}
+      />
+    </Animated.View>
   );
 
-  const churchList = isLoading
-    ? (
-      <View style={Styles.churchSelectionLoader}>
-        <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
-        <Text style={{ marginTop: DimensionHelper.wp("3%"), fontSize: DimensionHelper.wp("2.8%"), color: StyleConstants.grayColor, fontFamily: StyleConstants.RobotoRegular }}>{t("selectChurch.loading")}</Text>
-      </View>
-    )
-    : (
-      <FlatList
-        data={userChurches}
-        renderItem={({ item }) => getRow(item)}
-        keyExtractor={(item: any) => item.church?.id?.toString() || item.id?.toString() || Math.random().toString()}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: DimensionHelper.wp("10%") }}
-      />
-    );
+  const logout = async () => {
+    await AsyncStorage.multiRemove(["@Login", "@Email", "@Password", "@UserChurches"]);
+    router.replace("/login");
+  };
 
   return (
-    <View style={Styles.churchSelectionContainer}>
-      {/* Header with Logo */}
-      <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("4%") }}>
-        <Image
-          source={require("../src/images/logo1.png")}
-          style={{
-            width: DimensionHelper.wp("14%"),
-            height: DimensionHelper.wp("14%"),
-            resizeMode: "contain",
-            marginBottom: DimensionHelper.wp("1.5%"),
-            borderRadius: DimensionHelper.wp("3%")
-          }}
-        />
-        <Text style={Styles.churchSelectionTitle}>{t("selectChurch.title")}</Text>
+    <Screen>
+      <View style={{ alignItems: "center", marginTop: theme.spacing.xxl, marginBottom: theme.spacing.xl }}>
+        <Image source={require("../src/images/logo1.png")} style={{ width: 72, height: 72, resizeMode: "contain" }} />
+        <Text style={{ fontSize: 24, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, marginTop: theme.spacing.md }}>{t("selectChurch.title")}</Text>
       </View>
-
-      {churchList}
-    </View>
+      {userChurches.length > 8 && (
+        <TextField
+          placeholder={String(t("common.search"))}
+          value={filter}
+          onChangeText={setFilter}
+          leadingIcon="search"
+          autoCapitalize="none"
+          containerStyle={{ marginBottom: theme.spacing.lg }}
+        />
+      )}
+      {userChurches.length === 0
+        ? (
+          <EmptyState
+            icon="location-city"
+            title={t("selectChurch.emptyTitle")}
+            subtitle={t("selectChurch.emptySubtitle")}
+            action={<Button label={t("common.logout")} variant="outline" onPress={logout} fullWidth />}
+          />
+        )
+        : (
+          <FlatList
+            data={filtered}
+            renderItem={getRow}
+            keyExtractor={(item: any) => item.church?.id?.toString() || item.id?.toString() || ""}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: theme.spacing.xxl }}
+          />
+        )}
+    </Screen>
   );
 }
 export default SelectChurch;
-

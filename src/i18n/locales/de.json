@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Zurück zum Kiosk",
-    "changePin": "Admin-PIN ändern",
-    "changePrinter": "Drucker ändern",
-    "changeService": "Gottesdienst ändern",
-    "pinChanged": "PIN wurde erfolgreich geändert",
-    "setPin": "Admin-PIN festlegen",
-    "subtitle": "Verwalten Sie die Kioskgeräte-Einstellungen",
-    "title": "Admin-Einstellungen"
-  },
   "addGuest": {
     "addButton": "Gast hinzufügen",
+    "addFailed": "Der Gast konnte nicht hinzugefügt werden. Bitte versuchen Sie es erneut.",
     "enterFirstName": "Bitte geben Sie den Vornamen ein",
     "enterLastName": "Bitte geben Sie den Nachnamen ein",
     "firstName": "Vorname",
@@ -20,20 +11,65 @@
     "subtitle": "Geben Sie die Gastinformationen ein, um sie zu Ihrem Haushalt hinzuzufügen",
     "title": "Gast hinzufügen"
   },
+  "admin": {
+    "backToKiosk": "Zurück zum Kiosk",
+    "changePin": "Admin-PIN ändern",
+    "changePrinter": "Drucker ändern",
+    "changeService": "Gottesdienst ändern",
+    "mannedMode": "Betreuter Stationsmodus",
+    "mannedModeHint": "Fügt Check-out durch Mitarbeiter und Profilbearbeitung hinzu",
+    "pinChanged": "PIN wurde erfolgreich geändert",
+    "setPin": "Admin-PIN festlegen",
+    "subtitle": "Verwalten Sie die Kioskgeräte-Einstellungen",
+    "title": "Admin-Einstellungen"
+  },
   "checkinComplete": {
+    "allSet": "Alles erledigt!",
+    "checkinError": "Etwas hat nicht geklappt – bitte wenden Sie sich an einen Mitarbeiter.",
+    "haveAGreatService": "Wir wünschen Ihnen einen schönen Gottesdienst.",
+    "labelsPrinted": "Namensschilder gedruckt",
+    "milestoneWeeks": "Wochen in Folge!",
+    "printingLabels": "Ihre Namensschilder werden gedruckt…",
     "printingMessage": "Ihre Etiketten werden jetzt gedruckt.",
+    "returning": "Zurück zum Start…",
     "subtitle": "Ihre Familie wurde erfolgreich eingecheckt",
     "title": "Check-in abgeschlossen",
     "welcomeMessage": "Ihre Familie wurde erfolgreich eingecheckt.",
-    "welcomeTitle": "Willkommen!",
-    "milestoneWeeks": "Wochen in Folge!"
+    "welcomeTitle": "Willkommen!"
+  },
+  "checkout": {
+    "checkingOut": "Wird ausgecheckt",
+    "checkoutFailed": "Auschecken nicht möglich. Bitte versuchen Sie es erneut.",
+    "codeNotFound": "Kein aktiver Check-in passt zu diesem Code. Bitte versuchen Sie es erneut.",
+    "confirm": "Auschecken",
+    "lookupError": "Code konnte nicht gefunden werden. Bitte versuchen Sie es erneut.",
+    "other": "Andere Person",
+    "otherNamePlaceholder": "Namen eingeben",
+    "subtitle": "Sicherheitscode eingeben oder scannen",
+    "success": "Erfolgreich ausgecheckt",
+    "title": "Auschecken",
+    "whoPickingUp": "Wer holt ab?"
   },
   "common": {
     "back": "Zurück",
     "cancel": "Abbrechen",
+    "continue": "Weiter",
     "login": "Anmelden",
     "logout": "Abmelden",
+    "ok": "OK",
+    "retry": "Erneut versuchen",
+    "save": "Save",
     "search": "Suchen"
+  },
+  "editPerson": {
+    "birthDate": "Geburtsdatum",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "E-Mail",
+    "loadFailed": "Diese Person konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+    "mobilePhone": "Mobiltelefon",
+    "nametagNotes": "Notizen für Namensschild",
+    "saveFailed": "Speichern nicht möglich. Bitte versuchen Sie es erneut.",
+    "title": "Profil bearbeiten"
   },
   "header": {
     "logoutConfirm": "Möchten Sie sich wirklich abmelden?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "Gast hinzufügen",
-    "checkin": "EINCHECKEN",
+    "alreadyCheckedIn": "Bereits eingecheckt",
+    "checkin": "Einchecken",
+    "checkinCount": "Einchecken – {{count}}",
+    "chooseGroupHint": "Wählen Sie für mindestens eine Person eine Gruppe",
+    "duplicateConfirm": "Erneut einchecken",
+    "duplicateMessage": "{{names}} sind für diesen Gottesdienst bereits eingecheckt. Checken Sie erneut ein, um die Gruppen zu aktualisieren.",
+    "duplicateTitle": "Bereits eingecheckt",
+    "emptyTitle": "Keine Haushaltsmitglieder gefunden",
     "subtitle": "Wählen Sie aus, wer heute eincheckt",
-    "title": "Haushaltsmitglieder auswählen"
+    "title": "Wer checkt ein?"
+  },
+  "idle": {
+    "tapToCheckin": "Zum Einchecken tippen"
   },
   "login": {
     "emailPlaceholder": "E-Mail",
@@ -58,8 +104,11 @@
     "welcomeBack": "Willkommen zurück"
   },
   "lookup": {
+    "backToKeypad": "Zurück zum Ziffernfeld",
+    "checkout": "Auschecken",
     "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
     "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
+    "keypadHint": "Die vollständige Nummer funktioniert auch",
     "minDigits": "Bitte geben Sie mindestens vier Ziffern ein.",
     "minLetters": "Bitte geben Sie mindestens zwei Buchstaben des Nachnamens ein.",
     "modeName": "Name",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "Versuchen Sie die Suche mit einem anderen Nachnamen",
     "noMatchTitle": "Keine Übereinstimmungen gefunden",
     "phonePlaceholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Scannen, um sich als Gast zu registrieren",
-    "registerGuest": "Als Gast registrieren",
     "readySubtitle": "Geben Sie eine Telefonnummer ein, um Personen zu finden",
     "readyTitle": "Bereit zur Suche",
+    "registerGuest": "Als Gast registrieren",
+    "resultsFound_one": "{{count}} Ergebnis",
+    "resultsFound_other": "{{count}} Ergebnisse",
+    "searchByName": "Nach Namen suchen",
     "searchError": "Die Suche konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
     "searching": "Suche...",
     "subtitle": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
-    "title": "Suche nach Telefonnummer"
+    "title": "Suche nach Telefonnummer",
+    "usePhone": "Telefonnummer verwenden",
+    "welcomeSubtitle": "Suchen Sie nach Telefonnummer oder Name, um Ihre Familie zu finden",
+    "welcomeTitle": "Willkommen! Wir checken Sie ein."
   },
   "members": {
     "error": "Fehler",
     "selectGroup": "Gruppe auswählen",
     "unknown": "Unbekannt"
-  },
-  "print": {
-    "printing": "Wird gedruckt"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} Versuche übrig",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "Zu viele Fehlversuche. Bitte warten.",
     "wrongPin": "Falscher PIN. Bitte erneut versuchen."
   },
+  "print": {
+    "printing": "Wird gedruckt"
+  },
   "printers": {
+    "diagnostics": "Diagnose",
     "noPrinter": "Kein Drucker",
     "noPrinterSelected": "Kein Drucker ausgewählt",
+    "noneFound": "Keine Drucker in diesem Netzwerk gefunden",
+    "rescan": "Erneut suchen",
     "saveAndContinue": "Speichern & Weiter",
     "saveRestart": "Speichern & Neu starten",
+    "saving": "Wird gespeichert…",
     "scanning": "Suche nach Druckern...",
     "subtitle": "Wählen Sie einen Drucker zum Drucken von Namensschildern und Etiketten",
     "testPrint": "Testdruck",
     "title": "Drucker auswählen"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Ihr Konto hat auf keine Gemeinde Zugriff.",
+    "emptyTitle": "Keine Gemeinden verfügbar",
+    "loading": "Lade Gemeinden...",
+    "title": "Gemeinde auswählen"
+  },
+  "selectGroup": {
+    "choosingFor": "Auswahl für {{name}}",
+    "groupCount_one": "{{count}} Gruppe",
+    "groupCount_other": "{{count}} Gruppen",
+    "noGroupOption": "Diesmal keine Gruppe",
+    "noGroups": "Für diese Zeit sind keine Gruppen verfügbar",
+    "none": "Keine",
+    "subtitle": "Wählen Sie eine Gruppe für {{serviceName}}",
+    "title": "Gruppe auswählen"
+  },
+  "services": {
+    "emptySubtitle": "Erstellen Sie Gottesdienste in B1 Admin, um mit dem Einchecken zu beginnen.",
+    "emptyTitle": "Noch keine Gottesdienste eingerichtet",
+    "loadError": "Gottesdienste konnten nicht geladen werden.",
+    "loading": "Lade Gottesdienste...",
+    "selectService": "Wählen Sie einen Gottesdienst:",
+    "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
+    "title": "Gottesdienst auswählen"
   },
   "setPin": {
     "confirmPin": "Bestätigen Sie Ihren PIN",
@@ -114,27 +196,16 @@
     "subtitle": "Erstellen Sie einen 4-6-stelligen PIN zum Schutz der Admin-Einstellungen",
     "title": "Admin-PIN festlegen"
   },
-  "selectChurch": {
-    "loading": "Lade Gemeinden...",
-    "title": "Gemeinde auswählen"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} Gruppen",
-    "none": "Keine",
-    "subtitle": "Wählen Sie eine Gruppe für {{serviceName}}",
-    "title": "Gruppe auswählen"
-  },
-  "services": {
-    "loading": "Lade Gottesdienste...",
-    "selectService": "Wählen Sie einen Gottesdienst:",
-    "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
-    "title": "Gottesdienst auswählen"
-  },
   "splash": {
     "checkingUpdates": "Suche nach Updates...",
     "downloadingUpdate": "Lade Update herunter...",
     "initializing": "Wird initialisiert...",
     "loadingChurch": "Lade Kirchendaten...",
     "loggingIn": "Melde an..."
+  },
+  "steps": {
+    "done": "Fertig",
+    "find": "Finden",
+    "select": "Auswählen"
   }
 }

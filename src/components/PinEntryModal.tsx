@@ -1,9 +1,12 @@
 import React from "react";
-import { View, Text, Modal, Pressable, Animated } from "react-native";
+import { Animated, Pressable, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
 import { useTranslation } from "react-i18next";
-import { CachedData, StyleConstants, DimensionHelper } from "../helpers";
+import { CachedData } from "../helpers";
+import { useAppTheme } from "../theme";
+import { Button, NumberPad, Sheet } from "./ui";
 
 interface PinEntryModalProps {
   visible: boolean;
@@ -20,6 +23,7 @@ const LOCKOUT_DURATION = 30000;
 
 const PinEntryModal = (props: PinEntryModalProps) => {
   const { t } = useTranslation();
+  const theme = useAppTheme();
   const { visible, mode, onSuccess, onCancel, dismissible = true } = props;
 
   const [pin, setPin] = React.useState("");
@@ -57,6 +61,7 @@ const PinEntryModal = (props: PinEntryModalProps) => {
   }, [lockedUntil]);
 
   const triggerShake = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
     Animated.sequence([
       Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnim, { toValue: -10, duration: 50, useNativeDriver: true }),
@@ -193,146 +198,74 @@ const PinEntryModal = (props: PinEntryModalProps) => {
     }
   };
 
+  const getSubmitLabel = () => {
+    if (step === "confirm" || step === "confirmNew") return t("setPin.confirmPin");
+    if ((step === "enter" && mode === "setup") || step === "newPin") return t("common.continue");
+    return t("common.ok");
+  };
+
   const currentPinValue = getCurrentPin();
   const canSubmit = currentPinValue.length >= MIN_PIN_LENGTH && lockedUntil <= 0;
 
   const getDigitCircles = () => {
     const circles = [];
     for (let i = 0; i < MAX_PIN_LENGTH; i++) {
+      const filled = i < currentPinValue.length;
+      const optional = !filled && i >= MIN_PIN_LENGTH;
       circles.push(
         <View
           key={i}
-          style={[
-            pinStyles.digitCircle,
-            i < currentPinValue.length && pinStyles.digitCircleFilled,
-            i >= currentPinValue.length && i >= MIN_PIN_LENGTH && pinStyles.digitCircleOptional
-          ]}
+          style={{
+            width: 16,
+            height: 16,
+            borderRadius: 8,
+            backgroundColor: filled ? theme.colors.primary : "transparent",
+            borderWidth: filled ? 0 : 2,
+            borderColor: optional ? theme.colors.textMuted : theme.colors.primary,
+            borderStyle: optional ? "dashed" : "solid",
+            opacity: optional ? 0.5 : 1
+          }}
         />
       );
     }
     return circles;
   };
 
-  const renderKeypadButton = (value: string, onPress: () => void, isIcon?: boolean) => (
-    <Pressable
-      key={value}
-      style={({ pressed }) => [pinStyles.keypadButton, pressed && pinStyles.keypadButtonPressed]}
-      onPress={onPress}
-      disabled={lockedUntil > 0}
-    >
-      {isIcon
-        ? <FontAwesome name="arrow-left" size={DimensionHelper.wp("3.5%")} color={StyleConstants.darkColor} />
-        : <Text style={pinStyles.keypadButtonText}>{value}</Text>}
-    </Pressable>
-  );
-
-  if (!visible) return null;
-
   return (
-    <Modal transparent animationType="fade" visible={visible} onRequestClose={dismissible ? onCancel : undefined}>
-      <View style={pinStyles.overlay}>
-        <Animated.View style={[pinStyles.card, { transform: [{ translateX: shakeAnim }] }]}>
-          {dismissible && (
-            <Pressable style={pinStyles.closeButton} onPress={onCancel}>
-              <FontAwesome name="times" size={DimensionHelper.wp("3.5%")} color={StyleConstants.grayColor} />
-            </Pressable>
-          )}
-
-          <FontAwesome name="lock" size={DimensionHelper.wp("6%")} color={StyleConstants.baseColor} style={pinStyles.lockIcon} />
-          <Text style={pinStyles.title}>{getTitle()}</Text>
-
-          {mode === "setup" && step === "enter" && (
-            <Text style={pinStyles.subtitle}>{t("setPin.subtitle")}</Text>
-          )}
-
-          <View style={pinStyles.digitRow}>
-            {getDigitCircles()}
-          </View>
-
-          {error ? <Text style={pinStyles.errorText}>{error}</Text> : null}
-          {lockedUntil > 0 && <Text style={pinStyles.lockoutText}>{lockCountdown}s</Text>}
-
-          <View style={pinStyles.keypadGrid}>
-            <View style={pinStyles.keypadRow}>
-              {renderKeypadButton("1", () => handleDigitPress("1"))}
-              {renderKeypadButton("2", () => handleDigitPress("2"))}
-              {renderKeypadButton("3", () => handleDigitPress("3"))}
-            </View>
-            <View style={pinStyles.keypadRow}>
-              {renderKeypadButton("4", () => handleDigitPress("4"))}
-              {renderKeypadButton("5", () => handleDigitPress("5"))}
-              {renderKeypadButton("6", () => handleDigitPress("6"))}
-            </View>
-            <View style={pinStyles.keypadRow}>
-              {renderKeypadButton("7", () => handleDigitPress("7"))}
-              {renderKeypadButton("8", () => handleDigitPress("8"))}
-              {renderKeypadButton("9", () => handleDigitPress("9"))}
-            </View>
-            <View style={pinStyles.keypadRow}>
-              <View style={pinStyles.keypadButton} />
-              {renderKeypadButton("0", () => handleDigitPress("0"))}
-              {renderKeypadButton("backspace", handleBackspace, true)}
-            </View>
-          </View>
-
-          <Pressable
-            style={[pinStyles.submitButton, !canSubmit && pinStyles.submitButtonDisabled]}
-            onPress={handleSubmit}
-            disabled={!canSubmit}
-          >
-            <Text style={pinStyles.submitButtonText}>
-              {(step === "confirm" || step === "confirmNew") ? t("setPin.confirmPin") :
-                (step === "enter" && mode === "setup") || step === "newPin" ? t("common.search").replace(t("common.search"), "OK") : "OK"}
-            </Text>
+    <Sheet visible={visible} onClose={onCancel} dismissible={dismissible} maxWidth={400}>
+      <Animated.View style={{ transform: [{ translateX: shakeAnim }], alignItems: "center" }}>
+        {dismissible && (
+          <Pressable accessibilityLabel="close" onPress={onCancel} style={{ position: "absolute", top: -theme.spacing.sm, right: -theme.spacing.sm, width: 48, height: 48, alignItems: "center", justifyContent: "center", zIndex: 1 }}>
+            <MaterialIcons name="close" size={26} color={theme.colors.textMuted} />
           </Pressable>
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
+        )}
 
-const pinStyles = {
-  overlay: { flex: 1, backgroundColor: "rgba(0, 0, 0, 0.7)", justifyContent: "center", alignItems: "center" },
-  card: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 14,
-    padding: DimensionHelper.wp("4%"),
-    width: DimensionHelper.wp("70%"),
-    maxWidth: 400,
-    alignItems: "center",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
-    elevation: 8
-  },
-  closeButton: { position: "absolute" as const, top: DimensionHelper.wp("2%"), right: DimensionHelper.wp("2%"), padding: DimensionHelper.wp("1.5%"), zIndex: 1 },
-  lockIcon: { marginBottom: DimensionHelper.wp("2%"), marginTop: DimensionHelper.wp("1.5%") },
-  title: { fontSize: DimensionHelper.wp("3.8%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("0.5%"), textAlign: "center" as const },
-  subtitle: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor, marginBottom: DimensionHelper.wp("1.5%"), textAlign: "center" as const },
-  digitRow: { flexDirection: "row" as const, justifyContent: "center", alignItems: "center", marginVertical: DimensionHelper.wp("3%"), gap: DimensionHelper.wp("2%") },
-  digitCircle: { width: DimensionHelper.wp("3%"), height: DimensionHelper.wp("3%"), borderRadius: DimensionHelper.wp("1.5%"), borderWidth: 2, borderColor: StyleConstants.baseColor, backgroundColor: "transparent" },
-  digitCircleFilled: { backgroundColor: StyleConstants.baseColor },
-  digitCircleOptional: { borderColor: StyleConstants.lightGray, borderStyle: "dashed" as const },
-  errorText: { fontSize: DimensionHelper.wp("2.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.redColor, textAlign: "center" as const, marginBottom: DimensionHelper.wp("1.5%") },
-  lockoutText: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.redColor, textAlign: "center" as const, marginBottom: DimensionHelper.wp("1.5%") },
-  keypadGrid: { width: "100%", alignItems: "center" },
-  keypadRow: { flexDirection: "row" as const, justifyContent: "center", marginBottom: DimensionHelper.wp("1.5%") },
-  keypadButton: { width: DimensionHelper.wp("12%"), height: DimensionHelper.wp("9%"), borderRadius: DimensionHelper.wp("1.5%"), backgroundColor: StyleConstants.ghostWhite, justifyContent: "center", alignItems: "center", marginHorizontal: DimensionHelper.wp("1%") },
-  keypadButtonPressed: { backgroundColor: StyleConstants.lightGrayColor },
-  keypadButtonText: { fontSize: DimensionHelper.wp("4.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
-  submitButton: {
-    backgroundColor: StyleConstants.baseColor,
-    borderRadius: 8,
-    paddingVertical: DimensionHelper.wp("2.2%"),
-    paddingHorizontal: DimensionHelper.wp("10%"),
-    marginTop: DimensionHelper.wp("1.5%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  submitButtonDisabled: { backgroundColor: StyleConstants.lightGray, elevation: 0, shadowOpacity: 0 },
-  submitButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.whiteColor, textAlign: "center" as const }
+        <View style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: theme.colors.primarySoft, alignItems: "center", justifyContent: "center", marginBottom: theme.spacing.lg }}>
+          <MaterialIcons name="lock-outline" size={30} color={theme.colors.primary} />
+        </View>
+        <Text style={{ fontSize: 20, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, textAlign: "center" }}>{getTitle()}</Text>
+
+        {mode === "setup" && step === "enter" && (
+          <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center", marginTop: theme.spacing.xs }}>{t("setPin.subtitle")}</Text>
+        )}
+
+        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginVertical: theme.spacing.xl, gap: theme.spacing.md }}>
+          {getDigitCircles()}
+        </View>
+
+        {!!error && <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.danger, textAlign: "center", marginBottom: theme.spacing.md }}>{error}</Text>}
+        {lockedUntil > 0 && (
+          <View style={{ width: 56, height: 56, borderRadius: 28, borderWidth: 3, borderColor: theme.colors.danger, alignItems: "center", justifyContent: "center", marginBottom: theme.spacing.md }}>
+            <Text style={{ fontSize: 18, fontFamily: theme.fonts.semibold, color: theme.colors.danger }}>{lockCountdown}</Text>
+          </View>
+        )}
+
+        <NumberPad onDigit={handleDigitPress} onBackspace={handleBackspace} keyHeight={64} style={{ alignSelf: "stretch" }} />
+
+        <Button label={getSubmitLabel()} onPress={handleSubmit} disabled={!canSubmit} fullWidth style={{ marginTop: theme.spacing.lg }} />
+      </Animated.View>
+    </Sheet>
+  );
 };
 
 export default PinEntryModal;

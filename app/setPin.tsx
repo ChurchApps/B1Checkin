@@ -1,12 +1,16 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { Image, Text, View } from "react-native";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { CachedData, StyleConstants, DimensionHelper } from "../src/helpers";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { CachedData } from "../src/helpers";
 import PinEntryModal from "../src/components/PinEntryModal";
+import { useAppTheme } from "../src/theme";
 
 const SetPin = () => {
   const { t } = useTranslation();
+  const theme = useAppTheme();
+  const insets = useSafeAreaInsets();
 
   const handlePinSet = () => {
     router.replace("/services");
@@ -18,14 +22,14 @@ const SetPin = () => {
   };
 
   return (
-    <View style={setPinStyles.container}>
-      <View style={setPinStyles.logoSection}>
-        <Image source={getLogoUrl()} style={setPinStyles.logo} />
+    <View style={{ flex: 1, backgroundColor: theme.colors.canvas }}>
+      <View style={{ backgroundColor: theme.colors.header, paddingTop: insets.top + theme.spacing.md, paddingBottom: theme.spacing.lg, alignItems: "center" }}>
+        <Image source={getLogoUrl()} style={{ width: 220, height: 48, resizeMode: "contain" }} />
       </View>
 
-      <View style={setPinStyles.content}>
-        <Text style={setPinStyles.title}>{t("setPin.title")}</Text>
-        <Text style={setPinStyles.subtitle}>{t("setPin.subtitle")}</Text>
+      <View style={{ alignItems: "center", paddingTop: theme.spacing.xxl, paddingHorizontal: theme.spacing.xl, gap: theme.spacing.sm }}>
+        <Text style={{ fontSize: 24, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, textAlign: "center" }}>{t("setPin.title")}</Text>
+        <Text style={{ fontSize: 16, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center" }}>{t("setPin.subtitle")}</Text>
       </View>
 
       <PinEntryModal
@@ -37,15 +41,6 @@ const SetPin = () => {
       />
     </View>
   );
-};
-
-const setPinStyles = {
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
-  logoSection: { backgroundColor: StyleConstants.baseColor, paddingVertical: DimensionHelper.wp("4%"), alignItems: "center" },
-  logo: { width: DimensionHelper.wp("30%"), height: DimensionHelper.wp("9%"), resizeMode: "contain" as const },
-  content: { alignItems: "center", paddingTop: DimensionHelper.wp("4%"), paddingHorizontal: DimensionHelper.wp("6%") },
-  title: { fontSize: DimensionHelper.wp("4.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("1.5%"), textAlign: "center" as const },
-  subtitle: { fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor, textAlign: "center" as const }
 };
 
 export default SetPin;

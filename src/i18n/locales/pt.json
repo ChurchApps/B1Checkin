@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Voltar ao Quiosque",
-    "changePin": "Alterar PIN de Admin",
-    "changePrinter": "Alterar Impressora",
-    "changeService": "Alterar Culto",
-    "pinChanged": "O PIN foi alterado com sucesso",
-    "setPin": "Definir PIN de Admin",
-    "subtitle": "Gerencie as configurações do dispositivo quiosque",
-    "title": "Configurações de Admin"
-  },
   "addGuest": {
     "addButton": "Adicionar Visitante",
+    "addFailed": "Não foi possível adicionar o visitante. Por favor, tente novamente.",
     "enterFirstName": "Por favor, insira o primeiro nome",
     "enterLastName": "Por favor, insira o sobrenome",
     "firstName": "Primeiro Nome",
@@ -20,20 +11,65 @@
     "subtitle": "Insira as informações do visitante para adicioná-lo à sua família",
     "title": "Adicionar Visitante"
   },
+  "admin": {
+    "backToKiosk": "Voltar ao Quiosque",
+    "changePin": "Alterar PIN de Admin",
+    "changePrinter": "Alterar Impressora",
+    "changeService": "Alterar Culto",
+    "mannedMode": "Modo de estação assistida",
+    "mannedModeHint": "Adiciona check-out por voluntário e edição de perfil",
+    "pinChanged": "O PIN foi alterado com sucesso",
+    "setPin": "Definir PIN de Admin",
+    "subtitle": "Gerencie as configurações do dispositivo quiosque",
+    "title": "Configurações de Admin"
+  },
   "checkinComplete": {
+    "allSet": "Tudo pronto!",
+    "checkinError": "Algo não deu certo — por favor, procure um voluntário.",
+    "haveAGreatService": "Tenha um ótimo culto.",
+    "labelsPrinted": "Crachás impressos",
+    "milestoneWeeks": "Semanas seguidas!",
+    "printingLabels": "Imprimindo seus crachás…",
     "printingMessage": "Suas etiquetas estão sendo impressas agora.",
+    "returning": "Voltando ao início…",
     "subtitle": "Sua família foi registrada com sucesso",
     "title": "Check-in Concluído",
     "welcomeMessage": "Sua família foi registrada com sucesso.",
-    "welcomeTitle": "Bem-vindo!",
-    "milestoneWeeks": "Semanas seguidas!"
+    "welcomeTitle": "Bem-vindo!"
+  },
+  "checkout": {
+    "checkingOut": "Fazendo check-out",
+    "checkoutFailed": "Não foi possível fazer check-out. Por favor, tente novamente.",
+    "codeNotFound": "Nenhum check-in ativo corresponde a esse código. Por favor, tente novamente.",
+    "confirm": "Fazer Check-out",
+    "lookupError": "Não foi possível localizar esse código. Por favor, tente novamente.",
+    "other": "Outra pessoa",
+    "otherNamePlaceholder": "Digite o nome",
+    "subtitle": "Digite ou escaneie o código de segurança",
+    "success": "Check-out realizado com sucesso",
+    "title": "Check-out",
+    "whoPickingUp": "Quem vai buscar?"
   },
   "common": {
     "back": "Voltar",
     "cancel": "Cancelar",
+    "continue": "Continuar",
     "login": "Entrar",
     "logout": "Sair",
+    "ok": "OK",
+    "retry": "Tentar novamente",
+    "save": "Save",
     "search": "Buscar"
+  },
+  "editPerson": {
+    "birthDate": "Data de nascimento",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "E-mail",
+    "loadFailed": "Não foi possível carregar esta pessoa. Por favor, tente novamente.",
+    "mobilePhone": "Telefone celular",
+    "nametagNotes": "Notas do crachá",
+    "saveFailed": "Não foi possível salvar. Por favor, tente novamente.",
+    "title": "Editar perfil"
   },
   "header": {
     "logoutConfirm": "Tem certeza de que deseja sair?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "Adicionar um Visitante",
-    "checkin": "FAZER CHECK-IN",
+    "alreadyCheckedIn": "Check-in já realizado",
+    "checkin": "Fazer Check-in",
+    "checkinCount": "Fazer Check-in — {{count}}",
+    "chooseGroupHint": "Escolha um grupo para pelo menos uma pessoa",
+    "duplicateConfirm": "Fazer Check-in Novamente",
+    "duplicateMessage": "O check-in de {{names}} já foi feito para este culto. Faça check-in novamente para atualizar os grupos.",
+    "duplicateTitle": "Check-in Já Realizado",
+    "emptyTitle": "Nenhum membro da família encontrado",
     "subtitle": "Escolha quem está fazendo check-in hoje",
-    "title": "Selecione os Membros da Família"
+    "title": "Quem vai fazer check-in?"
+  },
+  "idle": {
+    "tapToCheckin": "Toque para fazer check-in"
   },
   "login": {
     "emailPlaceholder": "E-mail",
@@ -58,8 +104,11 @@
     "welcomeBack": "Bem-vindo de Volta"
   },
   "lookup": {
+    "backToKeypad": "Voltar ao teclado",
+    "checkout": "Check-out",
     "enterPhone": "Por favor, insira o número de telefone ou os últimos quatro dígitos",
     "invalidNumbers": "Por favor, insira números válidos.",
+    "keypadHint": "O número completo também funciona",
     "minDigits": "Por favor, insira pelo menos quatro dígitos.",
     "minLetters": "Por favor, insira pelo menos duas letras do sobrenome.",
     "modeName": "Nome",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "Tente buscar com um sobrenome diferente",
     "noMatchTitle": "Nenhum Resultado Encontrado",
     "phonePlaceholder": "Digite os últimos quatro dígitos do número de celular",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Escaneie para se registrar como visitante",
-    "registerGuest": "Registrar como visitante",
     "readySubtitle": "Digite um número de telefone para encontrar pessoas",
     "readyTitle": "Pronto para Buscar",
+    "registerGuest": "Registrar como visitante",
+    "resultsFound_one": "{{count}} resultado",
+    "resultsFound_other": "{{count}} resultados",
+    "searchByName": "Buscar por nome",
     "searchError": "Não foi possível completar a busca. Por favor, tente novamente.",
     "searching": "Buscando...",
     "subtitle": "Digite os últimos quatro dígitos do número de celular",
-    "title": "Buscar por Número de Telefone"
+    "title": "Buscar por Número de Telefone",
+    "usePhone": "Usar número de telefone",
+    "welcomeSubtitle": "Busque por número de telefone ou nome para encontrar sua família",
+    "welcomeTitle": "Bem-vindos! Vamos fazer seu check-in."
   },
   "members": {
     "error": "Erro",
     "selectGroup": "Selecionar Grupo",
     "unknown": "Desconhecido"
-  },
-  "print": {
-    "printing": "Imprimindo"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} tentativas restantes",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "Muitas tentativas falhadas. Aguarde.",
     "wrongPin": "PIN incorreto. Tente novamente."
   },
+  "print": {
+    "printing": "Imprimindo"
+  },
   "printers": {
+    "diagnostics": "Diagnóstico",
     "noPrinter": "Sem Impressora",
     "noPrinterSelected": "Nenhuma impressora selecionada",
+    "noneFound": "Nenhuma impressora encontrada nesta rede",
+    "rescan": "Procurar novamente",
     "saveAndContinue": "Salvar e Continuar",
     "saveRestart": "Salvar e Reiniciar",
+    "saving": "Salvando…",
     "scanning": "Procurando impressoras...",
     "subtitle": "Escolha uma impressora para imprimir etiquetas e crachás",
     "testPrint": "Impressão de Teste",
     "title": "Selecione uma Impressora"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Sua conta não tem acesso a nenhuma igreja.",
+    "emptyTitle": "Nenhuma igreja disponível",
+    "loading": "Carregando igrejas...",
+    "title": "Selecione uma Igreja"
+  },
+  "selectGroup": {
+    "choosingFor": "Escolhendo para {{name}}",
+    "groupCount_one": "{{count}} grupo",
+    "groupCount_other": "{{count}} grupos",
+    "noGroupOption": "Sem grupo desta vez",
+    "noGroups": "Nenhum grupo disponível para este horário",
+    "none": "Nenhum",
+    "subtitle": "Escolha um grupo para {{serviceName}}",
+    "title": "Selecione um Grupo"
+  },
+  "services": {
+    "emptySubtitle": "Crie cultos no B1 Admin para começar a fazer o check-in das pessoas.",
+    "emptyTitle": "Nenhum culto configurado ainda",
+    "loadError": "Não foi possível carregar os cultos.",
+    "loading": "Carregando cultos...",
+    "selectService": "Selecione um culto:",
+    "subtitle": "Escolha para qual culto deseja fazer check-in",
+    "title": "Selecione um Culto"
   },
   "setPin": {
     "confirmPin": "Confirme seu PIN",
@@ -114,27 +196,16 @@
     "subtitle": "Crie um PIN de 4-6 dígitos para proteger as configurações de admin",
     "title": "Definir PIN de Admin"
   },
-  "selectChurch": {
-    "loading": "Carregando igrejas...",
-    "title": "Selecione uma Igreja"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} grupos",
-    "none": "Nenhum",
-    "subtitle": "Escolha um grupo para {{serviceName}}",
-    "title": "Selecione um Grupo"
-  },
-  "services": {
-    "loading": "Carregando cultos...",
-    "selectService": "Selecione um culto:",
-    "subtitle": "Escolha para qual culto deseja fazer check-in",
-    "title": "Selecione um Culto"
-  },
   "splash": {
     "checkingUpdates": "Verificando atualizações...",
     "downloadingUpdate": "Baixando atualização...",
     "initializing": "Inicializando...",
     "loadingChurch": "Carregando dados da igreja...",
     "loggingIn": "Entrando..."
+  },
+  "steps": {
+    "done": "Concluído",
+    "find": "Buscar",
+    "select": "Selecionar"
   }
 }

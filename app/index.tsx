@@ -1,11 +1,29 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import { Image, View, Text, ActivityIndicator } from "react-native";
+import { Image, Text, View } from "react-native";
 import { router, useRootNavigationState, Href } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Updates from "expo-updates";
 import { useTranslation } from "react-i18next";
-import { EnvironmentHelper, ApiHelper, LoginResponseInterface, CachedData, DimensionHelper, StyleConstants } from "../src/helpers";
+import Animated, { Easing, FadeIn, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
+import { ApiHelper, CachedData, EnvironmentHelper, LoginResponseInterface } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
+import { fonts, palette } from "../src/theme/tokens";
+
+const IndeterminateBar: React.FC = () => {
+  const position = useSharedValue(-0.4);
+
+  useEffect(() => {
+    position.value = withRepeat(withTiming(1, { duration: 1200, easing: Easing.inOut(Easing.ease) }), -1, false);
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => ({ left: `${position.value * 100}%` }));
+
+  return (
+    <View style={{ width: 200, height: 4, borderRadius: 2, backgroundColor: palette.line, overflow: "hidden" }}>
+      <Animated.View style={[{ position: "absolute", width: "40%", height: 4, borderRadius: 2, backgroundColor: palette.b1 }, animatedStyle]} />
+    </View>
+  );
+};
 
 export default function Splash() {
   const { t } = useTranslation();
@@ -15,11 +33,9 @@ export default function Splash() {
   const hasNavigated = useRef(false);
   const pendingNavigation = useRef<string | null>(null);
 
-  // Check if the navigation state is ready
   const isNavigationReady = navigationState?.key != null;
 
   const safeNavigate = useCallback((path: string) => {
-    // Prevent multiple navigations
     if (hasNavigated.current) return;
 
     if (!isNavigationReady) {
@@ -33,7 +49,6 @@ export default function Splash() {
     } catch (error) {
       console.error("Navigation error:", error);
       hasNavigated.current = false;
-      // Retry navigation after a short delay
       setTimeout(() => {
         if (!hasNavigated.current) {
           try {
@@ -48,7 +63,6 @@ export default function Splash() {
     }
   }, [isNavigationReady]);
 
-  // Execute pending navigation when navigation becomes ready
   useEffect(() => {
     if (isNavigationReady && pendingNavigation.current && !hasNavigated.current) {
       const path = pendingNavigation.current;
@@ -58,13 +72,10 @@ export default function Splash() {
   }, [isNavigationReady, safeNavigate]);
 
   useEffect(() => {
-    // Initialize API configuration
     EnvironmentHelper.init();
     setStatusMessage(t("splash.initializing"));
 
-    // Add a small delay to ensure layout is mounted before any navigation
     const initTimer = setTimeout(() => {
-      // Check for updates first, then proceed with login
       checkForUpdates();
     }, 100);
 
@@ -73,7 +84,6 @@ export default function Splash() {
 
   const checkForUpdates = async () => {
     try {
-      // Only check for updates in production builds
       if (!__DEV__) {
         setStatusMessage(t("splash.checkingUpdates"));
 
@@ -82,27 +92,36 @@ export default function Splash() {
         if (update.isAvailable) {
           setStatusMessage(t("splash.downloadingUpdate"));
           await Updates.fetchUpdateAsync();
-
-          // Reload the app to apply the update
           await Updates.reloadAsync();
-          return; // This line won't be reached as app reloads
+          return;
         }
       }
     } catch (error) {
       console.error("Error checking for updates:", error);
-      // Continue with normal flow even if update check fails
     }
 
-    // Proceed with credential check after update check
     checkStoredCredentials();
   };
 
   const checkStoredCredentials = async () => {
     try {
-      // Check if user has stored credentials and saved printer
-      const [email, password, selectedChurchId, churchAppearance, savedPrinter, kioskPin, kioskLocked] = await AsyncStorage.multiGet(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked"]);
+      const [
+        email,
+        password,
+        selectedChurchId,
+        churchAppearance,
+        savedPrinter,
+        kioskPin,
+        kioskLocked,
+        stationMode
+      ] = await AsyncStorage.multiGet([
+        "@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked", "@StationMode"
+      ]);
 
-      // Load saved printer if available
+      if (stationMode[1] === "manned") {
+        CachedData.stationMode = "manned";
+      }
+
       if (savedPrinter[1]) {
         try {
           const parsed = JSON.parse(savedPrinter[1]);
@@ -113,7 +132,6 @@ export default function Splash() {
         }
       }
 
-      // Load kiosk PIN state
       if (kioskPin[1]) {
         CachedData.kioskPin = kioskPin[1];
       }
@@ -124,40 +142,33 @@ export default function Splash() {
       if (email[1] && password[1]) {
         setStatusMessage(t("splash.loggingIn"));
 
-        // Attempt auto-login with stored credentials
         const loginData: LoginResponseInterface = await ApiHelper.postAnonymous(
           "/users/login",
           { email: email[1], password: password[1] },
           "MembershipApi"
         );
 
-        if (loginData.errors?.length > 0) {
-          // Login failed, go to login screen
+        if (loginData.errors && loginData.errors.length > 0) {
           safeNavigate("/login");
         } else {
-          // Login successful, update stored churches
           const churches = loginData.userChurches?.filter(userChurch =>
             userChurch.apis && userChurch.apis?.length > 0);
           await AsyncStorage.setItem("@UserChurches", JSON.stringify(churches));
 
-          // Check if there's a previously selected church
           if (selectedChurchId[1] && churches) {
             const previousChurch = churches.find(uc =>
               uc.church?.id?.toString() === selectedChurchId[1]);
 
-            if (previousChurch) {
-              // Restore previous church selection
+            if (previousChurch?.church?.id) {
               setStatusMessage(t("splash.loadingChurch"));
               CachedData.userChurch = previousChurch;
               previousChurch.apis?.forEach(api =>
                 ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
 
-              // Restore church appearance if available
               if (churchAppearance[1]) {
                 try {
                   CachedData.churchAppearance = JSON.parse(churchAppearance[1]);
-                } catch (_e) {
-                  // Fetch fresh appearance data if parsing fails
+                } catch {
                   CachedData.churchAppearance = await ApiHelper.getAnonymous(
                     "/settings/public/" + previousChurch.church.id,
                     "MembershipApi"
@@ -165,7 +176,6 @@ export default function Splash() {
                   await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
                 }
               } else {
-                // Fetch appearance data
                 CachedData.churchAppearance = await ApiHelper.getAnonymous(
                   "/settings/public/" + previousChurch.church.id,
                   "MembershipApi"
@@ -173,16 +183,13 @@ export default function Splash() {
                 await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
               }
 
-              // Load check-in theme for this church
               loadTheme(previousChurch.church.id);
 
-              // Go directly to services screen
               safeNavigate("/services");
               return;
             }
           }
 
-          // No previous church selection, go to church selection
           safeNavigate("/selectChurch");
         }
       } else {
@@ -195,24 +202,14 @@ export default function Splash() {
   };
 
   return (
-    <View style={splashStyles.container}>
-      <Image
-        source={require("../src/images/logo1.png")}
-        style={splashStyles.logo}
-      />
-      <View style={splashStyles.loadingContainer}>
-        <ActivityIndicator size="large" color={StyleConstants.baseColor} />
-        <Text style={splashStyles.statusText}>{statusMessage}</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#FFFFFF", gap: 40 }}>
+      <Animated.View entering={FadeIn.duration(600)} style={{ alignItems: "center" }}>
+        <Image source={require("../src/images/logo1.png")} style={{ width: 160, height: 160, resizeMode: "contain" }} />
+      </Animated.View>
+      <View style={{ alignItems: "center", gap: 16 }}>
+        <IndeterminateBar />
+        <Text style={{ fontSize: 15, fontFamily: fonts.regular, color: palette.ink3 }}>{statusMessage}</Text>
       </View>
     </View>
   );
 }
-
-const splashStyles = {
-  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: StyleConstants.whiteColor },
-  logo: { width: DimensionHelper.wp("40%"), height: DimensionHelper.wp("40%"), resizeMode: "contain", marginBottom: DimensionHelper.wp("8%") },
-  title: { fontSize: DimensionHelper.wp("6%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, marginBottom: DimensionHelper.wp("8%") },
-  loadingContainer: { alignItems: "center" },
-  statusText: { fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor, marginTop: DimensionHelper.wp("3%") }
-};
-

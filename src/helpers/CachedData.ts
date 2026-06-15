@@ -1,4 +1,4 @@
-import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface } from "./Interfaces";
+import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface, LabelTemplateInterface } from "./Interfaces";
 import { AppearanceInterface, AvailablePrinter } from "./Interfaces";
 
 export class CachedData {
@@ -20,5 +20,8 @@ export class CachedData {
 
   static kioskPin: string = "";
   static kioskLocked: boolean = false;
+
+  static labelTemplates: LabelTemplateInterface[] = [];
+  static stationMode: "self" | "manned" = "self";
 }
 

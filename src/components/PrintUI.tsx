@@ -1,18 +1,21 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Dimensions, View } from "react-native";
 import { WebView } from "react-native-webview";
 import ViewShot, { captureRef } from "react-native-view-shot";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../helpers";
 import * as PrinterHelper from "printer-helper";
 
 interface Props {
   htmlLabels: string[],
-  onPrintComplete: () => void
+  onPrintComplete: () => void,
+  onLog?: (message: string) => void
 }
 
+// Frozen at import on purpose — this math defines the captured label bitmap size.
+const labelWidth = Dimensions.get("window").width * 0.9;
+const labelHeight = Dimensions.get("window").width * 0.9 / 3.5 * 1.1;
+
 const PrintUI = (props: Props) => {
-  const { t } = useTranslation();
+  const log = (message: string) => props.onLog?.(message);
   const shotRef = React.useRef(null);
   const [html, setHtml] = React.useState("");
 
@@ -50,6 +53,7 @@ const PrintUI = (props: Props) => {
       setPrintIndex(printIndex + 1);
       setUris(urisCopy);
     } else {
+      log(`Sending ${urisCopy.length} label(s) to native printUris`);
       PrinterHelper.printUris(urisCopy.toString());
       resetPrint();
       props.onPrintComplete();
@@ -60,10 +64,12 @@ const PrintUI = (props: Props) => {
     if (firstTag) setFirstTag(false);
     captureRef(shotRef, { format: "jpg", quality: 1 })
       .then(async result => {
+        log(`Captured label ${printIndex + 1}: ${result}`);
         await timeout(500);
         handleCaptureComplete(result);
       })
       .catch(error => {
+        log(`Capture error: ${error?.message ?? String(error)}`);
         console.error("Error capturing print view:", error);
       });
   };
@@ -71,14 +77,11 @@ const PrintUI = (props: Props) => {
   const loadNextLabel = () => { setHtml(props.htmlLabels[printIndex]); };
 
   return (
-    <>
-      <Text style={Styles.H1}>{t("print.printing")}</Text>
-      <View style={{ flex: 1, opacity: 1 }}>
-        <ViewShot ref={shotRef} style={Styles.viewShot}>
-          <WebView source={{ html: html }} style={Styles.webView} />
-        </ViewShot>
-      </View>
-    </>
+    <View style={{ flex: 1, opacity: 1 }}>
+      <ViewShot ref={shotRef} style={{ width: labelWidth, height: labelHeight }}>
+        <WebView source={{ html: html }} style={{ width: labelWidth, height: labelHeight }} />
+      </ViewShot>
+    </View>
   );
 };
 export default PrintUI;

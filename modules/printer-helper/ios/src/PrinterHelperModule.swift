@@ -15,8 +15,14 @@ public class PrinterHelperModule: Module {
         }
         providers["Brother"] = brother
 
-        // Zebra not yet supported on iOS (SDK not available)
-        // TODO: Add ZebraProvider when Zebra iOS SDK is obtained
+        var zebra = ZebraProvider()
+        zebra.onError = { [weak self] source, message in
+            self?.sendEvent("onError", ["source": source, "message": message])
+        }
+        zebra.onEvent = { [weak self] eventType, source, message in
+            self?.sendEvent("onEvent", ["eventType": eventType, "source": source, "message": message])
+        }
+        providers["Zebra"] = zebra
     }
 
     public func definition() -> ModuleDefinition {

@@ -3,16 +3,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckinThemeConfig, CheckinThemeColors, AppThemeConfig, CheckinSettingsConfig } from "../helpers/CheckinThemeInterfaces";
 import { CachedData } from "../helpers/CachedData";
 import { ApiHelper } from "../helpers/ApiHelper";
-import { StyleConstants } from "../helpers/Styles";
 
 const DEFAULT_COLORS: CheckinThemeColors = {
-  primary: StyleConstants.baseColor,
+  primary: "#1565C0",
   primaryContrast: "#FFFFFF",
-  secondary: StyleConstants.baseColor1,
+  secondary: "#568BDA",
   secondaryContrast: "#FFFFFF",
-  headerBackground: StyleConstants.baseColor,
+  headerBackground: "#1565C0",
   subheaderBackground: "#568BDA",
-  buttonBackground: StyleConstants.baseColor,
+  buttonBackground: "#1565C0",
   buttonText: "#FFFFFF"
 };
 

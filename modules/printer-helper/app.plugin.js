@@ -1,4 +1,8 @@
-const { withInfoPlist, withXcodeProject } = require("expo/config-plugins");
+const {
+  withInfoPlist,
+  withXcodeProject,
+  IOSConfig
+} = require("expo/config-plugins");
 const path = require("path");
 const fs = require("fs");
 
@@ -9,7 +13,7 @@ const withBrotherIOS = (config) => {
 
     config.modResults["NSBonjourServices"] = [
       "_pdl-datastream._tcp",
-      "_printer._tcp",
+      "_printer._tcp"
     ];
 
     return config;
@@ -35,10 +39,24 @@ const withBrotherIOS = (config) => {
 
       const project = config.modResults;
       const targetUuid = project.getFirstTarget().uuid;
+      const groupName = "B1Checkin/labels";
+
+      // Make sure the group hierarchy exists before adding files. The raw
+      // xcode lib's addResourceFile() crashes on a freshly generated project
+      // ("Cannot read properties of null (reading 'path')") because it tries
+      // to position the file relative to a "Resources" group that doesn't
+      // exist yet. Expo's helpers create the group and link the file safely.
+      IOSConfig.XcodeUtils.ensureGroupRecursively(project, groupName);
 
       for (const file of files) {
-        const filePath = "B1Checkin/labels/" + file;
-        project.addResourceFile(filePath, { target: targetUuid });
+        IOSConfig.XcodeUtils.addResourceFileToGroup({
+          filepath: groupName + "/" + file,
+          groupName,
+          project,
+          isBuildFile: true,
+          targetUuid,
+          verbose: true
+        });
       }
     }
 

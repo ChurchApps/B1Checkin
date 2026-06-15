@@ -15,8 +15,17 @@ Pod::Spec.new do |s|
 
   s.dependency 'ExpoModulesCore'
 
-  s.source_files = 'src/**/*.{swift}'
-  s.vendored_frameworks = 'Frameworks/BRLMPrinterKit.xcframework'
+  s.source_files = 'src/**/*.{swift,h,m}'
+  s.public_header_files = 'src/**/*.h'
+  s.vendored_frameworks = [
+    'Frameworks/BRLMPrinterKit.xcframework',
+    'Frameworks/ZSDK_API.xcframework'
+  ]
+  s.libraries = 'xml2', 'z'
+  # The vendored ZSDK_API (Zebra) library references EAAccessoryManager/EASession
+  # for MFi Bluetooth printer connections, which live in the ExternalAccessory
+  # framework. Link it so those symbols resolve.
+  s.frameworks = 'ExternalAccessory'
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',

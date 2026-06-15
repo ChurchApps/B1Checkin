@@ -11,7 +11,7 @@ const withBrotherIOS: ConfigPlugin = (config) => {
     // Required Bonjour services for printer discovery
     config.modResults["NSBonjourServices"] = [
       "_pdl-datastream._tcp",
-      "_printer._tcp",
+      "_printer._tcp"
     ];
 
     return config;

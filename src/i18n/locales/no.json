@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Tilbake til kiosken",
-    "changePin": "Endre admin-PIN",
-    "changePrinter": "Endre skriver",
-    "changeService": "Endre gudstjeneste",
-    "pinChanged": "PIN er endret",
-    "setPin": "Sett admin-PIN",
-    "subtitle": "Administrer innstillingene for kioskenheten",
-    "title": "Admin-innstillinger"
-  },
   "addGuest": {
     "addButton": "Legg til gjest",
+    "addFailed": "Kunne ikke legge til gjesten. Vennligst prøv igjen.",
     "enterFirstName": "Vennligst oppgi fornavn",
     "enterLastName": "Vennligst oppgi etternavn",
     "firstName": "Fornavn",
@@ -20,20 +11,65 @@
     "subtitle": "Oppgi gjesteinformasjon for å legge dem til i husholdningen din",
     "title": "Legg til gjest"
   },
+  "admin": {
+    "backToKiosk": "Tilbake til kiosken",
+    "changePin": "Endre admin-PIN",
+    "changePrinter": "Endre skriver",
+    "changeService": "Endre gudstjeneste",
+    "mannedMode": "Betjent stasjonsmodus",
+    "mannedModeHint": "Legger til utsjekking av frivillig og profilredigering",
+    "pinChanged": "PIN er endret",
+    "setPin": "Sett admin-PIN",
+    "subtitle": "Administrer innstillingene for kioskenheten",
+    "title": "Admin-innstillinger"
+  },
   "checkinComplete": {
+    "allSet": "Alt er klart!",
+    "checkinError": "Noe gikk galt – ta kontakt med en frivillig.",
+    "haveAGreatService": "Ha en fin gudstjeneste.",
+    "labelsPrinted": "Navnelapper skrevet ut",
+    "milestoneWeeks": "Uker på rad!",
+    "printingLabels": "Skriver ut navnelappene dine…",
     "printingMessage": "Navnelappene dine blir skrevet ut nå.",
+    "returning": "Går tilbake til start…",
     "subtitle": "Familien din har blitt sjekket inn",
     "title": "Innsjekking fullført",
     "welcomeMessage": "Familien din har blitt sjekket inn.",
-    "welcomeTitle": "Velkommen!",
-    "milestoneWeeks": "Uker på rad!"
+    "welcomeTitle": "Velkommen!"
+  },
+  "checkout": {
+    "checkingOut": "Sjekker ut",
+    "checkoutFailed": "Kunne ikke sjekke ut. Vennligst prøv igjen.",
+    "codeNotFound": "Ingen aktive innsjekkinger samsvarer med koden. Vennligst prøv igjen.",
+    "confirm": "Sjekk ut",
+    "lookupError": "Kunne ikke slå opp koden. Vennligst prøv igjen.",
+    "other": "Annen person",
+    "otherNamePlaceholder": "Skriv inn navn",
+    "subtitle": "Skriv inn eller skann sikkerhetskoden",
+    "success": "Utsjekking fullført",
+    "title": "Sjekk ut",
+    "whoPickingUp": "Hvem henter?"
   },
   "common": {
     "back": "Tilbake",
     "cancel": "Avbryt",
+    "continue": "Fortsett",
     "login": "Logg inn",
     "logout": "Logg ut",
+    "ok": "OK",
+    "retry": "Prøv igjen",
+    "save": "Save",
     "search": "Søk"
+  },
+  "editPerson": {
+    "birthDate": "Fødselsdato",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "E-post",
+    "loadFailed": "Kunne ikke laste denne personen. Vennligst prøv igjen.",
+    "mobilePhone": "Mobiltelefon",
+    "nametagNotes": "Notater til navnelapp",
+    "saveFailed": "Kunne ikke lagre. Vennligst prøv igjen.",
+    "title": "Rediger profil"
   },
   "header": {
     "logoutConfirm": "Er du sikker på at du vil logge ut?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "Legg til en gjest",
-    "checkin": "SJEKK INN",
+    "alreadyCheckedIn": "Allerede sjekket inn",
+    "checkin": "Sjekk inn",
+    "checkinCount": "Sjekk inn – {{count}}",
+    "chooseGroupHint": "Velg en gruppe for minst én person",
+    "duplicateConfirm": "Sjekk inn igjen",
+    "duplicateMessage": "{{names}} er allerede sjekket inn til denne gudstjenesten. Sjekk inn igjen for å oppdatere gruppene.",
+    "duplicateTitle": "Allerede sjekket inn",
+    "emptyTitle": "Fant ingen husholdningsmedlemmer",
     "subtitle": "Velg hvem som sjekker inn i dag",
-    "title": "Velg husholdningsmedlemmer"
+    "title": "Hvem sjekker inn?"
+  },
+  "idle": {
+    "tapToCheckin": "Trykk for å sjekke inn"
   },
   "login": {
     "emailPlaceholder": "E-post",
@@ -58,8 +104,11 @@
     "welcomeBack": "Velkommen tilbake"
   },
   "lookup": {
+    "backToKeypad": "Tilbake til tastaturet",
+    "checkout": "Sjekk ut",
     "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
     "invalidNumbers": "Vennligst oppgi gyldige tall.",
+    "keypadHint": "Hele nummeret fungerer også",
     "minDigits": "Vennligst oppgi minst fire sifre.",
     "minLetters": "Vennligst oppgi minst to bokstaver av etternavnet.",
     "modeName": "Navn",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
     "noMatchTitle": "Ingen treff funnet",
     "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Skann for å registrere deg som gjest",
-    "registerGuest": "Registrer som gjest",
     "readySubtitle": "Oppgi et telefonnummer for å finne personer",
     "readyTitle": "Klar til å søke",
+    "registerGuest": "Registrer som gjest",
+    "resultsFound_one": "{{count}} resultat",
+    "resultsFound_other": "{{count}} resultater",
+    "searchByName": "Søk etter navn",
     "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",
     "searching": "Søker...",
     "subtitle": "Oppgi de fire siste sifrene i mobilnummeret",
-    "title": "Søk etter telefonnummer"
+    "title": "Søk etter telefonnummer",
+    "usePhone": "Bruk telefonnummer",
+    "welcomeSubtitle": "Søk med telefonnummer eller navn for å finne familien din",
+    "welcomeTitle": "Velkommen! La oss sjekke deg inn."
   },
   "members": {
     "error": "Feil",
     "selectGroup": "Velg gruppe",
     "unknown": "Ukjent"
-  },
-  "print": {
-    "printing": "Skriver ut"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} forsøk igjen",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "For mange mislykkede forsøk. Vennligst vent.",
     "wrongPin": "Feil PIN. Prøv igjen."
   },
+  "print": {
+    "printing": "Skriver ut"
+  },
   "printers": {
+    "diagnostics": "Diagnostikk",
     "noPrinter": "Ingen skriver",
     "noPrinterSelected": "Ingen skriver valgt",
+    "noneFound": "Fant ingen skrivere på dette nettverket",
+    "rescan": "Søk på nytt",
     "saveAndContinue": "Lagre og fortsett",
     "saveRestart": "Lagre og start på nytt",
+    "saving": "Lagrer…",
     "scanning": "Søker etter skrivere...",
     "subtitle": "Velg en skriver for utskrift av navnelapper og etiketter",
     "testPrint": "Testutskrift",
     "title": "Velg en skriver"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Kontoen din har ikke tilgang til noen kirke.",
+    "emptyTitle": "Ingen kirker tilgjengelig",
+    "loading": "Laster kirker...",
+    "title": "Velg en kirke"
+  },
+  "selectGroup": {
+    "choosingFor": "Velger for {{name}}",
+    "groupCount_one": "{{count}} gruppe",
+    "groupCount_other": "{{count}} grupper",
+    "noGroupOption": "Ingen gruppe denne gangen",
+    "noGroups": "Ingen grupper tilgjengelig for dette tidspunktet",
+    "none": "Ingen",
+    "subtitle": "Velg en gruppe for {{serviceName}}",
+    "title": "Velg en gruppe"
+  },
+  "services": {
+    "emptySubtitle": "Opprett gudstjenester i B1 Admin for å begynne å sjekke inn folk.",
+    "emptyTitle": "Ingen gudstjenester er satt opp ennå",
+    "loadError": "Kunne ikke laste gudstjenester.",
+    "loading": "Laster gudstjenester...",
+    "selectService": "Velg en gudstjeneste:",
+    "subtitle": "Velg hvilken gudstjeneste du vil sjekke inn til",
+    "title": "Velg en gudstjeneste"
   },
   "setPin": {
     "confirmPin": "Bekreft din PIN",
@@ -114,27 +196,16 @@
     "subtitle": "Opprett en 4-6-sifret PIN for å beskytte admin-innstillingene",
     "title": "Sett admin-PIN"
   },
-  "selectChurch": {
-    "loading": "Laster kirker...",
-    "title": "Velg en kirke"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} grupper",
-    "none": "Ingen",
-    "subtitle": "Velg en gruppe for {{serviceName}}",
-    "title": "Velg en gruppe"
-  },
-  "services": {
-    "loading": "Laster gudstjenester...",
-    "selectService": "Velg en gudstjeneste:",
-    "subtitle": "Velg hvilken gudstjeneste du vil sjekke inn til",
-    "title": "Velg en gudstjeneste"
-  },
   "splash": {
     "checkingUpdates": "Sjekker for oppdateringer...",
     "downloadingUpdate": "Laster ned oppdatering...",
     "initializing": "Initialiserer...",
     "loadingChurch": "Laster kirkedata...",
     "loggingIn": "Logger inn..."
+  },
+  "steps": {
+    "done": "Ferdig",
+    "find": "Finn",
+    "select": "Velg"
   }
 }

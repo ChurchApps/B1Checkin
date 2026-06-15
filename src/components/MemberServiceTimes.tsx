@@ -1,16 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
-import Ripple from "react-native-material-ripple";
+import { Pressable, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import { CachedData, screenNavigationProps, VisitHelper, VisitSessionHelper, StyleConstants } from "../helpers";
-import { FontAwesome } from "@expo/vector-icons";
-import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
+import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { ArrayHelper, CachedData, GroupInterface, PersonInterface, screenNavigationProps, ServiceTimeInterface, VisitHelper, VisitInterface, VisitSessionInterface, VisitSessionHelper } from "../helpers";
+import { useAppTheme } from "../theme";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
 const MemberServiceTimes = (props: Props) => {
   const { t } = useTranslation();
+  const theme = useAppTheme();
 
   const handleServiceTimeClick = (serviceTime: any, person: any) => {
     router.navigate({
@@ -20,7 +20,6 @@ const MemberServiceTimes = (props: Props) => {
         serviceTime: JSON.stringify(serviceTime)
       }
     });
-
   };
 
   const getExpandedRow = (serviceTime: ServiceTimeInterface, visitSessions: VisitSessionInterface[]) => {
@@ -33,141 +32,63 @@ const MemberServiceTimes = (props: Props) => {
       selectedGroupName = group?.name || t("members.error");
     }
 
-    // Truncate group name if it's too long
-    const maxLength = 15;
-    if (selectedGroupName.length > maxLength) {
-      selectedGroupName = selectedGroupName.substring(0, maxLength) + "...";
-    }
-
     return (
-      <View key={serviceTime.id} style={serviceTimeStyles.expandedRow}>
-        <View style={serviceTimeStyles.serviceTimeInfo}>
-          <View style={serviceTimeStyles.timeIconContainer}>
-            <FontAwesome
-              name="clock-o"
-              style={serviceTimeStyles.timeIcon}
-              size={DimensionHelper.wp("4%")}
-            />
-          </View>
-          <View style={serviceTimeStyles.serviceTimeTextContainer}>
-            <Text style={serviceTimeStyles.serviceTimeText}>{serviceTime.name}</Text>
-          </View>
+      <View key={serviceTime.id} style={{ backgroundColor: theme.colors.canvas, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.sm, flexDirection: "row", alignItems: "center", gap: theme.spacing.md }}>
+        <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
+          <MaterialIcons name="schedule" size={20} color={theme.colors.primary} />
         </View>
-        <Ripple
-          style={[serviceTimeStyles.serviceTimeButton, isSelected ? serviceTimeStyles.selectedButton : serviceTimeStyles.unselectedButton]}
+        <Text numberOfLines={1} style={{ flex: 1, fontSize: 17, fontFamily: theme.fonts.medium, color: theme.colors.textPrimary }}>{serviceTime.name}</Text>
+        <Pressable
+          accessibilityRole="button"
           onPress={() => { handleServiceTimeClick(serviceTime, props.person); }}
-        >
-          <Text style={[serviceTimeStyles.serviceTimeButtonText, isSelected ? serviceTimeStyles.selectedButtonText : serviceTimeStyles.unselectedButtonText]}>
+          style={({ pressed }) => ({
+            minHeight: 56,
+            maxWidth: "55%",
+            minWidth: 160,
+            borderRadius: theme.radius.md,
+            paddingHorizontal: theme.spacing.lg,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: theme.spacing.sm,
+            backgroundColor: isSelected ? theme.colors.button : pressed ? theme.colors.primarySoft : theme.colors.surface,
+            borderWidth: isSelected ? 0 : 1.5,
+            borderColor: theme.colors.primaryBorder,
+            opacity: pressed ? 0.9 : 1
+          })}>
+          <Text numberOfLines={1} style={{ flexShrink: 1, fontSize: 16, fontFamily: theme.fonts.medium, color: isSelected ? theme.colors.onButton : theme.colors.primary }}>
             {selectedGroupName}
           </Text>
-          <FontAwesome
-            name="chevron-right"
-            style={[serviceTimeStyles.buttonIcon, isSelected ? serviceTimeStyles.selectedButtonIcon : serviceTimeStyles.unselectedButtonIcon]}
-            size={DimensionHelper.wp("3.5%")}
-          />
-        </Ripple>
+          <MaterialIcons name="chevron-right" size={22} color={isSelected ? theme.colors.onButton : theme.colors.primary} />
+        </Pressable>
       </View>
     );
   };
 
-  const result: any[] = [];
-  if (props.selectedMemberId === props.person.id) {
-    if (props.person.nametagNotes) {
-      result.push(
-        <View key="noteAlert" style={serviceTimeStyles.noteAlert}>
-          <FontAwesome name="exclamation-triangle" size={DimensionHelper.wp("4%")} color={StyleConstants.yellowColor} style={serviceTimeStyles.noteAlertIcon} />
-          <Text style={serviceTimeStyles.noteAlertText}>{props.person.nametagNotes}</Text>
-        </View>
-      );
-    }
-    const visit = VisitHelper.getByPersonId(props.pendingVisits, props.person.id || "");
-    const visitSessions = visit?.visitSessions || [];
-    if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
-      CachedData.serviceTimes.forEach(st => {
-        if (st) {
-          result.push(getExpandedRow(st, visitSessions));
-        }
-      });
-    }
+  if (props.selectedMemberId !== props.person.id) return null;
+
+  const result: React.ReactNode[] = [];
+  if (props.person.nametagNotes) {
+    result.push(
+      <View key="noteAlert" style={{ backgroundColor: theme.colors.warningBg, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.sm, flexDirection: "row", alignItems: "center", gap: theme.spacing.sm }}>
+        <MaterialIcons name="warning-amber" size={22} color={theme.colors.warning} />
+        <Text style={{ flex: 1, fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.warning }}>{props.person.nametagNotes}</Text>
+      </View>
+    );
+  }
+  const visit = VisitHelper.getByPersonId(props.pendingVisits, props.person.id || "");
+  const visitSessions = visit?.visitSessions || [];
+  if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
+    CachedData.serviceTimes.forEach(st => {
+      if (st) result.push(getExpandedRow(st, visitSessions));
+    });
   }
 
   return (
-    <View style={serviceTimeStyles.container}>
+    <View style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.md }}>
       {result}
     </View>
   );
 };
-const serviceTimeStyles = {
-  container: { paddingHorizontal: DimensionHelper.wp("4%"), paddingBottom: DimensionHelper.wp("1.5%") },
-
-  expandedRow: {
-    backgroundColor: StyleConstants.ghostWhite,
-    borderRadius: 8,
-    padding: DimensionHelper.wp("2.5%"),
-    marginVertical: DimensionHelper.wp("0.8%"),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderLeftWidth: 3,
-    borderLeftColor: StyleConstants.baseColor
-  },
-
-  serviceTimeInfo: { flexDirection: "row", alignItems: "center", flex: 1 },
-
-  timeIconContainer: { width: DimensionHelper.wp("6%"), height: DimensionHelper.wp("6%"), borderRadius: DimensionHelper.wp("3%"), backgroundColor: StyleConstants.baseColor + "20", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2%") },
-
-  timeIcon: { color: StyleConstants.baseColor },
-
-  serviceTimeTextContainer: { flex: 1 },
-
-  serviceTimeText: { fontSize: DimensionHelper.wp("3%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
-
-  serviceTimeButton: {
-    paddingHorizontal: DimensionHelper.wp("3%"),
-    paddingVertical: DimensionHelper.wp("1.8%"),
-    borderRadius: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    minWidth: DimensionHelper.wp("28%"),
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  selectedButton: { backgroundColor: StyleConstants.baseColor },
-
-  unselectedButton: { backgroundColor: StyleConstants.whiteColor, borderWidth: 1, borderColor: StyleConstants.baseColor + "40" },
-
-  serviceTimeButtonText: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoMedium, marginRight: DimensionHelper.wp("1.5%") },
-
-  selectedButtonText: { color: StyleConstants.whiteColor },
-
-  unselectedButtonText: { color: StyleConstants.baseColor },
-
-  buttonIcon: { marginLeft: DimensionHelper.wp("0.5%") },
-
-  selectedButtonIcon: { color: StyleConstants.whiteColor, opacity: 0.8 },
-
-  unselectedButtonIcon: { color: StyleConstants.baseColor, opacity: 0.6 },
-
-  noteAlert: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: StyleConstants.yellowColor + "20",
-    borderRadius: 8,
-    padding: DimensionHelper.wp("2%"),
-    marginVertical: DimensionHelper.wp("0.8%"),
-    borderLeftWidth: 3,
-    borderLeftColor: StyleConstants.yellowColor
-  },
-
-  noteAlertIcon: { marginRight: DimensionHelper.wp("1.5%") },
-
-  noteAlertText: { fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor, flex: 1 }
-};
 
 export default MemberServiceTimes;
-

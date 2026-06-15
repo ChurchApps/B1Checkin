@@ -15,6 +15,17 @@ index.android.bundle
 node_modules/
 dist/
 
+# Yarn Berry (Corepack-managed, node-modules linker + global cache)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+# npm is blocked (preinstall guard); never commit an npm lockfile
+package-lock.json
+
 # Compiled Java class files
 *.class
 
@@ -145,5 +156,13 @@ expo-env.d.ts
 # @end expo-cli
 
 Notes.md
-*.plist
+# Firebase iOS config: kept out of git and provided to EAS Build via the
+# GOOGLE_SERVICES_INFO_PLIST file env var. Scoped to the repo root so it does
+# NOT also exclude the *.plist files inside vendored xcframeworks (e.g.
+# modules/printer-helper/ios/Frameworks/*.xcframework), which EAS must upload.
+/GoogleService-Info.plist
 .env
+
+# Playwright
+test-results/
+playwright-report/

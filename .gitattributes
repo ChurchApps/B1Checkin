@@ -1,1 +1,7 @@
 *.pbxproj -text
+
+# Vendored Swift framework module interfaces must keep LF endings. With
+# core.autocrlf=true these get rewritten to CRLF on checkout, which makes the
+# iOS build fail at `import <Framework>` with "error extracting version from
+# module interface" (the Swift parser can't read the version header with CRLF).
+*.swiftinterface -text

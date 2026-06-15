@@ -1,146 +1,142 @@
 import React from "react";
-import { View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image, Pressable } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Animated, Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
-import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "../src/helpers";
-import Fontisto from "@expo/vector-icons/Fontisto";
 import { router } from "expo-router";
-import { useCheckinTheme } from "../src/context/CheckinThemeContext";
+import { ApiHelper, FirebaseHelper, LoginResponseInterface, screenNavigationProps, Utilities } from "../src/helpers";
+import { useAppTheme } from "../src/theme";
+import { Button, Card, TextField } from "../src/components/ui";
 
 interface Props { navigation: screenNavigationProps }
 
 function Login(_props: Props) {
   const { t } = useTranslation();
-  const { theme } = useCheckinTheme();
+  const theme = useAppTheme();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+  const [loginError, setLoginError] = React.useState("");
+  const shakeAnim = React.useRef(new Animated.Value(0)).current;
+
+  const triggerShake = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true })
+    ]).start();
+  };
 
   const login = () => {
-    if (email === "") { Utils.snackBar(t("login.enterEmail")); } else if (!Utilities.validateEmail(email)) { Utils.snackBar(t("login.validEmail")); } else if (password === "") { Utils.snackBar(t("login.enterPassword")); } else {
-      setIsLoading(true);
-      ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
-        setIsLoading(false);
-        if (data.errors?.length > 0) Utils.snackBar(data.errors[0]);
-        else {
-          const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0);
-          AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
-          setEmail("");
-          setPassword("");
-          router.replace("/selectChurch");
-        }
-      }).catch((_error) => {
-        setIsLoading(false);
-        Utils.snackBar(t("login.loginFailed"));
-      });
-    }
+    const emailErr = email === "" ? t("login.enterEmail") : !Utilities.validateEmail(email) ? t("login.validEmail") : "";
+    const passwordErr = password === "" ? t("login.enterPassword") : "";
+    setEmailError(emailErr);
+    setPasswordError(passwordErr);
+    setLoginError("");
+    if (emailErr || passwordErr) return;
+
+    setIsLoading(true);
+    ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
+      setIsLoading(false);
+      if (data.errors && data.errors.length > 0) {
+        setLoginError(data.errors[0]);
+        triggerShake();
+      } else {
+        const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0);
+        AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
+        setEmail("");
+        setPassword("");
+        router.replace("/selectChurch");
+      }
+    }).catch(() => {
+      setIsLoading(false);
+      setLoginError(t("login.loginFailed"));
+      triggerShake();
+    });
   };
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Login");
   }, []);
 
+  const getVersion = () => {
+    const pkg = require("../package.json");
+    return "v" + pkg.version;
+  };
+
   return (
-    <KeyboardAvoidingView
-      style={Styles.loginContainer}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={Styles.loginCard}>
-          {/* Logo */}
-          <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("3%") }}>
-            <Image
-              source={require("../src/images/logo1.png")}
-              style={{
-                width: DimensionHelper.wp("18%"),
-                height: DimensionHelper.wp("18%"),
-                resizeMode: "contain",
-                marginBottom: DimensionHelper.wp("1%")
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: theme.colors.canvas }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: theme.spacing.xl }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+        <Animated.View style={{ transform: [{ translateX: shakeAnim }], width: "100%", maxWidth: 480, alignSelf: "center" }}>
+          <Card padding="xxl" elevation="e2">
+            <View style={{ alignItems: "center", marginBottom: theme.spacing.xl }}>
+              <Image source={require("../src/images/logo1.png")} style={{ width: 88, height: 88, resizeMode: "contain" }} />
+              <Text style={{ fontSize: 14, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, marginTop: theme.spacing.xs }}>{t("login.title")}</Text>
+            </View>
+
+            <Text style={{ fontSize: 24, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, textAlign: "center", marginBottom: theme.spacing.xl }}>{t("login.welcomeBack")}</Text>
+
+            <TextField
+              placeholder={String(t("login.emailPlaceholder"))}
+              value={email}
+              onChangeText={value => {
+                setEmail(value);
+                if (emailError) setEmailError("");
               }}
-            />
-            <Text style={{ fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor }}>{t("login.title")}</Text>
-          </View>
-
-          {/* Title */}
-          <Text style={Styles.loginTitle}>{t("login.welcomeBack")}</Text>
-
-          {/* Email Input */}
-          <View style={Styles.loginInputView}>
-            <Fontisto
-              name="email"
-              color={StyleConstants.darkColor}
-              size={DimensionHelper.wp("4.5%")}
-              style={Styles.loginInputIcon}
-            />
-            <TextInput
-              placeholder={t("login.emailPlaceholder")}
-              placeholderTextColor="rgba(0, 0, 0, 0.4)"
-              style={Styles.loginInput}
+              error={emailError}
+              leadingIcon="mail-outline"
               autoComplete="email"
               keyboardType="email-address"
               autoCapitalize="none"
-              value={email}
-              onChangeText={(value) => setEmail(value)}
+              returnKeyType="next"
+              containerStyle={{ marginBottom: theme.spacing.lg }}
             />
-          </View>
-
-          {/* Password Input */}
-          <View style={Styles.loginInputView}>
-            <Fontisto
-              name="key"
-              color={StyleConstants.darkColor}
-              size={DimensionHelper.wp("4.5%")}
-              style={Styles.loginInputIcon}
-            />
-            <TextInput
-              placeholder={t("login.passwordPlaceholder")}
-              placeholderTextColor="rgba(0, 0, 0, 0.4)"
-              style={[Styles.loginInput, { flex: 1 }]}
+            <TextField
+              placeholder={String(t("login.passwordPlaceholder"))}
+              value={password}
+              onChangeText={value => {
+                setPassword(value);
+                if (passwordError) setPasswordError("");
+              }}
+              error={passwordError}
+              leadingIcon="lock-outline"
               secureTextEntry={!showPassword}
               autoCapitalize="none"
               autoCorrect={false}
-              keyboardType="default"
-              value={password}
-              onChangeText={(value) => setPassword(value)}
+              returnKeyType="done"
+              onSubmitEditing={login}
+              trailing={
+                <Pressable accessibilityLabel="toggle password visibility" onPress={() => setShowPassword(!showPassword)} style={{ width: 48, height: 48, alignItems: "center", justifyContent: "center", marginRight: -theme.spacing.md }}>
+                  <MaterialIcons name={showPassword ? "visibility-off" : "visibility"} size={22} color={theme.colors.textMuted} />
+                </Pressable>
+              }
+              containerStyle={{ marginBottom: theme.spacing.lg }}
             />
-            <Pressable onPress={() => setShowPassword(!showPassword)} style={{ paddingHorizontal: DimensionHelper.wp("2%") }}>
-              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={DimensionHelper.wp("4.5%")} color={StyleConstants.grayColor} />
-            </Pressable>
-          </View>
 
-          {/* Login Button */}
-          <TouchableOpacity
-            style={[Styles.loginButton, { backgroundColor: theme.colors.buttonBackground }]}
-            onPress={login}
-            activeOpacity={0.8}
-          >
-            {isLoading ? (
-              <ActivityIndicator size="small" color="#FFFFFF" />
-            ) : (
-              <Text style={Styles.loginButtonText}>{t("common.login")}</Text>
+            {!!loginError && (
+              <View style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.sm, backgroundColor: theme.colors.dangerBg, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.lg }}>
+                <MaterialIcons name="error-outline" size={20} color={theme.colors.danger} />
+                <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.danger, flexShrink: 1 }}>{loginError}</Text>
+              </View>
             )}
-          </TouchableOpacity>
 
-          {/* Privacy Policy */}
-          <Text style={Styles.privacyText}>
-            {t("login.privacyConsent")}{" "}
-            <Text
-              style={Styles.privacyLink}
-              onPress={() => router.navigate("/privacyPolicy")}
-            >
-              {t("login.privacyPolicy")}
+            <Button label={t("common.login")} size="lg" fullWidth loading={isLoading} onPress={login} />
+
+            <Text style={{ fontSize: 13, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center", marginTop: theme.spacing.lg, lineHeight: 19 }}>
+              {t("login.privacyConsent")}{" "}
+              <Text style={{ color: theme.colors.primary, textDecorationLine: "underline" }} onPress={() => router.navigate("/privacyPolicy")}>
+                {t("login.privacyPolicy")}
+              </Text>
             </Text>
-          </Text>
-        </View>
+          </Card>
+        </Animated.View>
+        <Text style={{ fontSize: 13, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center", marginTop: theme.spacing.lg }}>{getVersion()}</Text>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 export default Login;
-

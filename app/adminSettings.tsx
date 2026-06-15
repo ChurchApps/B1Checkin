@@ -1,16 +1,15 @@
 import React from "react";
-import { View, Text, Alert } from "react-native";
+import { Alert, Switch, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Ripple from "react-native-material-ripple";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { FontAwesome } from "@expo/vector-icons";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PinEntryModal from "../src/components/PinEntryModal";
-import { CachedData, StyleConstants, DimensionHelper, screenNavigationProps } from "../src/helpers";
-import { useCheckinTheme } from "../src/context/CheckinThemeContext";
+import { CachedData, screenNavigationProps } from "../src/helpers";
+import { useAppTheme } from "../src/theme";
+import { Button, IconName, ListRow, Screen } from "../src/components/ui";
+import { MaterialIcons } from "@expo/vector-icons";
 
 interface Props { navigation: screenNavigationProps; }
 
@@ -21,20 +20,14 @@ const getVersion = () => {
 
 const AdminSettings = (props: Props) => {
   const { t } = useTranslation();
-  const { theme } = useCheckinTheme();
-  const insets = useSafeAreaInsets();
+  const theme = useAppTheme();
   const [showChangePinModal, setShowChangePinModal] = React.useState(false);
+  const [manned, setManned] = React.useState(CachedData.stationMode === "manned");
 
-  const handleChangeService = () => {
-    router.replace("/services");
-  };
-
-  const handleChangePrinter = () => {
-    router.navigate("/printers");
-  };
-
-  const handleChangePin = () => {
-    setShowChangePinModal(true);
+  const toggleManned = (value: boolean) => {
+    setManned(value);
+    CachedData.stationMode = value ? "manned" : "self";
+    AsyncStorage.setItem("@StationMode", CachedData.stationMode).catch(() => {});
   };
 
   const handleLogout = () => {
@@ -68,56 +61,51 @@ const AdminSettings = (props: Props) => {
     );
   };
 
-  const handleBack = () => {
-    router.back();
-  };
-
-  const menuItems = [
-    { icon: "exchange" as const, label: t("admin.changeService"), onPress: handleChangeService, destructive: false },
-    { icon: "print" as const, label: t("admin.changePrinter"), onPress: handleChangePrinter, destructive: false },
-    { icon: "lock" as const, label: CachedData.kioskPin ? t("admin.changePin") : t("admin.setPin"), onPress: handleChangePin, destructive: false },
-    { icon: "sign-out" as const, label: t("common.logout"), onPress: handleLogout, destructive: true }
+  const menuItems: { icon: IconName; label: string; onPress: () => void; destructive?: boolean }[] = [
+    { icon: "swap-horiz", label: t("admin.changeService"), onPress: () => router.replace("/services") },
+    { icon: "print", label: t("admin.changePrinter"), onPress: () => router.navigate("/printers") },
+    { icon: "lock-outline", label: CachedData.kioskPin ? t("admin.changePin") : t("admin.setPin"), onPress: () => setShowChangePinModal(true) }
   ];
 
+  const getIconCircle = (icon: IconName, destructive?: boolean) => (
+    <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: destructive ? theme.colors.dangerBg : theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
+      <MaterialIcons name={icon} size={22} color={destructive ? theme.colors.danger : theme.colors.primary} />
+    </View>
+  );
+
+  const footer = <Button label={t("admin.backToKiosk")} size="xl" icon="arrow-back" fullWidth onPress={() => router.back()} />;
+
   return (
-    <View style={adminStyles.container}>
-      <Header navigation={props.navigation} prominentLogo={true} />
-      <Subheader icon="⚙️" title={t("admin.title")} subtitle={t("admin.subtitle")} />
-
-      <View style={adminStyles.mainContent}>
+    <>
+      <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} footer={footer} scroll>
+        <Subheader compact title={t("admin.title")} subtitle={t("admin.subtitle")} />
         {menuItems.map((item, index) => (
-          <Ripple
+          <ListRow
             key={index}
-            style={[adminStyles.menuCard, item.destructive && adminStyles.destructiveCard]}
+            title={item.label}
+            left={getIconCircle(item.icon)}
+            right="chevron"
             onPress={item.onPress}
-          >
-            <View style={[adminStyles.iconContainer, { backgroundColor: theme.colors.primary + "15" }, item.destructive && adminStyles.destructiveIconContainer]}>
-              <FontAwesome
-                name={item.icon}
-                size={DimensionHelper.wp("5%")}
-                color={item.destructive ? StyleConstants.redColor : theme.colors.primary}
-              />
-            </View>
-            <Text style={[adminStyles.menuLabel, item.destructive && adminStyles.destructiveText]}>
-              {item.label}
-            </Text>
-            <Text style={[adminStyles.arrow, { color: theme.colors.primary }, item.destructive && adminStyles.destructiveText]}>›</Text>
-          </Ripple>
-        ))}
-        <Text style={adminStyles.versionText}>{getVersion()}</Text>
-      </View>
-
-      <View style={[adminStyles.buttonContainer, { paddingBottom: insets.bottom + DimensionHelper.wp("3%"), borderTopColor: theme.colors.primary + "20" }]}>
-        <Ripple style={[adminStyles.backButton, { backgroundColor: theme.colors.buttonBackground }]} onPress={handleBack}>
-          <FontAwesome
-            name="arrow-left"
-            size={DimensionHelper.wp("4%")}
-            color={StyleConstants.whiteColor}
-            style={adminStyles.buttonIcon}
+            style={{ marginBottom: theme.spacing.sm }}
           />
-          <Text style={adminStyles.backButtonText}>{t("admin.backToKiosk")}</Text>
-        </Ripple>
-      </View>
+        ))}
+        <ListRow
+          title={t("admin.mannedMode")}
+          subtitle={t("admin.mannedModeHint")}
+          left={getIconCircle("badge")}
+          right={<Switch value={manned} onValueChange={toggleManned} trackColor={{ true: theme.colors.primary }} />}
+          onPress={() => toggleManned(!manned)}
+          style={{ marginBottom: theme.spacing.sm }}
+        />
+        <View style={{ height: theme.spacing.lg }} />
+        <ListRow
+          title={t("common.logout")}
+          left={getIconCircle("logout", true)}
+          right={<MaterialIcons name="chevron-right" size={28} color={theme.colors.danger} />}
+          onPress={handleLogout}
+        />
+        <Text style={{ textAlign: "center", fontSize: 13, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, marginTop: theme.spacing.xl }}>{getVersion()}</Text>
+      </Screen>
 
       <PinEntryModal
         visible={showChangePinModal}
@@ -125,59 +113,8 @@ const AdminSettings = (props: Props) => {
         onSuccess={() => setShowChangePinModal(false)}
         onCancel={() => setShowChangePinModal(false)}
       />
-    </View>
+    </>
   );
-};
-
-const adminStyles = {
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
-  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%"), paddingTop: DimensionHelper.wp("1.5%") },
-  menuCard: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
-    marginVertical: DimensionHelper.wp("1%"),
-    padding: DimensionHelper.wp("3%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    shadowColor: StyleConstants.baseColor,
-    flexDirection: "row" as const,
-    alignItems: "center",
-    minHeight: DimensionHelper.wp("12%")
-  },
-  destructiveCard: { borderWidth: 1, borderColor: StyleConstants.redColor + "30" },
-  iconContainer: { width: DimensionHelper.wp("8%"), height: DimensionHelper.wp("8%"), borderRadius: DimensionHelper.wp("4%"), backgroundColor: StyleConstants.baseColor + "15", justifyContent: "center", alignItems: "center", marginRight: DimensionHelper.wp("2.5%") },
-  destructiveIconContainer: { backgroundColor: StyleConstants.redColor + "15" },
-  menuLabel: { flex: 1, fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.darkColor },
-  destructiveText: { color: StyleConstants.redColor },
-  versionText: { textAlign: "center" as const, fontSize: DimensionHelper.wp("2.8%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.baseColor, marginTop: DimensionHelper.wp("3%"), opacity: 0.6 },
-  arrow: { fontSize: DimensionHelper.wp("5%"), color: StyleConstants.baseColor, opacity: 0.7, marginLeft: DimensionHelper.wp("1.5%") },
-  buttonContainer: {
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("2%"),
-    backgroundColor: StyleConstants.whiteColor,
-    borderTopWidth: 1,
-    borderTopColor: StyleConstants.baseColor + "20",
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  backButton: {
-    flexDirection: "row" as const,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: StyleConstants.baseColor,
-    borderRadius: 8,
-    paddingVertical: DimensionHelper.wp("2.5%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  buttonIcon: { marginRight: DimensionHelper.wp("1.5%") },
-  backButtonText: { fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.whiteColor }
 };
 
 export default AdminSettings;

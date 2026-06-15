@@ -9,6 +9,7 @@ export type ScreenList = {
   AddGuest: undefined,
   Household: undefined,
   CheckinComplete: undefined,
+  Checkout: undefined,
   SelectGroup: { serviceTime: ServiceTimeInterface, personId: string },
   SelectChurch: undefined,
   Printers: undefined,

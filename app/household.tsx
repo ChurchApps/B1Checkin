@@ -1,32 +1,32 @@
-
 import React, { useCallback } from "react";
-import { View, Text, ScrollView, Alert } from "react-native";
-import Ripple from "react-native-material-ripple";
-import { RouteProp } from "@react-navigation/native";
+import { ScrollView, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
-
+import { router, useFocusEffect } from "expo-router";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import MemberList from "../src/components/MemberList";
-import { screenNavigationProps, CachedData, VisitHelper, StyleConstants, DimensionHelper } from "../src/helpers";
-import { FirebaseHelper, VisitInterface } from "../src/helpers";
-import { router, useFocusEffect } from "expo-router";
-import { useCheckinTheme } from "../src/context/CheckinThemeContext";
-import { ScreenList } from "../src/screenList";
+import { CachedData, FirebaseHelper, screenNavigationProps, VisitHelper, VisitInterface } from "../src/helpers";
+import { useAppTheme } from "../src/theme";
+import { Button, EmptyState, Screen, Sheet, StepIndicator } from "../src/components/ui";
+import { MaterialIcons } from "@expo/vector-icons";
 
-type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; }
 
 const Household = (props: Props) => {
   const { t } = useTranslation();
-  const { theme } = useCheckinTheme();
+  const theme = useAppTheme();
   const [pendingVisits, setPendingVisits] = React.useState<VisitInterface[]>([]);
+  const [duplicateNames, setDuplicateNames] = React.useState<string[] | null>(null);
 
   useFocusEffect(
     useCallback(() => {
       setPendingVisits([...CachedData.pendingVisits]);
     }, [])
   );
+
+  const selectionCount = pendingVisits.filter(v => v.visitSessions && v.visitSessions.length > 0).length;
+  const members = CachedData.householdMembers || [];
+
   const checkin = () => {
     const alreadyCheckedInNames: string[] = [];
     CachedData.pendingVisits.forEach(pv => {
@@ -39,125 +39,79 @@ const Household = (props: Props) => {
       }
     });
 
-    if (alreadyCheckedInNames.length > 0) {
-      Alert.alert(
-        t("household.duplicateTitle"),
-        t("household.duplicateMessage", { names: alreadyCheckedInNames.join(", ") }),
-        [
-          { text: t("common.cancel"), style: "cancel" },
-          { text: t("household.duplicateConfirm"), onPress: () => { router.navigate("/checkinComplete"); } }
-        ]
-      );
-    } else {
-      router.navigate("/checkinComplete");
-    }
+    if (alreadyCheckedInNames.length > 0) setDuplicateNames(alreadyCheckedInNames);
+    else router.navigate("/checkinComplete");
   };
+
   const addGuest = () => { router.navigate("/addGuest"); };
 
   React.useEffect(() => { FirebaseHelper.addOpenScreenEvent("Household"); }, []);
 
-  return (
-    <View style={householdStyles.container}>
-      <Header
-        navigation={props.navigation}
-        prominentLogo={true}
+  const footer = (
+    <View style={{ gap: theme.spacing.sm }}>
+      {selectionCount === 0 && (
+        <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center" }}>{t("household.chooseGroupHint")}</Text>
+      )}
+      <Button
+        label={selectionCount > 0 ? t("household.checkinCount", { count: selectionCount }) : t("household.checkin")}
+        size="xl"
+        fullWidth
+        disabled={selectionCount === 0}
+        onPress={checkin}
       />
-
-      {/* Household Members Section */}
-      <Subheader
-        icon="👥"
-        title={t("household.title")}
-        subtitle={t("household.subtitle")}
-        onBack={() => router.back()}
-      />
-
-      {/* Main Content */}
-      <View style={householdStyles.mainContent}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={householdStyles.scrollContent}
-        >
-          <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
-
-          {/* Add Guest Button */}
-          <View style={householdStyles.addGuestSection}>
-            <Ripple style={[householdStyles.addGuestButton, { shadowColor: theme.colors.primary, borderColor: theme.colors.primary }]} onPress={addGuest}>
-              <Text style={householdStyles.addGuestIcon}>👤</Text>
-              <Text style={[householdStyles.addGuestText, { color: theme.colors.primary }]}>{t("household.addGuest")}</Text>
-            </Ripple>
-          </View>
-        </ScrollView>
-      </View>
-
-      {/* Check-in Button */}
-      <View style={[householdStyles.checkinSection, { shadowColor: theme.colors.primary }]}>
-        <Ripple style={[householdStyles.checkinButton, { backgroundColor: theme.colors.buttonBackground, shadowColor: theme.colors.primary }]} onPress={checkin}>
-          <Text style={[householdStyles.checkinButtonText, { color: theme.colors.buttonText }]}>{t("household.checkin")}</Text>
-        </Ripple>
-      </View>
     </View>
   );
-};
 
-const householdStyles = {
-  container: { flex: 1, backgroundColor: StyleConstants.ghostWhite },
+  return (
+    <>
+      <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} footer={footer} scroll={false}>
+        <StepIndicator steps={[t("steps.find"), t("steps.select"), t("steps.done")]} current={1} style={{ marginTop: theme.spacing.lg }} />
+        <Subheader title={t("household.title")} subtitle={t("household.subtitle")} onBack={() => router.back()} />
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: theme.spacing.xl }} style={{ flex: 1 }}>
+          {members.length === 0
+            ? <EmptyState icon="group-off" title={t("household.emptyTitle")} />
+            : <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />}
+          <Button
+            label={t("household.addGuest")}
+            variant="ghost"
+            icon="person-add-alt"
+            onPress={addGuest}
+            fullWidth
+            style={{
+              marginTop: theme.spacing.lg,
+              borderWidth: 2,
+              borderStyle: "dashed",
+              borderColor: theme.colors.primaryBorder,
+              borderRadius: theme.radius.md + 2
+            }}
+          />
+        </ScrollView>
+      </Screen>
 
-  mainContent: { flex: 1, paddingHorizontal: DimensionHelper.wp("4%") },
-
-  scrollContent: { paddingBottom: DimensionHelper.wp("3%") },
-
-  addGuestSection: { marginTop: DimensionHelper.wp("3%"), marginBottom: DimensionHelper.wp("2%") },
-
-  addGuestButton: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 10,
-    paddingVertical: DimensionHelper.wp("2.5%"),
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    shadowColor: StyleConstants.baseColor,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    width: DimensionHelper.wp("90%"),
-    borderWidth: 2,
-    borderColor: StyleConstants.baseColor
-  },
-
-  addGuestIcon: { fontSize: DimensionHelper.wp("3.5%"), marginRight: DimensionHelper.wp("2%") },
-
-  addGuestText: { color: StyleConstants.baseColor, fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600" },
-
-  checkinSection: {
-    paddingHorizontal: DimensionHelper.wp("4%"),
-    paddingVertical: DimensionHelper.wp("2%"),
-    backgroundColor: StyleConstants.whiteColor,
-    borderTopWidth: 1,
-    borderTopColor: StyleConstants.lightGrayColor,
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  checkinButton: {
-    backgroundColor: StyleConstants.baseColor,
-    borderRadius: 10,
-    paddingVertical: DimensionHelper.wp("3%"),
-    justifyContent: "center",
-    alignItems: "center",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  checkinButtonText: { color: StyleConstants.whiteColor, fontSize: DimensionHelper.wp("3.5%"), fontFamily: StyleConstants.RobotoMedium, fontWeight: "600", letterSpacing: 0.5 }
+      <Sheet visible={!!duplicateNames} onClose={() => setDuplicateNames(null)} maxWidth={420}>
+        <View style={{ alignItems: "center", gap: theme.spacing.lg }}>
+          <View style={{ width: 72, height: 72, borderRadius: 36, backgroundColor: theme.colors.warningBg, alignItems: "center", justifyContent: "center" }}>
+            <MaterialIcons name="warning-amber" size={34} color={theme.colors.warning} />
+          </View>
+          <Text style={{ fontSize: 22, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, textAlign: "center" }}>{t("household.duplicateTitle")}</Text>
+          <Text style={{ fontSize: 16, lineHeight: 23, fontFamily: theme.fonts.regular, color: theme.colors.textSecondary, textAlign: "center" }}>
+            {t("household.duplicateMessage", { names: (duplicateNames || []).join(", ") })}
+          </Text>
+          <View style={{ flexDirection: "row", gap: theme.spacing.md, alignSelf: "stretch" }}>
+            <Button label={t("common.cancel")} variant="ghost" onPress={() => setDuplicateNames(null)} style={{ flex: 1 }} />
+            <Button
+              label={t("household.duplicateConfirm")}
+              onPress={() => {
+                setDuplicateNames(null);
+                router.navigate("/checkinComplete");
+              }}
+              style={{ flex: 1.4 }}
+            />
+          </View>
+        </View>
+      </Sheet>
+    </>
+  );
 };
 
 export default Household;

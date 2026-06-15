@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Bumalik sa Kiosk",
-    "changePin": "Baguhin ang Admin PIN",
-    "changePrinter": "Baguhin ang Printer",
-    "changeService": "Baguhin ang Serbisyo",
-    "pinChanged": "Matagumpay na nabago ang PIN",
-    "setPin": "Itakda ang Admin PIN",
-    "subtitle": "Pamahalaan ang mga setting ng kiosk device",
-    "title": "Mga Setting ng Admin"
-  },
   "addGuest": {
     "addButton": "Magdagdag ng Bisita",
+    "addFailed": "Hindi naidagdag ang bisita. Pakisubukan muli.",
     "enterFirstName": "Pakiusap na ilagay ang pangalan",
     "enterLastName": "Pakiusap na ilagay ang apelyido",
     "firstName": "Pangalan",
@@ -20,20 +11,65 @@
     "subtitle": "Ilagay ang impormasyon ng bisita upang maidagdag sa inyong sambahayan",
     "title": "Magdagdag ng Bisita"
   },
+  "admin": {
+    "backToKiosk": "Bumalik sa Kiosk",
+    "changePin": "Baguhin ang Admin PIN",
+    "changePrinter": "Baguhin ang Printer",
+    "changeService": "Baguhin ang Serbisyo",
+    "mannedMode": "Naka-staff na istasyon",
+    "mannedModeHint": "Nagdaragdag ng check-out ng boluntaryo at pag-edit ng profile",
+    "pinChanged": "Matagumpay na nabago ang PIN",
+    "setPin": "Itakda ang Admin PIN",
+    "subtitle": "Pamahalaan ang mga setting ng kiosk device",
+    "title": "Mga Setting ng Admin"
+  },
   "checkinComplete": {
+    "allSet": "Ayos na ang lahat!",
+    "checkinError": "May hindi natuloy — mangyaring lumapit sa isang volunteer.",
+    "haveAGreatService": "Magkaroon po kayo ng magandang serbisyo.",
+    "labelsPrinted": "Na-print na ang mga name tag",
+    "milestoneWeeks": "Sunod-sunod na Linggo!",
+    "printingLabels": "Pini-print ang inyong mga name tag…",
     "printingMessage": "Ini-print na ngayon ang inyong mga label.",
+    "returning": "Bumabalik sa simula…",
     "subtitle": "Matagumpay na naka-check in ang inyong pamilya",
     "title": "Tapos na ang Check-in",
     "welcomeMessage": "Matagumpay na naka-check in ang inyong pamilya.",
-    "welcomeTitle": "Maligayang Pagdating!",
-    "milestoneWeeks": "Sunod-sunod na Linggo!"
+    "welcomeTitle": "Maligayang Pagdating!"
+  },
+  "checkout": {
+    "checkingOut": "Nagche-check out",
+    "checkoutFailed": "Hindi ma-check out. Pakisubukan muli.",
+    "codeNotFound": "Walang aktibong check-in na tumutugma sa code na iyon. Pakisubukan muli.",
+    "confirm": "Mag-Check Out",
+    "lookupError": "Hindi mahanap ang code na iyon. Pakisubukan muli.",
+    "other": "Ibang tao",
+    "otherNamePlaceholder": "Ilagay ang pangalan",
+    "subtitle": "Ilagay o i-scan ang security code",
+    "success": "Matagumpay na nag-check out",
+    "title": "Mag-Check Out",
+    "whoPickingUp": "Sino ang susundo?"
   },
   "common": {
     "back": "Bumalik",
     "cancel": "Kanselahin",
+    "continue": "Magpatuloy",
     "login": "Mag-login",
     "logout": "Mag-logout",
+    "ok": "OK",
+    "retry": "Subukan muli",
+    "save": "Save",
     "search": "Maghanap"
+  },
+  "editPerson": {
+    "birthDate": "Petsa ng Kapanganakan",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Hindi ma-load ang taong ito. Pakisubukan muli.",
+    "mobilePhone": "Mobile na Telepono",
+    "nametagNotes": "Mga Tala sa Name Tag",
+    "saveFailed": "Hindi ma-save. Pakisubukan muli.",
+    "title": "I-edit ang Profile"
   },
   "header": {
     "logoutConfirm": "Sigurado ka bang gusto mong mag-logout?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "Magdagdag ng Bisita",
-    "checkin": "MAG-CHECK IN",
+    "alreadyCheckedIn": "Naka-check in na",
+    "checkin": "Mag-Check In",
+    "checkinCount": "Mag-Check In — {{count}}",
+    "chooseGroupHint": "Pumili ng grupo para sa kahit isang tao",
+    "duplicateConfirm": "Mag-Check In Muli",
+    "duplicateMessage": "{{names}} ay naka-check in na para sa serbisyong ito. Mag-check in muli upang ma-update ang kanilang mga grupo.",
+    "duplicateTitle": "Naka-Check In Na",
+    "emptyTitle": "Walang nahanap na miyembro ng sambahayan",
     "subtitle": "Piliin kung sino ang mag-check in ngayong araw",
-    "title": "Pumili ng mga Miyembro ng Sambahayan"
+    "title": "Sino ang magche-check in?"
+  },
+  "idle": {
+    "tapToCheckin": "I-tap para mag-check in"
   },
   "login": {
     "emailPlaceholder": "Email",
@@ -58,8 +104,11 @@
     "welcomeBack": "Maligayang Pagbabalik"
   },
   "lookup": {
+    "backToKeypad": "Bumalik sa keypad",
+    "checkout": "Mag-Check Out",
     "enterPhone": "Pakiusap na ilagay ang numero ng telepono o huling apat na numero",
     "invalidNumbers": "Pakiusap na maglagay ng wastong mga numero.",
+    "keypadHint": "Puwede rin ang buong numero",
     "minDigits": "Pakiusap na maglagay ng hindi bababa sa apat na numero.",
     "minLetters": "Pakiusap na maglagay ng hindi bababa sa dalawang titik ng apelyido.",
     "modeName": "Pangalan",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "Subukang maghanap gamit ang ibang apelyido",
     "noMatchTitle": "Walang Nahanap na Tugma",
     "phonePlaceholder": "Ilagay ang huling apat na numero ng mobile number",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Mag-scan upang magparehistro bilang bisita",
-    "registerGuest": "Magparehistro bilang bisita",
     "readySubtitle": "Maglagay ng numero ng telepono upang makahanap ng mga tao",
     "readyTitle": "Handa nang Maghanap",
+    "registerGuest": "Magparehistro bilang bisita",
+    "resultsFound_one": "{{count}} resulta",
+    "resultsFound_other": "{{count}} na resulta",
+    "searchByName": "Maghanap gamit ang pangalan",
     "searchError": "Hindi makumpleto ang paghahanap. Pakiusap na subukan muli.",
     "searching": "Naghahanap...",
     "subtitle": "Ilagay ang huling apat na numero ng mobile number",
-    "title": "Maghanap gamit ang Numero ng Telepono"
+    "title": "Maghanap gamit ang Numero ng Telepono",
+    "usePhone": "Gamitin ang numero ng telepono",
+    "welcomeSubtitle": "Maghanap gamit ang numero ng telepono o pangalan upang mahanap ang inyong pamilya",
+    "welcomeTitle": "Maligayang pagdating! I-check in na natin kayo."
   },
   "members": {
     "error": "Kamalian",
     "selectGroup": "Pumili ng Grupo",
     "unknown": "Hindi Alam"
-  },
-  "print": {
-    "printing": "Nag-i-print"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} pagkakataon na lang",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "Masyadong maraming nabigong pagsubok. Maghintay.",
     "wrongPin": "Maling PIN. Subukan muli."
   },
+  "print": {
+    "printing": "Nag-i-print"
+  },
   "printers": {
+    "diagnostics": "Diagnostics",
     "noPrinter": "Walang Printer",
     "noPrinterSelected": "Walang napiling printer",
+    "noneFound": "Walang nahanap na printer sa network na ito",
+    "rescan": "I-scan Muli",
     "saveAndContinue": "I-save at Magpatuloy",
     "saveRestart": "I-save at I-restart",
+    "saving": "Sine-save…",
     "scanning": "Nagha-scan ng mga printer...",
     "subtitle": "Pumili ng printer para sa pag-print ng mga name tag at label",
     "testPrint": "Test Print",
     "title": "Pumili ng Printer"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Walang access ang inyong account sa anumang simbahan.",
+    "emptyTitle": "Walang available na simbahan",
+    "loading": "Nilo-load ang mga simbahan...",
+    "title": "Pumili ng Simbahan"
+  },
+  "selectGroup": {
+    "choosingFor": "Pumipili para kay {{name}}",
+    "groupCount_one": "{{count}} grupo",
+    "groupCount_other": "{{count}} grupo",
+    "noGroupOption": "Walang grupo sa pagkakataong ito",
+    "noGroups": "Walang available na grupo para sa oras na ito",
+    "none": "Wala",
+    "subtitle": "Pumili ng grupo para sa {{serviceName}}",
+    "title": "Pumili ng Grupo"
+  },
+  "services": {
+    "emptySubtitle": "Gumawa ng mga serbisyo sa B1 Admin upang makapagsimulang mag-check in.",
+    "emptyTitle": "Wala pang naka-set up na serbisyo",
+    "loadError": "Hindi ma-load ang mga serbisyo.",
+    "loading": "Nilo-load ang mga serbisyo...",
+    "selectService": "Pumili ng serbisyo:",
+    "subtitle": "Piliin kung aling serbisyo ang para sa check-in",
+    "title": "Pumili ng Serbisyo"
   },
   "setPin": {
     "confirmPin": "Kumpirmahin ang iyong PIN",
@@ -114,27 +196,16 @@
     "subtitle": "Gumawa ng 4-6 na digit na PIN upang protektahan ang mga admin setting",
     "title": "Itakda ang Admin PIN"
   },
-  "selectChurch": {
-    "loading": "Nilo-load ang mga simbahan...",
-    "title": "Pumili ng Simbahan"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} mga grupo",
-    "none": "Wala",
-    "subtitle": "Pumili ng grupo para sa {{serviceName}}",
-    "title": "Pumili ng Grupo"
-  },
-  "services": {
-    "loading": "Nilo-load ang mga serbisyo...",
-    "selectService": "Pumili ng serbisyo:",
-    "subtitle": "Piliin kung aling serbisyo ang para sa check-in",
-    "title": "Pumili ng Serbisyo"
-  },
   "splash": {
     "checkingUpdates": "Sinusuri ang mga update...",
     "downloadingUpdate": "Dina-download ang update...",
     "initializing": "Nagsisimula...",
     "loadingChurch": "Nilo-load ang datos ng simbahan...",
     "loggingIn": "Nagla-login..."
+  },
+  "steps": {
+    "done": "Tapos",
+    "find": "Hanapin",
+    "select": "Pumili"
   }
 }

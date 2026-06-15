@@ -1,9 +1,10 @@
 import { Platform } from "react-native";
-import fs from "react-native-fs";
 import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
-import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
+import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, LabelBlockInterface } from "./Interfaces";
 import { ArrayHelper } from "./ArrayHelper";
+import { PrinterLog } from "./PrinterLog";
+import { LabelContext, LabelRenderer } from "./LabelRenderer";
 
 export class LabelHelper {
 
@@ -48,11 +49,26 @@ export class LabelHelper {
     return pickupCode;
   }
 
-  private static readHtml(fileName: string) {
+  private static async readHtml(fileName: string) {
+    // Lazy require: react-native-fs has no web implementation, and printing never runs on web.
+    const fs = require("react-native-fs");
     if (Platform.OS === "android") {
       return fs.readFileAssets("labels/" + fileName);
-    } else {
-      return fs.readFile(fs.MainBundlePath + "/labels/" + fileName, "utf8");
+    }
+    // iOS: the config plugin (withBrotherIOS) registers the templates via
+    // addResourceFile, which Xcode copies FLAT into the bundle root — the
+    // "labels" group is NOT preserved as a real directory. So read from the
+    // bundle root first, falling back to a labels/ subdirectory for safety.
+    const base = fs.MainBundlePath;
+    try {
+      return await fs.readFile(base + "/" + fileName, "utf8");
+    } catch {
+      try {
+        return await fs.readFile(base + "/labels/" + fileName, "utf8");
+      } catch (err) {
+        PrinterLog.add(`readHtml: ${fileName} not found in bundle root or labels/`);
+        throw err;
+      }
     }
   }
 
@@ -83,6 +99,54 @@ export class LabelHelper {
     result = result.replace(/\[PickupCode\]/g, pickupCode);
     result = result.replace(/\[Allergies\]/g, allergiesBullets);
     return result;
+  }
+
+  private static getTemplateBlocks(labelType: string): LabelBlockInterface[] | null {
+    const candidates = (CachedData.labelTemplates || []).filter(t => t.labelType === labelType);
+    const template = candidates.find(t => t.isDefault) || candidates[0];
+    if (!template?.content) return null;
+    try {
+      const blocks = JSON.parse(template.content);
+      return Array.isArray(blocks) ? blocks : null;
+    } catch {
+      return null;
+    }
+  }
+
+  private static getCommonContext(pickupCode: string): LabelContext {
+    return {
+      securityCode: pickupCode,
+      date: new Date().toLocaleDateString(),
+      churchName: CachedData.userChurch?.church?.name || ""
+    };
+  }
+
+  private static getNametagContext(visit: VisitInterface, isChild: boolean, pickupCode: string): LabelContext {
+    const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "") || {};
+    return {
+      ...this.getCommonContext(isChild ? pickupCode : ""),
+      "person.displayName": person.name?.display || person.displayName || "",
+      "person.firstName": person.name?.first || person.firstName || "",
+      "person.lastName": person.name?.last || person.lastName || "",
+      "person.nickName": person.name?.nick || person.nickName || "",
+      "person.nametagNotes": person.nametagNotes || "",
+      sessions: VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/,/g, "\n")
+    };
+  }
+
+  private static getPickupContext(childVisits: VisitInterface[], pickupCode: string): LabelContext {
+    const children: string[] = [];
+    const allergies: string[] = [];
+    childVisits.forEach(cv => {
+      const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", cv.personId || "") || {};
+      children.push((person.name?.display || person.displayName || "Unknown") + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
+      if (person.nametagNotes) allergies.push((person.name?.display || person.displayName || "Unknown") + " - " + person.nametagNotes);
+    });
+    return {
+      ...this.getCommonContext(pickupCode),
+      children: children.join("\n"),
+      childrenAllergies: allergies.join("\n")
+    };
   }
 
   private static getChildVisits() {
@@ -121,25 +185,34 @@ export class LabelHelper {
     return shouldPrint;
   }
 
-  public static async getAllLabels() {
+  public static async getAllLabels(securityCode?: string) {
     try {
-      const pickupCode = LabelHelper.generatePickupCode();
+      const pickupCode = securityCode || LabelHelper.generatePickupCode();
       const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
-      const labelTemplate = await this.readHtml("1_1x3_5.html");
-      const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
+      const nametagBlocks = this.getTemplateBlocks("nametag");
+      const pickupBlocks = this.getTemplateBlocks("pickup");
+      const labelTemplate = nametagBlocks ? "" : await this.readHtml("1_1x3_5.html");
+      const pickupTemplate = pickupBlocks ? "" : await this.readHtml("pickup_1_1x3_5.html");
       const result: string[] = [];
 
       CachedData.pendingVisits.forEach(pv => {
         if (pv.visitSessions && pv.visitSessions.length > 0 && this.shouldPrintNametag(pv)) {
-          result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
+          const isChild = childVisits.some(cv => cv.personId === pv.personId);
+          result.push(nametagBlocks
+            ? LabelRenderer.render(nametagBlocks, this.getNametagContext(pv, isChild, pickupCode))
+            : this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
         }
       });
 
       if (childVisits.length > 0 && this.shouldPrintPickup(childVisits)) {
-        result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
+        result.push(pickupBlocks
+          ? LabelRenderer.render(pickupBlocks, this.getPickupContext(childVisits, pickupCode))
+          : this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
       }
+      PrinterLog.add(`getAllLabels: produced ${result.length} label(s)`);
       return result;
     } catch (error) {
+      PrinterLog.add(`getAllLabels error: ${error instanceof Error ? error.message : String(error)}`);
       console.error("Error getting labels:", error);
       return [];
     }

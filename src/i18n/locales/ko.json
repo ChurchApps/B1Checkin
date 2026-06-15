@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "키오스크로 돌아가기",
-    "changePin": "관리자 PIN 변경",
-    "changePrinter": "프린터 변경",
-    "changeService": "예배 변경",
-    "pinChanged": "PIN이 성공적으로 변경되었습니다",
-    "setPin": "관리자 PIN 설정",
-    "subtitle": "키오스크 장치 설정을 관리하세요",
-    "title": "관리자 설정"
-  },
   "addGuest": {
     "addButton": "게스트 추가",
+    "addFailed": "게스트를 추가하지 못했습니다. 다시 시도해주세요.",
     "enterFirstName": "이름을 입력해주세요",
     "enterLastName": "성을 입력해주세요",
     "firstName": "이름",
@@ -20,20 +11,65 @@
     "subtitle": "가족에 추가할 게스트 정보를 입력하세요",
     "title": "게스트 추가"
   },
+  "admin": {
+    "backToKiosk": "키오스크로 돌아가기",
+    "changePin": "관리자 PIN 변경",
+    "changePrinter": "프린터 변경",
+    "changeService": "예배 변경",
+    "mannedMode": "유인 스테이션 모드",
+    "mannedModeHint": "자원봉사자 체크아웃 및 프로필 편집을 추가합니다",
+    "pinChanged": "PIN이 성공적으로 변경되었습니다",
+    "setPin": "관리자 PIN 설정",
+    "subtitle": "키오스크 장치 설정을 관리하세요",
+    "title": "관리자 설정"
+  },
   "checkinComplete": {
+    "allSet": "모두 완료되었습니다!",
+    "checkinError": "체크인이 제대로 처리되지 않았습니다. 봉사자에게 문의해주세요.",
+    "haveAGreatService": "은혜로운 예배 되세요.",
+    "labelsPrinted": "명찰이 출력되었습니다",
+    "milestoneWeeks": "연속 주!",
+    "printingLabels": "명찰을 출력하고 있습니다…",
     "printingMessage": "라벨을 출력하고 있습니다.",
+    "returning": "처음 화면으로 돌아갑니다…",
     "subtitle": "가족이 성공적으로 체크인되었습니다",
     "title": "체크인 완료",
     "welcomeMessage": "가족이 성공적으로 체크인되었습니다.",
-    "welcomeTitle": "환영합니다!",
-    "milestoneWeeks": "연속 주!"
+    "welcomeTitle": "환영합니다!"
+  },
+  "checkout": {
+    "checkingOut": "체크아웃 중",
+    "checkoutFailed": "체크아웃하지 못했습니다. 다시 시도해주세요.",
+    "codeNotFound": "해당 코드와 일치하는 활성 체크인이 없습니다. 다시 시도해주세요.",
+    "confirm": "체크아웃",
+    "lookupError": "해당 코드를 조회하지 못했습니다. 다시 시도해주세요.",
+    "other": "기타",
+    "otherNamePlaceholder": "이름 입력",
+    "subtitle": "보안 코드를 입력하거나 스캔하세요",
+    "success": "체크아웃되었습니다",
+    "title": "체크아웃",
+    "whoPickingUp": "누가 데려가나요?"
   },
   "common": {
     "back": "뒤로",
     "cancel": "취소",
+    "continue": "계속",
     "login": "로그인",
     "logout": "로그아웃",
+    "ok": "확인",
+    "retry": "다시 시도",
+    "save": "Save",
     "search": "검색"
+  },
+  "editPerson": {
+    "birthDate": "생년월일",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "이메일",
+    "loadFailed": "이 사람을 불러오지 못했습니다. 다시 시도해주세요.",
+    "mobilePhone": "휴대폰",
+    "nametagNotes": "명찰 메모",
+    "saveFailed": "저장하지 못했습니다. 다시 시도해주세요.",
+    "title": "프로필 편집"
   },
   "header": {
     "logoutConfirm": "정말 로그아웃하시겠습니까?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "게스트 추가",
+    "alreadyCheckedIn": "이미 체크인됨",
     "checkin": "체크인",
+    "checkinCount": "체크인 — {{count}}",
+    "chooseGroupHint": "최소 한 명의 그룹을 선택해주세요",
+    "duplicateConfirm": "다시 체크인",
+    "duplicateMessage": "{{names}}님은 이번 예배에 이미 체크인하셨습니다. 그룹을 변경하려면 다시 체크인해주세요.",
+    "duplicateTitle": "이미 체크인됨",
+    "emptyTitle": "가족 구성원을 찾을 수 없습니다",
     "subtitle": "오늘 체크인할 사람을 선택하세요",
-    "title": "가족 구성원 선택"
+    "title": "누가 체크인하나요?"
+  },
+  "idle": {
+    "tapToCheckin": "터치하여 체크인하세요"
   },
   "login": {
     "emailPlaceholder": "이메일",
@@ -58,8 +104,11 @@
     "welcomeBack": "다시 오신 것을 환영합니다"
   },
   "lookup": {
+    "backToKeypad": "키패드로 돌아가기",
+    "checkout": "체크아웃",
     "enterPhone": "전화번호 또는 마지막 네 자리를 입력해주세요",
     "invalidNumbers": "유효한 숫자를 입력해주세요.",
+    "keypadHint": "전체 번호를 입력해도 됩니다",
     "minDigits": "최소 네 자리를 입력해주세요.",
     "minLetters": "성을 최소 두 글자 이상 입력해주세요.",
     "modeName": "이름",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "다른 성으로 검색해보세요",
     "noMatchTitle": "일치하는 항목 없음",
     "phonePlaceholder": "휴대전화 번호의 마지막 네 자리를 입력하세요",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "게스트로 등록하려면 스캔하세요",
-    "registerGuest": "게스트로 등록",
     "readySubtitle": "사람을 찾으려면 전화번호를 입력하세요",
     "readyTitle": "검색 준비 완료",
+    "registerGuest": "게스트로 등록",
+    "resultsFound_one": "{{count}}건의 결과",
+    "resultsFound_other": "{{count}}건의 결과",
+    "searchByName": "이름으로 검색",
     "searchError": "검색을 완료할 수 없습니다. 다시 시도해주세요.",
     "searching": "검색 중...",
     "subtitle": "휴대전화 번호의 마지막 네 자리를 입력하세요",
-    "title": "전화번호로 검색"
+    "title": "전화번호로 검색",
+    "usePhone": "전화번호 사용",
+    "welcomeSubtitle": "전화번호 또는 이름으로 가족을 찾아보세요",
+    "welcomeTitle": "환영합니다! 체크인을 시작할게요."
   },
   "members": {
     "error": "오류",
     "selectGroup": "그룹 선택",
     "unknown": "알 수 없음"
-  },
-  "print": {
-    "printing": "인쇄 중"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}}회 시도 남음",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "너무 많은 실패. 잠시 기다려주세요.",
     "wrongPin": "잘못된 PIN입니다. 다시 시도해주세요."
   },
+  "print": {
+    "printing": "인쇄 중"
+  },
   "printers": {
+    "diagnostics": "진단",
     "noPrinter": "프린터 없음",
     "noPrinterSelected": "선택된 프린터 없음",
+    "noneFound": "이 네트워크에서 프린터를 찾을 수 없습니다",
+    "rescan": "다시 검색",
     "saveAndContinue": "저장 및 계속",
     "saveRestart": "저장 및 재시작",
+    "saving": "저장 중…",
     "scanning": "프린터 검색 중...",
     "subtitle": "명찰 및 라벨 인쇄용 프린터를 선택하세요",
     "testPrint": "테스트 인쇄",
     "title": "프린터 선택"
+  },
+  "selectChurch": {
+    "emptySubtitle": "계정에 접근 가능한 교회가 없습니다.",
+    "emptyTitle": "이용 가능한 교회가 없습니다",
+    "loading": "교회 로딩 중...",
+    "title": "교회 선택"
+  },
+  "selectGroup": {
+    "choosingFor": "{{name}}님의 그룹 선택",
+    "groupCount_one": "{{count}}개 그룹",
+    "groupCount_other": "{{count}}개 그룹",
+    "noGroupOption": "이번에는 그룹 없음",
+    "noGroups": "이 시간에는 이용 가능한 그룹이 없습니다",
+    "none": "없음",
+    "subtitle": "{{serviceName}}의 그룹을 선택하세요",
+    "title": "그룹 선택"
+  },
+  "services": {
+    "emptySubtitle": "B1 Admin에서 예배를 만들면 체크인을 시작할 수 있습니다.",
+    "emptyTitle": "아직 설정된 예배가 없습니다",
+    "loadError": "예배를 불러올 수 없습니다.",
+    "loading": "예배 로딩 중...",
+    "selectService": "예배를 선택하세요:",
+    "subtitle": "체크인할 예배를 선택하세요",
+    "title": "예배 선택"
   },
   "setPin": {
     "confirmPin": "PIN을 확인하세요",
@@ -114,27 +196,16 @@
     "subtitle": "관리자 설정을 보호하기 위해 4-6자리 PIN을 만드세요",
     "title": "관리자 PIN 설정"
   },
-  "selectChurch": {
-    "loading": "교회 로딩 중...",
-    "title": "교회 선택"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}}개 그룹",
-    "none": "없음",
-    "subtitle": "{{serviceName}}의 그룹을 선택하세요",
-    "title": "그룹 선택"
-  },
-  "services": {
-    "loading": "예배 로딩 중...",
-    "selectService": "예배를 선택하세요:",
-    "subtitle": "체크인할 예배를 선택하세요",
-    "title": "예배 선택"
-  },
   "splash": {
     "checkingUpdates": "업데이트 확인 중...",
     "downloadingUpdate": "업데이트 다운로드 중...",
     "initializing": "초기화 중...",
     "loadingChurch": "교회 데이터 로딩 중...",
     "loggingIn": "로그인 중..."
+  },
+  "steps": {
+    "done": "완료",
+    "find": "찾기",
+    "select": "선택"
   }
 }

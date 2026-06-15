@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Retour au kiosque",
-    "changePin": "Changer le PIN admin",
-    "changePrinter": "Changer d'imprimante",
-    "changeService": "Changer de service",
-    "pinChanged": "Le PIN a été changé avec succès",
-    "setPin": "Définir le PIN admin",
-    "subtitle": "Gérez les paramètres du kiosque",
-    "title": "Paramètres admin"
-  },
   "addGuest": {
     "addButton": "Ajouter l'invité",
+    "addFailed": "Impossible d'ajouter l'invité. Veuillez réessayer.",
     "enterFirstName": "Veuillez entrer le prénom",
     "enterLastName": "Veuillez entrer le nom de famille",
     "firstName": "Prénom",
@@ -20,20 +11,65 @@
     "subtitle": "Entrez les informations de l'invité pour l'ajouter à votre famille",
     "title": "Ajouter un invité"
   },
+  "admin": {
+    "backToKiosk": "Retour au kiosque",
+    "changePin": "Changer le PIN admin",
+    "changePrinter": "Changer d'imprimante",
+    "changeService": "Changer de service",
+    "mannedMode": "Mode poste surveillé",
+    "mannedModeHint": "Ajoute le départ par un bénévole et la modification du profil",
+    "pinChanged": "Le PIN a été changé avec succès",
+    "setPin": "Définir le PIN admin",
+    "subtitle": "Gérez les paramètres du kiosque",
+    "title": "Paramètres admin"
+  },
   "checkinComplete": {
+    "allSet": "C'est tout bon !",
+    "checkinError": "Quelque chose n'a pas fonctionné — veuillez vous adresser à un bénévole.",
+    "haveAGreatService": "Nous vous souhaitons un excellent service.",
+    "labelsPrinted": "Badges imprimés",
+    "milestoneWeeks": "Semaines d'affilée !",
+    "printingLabels": "Impression de vos badges…",
     "printingMessage": "Vos étiquettes sont en cours d'impression.",
+    "returning": "Retour à l'accueil…",
     "subtitle": "Votre famille a été enregistrée avec succès",
     "title": "Enregistrement terminé",
     "welcomeMessage": "Votre famille a été enregistrée avec succès.",
-    "welcomeTitle": "Bienvenue !",
-    "milestoneWeeks": "Semaines d'affilée !"
+    "welcomeTitle": "Bienvenue !"
+  },
+  "checkout": {
+    "checkingOut": "Enregistrement du départ",
+    "checkoutFailed": "Impossible d'enregistrer le départ. Veuillez réessayer.",
+    "codeNotFound": "Aucun enregistrement actif ne correspond à ce code. Veuillez réessayer.",
+    "confirm": "Enregistrer le départ",
+    "lookupError": "Impossible de rechercher ce code. Veuillez réessayer.",
+    "other": "Autre personne",
+    "otherNamePlaceholder": "Saisir le nom",
+    "subtitle": "Saisissez ou scannez le code de sécurité",
+    "success": "Départ enregistré avec succès",
+    "title": "Départ",
+    "whoPickingUp": "Qui vient chercher ?"
   },
   "common": {
     "back": "Retour",
     "cancel": "Annuler",
+    "continue": "Continuer",
     "login": "Connexion",
     "logout": "Déconnexion",
+    "ok": "OK",
+    "retry": "Réessayer",
+    "save": "Save",
     "search": "Rechercher"
+  },
+  "editPerson": {
+    "birthDate": "Date de naissance",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "E-mail",
+    "loadFailed": "Impossible de charger cette personne. Veuillez réessayer.",
+    "mobilePhone": "Téléphone mobile",
+    "nametagNotes": "Notes du badge",
+    "saveFailed": "Impossible d'enregistrer. Veuillez réessayer.",
+    "title": "Modifier le profil"
   },
   "header": {
     "logoutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "Ajouter un invité",
-    "checkin": "ENREGISTRER",
+    "alreadyCheckedIn": "Déjà enregistré",
+    "checkin": "Enregistrer",
+    "checkinCount": "Enregistrer — {{count}}",
+    "chooseGroupHint": "Choisissez un groupe pour au moins une personne",
+    "duplicateConfirm": "Enregistrer à nouveau",
+    "duplicateMessage": "{{names}} sont déjà enregistrés pour ce service. Enregistrez-les à nouveau pour mettre à jour leurs groupes.",
+    "duplicateTitle": "Déjà enregistré",
+    "emptyTitle": "Aucun membre de la famille trouvé",
     "subtitle": "Choisissez qui s'enregistre aujourd'hui",
-    "title": "Sélectionner les membres de la famille"
+    "title": "Qui s'enregistre ?"
+  },
+  "idle": {
+    "tapToCheckin": "Touchez l'écran pour vous enregistrer"
   },
   "login": {
     "emailPlaceholder": "Courriel",
@@ -58,8 +104,11 @@
     "welcomeBack": "Bienvenue"
   },
   "lookup": {
+    "backToKeypad": "Retour au clavier",
+    "checkout": "Départ",
     "enterPhone": "Veuillez entrer le numéro de téléphone ou les quatre derniers chiffres",
     "invalidNumbers": "Veuillez entrer des numéros valides.",
+    "keypadHint": "Le numéro complet fonctionne aussi",
     "minDigits": "Veuillez entrer au moins quatre chiffres.",
     "minLetters": "Veuillez entrer au moins deux lettres du nom de famille.",
     "modeName": "Nom",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "Essayez de rechercher avec un autre nom de famille",
     "noMatchTitle": "Aucun résultat trouvé",
     "phonePlaceholder": "Entrez les quatre derniers chiffres du numéro de mobile",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Scannez pour vous inscrire en tant qu'invité",
-    "registerGuest": "S'inscrire en tant qu'invité",
     "readySubtitle": "Entrez un numéro de téléphone pour trouver des personnes",
     "readyTitle": "Prêt à rechercher",
+    "registerGuest": "S'inscrire en tant qu'invité",
+    "resultsFound_one": "{{count}} résultat",
+    "resultsFound_other": "{{count}} résultats",
+    "searchByName": "Rechercher par nom",
     "searchError": "Impossible de terminer la recherche. Veuillez réessayer.",
     "searching": "Recherche en cours...",
     "subtitle": "Entrez les quatre derniers chiffres du numéro de mobile",
-    "title": "Recherche par numéro de téléphone"
+    "title": "Recherche par numéro de téléphone",
+    "usePhone": "Utiliser le numéro de téléphone",
+    "welcomeSubtitle": "Recherchez par numéro de téléphone ou par nom pour trouver votre famille",
+    "welcomeTitle": "Bienvenue ! Enregistrons votre famille."
   },
   "members": {
     "error": "Erreur",
     "selectGroup": "Sélectionner un groupe",
     "unknown": "Inconnu"
-  },
-  "print": {
-    "printing": "Impression"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} tentatives restantes",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "Trop de tentatives échouées. Veuillez patienter.",
     "wrongPin": "PIN incorrect. Veuillez réessayer."
   },
+  "print": {
+    "printing": "Impression"
+  },
   "printers": {
+    "diagnostics": "Diagnostic",
     "noPrinter": "Aucune imprimante",
     "noPrinterSelected": "Aucune imprimante sélectionnée",
+    "noneFound": "Aucune imprimante trouvée sur ce réseau",
+    "rescan": "Relancer la recherche",
     "saveAndContinue": "Enregistrer et continuer",
     "saveRestart": "Enregistrer et redémarrer",
+    "saving": "Sauvegarde…",
     "scanning": "Recherche d'imprimantes...",
     "subtitle": "Choisissez une imprimante pour imprimer les badges et étiquettes",
     "testPrint": "Test d'impression",
     "title": "Sélectionner une imprimante"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Votre compte n'a accès à aucune église.",
+    "emptyTitle": "Aucune église disponible",
+    "loading": "Chargement des églises...",
+    "title": "Sélectionner une église"
+  },
+  "selectGroup": {
+    "choosingFor": "Choix pour {{name}}",
+    "groupCount_one": "{{count}} groupe",
+    "groupCount_other": "{{count}} groupes",
+    "noGroupOption": "Pas de groupe cette fois",
+    "noGroups": "Aucun groupe disponible pour cet horaire",
+    "none": "Aucun",
+    "subtitle": "Choisissez un groupe pour {{serviceName}}",
+    "title": "Sélectionner un groupe"
+  },
+  "services": {
+    "emptySubtitle": "Créez des services dans B1 Admin pour commencer à enregistrer les participants.",
+    "emptyTitle": "Aucun service configuré pour le moment",
+    "loadError": "Impossible de charger les services.",
+    "loading": "Chargement des services...",
+    "selectService": "Sélectionnez un service :",
+    "subtitle": "Choisissez le service pour l'enregistrement",
+    "title": "Sélectionner un service"
   },
   "setPin": {
     "confirmPin": "Confirmez votre PIN",
@@ -114,27 +196,16 @@
     "subtitle": "Créez un PIN de 4 à 6 chiffres pour protéger les paramètres admin",
     "title": "Définir le PIN admin"
   },
-  "selectChurch": {
-    "loading": "Chargement des églises...",
-    "title": "Sélectionner une église"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} groupes",
-    "none": "Aucun",
-    "subtitle": "Choisissez un groupe pour {{serviceName}}",
-    "title": "Sélectionner un groupe"
-  },
-  "services": {
-    "loading": "Chargement des services...",
-    "selectService": "Sélectionnez un service :",
-    "subtitle": "Choisissez le service pour l'enregistrement",
-    "title": "Sélectionner un service"
-  },
   "splash": {
     "checkingUpdates": "Vérification des mises à jour...",
     "downloadingUpdate": "Téléchargement de la mise à jour...",
     "initializing": "Initialisation...",
     "loadingChurch": "Chargement des données de l'église...",
     "loggingIn": "Connexion en cours..."
+  },
+  "steps": {
+    "done": "Terminé",
+    "find": "Trouver",
+    "select": "Choisir"
   }
 }

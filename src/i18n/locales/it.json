@@ -1,16 +1,7 @@
 {
-  "admin": {
-    "backToKiosk": "Torna al Chiosco",
-    "changePin": "Cambia PIN Admin",
-    "changePrinter": "Cambia Stampante",
-    "changeService": "Cambia Servizio",
-    "pinChanged": "Il PIN è stato cambiato con successo",
-    "setPin": "Imposta PIN Admin",
-    "subtitle": "Gestisci le impostazioni del dispositivo chiosco",
-    "title": "Impostazioni Admin"
-  },
   "addGuest": {
     "addButton": "Aggiungi Ospite",
+    "addFailed": "Impossibile aggiungere l'ospite. Riprova.",
     "enterFirstName": "Inserisci il nome",
     "enterLastName": "Inserisci il cognome",
     "firstName": "Nome",
@@ -20,20 +11,65 @@
     "subtitle": "Inserisci le informazioni dell'ospite per aggiungerlo alla tua famiglia",
     "title": "Aggiungi Ospite"
   },
+  "admin": {
+    "backToKiosk": "Torna al Chiosco",
+    "changePin": "Cambia PIN Admin",
+    "changePrinter": "Cambia Stampante",
+    "changeService": "Cambia Servizio",
+    "mannedMode": "Modalità postazione presidiata",
+    "mannedModeHint": "Aggiunge il check-out tramite volontario e la modifica del profilo",
+    "pinChanged": "Il PIN è stato cambiato con successo",
+    "setPin": "Imposta PIN Admin",
+    "subtitle": "Gestisci le impostazioni del dispositivo chiosco",
+    "title": "Impostazioni Admin"
+  },
   "checkinComplete": {
+    "allSet": "Tutto fatto!",
+    "checkinError": "Qualcosa non è andato a buon fine — rivolgiti a un volontario.",
+    "haveAGreatService": "Buona celebrazione.",
+    "labelsPrinted": "Cartellini stampati",
+    "milestoneWeeks": "Settimane consecutive!",
+    "printingLabels": "Stampa dei cartellini in corso…",
     "printingMessage": "Le tue etichette sono in stampa.",
+    "returning": "Ritorno all'inizio…",
     "subtitle": "La tua famiglia è stata registrata con successo",
     "title": "Check-in Completato",
     "welcomeMessage": "La tua famiglia è stata registrata con successo.",
-    "welcomeTitle": "Benvenuto!",
-    "milestoneWeeks": "Settimane consecutive!"
+    "welcomeTitle": "Benvenuto!"
+  },
+  "checkout": {
+    "checkingOut": "Check-out in corso",
+    "checkoutFailed": "Impossibile effettuare il check-out. Riprova.",
+    "codeNotFound": "Nessun check-in attivo corrisponde a questo codice. Riprova.",
+    "confirm": "Check-out",
+    "lookupError": "Impossibile cercare questo codice. Riprova.",
+    "other": "Altra persona",
+    "otherNamePlaceholder": "Inserisci il nome",
+    "subtitle": "Inserisci o scansiona il codice di sicurezza",
+    "success": "Check-out effettuato con successo",
+    "title": "Check-out",
+    "whoPickingUp": "Chi viene a prendere?"
   },
   "common": {
     "back": "Indietro",
     "cancel": "Annulla",
+    "continue": "Continua",
     "login": "Accedi",
     "logout": "Esci",
+    "ok": "OK",
+    "retry": "Riprova",
+    "save": "Save",
     "search": "Cerca"
+  },
+  "editPerson": {
+    "birthDate": "Data di nascita",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "Email",
+    "loadFailed": "Impossibile caricare questa persona. Riprova.",
+    "mobilePhone": "Cellulare",
+    "nametagNotes": "Note per il cartellino",
+    "saveFailed": "Impossibile salvare. Riprova.",
+    "title": "Modifica profilo"
   },
   "header": {
     "logoutConfirm": "Sei sicuro di voler uscire?",
@@ -41,9 +77,19 @@
   },
   "household": {
     "addGuest": "Aggiungi un Ospite",
-    "checkin": "CHECK-IN",
+    "alreadyCheckedIn": "Già registrato",
+    "checkin": "Check-in",
+    "checkinCount": "Check-in — {{count}}",
+    "chooseGroupHint": "Scegli un gruppo per almeno una persona",
+    "duplicateConfirm": "Ripeti il Check-in",
+    "duplicateMessage": "Check-in già effettuato per {{names}} in questo servizio. Ripeti il check-in per aggiornare i gruppi.",
+    "duplicateTitle": "Check-in già effettuato",
+    "emptyTitle": "Nessun membro della famiglia trovato",
     "subtitle": "Scegli chi sta effettuando il check-in oggi",
-    "title": "Seleziona i Membri della Famiglia"
+    "title": "Chi fa il check-in?"
+  },
+  "idle": {
+    "tapToCheckin": "Tocca per fare il check-in"
   },
   "login": {
     "emailPlaceholder": "Email",
@@ -58,8 +104,11 @@
     "welcomeBack": "Bentornato"
   },
   "lookup": {
+    "backToKeypad": "Torna al tastierino",
+    "checkout": "Check-out",
     "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
     "invalidNumbers": "Inserisci numeri validi.",
+    "keypadHint": "Funziona anche il numero completo",
     "minDigits": "Inserisci almeno quattro cifre.",
     "minLetters": "Inserisci almeno due lettere del cognome.",
     "modeName": "Nome",
@@ -69,24 +118,25 @@
     "noMatchSubtitleName": "Prova a cercare con un cognome diverso",
     "noMatchTitle": "Nessun Risultato Trovato",
     "phonePlaceholder": "Inserisci le ultime quattro cifre del numero di cellulare",
-    "welcomeTitle": "Welcome! Let's check you in.",
-    "welcomeSubtitle": "Search by phone number or name to find your family",
     "qrGuest": "Scansiona per registrarti come ospite",
-    "registerGuest": "Registrati come ospite",
     "readySubtitle": "Inserisci un numero di telefono per trovare persone",
     "readyTitle": "Pronto per la Ricerca",
+    "registerGuest": "Registrati come ospite",
+    "resultsFound_one": "{{count}} risultato",
+    "resultsFound_other": "{{count}} risultati",
+    "searchByName": "Cerca per nome",
     "searchError": "Impossibile completare la ricerca. Riprova.",
     "searching": "Ricerca in corso...",
     "subtitle": "Inserisci le ultime quattro cifre del numero di cellulare",
-    "title": "Cerca per Numero di Telefono"
+    "title": "Cerca per Numero di Telefono",
+    "usePhone": "Usa il numero di telefono",
+    "welcomeSubtitle": "Cerca per numero di telefono o per nome per trovare la tua famiglia",
+    "welcomeTitle": "Benvenuti! Facciamo il check-in."
   },
   "members": {
     "error": "Errore",
     "selectGroup": "Seleziona un Gruppo",
     "unknown": "Sconosciuto"
-  },
-  "print": {
-    "printing": "Stampa"
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} tentativi rimanenti",
@@ -95,15 +145,47 @@
     "tooManyAttempts": "Troppi tentativi falliti. Attendere.",
     "wrongPin": "PIN errato. Riprovare."
   },
+  "print": {
+    "printing": "Stampa"
+  },
   "printers": {
+    "diagnostics": "Diagnostica",
     "noPrinter": "Nessuna Stampante",
     "noPrinterSelected": "Nessuna stampante selezionata",
+    "noneFound": "Nessuna stampante trovata su questa rete",
+    "rescan": "Cerca di nuovo",
     "saveAndContinue": "Salva e Continua",
     "saveRestart": "Salva e Riavvia",
+    "saving": "Salvataggio…",
     "scanning": "Ricerca stampanti...",
     "subtitle": "Scegli una stampante per stampare i cartellini e le etichette",
     "testPrint": "Stampa di Prova",
     "title": "Seleziona una Stampante"
+  },
+  "selectChurch": {
+    "emptySubtitle": "Il tuo account non ha accesso ad alcuna chiesa.",
+    "emptyTitle": "Nessuna chiesa disponibile",
+    "loading": "Caricamento chiese...",
+    "title": "Seleziona una Chiesa"
+  },
+  "selectGroup": {
+    "choosingFor": "Scelta per {{name}}",
+    "groupCount_one": "{{count}} gruppo",
+    "groupCount_other": "{{count}} gruppi",
+    "noGroupOption": "Nessun gruppo questa volta",
+    "noGroups": "Nessun gruppo disponibile per questo orario",
+    "none": "Nessuno",
+    "subtitle": "Scegli un gruppo per {{serviceName}}",
+    "title": "Seleziona un Gruppo"
+  },
+  "services": {
+    "emptySubtitle": "Crea i servizi in B1 Admin per iniziare a fare il check-in delle persone.",
+    "emptyTitle": "Nessun servizio configurato",
+    "loadError": "Impossibile caricare i servizi.",
+    "loading": "Caricamento servizi...",
+    "selectService": "Seleziona un servizio:",
+    "subtitle": "Scegli per quale servizio effettuare il check-in",
+    "title": "Seleziona un Servizio"
   },
   "setPin": {
     "confirmPin": "Conferma il tuo PIN",
@@ -114,27 +196,16 @@
     "subtitle": "Crea un PIN di 4-6 cifre per proteggere le impostazioni admin",
     "title": "Imposta PIN Admin"
   },
-  "selectChurch": {
-    "loading": "Caricamento chiese...",
-    "title": "Seleziona una Chiesa"
-  },
-  "selectGroup": {
-    "groupCount": "{{count}} gruppi",
-    "none": "Nessuno",
-    "subtitle": "Scegli un gruppo per {{serviceName}}",
-    "title": "Seleziona un Gruppo"
-  },
-  "services": {
-    "loading": "Caricamento servizi...",
-    "selectService": "Seleziona un servizio:",
-    "subtitle": "Scegli per quale servizio effettuare il check-in",
-    "title": "Seleziona un Servizio"
-  },
   "splash": {
     "checkingUpdates": "Verifica aggiornamenti...",
     "downloadingUpdate": "Download aggiornamento...",
     "initializing": "Inizializzazione...",
     "loadingChurch": "Caricamento dati chiesa...",
     "loggingIn": "Accesso in corso..."
+  },
+  "steps": {
+    "done": "Fatto",
+    "find": "Trova",
+    "select": "Seleziona"
   }
 }
