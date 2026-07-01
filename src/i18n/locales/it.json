@@ -18,7 +18,6 @@
     "changeService": "Cambia Servizio",
     "mannedMode": "Modalità postazione presidiata",
     "mannedModeHint": "Aggiunge il check-out tramite volontario e la modifica del profilo",
-    "pinChanged": "Il PIN è stato cambiato con successo",
     "setPin": "Imposta PIN Admin",
     "subtitle": "Gestisci le impostazioni del dispositivo chiosco",
     "title": "Impostazioni Admin"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Cartellini stampati",
     "milestoneWeeks": "Settimane consecutive!",
     "printingLabels": "Stampa dei cartellini in corso…",
-    "printingMessage": "Le tue etichette sono in stampa.",
-    "returning": "Ritorno all'inizio…",
-    "subtitle": "La tua famiglia è stata registrata con successo",
-    "title": "Check-in Completato",
-    "welcomeMessage": "La tua famiglia è stata registrata con successo.",
-    "welcomeTitle": "Benvenuto!"
+    "returning": "Ritorno all'inizio…"
   },
   "checkout": {
     "checkingOut": "Check-out in corso",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Torna al tastierino",
     "checkout": "Check-out",
-    "enterPhone": "Inserisci il numero di telefono o le ultime quattro cifre",
-    "invalidNumbers": "Inserisci numeri validi.",
     "keypadHint": "Funziona anche il numero completo",
-    "minDigits": "Inserisci almeno quattro cifre.",
     "minLetters": "Inserisci almeno due lettere del cognome.",
-    "modeName": "Nome",
-    "modePhone": "Telefono",
     "namePlaceholder": "Inserisci il cognome",
     "noMatchSubtitle": "Prova a cercare con un numero di telefono diverso",
     "noMatchSubtitleName": "Prova a cercare con un cognome diverso",
     "noMatchTitle": "Nessun Risultato Trovato",
-    "phonePlaceholder": "Inserisci le ultime quattro cifre del numero di cellulare",
     "qrGuest": "Scansiona per registrarti come ospite",
-    "readySubtitle": "Inserisci un numero di telefono per trovare persone",
-    "readyTitle": "Pronto per la Ricerca",
     "registerGuest": "Registrati come ospite",
     "resultsFound_one": "{{count}} risultato",
     "resultsFound_other": "{{count}} risultati",
     "searchByName": "Cerca per nome",
     "searchError": "Impossibile completare la ricerca. Riprova.",
     "searching": "Ricerca in corso...",
-    "subtitle": "Inserisci le ultime quattro cifre del numero di cellulare",
-    "title": "Cerca per Numero di Telefono",
     "usePhone": "Usa il numero di telefono",
     "welcomeSubtitle": "Cerca per numero di telefono o per nome per trovare la tua famiglia",
     "welcomeTitle": "Benvenuti! Facciamo il check-in."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} tentativi rimanenti",
-    "backspace": "Cancella",
     "enterPin": "Inserisci il PIN Admin",
     "tooManyAttempts": "Troppi tentativi falliti. Attendere.",
     "wrongPin": "PIN errato. Riprovare."
-  },
-  "print": {
-    "printing": "Stampa"
   },
   "printers": {
     "diagnostics": "Diagnostica",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Nessuna stampante selezionata",
     "noneFound": "Nessuna stampante trovata su questa rete",
     "rescan": "Cerca di nuovo",
-    "saveAndContinue": "Salva e Continua",
     "saveRestart": "Salva e Riavvia",
     "saving": "Salvataggio…",
     "scanning": "Ricerca stampanti...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Il tuo account non ha accesso ad alcuna chiesa.",
     "emptyTitle": "Nessuna chiesa disponibile",
-    "loading": "Caricamento chiese...",
     "title": "Seleziona una Chiesa"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Crea i servizi in B1 Admin per iniziare a fare il check-in delle persone.",
     "emptyTitle": "Nessun servizio configurato",
     "loadError": "Impossibile caricare i servizi.",
-    "loading": "Caricamento servizi...",
-    "selectService": "Seleziona un servizio:",
     "subtitle": "Scegli per quale servizio effettuare il check-in",
     "title": "Seleziona un Servizio"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Conferma il tuo PIN",
     "enterPin": "Inserisci un PIN",
     "pinMismatch": "I PIN non corrispondono. Riprovare.",
-    "pinSet": "Il PIN è stato impostato con successo",
     "pinTooShort": "Il PIN deve avere almeno 4 cifre",
     "subtitle": "Crea un PIN di 4-6 cifre per proteggere le impostazioni admin",
     "title": "Imposta PIN Admin"

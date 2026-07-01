@@ -18,7 +18,6 @@
     "changeService": "Gottesdienst ändern",
     "mannedMode": "Betreuter Stationsmodus",
     "mannedModeHint": "Fügt Check-out durch Mitarbeiter und Profilbearbeitung hinzu",
-    "pinChanged": "PIN wurde erfolgreich geändert",
     "setPin": "Admin-PIN festlegen",
     "subtitle": "Verwalten Sie die Kioskgeräte-Einstellungen",
     "title": "Admin-Einstellungen"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Namensschilder gedruckt",
     "milestoneWeeks": "Wochen in Folge!",
     "printingLabels": "Ihre Namensschilder werden gedruckt…",
-    "printingMessage": "Ihre Etiketten werden jetzt gedruckt.",
-    "returning": "Zurück zum Start…",
-    "subtitle": "Ihre Familie wurde erfolgreich eingecheckt",
-    "title": "Check-in abgeschlossen",
-    "welcomeMessage": "Ihre Familie wurde erfolgreich eingecheckt.",
-    "welcomeTitle": "Willkommen!"
+    "returning": "Zurück zum Start…"
   },
   "checkout": {
     "checkingOut": "Wird ausgecheckt",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Zurück zum Ziffernfeld",
     "checkout": "Auschecken",
-    "enterPhone": "Bitte geben Sie die Telefonnummer oder die letzten vier Ziffern ein",
-    "invalidNumbers": "Bitte geben Sie gültige Zahlen ein.",
     "keypadHint": "Die vollständige Nummer funktioniert auch",
-    "minDigits": "Bitte geben Sie mindestens vier Ziffern ein.",
     "minLetters": "Bitte geben Sie mindestens zwei Buchstaben des Nachnamens ein.",
-    "modeName": "Name",
-    "modePhone": "Telefon",
     "namePlaceholder": "Geben Sie den Nachnamen ein",
     "noMatchSubtitle": "Versuchen Sie die Suche mit einer anderen Telefonnummer",
     "noMatchSubtitleName": "Versuchen Sie die Suche mit einem anderen Nachnamen",
     "noMatchTitle": "Keine Übereinstimmungen gefunden",
-    "phonePlaceholder": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
     "qrGuest": "Scannen, um sich als Gast zu registrieren",
-    "readySubtitle": "Geben Sie eine Telefonnummer ein, um Personen zu finden",
-    "readyTitle": "Bereit zur Suche",
     "registerGuest": "Als Gast registrieren",
     "resultsFound_one": "{{count}} Ergebnis",
     "resultsFound_other": "{{count}} Ergebnisse",
     "searchByName": "Nach Namen suchen",
     "searchError": "Die Suche konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
     "searching": "Suche...",
-    "subtitle": "Geben Sie die letzten vier Ziffern der Mobilnummer ein",
-    "title": "Suche nach Telefonnummer",
     "usePhone": "Telefonnummer verwenden",
     "welcomeSubtitle": "Suchen Sie nach Telefonnummer oder Name, um Ihre Familie zu finden",
     "welcomeTitle": "Willkommen! Wir checken Sie ein."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} Versuche übrig",
-    "backspace": "Löschen",
     "enterPin": "Admin-PIN eingeben",
     "tooManyAttempts": "Zu viele Fehlversuche. Bitte warten.",
     "wrongPin": "Falscher PIN. Bitte erneut versuchen."
-  },
-  "print": {
-    "printing": "Wird gedruckt"
   },
   "printers": {
     "diagnostics": "Diagnose",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Kein Drucker ausgewählt",
     "noneFound": "Keine Drucker in diesem Netzwerk gefunden",
     "rescan": "Erneut suchen",
-    "saveAndContinue": "Speichern & Weiter",
     "saveRestart": "Speichern & Neu starten",
     "saving": "Wird gespeichert…",
     "scanning": "Suche nach Druckern...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Ihr Konto hat auf keine Gemeinde Zugriff.",
     "emptyTitle": "Keine Gemeinden verfügbar",
-    "loading": "Lade Gemeinden...",
     "title": "Gemeinde auswählen"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Erstellen Sie Gottesdienste in B1 Admin, um mit dem Einchecken zu beginnen.",
     "emptyTitle": "Noch keine Gottesdienste eingerichtet",
     "loadError": "Gottesdienste konnten nicht geladen werden.",
-    "loading": "Lade Gottesdienste...",
-    "selectService": "Wählen Sie einen Gottesdienst:",
     "subtitle": "Wählen Sie den Gottesdienst für den Check-in",
     "title": "Gottesdienst auswählen"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Bestätigen Sie Ihren PIN",
     "enterPin": "PIN eingeben",
     "pinMismatch": "PINs stimmen nicht überein. Bitte erneut versuchen.",
-    "pinSet": "PIN wurde erfolgreich festgelegt",
     "pinTooShort": "PIN muss mindestens 4 Ziffern haben",
     "subtitle": "Erstellen Sie einen 4-6-stelligen PIN zum Schutz der Admin-Einstellungen",
     "title": "Admin-PIN festlegen"

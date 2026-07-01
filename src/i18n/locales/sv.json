@@ -18,7 +18,6 @@
     "changeService": "Byt gudstjänst",
     "mannedMode": "Bemannat stationsläge",
     "mannedModeHint": "Lägger till utcheckning av volontär och profilredigering",
-    "pinChanged": "PIN-koden har ändrats",
     "setPin": "Ställ in admin-PIN",
     "subtitle": "Hantera inställningar för kioskenheten",
     "title": "Admininställningar"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Namnbrickorna har skrivits ut",
     "milestoneWeeks": "Veckor i rad!",
     "printingLabels": "Skriver ut era namnbrickor…",
-    "printingMessage": "Dina etiketter skrivs ut nu.",
-    "returning": "Återgår till start…",
-    "subtitle": "Din familj har checkats in",
-    "title": "Incheckning klar",
-    "welcomeMessage": "Din familj har checkats in.",
-    "welcomeTitle": "Välkommen!"
+    "returning": "Återgår till start…"
   },
   "checkout": {
     "checkingOut": "Checkar ut",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Tillbaka till knappsatsen",
     "checkout": "Checka ut",
-    "enterPhone": "Ange telefonnummer eller de fyra sista siffrorna",
-    "invalidNumbers": "Ange giltiga siffror.",
     "keypadHint": "Hela numret fungerar också",
-    "minDigits": "Ange minst fyra siffror.",
     "minLetters": "Ange minst två bokstäver av efternamnet.",
-    "modeName": "Namn",
-    "modePhone": "Telefon",
     "namePlaceholder": "Ange efternamn",
     "noMatchSubtitle": "Försök söka med ett annat telefonnummer",
     "noMatchSubtitleName": "Försök söka med ett annat efternamn",
     "noMatchTitle": "Inga träffar hittades",
-    "phonePlaceholder": "Ange de fyra sista siffrorna i mobilnumret",
     "qrGuest": "Skanna för att registrera dig som gäst",
-    "readySubtitle": "Ange ett telefonnummer för att hitta personer",
-    "readyTitle": "Redo att söka",
     "registerGuest": "Registrera som gäst",
     "resultsFound_one": "{{count}} träff",
     "resultsFound_other": "{{count}} träffar",
     "searchByName": "Sök med namn",
     "searchError": "Sökningen kunde inte slutföras. Försök igen.",
     "searching": "Söker...",
-    "subtitle": "Ange de fyra sista siffrorna i mobilnumret",
-    "title": "Sök med telefonnummer",
     "usePhone": "Använd telefonnummer",
     "welcomeSubtitle": "Sök med telefonnummer eller namn för att hitta din familj",
     "welcomeTitle": "Välkommen! Nu checkar vi in er."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} försök kvar",
-    "backspace": "Radera",
     "enterPin": "Ange admin-PIN",
     "tooManyAttempts": "För många misslyckade försök. Vänta.",
     "wrongPin": "Felaktig PIN-kod. Försök igen."
-  },
-  "print": {
-    "printing": "Skriver ut"
   },
   "printers": {
     "diagnostics": "Diagnostik",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Ingen skrivare vald",
     "noneFound": "Inga skrivare hittades i det här nätverket",
     "rescan": "Sök igen",
-    "saveAndContinue": "Spara och fortsätt",
     "saveRestart": "Spara och starta om",
     "saving": "Sparar…",
     "scanning": "Söker efter skrivare...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Ditt konto har inte åtkomst till någon församling.",
     "emptyTitle": "Inga församlingar tillgängliga",
-    "loading": "Laddar församlingar...",
     "title": "Välj en församling"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Skapa gudstjänster i B1 Admin för att börja checka in.",
     "emptyTitle": "Inga gudstjänster har skapats ännu",
     "loadError": "Det gick inte att ladda gudstjänsterna.",
-    "loading": "Laddar gudstjänster...",
-    "selectService": "Välj en gudstjänst:",
     "subtitle": "Välj vilken gudstjänst du vill checka in för",
     "title": "Välj en gudstjänst"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Bekräfta din PIN-kod",
     "enterPin": "Ange en PIN-kod",
     "pinMismatch": "PIN-koderna matchar inte. Försök igen.",
-    "pinSet": "PIN-koden har ställts in",
     "pinTooShort": "PIN-koden måste vara minst 4 siffror",
     "subtitle": "Skapa en 4–6-siffrig PIN-kod för att skydda admininställningar",
     "title": "Ställ in admin-PIN"

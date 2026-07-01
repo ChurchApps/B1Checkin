@@ -18,7 +18,6 @@
     "changeService": "Změnit bohoslužbu",
     "mannedMode": "Režim obsluhované stanice",
     "mannedModeHint": "Přidá odhlašování dobrovolníkem a úpravu profilu",
-    "pinChanged": "PIN byl úspěšně změněn",
     "setPin": "Nastavit administrátorský PIN",
     "subtitle": "Spravujte nastavení kioskového zařízení",
     "title": "Nastavení administrátora"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Jmenovky vytištěny",
     "milestoneWeeks": "Týdnů v řadě!",
     "printingLabels": "Tiskneme vaše jmenovky…",
-    "printingMessage": "Vaše štítky se nyní tisknou.",
-    "returning": "Návrat na začátek…",
-    "subtitle": "Vaše rodina byla úspěšně přihlášena",
-    "title": "Přihlášení dokončeno",
-    "welcomeMessage": "Vaše rodina byla úspěšně přihlášena.",
-    "welcomeTitle": "Vítejte!"
+    "returning": "Návrat na začátek…"
   },
   "checkout": {
     "checkingOut": "Odhlašování",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Zpět na klávesnici",
     "checkout": "Odhlásit",
-    "enterPhone": "Zadejte telefonní číslo nebo poslední čtyři číslice",
-    "invalidNumbers": "Zadejte platná čísla.",
     "keypadHint": "Funguje i celé telefonní číslo",
-    "minDigits": "Zadejte alespoň čtyři číslice.",
     "minLetters": "Zadejte alespoň dvě písmena příjmení.",
-    "modeName": "Jméno",
-    "modePhone": "Telefon",
     "namePlaceholder": "Zadejte příjmení",
     "noMatchSubtitle": "Zkuste vyhledat jiné telefonní číslo",
     "noMatchSubtitleName": "Zkuste vyhledat jiné příjmení",
     "noMatchTitle": "Nebyly nalezeny žádné shody",
-    "phonePlaceholder": "Zadejte poslední čtyři číslice mobilního čísla",
     "qrGuest": "Naskenujte pro registraci jako host",
-    "readySubtitle": "Zadejte telefonní číslo pro vyhledání osob",
-    "readyTitle": "Připraveno k vyhledávání",
     "registerGuest": "Registrovat se jako host",
     "resultsFound_one": "{{count}} výsledek",
     "resultsFound_other": "{{count}} výsledků",
     "searchByName": "Hledat podle jména",
     "searchError": "Vyhledávání se nepodařilo dokončit. Zkuste to znovu.",
     "searching": "Vyhledávání...",
-    "subtitle": "Zadejte poslední čtyři číslice mobilního čísla",
-    "title": "Hledat podle telefonního čísla",
     "usePhone": "Použít telefonní číslo",
     "welcomeSubtitle": "Najděte svou rodinu podle telefonního čísla nebo jména",
     "welcomeTitle": "Vítejte! Pojďme vás přihlásit."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "Zbývá {{count}} pokusů",
-    "backspace": "Smazat",
     "enterPin": "Zadejte administrátorský PIN",
     "tooManyAttempts": "Příliš mnoho neúspěšných pokusů. Počkejte prosím.",
     "wrongPin": "Nesprávný PIN. Zkuste to znovu."
-  },
-  "print": {
-    "printing": "Tisk"
   },
   "printers": {
     "diagnostics": "Diagnostika",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Nebyla vybrána žádná tiskárna",
     "noneFound": "V této síti nebyly nalezeny žádné tiskárny",
     "rescan": "Hledat znovu",
-    "saveAndContinue": "Uložit a pokračovat",
     "saveRestart": "Uložit a restartovat",
     "saving": "Ukládání…",
     "scanning": "Vyhledávání tiskáren...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Váš účet nemá přístup k žádnému sboru.",
     "emptyTitle": "Žádné dostupné sbory",
-    "loading": "Načítání sborů...",
     "title": "Vyberte sbor"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Vytvořte bohoslužby v B1 Admin a začněte přihlašovat účastníky.",
     "emptyTitle": "Zatím nejsou nastaveny žádné bohoslužby",
     "loadError": "Bohoslužby se nepodařilo načíst.",
-    "loading": "Načítání bohoslužeb...",
-    "selectService": "Vyberte bohoslužbu:",
     "subtitle": "Vyberte bohoslužbu, na kterou se chcete přihlásit",
     "title": "Vyberte bohoslužbu"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Potvrďte svůj PIN",
     "enterPin": "Zadejte PIN",
     "pinMismatch": "PIN kódy se neshodují. Zkuste to znovu.",
-    "pinSet": "PIN byl úspěšně nastaven",
     "pinTooShort": "PIN musí mít alespoň 4 číslice",
     "subtitle": "Vytvořte 4–6místný PIN pro ochranu nastavení administrátora",
     "title": "Nastavit administrátorský PIN"

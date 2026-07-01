@@ -18,7 +18,6 @@
     "changeService": "Baguhin ang Serbisyo",
     "mannedMode": "Naka-staff na istasyon",
     "mannedModeHint": "Nagdaragdag ng check-out ng boluntaryo at pag-edit ng profile",
-    "pinChanged": "Matagumpay na nabago ang PIN",
     "setPin": "Itakda ang Admin PIN",
     "subtitle": "Pamahalaan ang mga setting ng kiosk device",
     "title": "Mga Setting ng Admin"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Na-print na ang mga name tag",
     "milestoneWeeks": "Sunod-sunod na Linggo!",
     "printingLabels": "Pini-print ang inyong mga name tag…",
-    "printingMessage": "Ini-print na ngayon ang inyong mga label.",
-    "returning": "Bumabalik sa simula…",
-    "subtitle": "Matagumpay na naka-check in ang inyong pamilya",
-    "title": "Tapos na ang Check-in",
-    "welcomeMessage": "Matagumpay na naka-check in ang inyong pamilya.",
-    "welcomeTitle": "Maligayang Pagdating!"
+    "returning": "Bumabalik sa simula…"
   },
   "checkout": {
     "checkingOut": "Nagche-check out",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Bumalik sa keypad",
     "checkout": "Mag-Check Out",
-    "enterPhone": "Pakiusap na ilagay ang numero ng telepono o huling apat na numero",
-    "invalidNumbers": "Pakiusap na maglagay ng wastong mga numero.",
     "keypadHint": "Puwede rin ang buong numero",
-    "minDigits": "Pakiusap na maglagay ng hindi bababa sa apat na numero.",
     "minLetters": "Pakiusap na maglagay ng hindi bababa sa dalawang titik ng apelyido.",
-    "modeName": "Pangalan",
-    "modePhone": "Telepono",
     "namePlaceholder": "Ilagay ang apelyido",
     "noMatchSubtitle": "Subukang maghanap gamit ang ibang numero ng telepono",
     "noMatchSubtitleName": "Subukang maghanap gamit ang ibang apelyido",
     "noMatchTitle": "Walang Nahanap na Tugma",
-    "phonePlaceholder": "Ilagay ang huling apat na numero ng mobile number",
     "qrGuest": "Mag-scan upang magparehistro bilang bisita",
-    "readySubtitle": "Maglagay ng numero ng telepono upang makahanap ng mga tao",
-    "readyTitle": "Handa nang Maghanap",
     "registerGuest": "Magparehistro bilang bisita",
     "resultsFound_one": "{{count}} resulta",
     "resultsFound_other": "{{count}} na resulta",
     "searchByName": "Maghanap gamit ang pangalan",
     "searchError": "Hindi makumpleto ang paghahanap. Pakiusap na subukan muli.",
     "searching": "Naghahanap...",
-    "subtitle": "Ilagay ang huling apat na numero ng mobile number",
-    "title": "Maghanap gamit ang Numero ng Telepono",
     "usePhone": "Gamitin ang numero ng telepono",
     "welcomeSubtitle": "Maghanap gamit ang numero ng telepono o pangalan upang mahanap ang inyong pamilya",
     "welcomeTitle": "Maligayang pagdating! I-check in na natin kayo."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} pagkakataon na lang",
-    "backspace": "Burahin",
     "enterPin": "Ilagay ang Admin PIN",
     "tooManyAttempts": "Masyadong maraming nabigong pagsubok. Maghintay.",
     "wrongPin": "Maling PIN. Subukan muli."
-  },
-  "print": {
-    "printing": "Nag-i-print"
   },
   "printers": {
     "diagnostics": "Diagnostics",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Walang napiling printer",
     "noneFound": "Walang nahanap na printer sa network na ito",
     "rescan": "I-scan Muli",
-    "saveAndContinue": "I-save at Magpatuloy",
     "saveRestart": "I-save at I-restart",
     "saving": "Sine-save…",
     "scanning": "Nagha-scan ng mga printer...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Walang access ang inyong account sa anumang simbahan.",
     "emptyTitle": "Walang available na simbahan",
-    "loading": "Nilo-load ang mga simbahan...",
     "title": "Pumili ng Simbahan"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Gumawa ng mga serbisyo sa B1 Admin upang makapagsimulang mag-check in.",
     "emptyTitle": "Wala pang naka-set up na serbisyo",
     "loadError": "Hindi ma-load ang mga serbisyo.",
-    "loading": "Nilo-load ang mga serbisyo...",
-    "selectService": "Pumili ng serbisyo:",
     "subtitle": "Piliin kung aling serbisyo ang para sa check-in",
     "title": "Pumili ng Serbisyo"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Kumpirmahin ang iyong PIN",
     "enterPin": "Maglagay ng PIN",
     "pinMismatch": "Hindi magkatugma ang mga PIN. Subukan muli.",
-    "pinSet": "Matagumpay na naitakda ang PIN",
     "pinTooShort": "Ang PIN ay dapat hindi bababa sa 4 na numero",
     "subtitle": "Gumawa ng 4-6 na digit na PIN upang protektahan ang mga admin setting",
     "title": "Itakda ang Admin PIN"

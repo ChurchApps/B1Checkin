@@ -18,7 +18,6 @@
     "changeService": "Alterar Culto",
     "mannedMode": "Modo de estação assistida",
     "mannedModeHint": "Adiciona check-out por voluntário e edição de perfil",
-    "pinChanged": "O PIN foi alterado com sucesso",
     "setPin": "Definir PIN de Admin",
     "subtitle": "Gerencie as configurações do dispositivo quiosque",
     "title": "Configurações de Admin"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Crachás impressos",
     "milestoneWeeks": "Semanas seguidas!",
     "printingLabels": "Imprimindo seus crachás…",
-    "printingMessage": "Suas etiquetas estão sendo impressas agora.",
-    "returning": "Voltando ao início…",
-    "subtitle": "Sua família foi registrada com sucesso",
-    "title": "Check-in Concluído",
-    "welcomeMessage": "Sua família foi registrada com sucesso.",
-    "welcomeTitle": "Bem-vindo!"
+    "returning": "Voltando ao início…"
   },
   "checkout": {
     "checkingOut": "Fazendo check-out",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Voltar ao teclado",
     "checkout": "Check-out",
-    "enterPhone": "Por favor, insira o número de telefone ou os últimos quatro dígitos",
-    "invalidNumbers": "Por favor, insira números válidos.",
     "keypadHint": "O número completo também funciona",
-    "minDigits": "Por favor, insira pelo menos quatro dígitos.",
     "minLetters": "Por favor, insira pelo menos duas letras do sobrenome.",
-    "modeName": "Nome",
-    "modePhone": "Telefone",
     "namePlaceholder": "Digite o sobrenome",
     "noMatchSubtitle": "Tente buscar com um número de telefone diferente",
     "noMatchSubtitleName": "Tente buscar com um sobrenome diferente",
     "noMatchTitle": "Nenhum Resultado Encontrado",
-    "phonePlaceholder": "Digite os últimos quatro dígitos do número de celular",
     "qrGuest": "Escaneie para se registrar como visitante",
-    "readySubtitle": "Digite um número de telefone para encontrar pessoas",
-    "readyTitle": "Pronto para Buscar",
     "registerGuest": "Registrar como visitante",
     "resultsFound_one": "{{count}} resultado",
     "resultsFound_other": "{{count}} resultados",
     "searchByName": "Buscar por nome",
     "searchError": "Não foi possível completar a busca. Por favor, tente novamente.",
     "searching": "Buscando...",
-    "subtitle": "Digite os últimos quatro dígitos do número de celular",
-    "title": "Buscar por Número de Telefone",
     "usePhone": "Usar número de telefone",
     "welcomeSubtitle": "Busque por número de telefone ou nome para encontrar sua família",
     "welcomeTitle": "Bem-vindos! Vamos fazer seu check-in."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} tentativas restantes",
-    "backspace": "Apagar",
     "enterPin": "Digite o PIN de Admin",
     "tooManyAttempts": "Muitas tentativas falhadas. Aguarde.",
     "wrongPin": "PIN incorreto. Tente novamente."
-  },
-  "print": {
-    "printing": "Imprimindo"
   },
   "printers": {
     "diagnostics": "Diagnóstico",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Nenhuma impressora selecionada",
     "noneFound": "Nenhuma impressora encontrada nesta rede",
     "rescan": "Procurar novamente",
-    "saveAndContinue": "Salvar e Continuar",
     "saveRestart": "Salvar e Reiniciar",
     "saving": "Salvando…",
     "scanning": "Procurando impressoras...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Sua conta não tem acesso a nenhuma igreja.",
     "emptyTitle": "Nenhuma igreja disponível",
-    "loading": "Carregando igrejas...",
     "title": "Selecione uma Igreja"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Crie cultos no B1 Admin para começar a fazer o check-in das pessoas.",
     "emptyTitle": "Nenhum culto configurado ainda",
     "loadError": "Não foi possível carregar os cultos.",
-    "loading": "Carregando cultos...",
-    "selectService": "Selecione um culto:",
     "subtitle": "Escolha para qual culto deseja fazer check-in",
     "title": "Selecione um Culto"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Confirme seu PIN",
     "enterPin": "Digite um PIN",
     "pinMismatch": "Os PINs não coincidem. Tente novamente.",
-    "pinSet": "O PIN foi definido com sucesso",
     "pinTooShort": "O PIN deve ter pelo menos 4 dígitos",
     "subtitle": "Crie um PIN de 4-6 dígitos para proteger as configurações de admin",
     "title": "Definir PIN de Admin"

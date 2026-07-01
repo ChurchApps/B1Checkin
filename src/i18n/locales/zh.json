@@ -18,7 +18,6 @@
     "changeService": "更改服务",
     "mannedMode": "有人值守站点模式",
     "mannedModeHint": "添加志愿者签退和资料编辑功能",
-    "pinChanged": "PIN已成功更改",
     "setPin": "设置管理员PIN",
     "subtitle": "管理自助终端设备设置",
     "title": "管理员设置"
@@ -30,12 +29,7 @@
     "labelsPrinted": "名牌已打印",
     "milestoneWeeks": "连续周！",
     "printingLabels": "正在打印您的名牌…",
-    "printingMessage": "您的标签正在打印中。",
-    "returning": "正在返回首页…",
-    "subtitle": "您的家人已成功签到",
-    "title": "签到完成",
-    "welcomeMessage": "您的家人已成功签到。",
-    "welcomeTitle": "欢迎！"
+    "returning": "正在返回首页…"
   },
   "checkout": {
     "checkingOut": "正在签退",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "返回数字键盘",
     "checkout": "签退",
-    "enterPhone": "请输入电话号码或后四位数字",
-    "invalidNumbers": "请输入有效的数字。",
     "keypadHint": "输入完整号码也可以",
-    "minDigits": "请至少输入四位数字。",
     "minLetters": "请输入至少两个姓氏字母。",
-    "modeName": "姓名",
-    "modePhone": "电话",
     "namePlaceholder": "输入姓氏",
     "noMatchSubtitle": "请尝试使用其他电话号码搜索",
     "noMatchSubtitleName": "请尝试使用其他姓氏搜索",
     "noMatchTitle": "未找到匹配项",
-    "phonePlaceholder": "输入手机号码后四位",
     "qrGuest": "扫描以注册为访客",
-    "readySubtitle": "输入电话号码以查找人员",
-    "readyTitle": "准备搜索",
     "registerGuest": "注册为访客",
     "resultsFound_one": "{{count}}个结果",
     "resultsFound_other": "{{count}}个结果",
     "searchByName": "按姓名搜索",
     "searchError": "无法完成搜索。请重试。",
     "searching": "搜索中...",
-    "subtitle": "输入手机号码后四位",
-    "title": "通过电话号码搜索",
     "usePhone": "使用电话号码",
     "welcomeSubtitle": "通过电话号码或姓名搜索，找到您的家人",
     "welcomeTitle": "欢迎！让我们为您签到吧。"
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "剩余{{count}}次尝试",
-    "backspace": "删除",
     "enterPin": "输入管理员PIN",
     "tooManyAttempts": "失败次数过多。请稍候。",
     "wrongPin": "PIN错误。请重试。"
-  },
-  "print": {
-    "printing": "打印中"
   },
   "printers": {
     "diagnostics": "诊断",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "未选择打印机",
     "noneFound": "在此网络中未找到打印机",
     "rescan": "重新扫描",
-    "saveAndContinue": "保存并继续",
     "saveRestart": "保存并重启",
     "saving": "保存中…",
     "scanning": "扫描打印机中...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "您的账户无权访问任何教会。",
     "emptyTitle": "没有可用的教会",
-    "loading": "加载教会中...",
     "title": "选择教会"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "请在 B1 Admin 中创建服务以开始签到。",
     "emptyTitle": "尚未设置服务",
     "loadError": "无法加载服务。",
-    "loading": "加载服务中...",
-    "selectService": "选择服务：",
     "subtitle": "选择要签到的服务",
     "title": "选择服务"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "确认您的PIN",
     "enterPin": "输入PIN",
     "pinMismatch": "PIN不匹配。请重试。",
-    "pinSet": "PIN已成功设置",
     "pinTooShort": "PIN必须至少4位数字",
     "subtitle": "创建4-6位PIN以保护管理员设置",
     "title": "设置管理员PIN"

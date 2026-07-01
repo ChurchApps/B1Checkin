@@ -18,7 +18,6 @@
     "changeService": "Endre gudstjeneste",
     "mannedMode": "Betjent stasjonsmodus",
     "mannedModeHint": "Legger til utsjekking av frivillig og profilredigering",
-    "pinChanged": "PIN er endret",
     "setPin": "Sett admin-PIN",
     "subtitle": "Administrer innstillingene for kioskenheten",
     "title": "Admin-innstillinger"
@@ -30,12 +29,7 @@
     "labelsPrinted": "Navnelapper skrevet ut",
     "milestoneWeeks": "Uker på rad!",
     "printingLabels": "Skriver ut navnelappene dine…",
-    "printingMessage": "Navnelappene dine blir skrevet ut nå.",
-    "returning": "Går tilbake til start…",
-    "subtitle": "Familien din har blitt sjekket inn",
-    "title": "Innsjekking fullført",
-    "welcomeMessage": "Familien din har blitt sjekket inn.",
-    "welcomeTitle": "Velkommen!"
+    "returning": "Går tilbake til start…"
   },
   "checkout": {
     "checkingOut": "Sjekker ut",
@@ -106,29 +100,19 @@
   "lookup": {
     "backToKeypad": "Tilbake til tastaturet",
     "checkout": "Sjekk ut",
-    "enterPhone": "Vennligst oppgi telefonnummer eller de fire siste sifrene",
-    "invalidNumbers": "Vennligst oppgi gyldige tall.",
     "keypadHint": "Hele nummeret fungerer også",
-    "minDigits": "Vennligst oppgi minst fire sifre.",
     "minLetters": "Vennligst oppgi minst to bokstaver av etternavnet.",
-    "modeName": "Navn",
-    "modePhone": "Telefon",
     "namePlaceholder": "Oppgi etternavn",
     "noMatchSubtitle": "Prøv å søke med et annet telefonnummer",
     "noMatchSubtitleName": "Prøv å søke med et annet etternavn",
     "noMatchTitle": "Ingen treff funnet",
-    "phonePlaceholder": "Oppgi de fire siste sifrene i mobilnummeret",
     "qrGuest": "Skann for å registrere deg som gjest",
-    "readySubtitle": "Oppgi et telefonnummer for å finne personer",
-    "readyTitle": "Klar til å søke",
     "registerGuest": "Registrer som gjest",
     "resultsFound_one": "{{count}} resultat",
     "resultsFound_other": "{{count}} resultater",
     "searchByName": "Søk etter navn",
     "searchError": "Kunne ikke fullføre søket. Vennligst prøv igjen.",
     "searching": "Søker...",
-    "subtitle": "Oppgi de fire siste sifrene i mobilnummeret",
-    "title": "Søk etter telefonnummer",
     "usePhone": "Bruk telefonnummer",
     "welcomeSubtitle": "Søk med telefonnummer eller navn for å finne familien din",
     "welcomeTitle": "Velkommen! La oss sjekke deg inn."
@@ -140,13 +124,9 @@
   },
   "pinEntry": {
     "attemptsRemaining": "{{count}} forsøk igjen",
-    "backspace": "Slett",
     "enterPin": "Skriv inn admin-PIN",
     "tooManyAttempts": "For mange mislykkede forsøk. Vennligst vent.",
     "wrongPin": "Feil PIN. Prøv igjen."
-  },
-  "print": {
-    "printing": "Skriver ut"
   },
   "printers": {
     "diagnostics": "Diagnostikk",
@@ -154,7 +134,6 @@
     "noPrinterSelected": "Ingen skriver valgt",
     "noneFound": "Fant ingen skrivere på dette nettverket",
     "rescan": "Søk på nytt",
-    "saveAndContinue": "Lagre og fortsett",
     "saveRestart": "Lagre og start på nytt",
     "saving": "Lagrer…",
     "scanning": "Søker etter skrivere...",
@@ -165,7 +144,6 @@
   "selectChurch": {
     "emptySubtitle": "Kontoen din har ikke tilgang til noen kirke.",
     "emptyTitle": "Ingen kirker tilgjengelig",
-    "loading": "Laster kirker...",
     "title": "Velg en kirke"
   },
   "selectGroup": {
@@ -182,8 +160,6 @@
     "emptySubtitle": "Opprett gudstjenester i B1 Admin for å begynne å sjekke inn folk.",
     "emptyTitle": "Ingen gudstjenester er satt opp ennå",
     "loadError": "Kunne ikke laste gudstjenester.",
-    "loading": "Laster gudstjenester...",
-    "selectService": "Velg en gudstjeneste:",
     "subtitle": "Velg hvilken gudstjeneste du vil sjekke inn til",
     "title": "Velg en gudstjeneste"
   },
@@ -191,7 +167,6 @@
     "confirmPin": "Bekreft din PIN",
     "enterPin": "Skriv inn en PIN",
     "pinMismatch": "PIN-kodene stemmer ikke. Prøv igjen.",
-    "pinSet": "PIN er satt",
     "pinTooShort": "PIN må ha minst 4 sifre",
     "subtitle": "Opprett en 4-6-sifret PIN for å beskytte admin-innstillingene",
     "title": "Sett admin-PIN"
