@@ -61,6 +61,9 @@ const Services = (props: Props) => {
       }),
       ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
       ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; }),
+      ApiHelper.get("/checkin/settings", "AttendanceApi")
+        .then((settings: any) => { CachedData.gradePromotionDate = settings?.gradePromotionDate ?? null; })
+        .catch(() => { CachedData.gradePromotionDate = null; }),
       ApiHelper.get("/labeltemplates", "AttendanceApi")
         .then(templates => {
           CachedData.labelTemplates = Array.isArray(templates) ? templates : [];

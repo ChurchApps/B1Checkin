@@ -62,6 +62,8 @@ export interface PersonInterface {
   photoUpdated?: Date;
   name?: NameInterface;
   nametagNotes?: string;
+  grade?: string;
+  isGuest?: boolean; // kiosk-local: person just added via addGuest, defaults their check-in type to guest
 }
 
 export interface NameInterface {
@@ -132,6 +134,28 @@ export interface GroupInterface {
   meetingLocation?: string;
   labelArray?: string[];
   slug?: string;
+  // Check-in eligibility + capacity (carried on GET /groups; publish-gated in @churchapps/helpers).
+  minAgeMonths?: number;
+  maxAgeMonths?: number;
+  minGrade?: string;
+  maxGrade?: string;
+  capacity?: number;
+  guestCapacity?: number;
+  checkinClosed?: boolean;
+  volunteerRatio?: number;
+  minVolunteers?: number;
+}
+
+export type CheckinType = "member" | "guest" | "volunteer";
+
+export interface HouseholdPickupInterface {
+  id?: string;
+  personId?: string;
+  name: string;
+  photoUrl?: string;
+  relationship?: string;
+  status: "trusted" | "notAuthorized";
+  notes?: string;
 }
 
 export interface GroupMemberInterface {
@@ -159,6 +183,8 @@ export interface VisitInterface {
   visitDate?: Date;
   visitSessions?: VisitSessionInterface[];
   person?: PersonInterface;
+  checkinType?: CheckinType;
+  checkedInById?: string;
 }
 
 export interface VisitSessionInterface {

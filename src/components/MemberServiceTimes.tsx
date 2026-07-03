@@ -3,14 +3,58 @@ import { Pressable, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { ArrayHelper, CachedData, GroupInterface, PersonInterface, screenNavigationProps, ServiceTimeInterface, VisitHelper, VisitInterface, VisitSessionInterface, VisitSessionHelper } from "../helpers";
+import { ArrayHelper, CachedData, CheckinType, GroupInterface, PersonInterface, screenNavigationProps, ServiceTimeInterface, VisitHelper, VisitInterface, VisitSessionInterface, VisitSessionHelper } from "../helpers";
 import { useAppTheme } from "../theme";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
+const CHECKIN_TYPES: { value: CheckinType; icon: any; labelKey: "household.type.member" | "household.type.guest" | "household.type.volunteer" }[] = [
+  { value: "member", icon: "person", labelKey: "household.type.member" },
+  { value: "guest", icon: "waving-hand", labelKey: "household.type.guest" },
+  { value: "volunteer", icon: "volunteer-activism", labelKey: "household.type.volunteer" }
+];
+
 const MemberServiceTimes = (props: Props) => {
   const { t } = useTranslation();
   const theme = useAppTheme();
+  const personId = props.person.id || "";
+  const defaultType: CheckinType = props.person.isGuest ? "guest" : "member";
+  const [checkinType, setCheckinType] = React.useState<CheckinType>(CachedData.checkinTypes[personId] || defaultType);
+
+  const selectType = (value: CheckinType) => {
+    setCheckinType(value);
+    CachedData.checkinTypes[personId] = value;
+  };
+
+  const getTypeChips = () => (
+    <View style={{ flexDirection: "row", gap: theme.spacing.sm, marginBottom: theme.spacing.sm }}>
+      {CHECKIN_TYPES.map(ct => {
+        const active = checkinType === ct.value;
+        return (
+          <Pressable
+            key={ct.value}
+            accessibilityRole="button"
+            accessibilityState={{ selected: active }}
+            onPress={() => selectType(ct.value)}
+            style={{
+              flex: 1,
+              minHeight: 44,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              borderRadius: theme.radius.md,
+              borderWidth: active ? 0 : 1.5,
+              borderColor: theme.colors.primaryBorder,
+              backgroundColor: active ? theme.colors.button : theme.colors.surface
+            }}>
+            <MaterialIcons name={ct.icon} size={18} color={active ? theme.colors.onButton : theme.colors.primary} />
+            <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: active ? theme.colors.onButton : theme.colors.primary }}>{t(ct.labelKey)}</Text>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
 
   const handleServiceTimeClick = (serviceTime: any, person: any) => {
     router.navigate({
@@ -68,6 +112,7 @@ const MemberServiceTimes = (props: Props) => {
   if (props.selectedMemberId !== props.person.id) return null;
 
   const result: React.ReactNode[] = [];
+  result.push(<View key="typeChips">{getTypeChips()}</View>);
   if (props.person.nametagNotes) {
     result.push(
       <View key="noteAlert" style={{ backgroundColor: theme.colors.warningBg, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.sm, flexDirection: "row", alignItems: "center", gap: theme.spacing.sm }}>

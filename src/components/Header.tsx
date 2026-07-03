@@ -107,6 +107,7 @@ const Header = (props: Props) => {
         <StatusBar backgroundColor={theme.colors.header} barStyle={barStyle} />
         <View style={{ backgroundColor: theme.colors.header, paddingTop: insets.top + theme.spacing.md, paddingBottom: theme.spacing.lg, paddingHorizontal: theme.spacing.xl, alignItems: "center" }}>
           <Pressable
+            testID="header-logo"
             onPress={handleLogoTap}
             style={{
               backgroundColor: theme.colors.surface,
@@ -146,7 +147,7 @@ const Header = (props: Props) => {
         ...theme.elevation.e2
       }}>
         <View style={{ height: 64, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingHorizontal: theme.spacing.lg }}>
-          <Pressable onPress={handleLogoTap} style={{ alignItems: "center", justifyContent: "center", height: 64, paddingHorizontal: theme.spacing.lg }}>
+          <Pressable testID="header-logo" onPress={handleLogoTap} style={{ alignItems: "center", justifyContent: "center", height: 64, paddingHorizontal: theme.spacing.lg }}>
             <Image source={getLogoUrl()} style={{ width: 160, height: 36, resizeMode: "contain" }} />
           </Pressable>
           {!!props.title && <Text style={{ position: "absolute", right: theme.spacing.lg, color: theme.colors.textMuted, fontSize: 15, fontFamily: theme.fonts.medium }}>{props.title}</Text>}

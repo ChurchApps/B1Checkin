@@ -33,6 +33,8 @@ const AddGuest = (props: Props) => {
     setSubmitFailed(false);
     getOrCreatePerson(first, last)
       .then(person => {
+        person.isGuest = true;
+        if (person.id) CachedData.checkinTypes[person.id] = "guest";
         CachedData.householdMembers.push(person);
         router.push("/household");
       })

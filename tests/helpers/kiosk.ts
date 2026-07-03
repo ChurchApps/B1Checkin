@@ -57,3 +57,21 @@ export async function confirmDuplicateIfPresent(page: Page) {
   const again = page.getByRole("button", { name: "Check In Again" });
   await again.waitFor({ state: "visible", timeout: 2500 }).then(() => again.click()).catch(() => {});
 }
+
+// Turns on manned station mode via the hidden admin menu (7 logo taps → toggle → back).
+export async function enableManned(page: Page) {
+  // Screens stay mounted (Activity keep-alive), so several headers exist — the active
+  // one is last in the DOM. Any single stable logo works: the 7-tap counter is per-instance.
+  const logo = page.getByTestId("header-logo").last();
+  for (let i = 0; i < 7; i++) await logo.click();
+  await expect(page.getByText("Admin Settings")).toBeVisible({ timeout: 15000 });
+  await page.getByText("Manned station mode").click();
+  await page.getByRole("button", { name: "Back to Kiosk" }).click();
+  await expect(page.getByRole("button", { name: "Check Out" })).toBeVisible({ timeout: 15000 });
+}
+
+// From the lookup keypad: search the Smith family by their shared home phone.
+export async function searchSmith(page: Page) {
+  await tapDigits(page, "0101");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+}

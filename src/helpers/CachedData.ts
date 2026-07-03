@@ -1,4 +1,4 @@
-import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface, LabelTemplateInterface } from "./Interfaces";
+import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface, LabelTemplateInterface, CheckinType } from "./Interfaces";
 import { AppearanceInterface, AvailablePrinter } from "./Interfaces";
 
 export class CachedData {
@@ -23,5 +23,10 @@ export class CachedData {
 
   static labelTemplates: LabelTemplateInterface[] = [];
   static stationMode: "self" | "manned" = "self";
+
+  // Per-person check-in type chosen at the household screen (personId -> type).
+  static checkinTypes: Record<string, CheckinType> = {};
+  // Church grade/age cutoff "MM-DD" (from GET /attendance/checkin/settings); null = use today.
+  static gradePromotionDate: string | null = null;
 }
 

@@ -2,6 +2,9 @@
 export { CachedData } from "./CachedData";
 export { EnvironmentHelper } from "./EnvironmentHelper";
 export * from "./Interfaces";
+export { EligibilityHelper, GRADES } from "./EligibilityHelper";
+export type { Eligibility } from "./EligibilityHelper";
+export { PickupMatchHelper } from "./PickupMatchHelper";
 export { LabelHelper } from "./LabelHelper";
 export { LabelRenderer } from "./LabelRenderer";
 export { PrinterLog } from "./PrinterLog";

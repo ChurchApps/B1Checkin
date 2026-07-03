@@ -10,9 +10,18 @@ import PrintUI from "../src/components/PrintUI";
 import ConfettiCelebration from "../src/components/ConfettiCelebration";
 import Header from "../src/components/Header";
 import { useAppTheme } from "../src/theme";
-import { Avatar, Screen, StepIndicator } from "../src/components/ui";
+import { Avatar, Button, Screen, StepIndicator, Sheet } from "../src/components/ui";
 
 interface Props { navigation: screenNavigationProps; }
+
+interface GateViolation { groupId: string; groupName: string; reason: "capacity" | "ratio"; }
+
+// ApiHelper throws Error("HTTP <status>: <body>") on non-2xx — recover the gate JSON from it.
+const parseGate = (error: unknown): { status: number; body: any } | null => {
+  const match = String((error as any)?.message || "").match(/^HTTP (\d+): ([\s\S]*)$/);
+  if (!match) return null;
+  try { return { status: Number(match[1]), body: JSON.parse(match[2]) }; } catch { return { status: Number(match[1]), body: null }; }
+};
 
 const CheckinComplete = (props: Props) => {
   const { t } = useTranslation();
@@ -21,6 +30,8 @@ const CheckinComplete = (props: Props) => {
   const [milestones, setMilestones] = React.useState<{ personId: string; streak: number }[]>([]);
   const [printStatus, setPrintStatus] = React.useState<"idle" | "printing" | "done">(CachedData.printer?.ipAddress ? "printing" : "idle");
   const [checkinFailed, setCheckinFailed] = React.useState(false);
+  const [gateError, setGateError] = React.useState<GateViolation[] | null>(null);
+  const [gateWarning, setGateWarning] = React.useState<GateViolation[] | null>(null);
   const [returnDelay, setReturnDelay] = React.useState(0);
   const milestonesRef = React.useRef<{ personId: string; streak: number }[]>([]);
   const redirectTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -41,23 +52,30 @@ const CheckinComplete = (props: Props) => {
     PrinterLog.attachNativeListeners();
     FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
-    const promises: Promise<any>[] = [];
-    promises.push(checkin().then(securityCode => { if (CachedData.printer?.ipAddress) print(securityCode); }));
+    doCheckin(false);
+  };
 
-    Promise.all(promises)
-      .then(() => {
-        if (!CachedData.printer?.ipAddress) startOver(milestonesRef.current.length > 0);
-      })
-      .catch(error => {
-        console.error("Error during checkin:", error);
-        setCheckinFailed(true);
-        startOver();
-      });
+  const doCheckin = async (acknowledgeWarnings: boolean) => {
+    setGateError(null);
+    setGateWarning(null);
+    try {
+      const securityCode = await checkin(acknowledgeWarnings);
+      if (CachedData.printer?.ipAddress) await print(securityCode);
+      else startOver(milestonesRef.current.length > 0);
+    } catch (error) {
+      const gate = parseGate(error);
+      if (gate?.status === 409 && gate.body?.warning) { setGateWarning(gate.body.groups || []); return; }
+      if (gate?.status === 409) { setGateError(gate.body?.groups || []); return; }
+      console.error("Error during checkin:", error);
+      setCheckinFailed(true);
+      startOver();
+    }
   };
 
   const startOver = (hasMilestone?: boolean) => {
     CachedData.existingVisits = [];
     CachedData.pendingVisits = [];
+    CachedData.checkinTypes = {};
     setHtmlLabels([]);
     redirectToLookup(hasMilestone);
   };
@@ -98,9 +116,16 @@ const CheckinComplete = (props: Props) => {
     }
   };
 
-  const checkin = async () => {
+  const checkin = async (acknowledgeWarnings: boolean) => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
-    const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(","));
+    // Stamp the per-person check-in type onto each visit actually being checked in.
+    CachedData.pendingVisits.forEach(pv => {
+      if (pv.visitSessions && pv.visitSessions.length > 0 && pv.personId) {
+        pv.checkinType = CachedData.checkinTypes[pv.personId] || "member";
+      }
+    });
+    let url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(","));
+    if (acknowledgeWarnings) url += "&acknowledgeWarnings=true";
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi")
       .then(data => {
         if (data?.streaks) {
@@ -169,6 +194,30 @@ const CheckinComplete = (props: Props) => {
     );
   };
 
+  const reasonText = (v: GateViolation) => v.reason === "ratio" ? t("checkinComplete.gateNeedsVolunteer") : t("checkinComplete.gateFull");
+
+  if (gateError) {
+    return (
+      <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} scroll={false}>
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: theme.spacing.lg, padding: theme.spacing.lg }}>
+          <View style={{ width: 96, height: 96, borderRadius: 48, backgroundColor: theme.colors.dangerBg, alignItems: "center", justifyContent: "center" }}>
+            <MaterialIcons name="block" size={52} color={theme.colors.danger} />
+          </View>
+          <Text style={{ ...theme.type.h1, color: theme.colors.textPrimary, textAlign: "center" }}>{t("checkinComplete.gateTitle")}</Text>
+          <View style={{ alignSelf: "stretch", gap: theme.spacing.sm }}>
+            {gateError.map(v => (
+              <View key={v.groupId} style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.md, backgroundColor: theme.colors.dangerBg, borderRadius: theme.radius.md, padding: theme.spacing.md }}>
+                <MaterialIcons name="meeting-room" size={22} color={theme.colors.danger} />
+                <Text style={{ flex: 1, fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.danger }}>{v.groupName} — {reasonText(v)}</Text>
+              </View>
+            ))}
+          </View>
+          <Button label={t("checkinComplete.gateChangeRooms")} size="xl" icon="arrow-back" fullWidth onPress={() => router.replace("/household")} />
+        </View>
+      </Screen>
+    );
+  }
+
   return (
     <>
       <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} scroll={false}>
@@ -201,6 +250,21 @@ const CheckinComplete = (props: Props) => {
         </Pressable>
       </Screen>
       <ConfettiCelebration milestones={milestones} />
+      <Sheet visible={!!gateWarning} dismissible={false} maxWidth={440}>
+        <View style={{ alignItems: "center", gap: theme.spacing.lg }}>
+          <View style={{ width: 72, height: 72, borderRadius: 36, backgroundColor: theme.colors.warningBg, alignItems: "center", justifyContent: "center" }}>
+            <MaterialIcons name="warning-amber" size={34} color={theme.colors.warning} />
+          </View>
+          <Text style={{ fontSize: 22, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, textAlign: "center" }}>{t("checkinComplete.warnTitle")}</Text>
+          <Text style={{ fontSize: 16, lineHeight: 23, fontFamily: theme.fonts.regular, color: theme.colors.textSecondary, textAlign: "center" }}>
+            {t("checkinComplete.warnMessage", { rooms: (gateWarning || []).map(v => v.groupName).join(", ") })}
+          </Text>
+          <View style={{ flexDirection: "row", gap: theme.spacing.md, alignSelf: "stretch" }}>
+            <Button label={t("checkinComplete.gateChangeRooms")} variant="ghost" onPress={() => { setGateWarning(null); router.replace("/household"); }} style={{ flex: 1 }} />
+            <Button label={t("checkinComplete.warnConfirm")} onPress={() => { setGateWarning(null); doCheckin(true); }} style={{ flex: 1.4 }} />
+          </View>
+        </View>
+      </Sheet>
     </>
   );
 };

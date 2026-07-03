@@ -149,18 +149,23 @@ export class LabelHelper {
     };
   }
 
-  private static getChildVisits() {
+  // Pure: which of these visits belong to a parentPickup (child) room, per the given service times.
+  public static selectChildVisits(visits: VisitInterface[], serviceTimes: ServiceTimeInterface[]): VisitInterface[] {
     const result: VisitInterface[] = [];
-    CachedData.pendingVisits.forEach(pv => {
+    (visits || []).forEach(pv => {
       let isChild = false;
       pv.visitSessions?.forEach(vs => {
-        const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes || [], "id", vs.session?.serviceTimeId || "");
+        const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(serviceTimes || [], "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime?.groups || [], "id", vs.session?.groupId || "");
         if (group?.parentPickup) { isChild = true; }
       });
       if (isChild) { result.push(pv); }
     });
     return result;
+  }
+
+  private static getChildVisits() {
+    return LabelHelper.selectChildVisits(CachedData.pendingVisits, CachedData.serviceTimes || []);
   }
 
   private static shouldPrintNametag(visit: VisitInterface): boolean {
@@ -183,6 +188,21 @@ export class LabelHelper {
       });
     });
     return shouldPrint;
+  }
+
+  // Reprint entry: render labels for already-loaded visits/people (checkout screen) without
+  // disturbing the live check-in batch. Preserves the adult-blank-code contract via getAllLabels.
+  public static async getAllLabelsFor(visits: VisitInterface[], people: PersonInterface[], securityCode?: string) {
+    const prevPending = CachedData.pendingVisits;
+    const prevMembers = CachedData.householdMembers;
+    CachedData.pendingVisits = visits;
+    CachedData.householdMembers = people;
+    try {
+      return await this.getAllLabels(securityCode);
+    } finally {
+      CachedData.pendingVisits = prevPending;
+      CachedData.householdMembers = prevMembers;
+    }
   }
 
   public static async getAllLabels(securityCode?: string) {

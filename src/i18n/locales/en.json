@@ -13,11 +13,19 @@
   },
   "admin": {
     "backToKiosk": "Back to Kiosk",
+    "broadcastConfirmLabel": "Type EMERGENCY to confirm",
+    "broadcastFailed": "Couldn't send the broadcast. Please try again.",
+    "broadcastHint": "Texts every checked-in household's guardians for the selected service.",
+    "broadcastMessage": "Message",
+    "broadcastResult": "Sent to {{sent}} phone(s). {{skipped}} skipped.",
+    "broadcastSend": "Send broadcast",
     "changePin": "Change Admin PIN",
     "changePrinter": "Change Printer",
     "changeService": "Change Service",
+    "emergencyBroadcast": "Emergency broadcast",
     "mannedMode": "Manned station mode",
-    "mannedModeHint": "Adds volunteer check-out and profile editing",
+    "mannedModeHint": "Adds check-out, paging, reprint, and profile editing",
+    "noProvider": "No SMS provider configured — set one up in B1Admin Texting settings.",
     "setPin": "Set Admin PIN",
     "subtitle": "Manage your kiosk device settings",
     "title": "Admin Settings"
@@ -25,11 +33,18 @@
   "checkinComplete": {
     "allSet": "You're all set!",
     "checkinError": "Something didn't go through — please see a volunteer.",
+    "gateChangeRooms": "Change Rooms",
+    "gateFull": "room is full or closed",
+    "gateNeedsVolunteer": "needs another volunteer",
+    "gateTitle": "Can't check in yet",
     "haveAGreatService": "Have a great service.",
     "labelsPrinted": "Name tags printed",
     "milestoneWeeks": "Weeks in a Row!",
     "printingLabels": "Printing your name tags…",
-    "returning": "Returning to start…"
+    "returning": "Returning to start…",
+    "warnConfirm": "Check In Anyway",
+    "warnMessage": "{{rooms}} is below its volunteer ratio. Check in anyway?",
+    "warnTitle": "Volunteer ratio warning"
   },
   "checkout": {
     "checkingOut": "Checking out",
@@ -37,11 +52,27 @@
     "codeNotFound": "No active check-ins match that code. Please try again.",
     "confirm": "Check Out",
     "lookupError": "Couldn't look up that code. Please try again.",
+    "noProvider": "No SMS provider configured — set one up in B1Admin Texting settings.",
+    "notAuthorizedMessage": "{{name}} is flagged as not authorized for pickup. Follow your child-safety procedure.",
+    "notAuthorizedTitle": "Not authorized for pickup",
+    "nothingToPrint": "No labels to print.",
     "other": "Other",
     "otherNamePlaceholder": "Enter name",
+    "override": "Override",
+    "pageCustomPlaceholder": "Custom message",
+    "pageFailed": "Couldn't send the page. Please try again.",
+    "pageParent": "Page parent",
+    "pagePresetGeneric": "Please come to check-in.",
+    "pagePresetRoom": "Please come to {{room}}.",
+    "pageSend": "Send custom message",
+    "pageSent": "Sent to {{sent}} phone(s). {{skipped}} skipped.",
+    "reprint": "Reprint labels",
+    "reprintFailed": "Couldn't reprint labels.",
+    "reprinted": "Labels sent to printer",
     "subtitle": "Enter or scan the security code",
     "success": "Checked out successfully",
     "title": "Check Out",
+    "trusted": "Trusted",
     "whoPickingUp": "Who is picking up?"
   },
   "common": {
@@ -80,7 +111,12 @@
     "duplicateTitle": "Already Checked In",
     "emptyTitle": "No household members found",
     "subtitle": "Choose who is checking in today",
-    "title": "Who's checking in?"
+    "title": "Who's checking in?",
+    "type": {
+      "guest": "Guest",
+      "member": "Member",
+      "volunteer": "Volunteer"
+    }
   },
   "idle": {
     "tapToCheckin": "Tap to check in"
@@ -147,12 +183,18 @@
     "title": "Select a Church"
   },
   "selectGroup": {
+    "checkInAnyway": "Check In Anyway",
     "choosingFor": "Choosing for {{name}}",
+    "closed": "Closed",
+    "confirmClosed": "{{name}} is closed for check-in — check in anyway?",
+    "confirmOutsideRange": "{{name}} is outside {{group}}'s age range — check in anyway?",
+    "eligible": "Eligible",
     "groupCount_one": "{{count}} group",
     "groupCount_other": "{{count}} groups",
     "noGroupOption": "No group this time",
     "noGroups": "No groups available for this time",
     "none": "None",
+    "outsideRange": "Outside age range",
     "subtitle": "Choose a group for {{serviceName}}",
     "title": "Select a Group"
   },

@@ -1,14 +1,14 @@
 import React from "react";
-import { Alert, Switch, Text, View } from "react-native";
+import { Alert, Pressable, Switch, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PinEntryModal from "../src/components/PinEntryModal";
-import { CachedData, screenNavigationProps } from "../src/helpers";
+import { ApiHelper, CachedData, screenNavigationProps } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
-import { Button, IconName, ListRow, Screen } from "../src/components/ui";
+import { Button, IconName, ListRow, Screen, Sheet, TextField } from "../src/components/ui";
 import { MaterialIcons } from "@expo/vector-icons";
 
 interface Props { navigation: screenNavigationProps; }
@@ -23,6 +23,37 @@ const AdminSettings = (props: Props) => {
   const theme = useAppTheme();
   const [showChangePinModal, setShowChangePinModal] = React.useState(false);
   const [manned, setManned] = React.useState(CachedData.stationMode === "manned");
+  const [broadcastOpen, setBroadcastOpen] = React.useState(false);
+  const [services, setServices] = React.useState<any[]>([]);
+  const [broadcastServiceId, setBroadcastServiceId] = React.useState("");
+  const [broadcastMessage, setBroadcastMessage] = React.useState("");
+  const [broadcastConfirm, setBroadcastConfirm] = React.useState("");
+  const [broadcastBusy, setBroadcastBusy] = React.useState(false);
+  const [broadcastResult, setBroadcastResult] = React.useState("");
+
+  const openBroadcast = () => {
+    setBroadcastResult("");
+    setBroadcastMessage("");
+    setBroadcastConfirm("");
+    setBroadcastServiceId(CachedData.serviceId || "");
+    setBroadcastOpen(true);
+    ApiHelper.get("/services", "AttendanceApi").then(data => setServices(Array.isArray(data) ? data : [])).catch(() => setServices([]));
+  };
+
+  const sendBroadcast = () => {
+    if (broadcastBusy || !broadcastServiceId || broadcastMessage.trim().length < 2) return;
+    setBroadcastBusy(true);
+    setBroadcastResult("");
+    ApiHelper.post("/checkin/broadcast", { serviceId: broadcastServiceId, message: broadcastMessage.trim() }, "AttendanceApi")
+      .then((res: any) => {
+        setBroadcastBusy(false);
+        setBroadcastResult(t("admin.broadcastResult", { sent: res?.sent ?? 0, skipped: (res?.skippedOptedOut ?? 0) + (res?.skippedNoPhone ?? 0) }));
+      })
+      .catch((err: any) => {
+        setBroadcastBusy(false);
+        setBroadcastResult(/No SMS provider/i.test(String(err?.message || "")) ? t("admin.noProvider") : t("admin.broadcastFailed"));
+      });
+  };
 
   const toggleManned = (value: boolean) => {
     setManned(value);
@@ -64,7 +95,8 @@ const AdminSettings = (props: Props) => {
   const menuItems: { icon: IconName; label: string; onPress: () => void; destructive?: boolean }[] = [
     { icon: "swap-horiz", label: t("admin.changeService"), onPress: () => router.replace("/services") },
     { icon: "print", label: t("admin.changePrinter"), onPress: () => router.navigate("/printers") },
-    { icon: "lock-outline", label: CachedData.kioskPin ? t("admin.changePin") : t("admin.setPin"), onPress: () => setShowChangePinModal(true) }
+    { icon: "lock-outline", label: CachedData.kioskPin ? t("admin.changePin") : t("admin.setPin"), onPress: () => setShowChangePinModal(true) },
+    { icon: "campaign", label: t("admin.emergencyBroadcast"), onPress: openBroadcast, destructive: true }
   ];
 
   const getIconCircle = (icon: IconName, destructive?: boolean) => (
@@ -83,7 +115,7 @@ const AdminSettings = (props: Props) => {
           <ListRow
             key={index}
             title={item.label}
-            left={getIconCircle(item.icon)}
+            left={getIconCircle(item.icon, item.destructive)}
             right="chevron"
             onPress={item.onPress}
             style={{ marginBottom: theme.spacing.sm }}
@@ -113,6 +145,51 @@ const AdminSettings = (props: Props) => {
         onSuccess={() => setShowChangePinModal(false)}
         onCancel={() => setShowChangePinModal(false)}
       />
+
+      <Sheet visible={broadcastOpen} onClose={() => setBroadcastOpen(false)} maxWidth={480}>
+        <View style={{ gap: theme.spacing.md }}>
+          <Text style={{ fontSize: 22, fontFamily: theme.fonts.semibold, color: theme.colors.danger }}>{t("admin.emergencyBroadcast")}</Text>
+          {!broadcastResult && (
+            <>
+              <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.textSecondary }}>{t("admin.broadcastHint")}</Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: theme.spacing.sm }}>
+                {services.map(s => {
+                  const active = broadcastServiceId === s.id;
+                  return (
+                    <Pressable
+                      key={s.id}
+                      accessibilityRole="button"
+                      onPress={() => setBroadcastServiceId(s.id)}
+                      style={{
+                        paddingVertical: 10,
+                        paddingHorizontal: theme.spacing.md,
+                        borderRadius: theme.radius.md,
+                        borderWidth: active ? 0 : 1.5,
+                        borderColor: theme.colors.primaryBorder,
+                        backgroundColor: active ? theme.colors.button : theme.colors.surface
+                      }}>
+                      <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: active ? theme.colors.onButton : theme.colors.primary }}>{s.name}</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+              <TextField label={t("admin.broadcastMessage")} value={broadcastMessage} onChangeText={setBroadcastMessage} autoCapitalize="sentences" />
+              <TextField label={t("admin.broadcastConfirmLabel")} placeholder="EMERGENCY" value={broadcastConfirm} onChangeText={setBroadcastConfirm} autoCapitalize="characters" autoCorrect={false} />
+              <Button
+                label={t("admin.broadcastSend")}
+                variant="danger"
+                size="lg"
+                fullWidth
+                loading={broadcastBusy}
+                disabled={!broadcastServiceId || broadcastMessage.trim().length < 2 || broadcastConfirm.trim().toUpperCase() !== "EMERGENCY"}
+                onPress={sendBroadcast}
+              />
+            </>
+          )}
+          {!!broadcastResult && <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.textSecondary, textAlign: "center" }}>{broadcastResult}</Text>}
+          <Button label={broadcastResult ? t("common.ok") : t("common.cancel")} variant="ghost" fullWidth onPress={() => setBroadcastOpen(false)} />
+        </View>
+      </Sheet>
     </>
   );
 };
