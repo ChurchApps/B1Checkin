@@ -4,8 +4,7 @@ export const DEMO_EMAIL = "demo@b1.church";
 export const DEMO_PASSWORD = "password";
 export const WELCOME_TITLE = "Welcome! Let's check you in.";
 
-// Logs into the kiosk and lands on the lookup keypad. Each test runs the full
-// station-setup journey because kiosk state lives in-memory per session.
+// Each test runs the full station-setup journey because kiosk state lives in-memory per session.
 export async function startKiosk(page: Page) {
   const events: string[] = [];
   page.on("console", m => {
@@ -20,9 +19,7 @@ export async function startKiosk(page: Page) {
   await page.getByPlaceholder("Email").fill(DEMO_EMAIL);
   await page.getByPlaceholder("Password").fill(DEMO_PASSWORD);
 
-  // The local dev stack (cold Metro + dev Api) occasionally drops the login POST
-  // on a stale keep-alive socket; Chrome never retries POSTs. Retry like a human
-  // would — a genuine login regression still fails all three attempts.
+  // Dev stack occasionally drops login POST on stale keep-alive; Chrome won't retry.
   const loginButton = page.getByRole("button", { name: "Login" });
   const churchButton = page.getByRole("button", { name: /Grace Community Church/i });
   let lastError: unknown = null;
@@ -51,17 +48,13 @@ export async function tapDigits(page: Page, digits: string) {
   }
 }
 
-// The duplicate-check-in sheet appears when the person already has a visit
-// this week (e.g. on repeat runs without a demo reset). Confirm through it.
 export async function confirmDuplicateIfPresent(page: Page) {
   const again = page.getByRole("button", { name: "Check In Again" });
   await again.waitFor({ state: "visible", timeout: 2500 }).then(() => again.click()).catch(() => {});
 }
 
-// Turns on manned station mode via the hidden admin menu (7 logo taps → toggle → back).
 export async function enableManned(page: Page) {
-  // Screens stay mounted (Activity keep-alive), so several headers exist — the active
-  // one is last in the DOM. Any single stable logo works: the 7-tap counter is per-instance.
+  // Activity keep-alive keeps multiple headers mounted; tap the last logo (7-tap counter is per-instance).
   const logo = page.getByTestId("header-logo").last();
   for (let i = 0; i < 7; i++) await logo.click();
   await expect(page.getByText("Admin Settings")).toBeVisible({ timeout: 15000 });
@@ -70,7 +63,6 @@ export async function enableManned(page: Page) {
   await expect(page.getByRole("button", { name: "Check Out" })).toBeVisible({ timeout: 15000 });
 }
 
-// From the lookup keypad: search the Smith family by their shared home phone.
 export async function searchSmith(page: Page) {
   await tapDigits(page, "0101");
   await page.getByRole("button", { name: "Search", exact: true }).click();

@@ -59,19 +59,16 @@ export const CheckinThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const loadTheme = async (churchId: string) => {
     try {
-      // Load from cache first for instant display
       const cached = await AsyncStorage.getItem("@CheckinTheme");
       if (cached) {
         setTheme(mergeWithDefaults(JSON.parse(cached)));
       }
 
-      // Fetch all public settings in one call
       const publicSettings = await ApiHelper.getAnonymous(
         "/settings/public/" + churchId,
         "MembershipApi"
       );
 
-      // Try new unified appTheme first
       let colors: CheckinThemeColors = { ...DEFAULT_COLORS };
       let gotAppTheme = false;
 
@@ -86,7 +83,6 @@ export const CheckinThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
       } catch { /* invalid appTheme data */ }
 
-      // Fall back to legacy checkinTheme if no appTheme
       if (!gotAppTheme) {
         try {
           if (publicSettings?.checkinTheme) {
@@ -103,7 +99,6 @@ export const CheckinThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
         } catch { /* no legacy theme either */ }
       }
 
-      // Load checkinSettings for background image and idle screen
       let backgroundImage = "";
       let idleScreen = DEFAULT_THEME.idleScreen;
       try {
@@ -113,7 +108,6 @@ export const CheckinThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
           backgroundImage = settings.backgroundImage || "";
           idleScreen = { ...DEFAULT_THEME.idleScreen, ...(settings.idleScreen || {}) };
         } else if (publicSettings?.checkinTheme) {
-          // Legacy: extract non-color settings from old checkinTheme
           const legacy = typeof publicSettings.checkinTheme === "string"
             ? JSON.parse(publicSettings.checkinTheme) : publicSettings.checkinTheme;
           backgroundImage = legacy.backgroundImage || "";
@@ -125,7 +119,6 @@ export const CheckinThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setTheme(result);
       await AsyncStorage.setItem("@CheckinTheme", JSON.stringify(result));
     } catch {
-      // Last resort: fall back to church appearance colors
       if (CachedData.churchAppearance) {
         const a = CachedData.churchAppearance;
         setTheme({

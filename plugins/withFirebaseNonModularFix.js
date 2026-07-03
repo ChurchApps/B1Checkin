@@ -2,15 +2,7 @@ const { withDangerousMod } = require("expo/config-plugins");
 const fs = require("fs");
 const path = require("path");
 
-// React Native Firebase ships Objective-C headers that import React headers
-// non-modularly (e.g. `#import <React/RCTConvert.h>`). When Firebase is built
-// as a static framework (required by RNFirebase, enabled here via
-// expo-build-properties `ios.useFrameworks: "static"`), Clang treats those
-// includes as errors: `-Werror,-Wnon-modular-include-in-framework-module`.
-//
-// The standard remedy is to set CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES
-// on every Pod target via a Podfile post_install hook. Because this is a CNG
-// project (no committed Podfile), we inject that hook during prebuild.
+// Firebase's static framework uses non-modular Objective-C includes; allow them via Podfile post_install hook.
 const SETTING = "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES";
 
 const SNIPPET = `

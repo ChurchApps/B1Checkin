@@ -27,21 +27,17 @@ export async function deletePerson(request: APIRequestContext, jwt: string, id: 
   await request.delete(BASE + "/membership/people/" + id, { headers: auth(jwt) }).catch(() => {});
 }
 
-// Direct API check-in (bypasses the kiosk) — used to pre-load rooms / mint a security code.
 export async function directCheckin(request: APIRequestContext, jwt: string, opts: { serviceId: string; personId: string; serviceTimeId: string; groupId: string; checkinType?: string }): Promise<{ securityCode: string }> {
   const visit: any = { personId: opts.personId, serviceId: opts.serviceId, visitSessions: [{ session: { serviceTimeId: opts.serviceTimeId, groupId: opts.groupId } }] };
   if (opts.checkinType) visit.checkinType = opts.checkinType;
-  // acknowledgeWarnings bypasses the volunteer-ratio soft warning so seeding kids into a
-  // ratio-gated room succeeds; capacity remains a hard gate the kiosk still hits.
+  // acknowledgeWarnings bypasses the soft warning but capacity is a hard gate.
   const url = BASE + "/attendance/visits/checkin?serviceId=" + opts.serviceId + "&peopleIds=" + opts.personId + "&acknowledgeWarnings=true";
   const res = await request.post(url, { headers: auth(jwt), data: [visit] });
   expect(res.ok()).toBeTruthy();
   return res.json();
 }
 
-// Removes today's visits for the given people so specs don't accumulate state / collide
-// with other suites on the shared demo DB (no demo reset between runs). Uses /visits?personId
-// (real ids) — the /visits/checkin endpoint nulls ids for its date-copy behavior.
+// Uses /visits?personId (not /visits/checkin) to avoid date-copy id mangling.
 export async function deleteVisitsForPeople(request: APIRequestContext, jwt: string, _serviceId: string, personIds: string[]) {
   const today = new Date().toISOString().slice(0, 10);
   for (const personId of personIds) {
@@ -56,10 +52,10 @@ export async function deleteVisitsForPeople(request: APIRequestContext, jwt: str
 
 export const DEMO = {
   householdId: "HOU00000001",
-  serviceId: "SER00000001", // Sunday Morning Service
-  serviceTimeId: "SST00000001", // 9:00 AM
-  nursery: "GRP00000007", // Nursery (0-2), minAgeMonths 0 / maxAgeMonths 24
-  elementaryK2: "GRP00000009", // capacity 2, guestCapacity 1, ratio 1:5
+  serviceId: "SER00000001",
+  serviceTimeId: "SST00000001",
+  nursery: "GRP00000007",
+  elementaryK2: "GRP00000009",
   preschool: "GRP00000008",
   davisKids: ["PER00000029", "PER00000030"],
   michael: "PER00000005"

@@ -2,14 +2,7 @@ import * as PrinterHelper from "printer-helper";
 
 type Listener = (lines: string[]) => void;
 
-/**
- * App-wide, persistent printer diagnostic log.
- *
- * The log survives screen changes so the family-print flow (which runs on the
- * checkin-complete screen and then auto-redirects) can be inspected afterwards
- * on the printer screen. Native printer events are attached exactly once so they
- * are captured no matter which screen is mounted.
- */
+/** App-wide printer log that survives screen changes for post-flight inspection. */
 class PrinterLogStore {
   private lines: string[] = [];
   private listeners = new Set<Listener>();

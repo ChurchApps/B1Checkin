@@ -55,10 +55,7 @@ export class LabelHelper {
     if (Platform.OS === "android") {
       return fs.readFileAssets("labels/" + fileName);
     }
-    // iOS: the config plugin (withBrotherIOS) registers the templates via
-    // addResourceFile, which Xcode copies FLAT into the bundle root — the
-    // "labels" group is NOT preserved as a real directory. So read from the
-    // bundle root first, falling back to a labels/ subdirectory for safety.
+    // iOS: Xcode copies resources FLAT into bundle root (not as a directory), so try root first.
     const base = fs.MainBundlePath;
     try {
       return await fs.readFile(base + "/" + fileName, "utf8");
@@ -149,7 +146,6 @@ export class LabelHelper {
     };
   }
 
-  // Pure: which of these visits belong to a parentPickup (child) room, per the given service times.
   public static selectChildVisits(visits: VisitInterface[], serviceTimes: ServiceTimeInterface[]): VisitInterface[] {
     const result: VisitInterface[] = [];
     (visits || []).forEach(pv => {
@@ -190,8 +186,7 @@ export class LabelHelper {
     return shouldPrint;
   }
 
-  // Reprint entry: render labels for already-loaded visits/people (checkout screen) without
-  // disturbing the live check-in batch. Preserves the adult-blank-code contract via getAllLabels.
+  // Preserves adult-blank-code contract by temporarily swapping cached data.
   public static async getAllLabelsFor(visits: VisitInterface[], people: PersonInterface[], securityCode?: string) {
     const prevPending = CachedData.pendingVisits;
     const prevMembers = CachedData.householdMembers;

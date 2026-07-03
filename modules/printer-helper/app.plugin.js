@@ -41,11 +41,7 @@ const withBrotherIOS = (config) => {
       const targetUuid = project.getFirstTarget().uuid;
       const groupName = "B1Checkin/labels";
 
-      // Make sure the group hierarchy exists before adding files. The raw
-      // xcode lib's addResourceFile() crashes on a freshly generated project
-      // ("Cannot read properties of null (reading 'path')") because it tries
-      // to position the file relative to a "Resources" group that doesn't
-      // exist yet. Expo's helpers create the group and link the file safely.
+      // ensureGroupRecursively() fixes addResourceFile() crash on missing "Resources" group.
       IOSConfig.XcodeUtils.ensureGroupRecursively(project, groupName);
 
       for (const file of files) {
