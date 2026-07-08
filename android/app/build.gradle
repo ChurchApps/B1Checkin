@@ -106,15 +106,25 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            // Reads the EAS-format credentials.json at the repo root (gitignored).
+            // Download it once with: npx eas-cli credentials -p android
+            def credsFile = new File(rootDir.parentFile, 'credentials.json')
+            if (credsFile.exists()) {
+                def ks = new groovy.json.JsonSlurper().parse(credsFile).android.keystore
+                storeFile new File(rootDir.parentFile, ks.keystorePath)
+                storePassword ks.keystorePassword
+                keyAlias ks.keyAlias
+                keyPassword ks.keyPassword
+            }
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig new File(rootDir.parentFile, 'credentials.json').exists() ? signingConfigs.release : signingConfigs.debug
             def enableShrinkResources = findProperty('android.enableShrinkResourcesInReleaseBuilds') ?: 'false'
             shrinkResources enableShrinkResources.toBoolean()
             minifyEnabled enableMinifyInReleaseBuilds

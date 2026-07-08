@@ -48,8 +48,10 @@ To debug within VSCode, set breakpoints like normal, then:
 
 ## Release build
 
-1. Hardcode stage to prod EnvironmentHelper.ts
-2. Increment the version number in android/app/build.gradle
-3. Update version number in package.json
-4. Run `npm run build:android` to generate a Google Play release
-5. Run `npm run build:amazon` to generate an Amazon release
+Android and Amazon release builds run locally by default (`yarn build:android:eas` / `yarn build:amazon:eas` still build on EAS if preferred); iOS always uses EAS Build.
+
+1. **One-time:** download the release keystore from EAS — run `npx eas-cli credentials -p android` and choose "credentials.json: Download credentials from EAS". This writes `credentials.json` (gitignored) at the repo root; release builds are signed from it automatically.
+2. Increment the version number in android/app/build.gradle (and keep package.json/app.json in sync)
+3. Run `yarn build:android` — Google Play bundle at `android/app/build/outputs/bundle/release/app-release.aab`
+4. Run `yarn build:amazon` — Amazon apk at `android/app/build/outputs/apk/release/app-release.apk`
+5. Upload to the store consoles, or submit via `npx eas-cli submit -p android --path <file>`.

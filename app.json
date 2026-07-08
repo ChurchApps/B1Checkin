@@ -82,7 +82,10 @@
       "reactCompiler": true
     },
     "updates": {
-      "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41"
+      "url": "https://u.expo.dev/669d90d6-0e0e-4b06-9e83-8a6d24dd7d41",
+      "requestHeaders": {
+        "expo-channel-name": "production"
+      }
     },
     "runtimeVersion": "2.0.0"
   }

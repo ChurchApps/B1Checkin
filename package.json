@@ -17,9 +17,11 @@
     "test": "jest --watchAll",
     "test:e2e": "playwright test",
     "lint": "eslint --fix src/ app/ components/ hooks/ constants/",
-    "build:android": "eas build --platform android",
+    "build:android": "node ./scripts/build-android.js",
     "build:ios": "eas build --platform ios",
-    "build:amazon": "eas build --platform android --profile amazon",
+    "build:amazon": "node ./scripts/build-android.js amazon",
+    "build:android:eas": "eas build --platform android",
+    "build:amazon:eas": "eas build --platform android --profile amazon",
     "update": "eas update --branch production --message \"Update from CLI\"",
     "postinstall": "patch-package"
   },

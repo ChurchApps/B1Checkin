@@ -166,3 +166,4 @@ Notes.md
 # Playwright
 test-results/
 playwright-report/
+credentials.json
