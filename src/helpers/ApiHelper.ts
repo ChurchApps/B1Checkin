@@ -75,7 +75,6 @@ export class ApiHelper {
     const config = this.getConfig(apiName);
     if (!config) throw new Error(`API configuration not found: ${apiName}`);
     const requestOptions = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) };
-    console.log("POST", config.url + path, JSON.stringify(data));
     return await this.fetchWithErrorHandling(config.url + path, requestOptions);
   }
 
