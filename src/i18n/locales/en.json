@@ -146,6 +146,7 @@
     "registerGuest": "Register as guest",
     "resultsFound_one": "{{count}} result",
     "resultsFound_other": "{{count}} results",
+    "scanCode": "Scan code",
     "searchByName": "Search by name",
     "searchError": "Unable to complete search. Please try again.",
     "searching": "Searching...",
@@ -176,6 +177,19 @@
     "subtitle": "Choose a printer for printing name tags and labels",
     "testPrint": "Test Print",
     "title": "Select a Printer"
+  },
+  "scan": {
+    "codeNotFound": "No active check-ins match that code. Check in on your phone first.",
+    "flipCamera": "Flip camera",
+    "grantPermission": "Allow Camera",
+    "lookupError": "Couldn't look up that code. Please try again.",
+    "noPrinter": "You're checked in! No printer is set up on this station.",
+    "nothingToPrint": "You're checked in! No labels needed.",
+    "permissionMessage": "Camera access is needed to scan check-in codes.",
+    "printed": "Labels sent to printer",
+    "printing": "Printing your labels...",
+    "subtitle": "Hold the QR code from your phone up to the camera",
+    "title": "Scan Code"
   },
   "selectChurch": {
     "emptySubtitle": "Your account doesn't have access to any church.",

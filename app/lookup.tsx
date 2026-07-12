@@ -262,6 +262,7 @@ const Lookup = (props: Props) => {
             <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.primary, textDecorationLine: "underline" }}>{t("lookup.registerGuest")}</Text>
           </Pressable>
         )}
+        <Button label={t("lookup.scanCode")} variant="ghost" size="md" icon="qr-code-scanner" onPress={() => router.navigate("/scan")} />
         {manned && <Button label={t("lookup.checkout")} variant="ghost" size="md" icon="logout" onPress={() => router.navigate("/checkout")} />}
       </View>
     </View>

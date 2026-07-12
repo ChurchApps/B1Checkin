@@ -64,6 +64,7 @@ function RootLayout() {
             <Stack.Screen name="addGuest" />
             <Stack.Screen name="checkinComplete" />
             <Stack.Screen name="checkout" />
+            <Stack.Screen name="scan" />
             <Stack.Screen name="printers" />
             <Stack.Screen name="setPin" />
             <Stack.Screen name="adminSettings" />

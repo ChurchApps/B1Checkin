@@ -72,6 +72,12 @@
           "organization": "churchapps"
         }
       ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "B1 Checkin uses the camera to scan check-in QR codes from the B1 app."
+        }
+      ],
       "expo-font",
       "expo-localization",
       "expo-web-browser",

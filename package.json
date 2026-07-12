@@ -1,7 +1,7 @@
 {
   "name": "b1checkin",
   "main": "expo-router/entry",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "packageManager": "yarn@4.15.0",
   "workspaces": [
     "modules/printer-helper"
@@ -50,6 +50,7 @@
     "expo-application": "~55.0.8",
     "expo-blur": "~55.0.8",
     "expo-build-properties": "~55.0.14",
+    "expo-camera": "~55.0.20",
     "expo-constants": "~55.0.7",
     "expo-device": "~55.0.9",
     "expo-font": "~55.0.4",
