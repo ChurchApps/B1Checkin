@@ -2,7 +2,7 @@
   "expo": {
     "name": "B1Checkin",
     "slug": "b1-checkin",
-    "version": "2.0.1",
+    "version": "2.1.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "b1checkin",
@@ -25,7 +25,7 @@
     },
     "ios": {
       "bundleIdentifier": "church.b1.checkin",
-      "buildNumber": "26",
+      "buildNumber": "27",
       "supportsTablet": true,
       "icon": "./assets/images/source-icon.png",
       "infoPlist": {
@@ -93,6 +93,6 @@
         "expo-channel-name": "production"
       }
     },
-    "runtimeVersion": "2.0.0"
+    "runtimeVersion": "2.1.0"
   }
 }

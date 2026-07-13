@@ -9,7 +9,7 @@ if (!fs.existsSync(path.join(root, "credentials.json"))) {
 }
 
 const amazon = process.argv[2] === "amazon";
-const task = amazon ? "assembleRelease" : "bundleRelease";
+const task = amazon ? ":app:assembleRelease" : ":app:bundleRelease";
 const gradlew = path.join(root, "android", process.platform === "win32" ? "gradlew.bat" : "gradlew");
 
 execSync(`"${gradlew}" ${task}`, {
