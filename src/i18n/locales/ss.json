@@ -1,0 +1,242 @@
+{
+  "addGuest": {
+    "addButton": "Engeta Sivakashi",
+    "addFailed": "Kwehlulekile kwengeta sivakashi. Sicela uzame futsi.",
+    "enterFirstName": "Sicela ufake libito lekucala",
+    "enterLastName": "Sicela ufake sibongo",
+    "firstName": "Libito Lekucala",
+    "firstNamePlaceholder": "Faka libito lekucala",
+    "lastName": "Sibongo",
+    "lastNamePlaceholder": "Faka sibongo",
+    "subtitle": "Faka imininingwane yesivakashi kuze usifake emndenini wakho",
+    "title": "Engeta Sivakashi"
+  },
+  "admin": {
+    "backToKiosk": "Buyela ku-Kiosk",
+    "broadcastConfirmLabel": "Bhala EMERGENCY kute ucinisekise",
+    "broadcastFailed": "Kwehlulekile kutfumela umlayeto. Sicela uzame futsi.",
+    "broadcastHint": "Itfumela umlayeto we-SMS kubo bonkhe bazali/bagadi bemindeni lengenile ekubhalisweni kwalenkonzo lekhetsiwe.",
+    "broadcastMessage": "Umlayeto",
+    "broadcastResult": "Kutfunyelwe kumafoni la-{{sent}}. La-{{skipped}} atjiyiwe.",
+    "broadcastSend": "Tfumela umlayeto",
+    "changePin": "Shintja i-PIN Yemphatsi",
+    "changePrinter": "Shintja Iphrinta",
+    "changeService": "Shintja Inkonzo",
+    "emergencyBroadcast": "Umlayeto Wesiphutfumo",
+    "mannedMode": "Simo Sesikhungo Lesiphetfwe Ngumuntu",
+    "mannedModeHint": "Yengeta kuphuma, kubita, kuphrinta kabusha, kanye nekuhlela iphrofayela",
+    "noProvider": "Akukho sikhungo se-SMS lesihlelwe — sihlele ku-B1Admin ngaphansi kwetilungiselelo teTexting.",
+    "setPin": "Hlela i-PIN Yemphatsi",
+    "subtitle": "Phatsa tilungiselelo tewekiosk yakho",
+    "title": "Tilungiselelo Temphatsi"
+  },
+  "checkinComplete": {
+    "allSet": "Konkhe kulungile!",
+    "checkinError": "Kukhona lokungakahambanga kahle — sicela ubone ivolontiya.",
+    "gateChangeRooms": "Shintja Emakamelo",
+    "gateFull": "ligumbi ligcwele noma livaliwe",
+    "gateNeedsVolunteer": "kudzingeka lenye ivolontiya",
+    "gateTitle": "Awukakhoni Kubhalisa",
+    "haveAGreatService": "Ube nenkonzo lenhle.",
+    "labelsPrinted": "Emalebula emabito aphrintiwe",
+    "milestoneWeeks": "Emaviki Alandzelanako!",
+    "printingLabels": "Kuphrinta emalebula akho emabito…",
+    "returning": "Kubuyela ekucaleni…",
+    "warnConfirm": "Bhalisa Nomakunjalo",
+    "warnMessage": "{{rooms}} ingaphansi kwelinani lelifanele lemavolontiya. Bhalisa nomakunjalo?",
+    "warnTitle": "Sicwayiso Selinani Lemavolontiya"
+  },
+  "checkout": {
+    "checkingOut": "Kuphuma",
+    "checkoutFailed": "Kwehlulekile kuphuma. Sicela uzame futsi.",
+    "codeNotFound": "Akukho kubhalisa lokusebentako lokuhambelana naleliskhodi. Sicela uzame futsi.",
+    "confirm": "Phuma",
+    "lookupError": "Kwehlulekile kufuna leliskhodi. Sicela uzame futsi.",
+    "noProvider": "Akukho sikhungo se-SMS lesihlelwe — sihlele ku-B1Admin ngaphansi kwetilungiselelo teTexting.",
+    "notAuthorizedMessage": "{{name}} umakiwe njengalongavunyelwe kutsatfwa. Landzela inchubo yakho yekuphepha kwebantfwana.",
+    "notAuthorizedTitle": "Akavunyelwe Kutsatfwa",
+    "nothingToPrint": "Akukho emalebula lokuphrinta.",
+    "other": "Lomunye",
+    "otherNamePlaceholder": "Faka libito",
+    "override": "Yeqa",
+    "pageCustomPlaceholder": "Umlayeto lokhetsekile",
+    "pageFailed": "Kwehlulekile kutfumela sibito. Sicela uzame futsi.",
+    "pageParent": "Bita umtali",
+    "pagePresetGeneric": "Sicela wete ekubhalisweni.",
+    "pagePresetRoom": "Sicela wete ku-{{room}}.",
+    "pageSend": "Tfumela umlayeto lokhetsekile",
+    "pageSent": "Kutfunyelwe kumafoni la-{{sent}}. La-{{skipped}} atjiyiwe.",
+    "reprint": "Phrinta kabusha emalebula",
+    "reprintFailed": "Kwehlulekile kuphrinta kabusha emalebula.",
+    "reprinted": "Emalebula atfunyelwe kuphrinta",
+    "subtitle": "Faka noma skena liskhodi lekuphepha",
+    "success": "Kuphume ngempumelelo",
+    "title": "Kuphuma",
+    "trusted": "Lotsembekile",
+    "whoPickingUp": "Ngubani lotawulanda?"
+  },
+  "common": {
+    "back": "Emuva",
+    "cancel": "Khansela",
+    "continue": "Chubeka",
+    "login": "Ngena",
+    "logout": "Phuma",
+    "ok": "Kulungile",
+    "retry": "Zama futsi",
+    "save": "Gcina",
+    "search": "Sesha"
+  },
+  "editPerson": {
+    "birthDate": "Lusuku Lekutalwa",
+    "birthDatePlaceholder": "YYYY-MM-DD",
+    "email": "I-imeyili",
+    "loadFailed": "Kwehlulekile kulayisha lomuntfu. Sicela uzame futsi.",
+    "mobilePhone": "Lucingo Lweselula",
+    "nametagNotes": "Umbhalo Welebula Yebito",
+    "saveFailed": "Kwehlulekile kugcina. Sicela uzame futsi.",
+    "title": "Hlela Iphrofayela"
+  },
+  "header": {
+    "logoutConfirm": "Uciniseka yini kutsi ufuna kuphuma?",
+    "secretMenuTitle": "Imenyu Lefihlekile"
+  },
+  "household": {
+    "addGuest": "Engeta Sivakashi",
+    "alreadyCheckedIn": "Sekubhalisiwe",
+    "checkin": "Bhalisa",
+    "checkinCount": "Bhalisa — {{count}}",
+    "chooseGroupHint": "Khetsa licembu kulokungenani umuntfu munye",
+    "duplicateConfirm": "Bhalisa Futsi",
+    "duplicateMessage": "{{names}} sebebhalisile kulenkonzo. Babhalise futsi kute kubuyekete emacembu abo.",
+    "duplicateTitle": "Sekubhalisiwe",
+    "emptyTitle": "Akukho emalunga emndeni latfolakele",
+    "subtitle": "Khetsa lobhalisako lamuhla",
+    "title": "Ngubani lobhalisako?",
+    "type": {
+      "guest": "Sivakashi",
+      "member": "Lilunga",
+      "volunteer": "Ivolontiya"
+    }
+  },
+  "idle": {
+    "tapToCheckin": "Cindzetela kute ubhalise"
+  },
+  "login": {
+    "emailPlaceholder": "I-imeyili",
+    "enterEmail": "Sicela ufake likheli lakho le-imeyili",
+    "enterPassword": "Sicela ufake iphasiwedi yakho",
+    "loginFailed": "Kungena kwehlulekile.",
+    "passwordPlaceholder": "Iphasiwedi",
+    "privacyConsent": "Ngekungena, ngiyacinisekisa kutsi sengiyifundzile",
+    "privacyPolicy": "inchubomgomo yebumfihlo",
+    "title": "Luhlelo Lwekubhalisa",
+    "validEmail": "Sicela ufake i-imeyili leliciniso",
+    "welcomeBack": "Uwemukelekile Futsi"
+  },
+  "lookup": {
+    "backToKeypad": "Buyela ekhibhodini",
+    "checkout": "Phuma",
+    "keypadHint": "Nenombolo yakho lephelele iyasebenta futsi",
+    "minLetters": "Sicela ufake bocondze tinhlamvu letimbili tesibongo.",
+    "namePlaceholder": "Faka sibongo",
+    "noMatchSubtitle": "Zama kusesha ngenombolo yelucingo lehlukile",
+    "noMatchSubtitleName": "Zama kusesha ngesibongo lesihlukile",
+    "noMatchTitle": "Akukho Lokufananako Lokutfoliwe",
+    "qrGuest": "Skena kute ubhalise njengesivakashi",
+    "registerGuest": "Bhalisa njengesivakashi",
+    "resultsFound_one": "{{count}} umphumela",
+    "resultsFound_other": "{{count}} imiphumela",
+    "scanCode": "Skena likhodi",
+    "searchByName": "Sesha ngelibito",
+    "searchError": "Akukhonakalanga kucedzela kusesha. Sicela uzame futsi.",
+    "searching": "Kusesha...",
+    "usePhone": "Sebentisa inombolo yelucingo",
+    "welcomeSubtitle": "Sesha ngenombolo yelucingo noma libito kute utfole umndeni wakho",
+    "welcomeTitle": "Wemukelekile! Ase sikubhalise."
+  },
+  "members": {
+    "error": "Liphutsa",
+    "selectGroup": "Khetsa Licembu",
+    "unknown": "Akwatiwa"
+  },
+  "pinEntry": {
+    "attemptsRemaining": "{{count}} imizamo lesele",
+    "enterPin": "Faka i-PIN Yemphatsi",
+    "tooManyAttempts": "Imizamo leminyenti lehlulekile. Sicela ulindze.",
+    "wrongPin": "I-PIN lengakalungi. Sicela uzame futsi."
+  },
+  "printers": {
+    "diagnostics": "Kuhlolwa",
+    "noPrinter": "Ayikho Iphrinta",
+    "noPrinterSelected": "Ayikho iphrinta lekhetsiwe",
+    "noneFound": "Ayikho tiphrinta letitfolakele kulelinethiwekhi",
+    "rescan": "Skena Futsi",
+    "saveRestart": "Gcina & Cala Kabusha",
+    "saving": "Kuyagcinwa…",
+    "scanning": "Kuskena tiphrinta...",
+    "subtitle": "Khetsa iphrinta yekuphrinta emalebula emabito",
+    "testPrint": "Hlola Kuphrinta",
+    "title": "Khetsa Iphrinta"
+  },
+  "scan": {
+    "codeNotFound": "Akukho kubhalisa lokusebentako lokuhambelana naleliskhodi. Bhalisa efownini yakho kucala.",
+    "flipCamera": "Phendula ikhamera",
+    "grantPermission": "Vumela Ikhamera",
+    "lookupError": "Kwehlulekile kufuna leliskhodi. Sicela uzame futsi.",
+    "noPrinter": "Sewubhalisiwe! Ayikho iphrinta lehleliwe kulesikhungo.",
+    "nothingToPrint": "Sewubhalisiwe! Akukho emalebula lokudzingekile.",
+    "permissionMessage": "Kudzingeka ikhamera kute uskene emakhodi ekubhalisa.",
+    "printed": "Emalebula atfunyelwe kuphrinta",
+    "printing": "Kuphrinta emalebula akho...",
+    "subtitle": "Bamba likhodi le-QR lelisuka efownini yakho ngasekhameleni",
+    "title": "Skena Likhodi"
+  },
+  "selectChurch": {
+    "emptySubtitle": "I-akhawundi yakho ayikabinawo emvumo yekungena kunoma nguliphi libandla.",
+    "emptyTitle": "Akukho emabandla latfolakele",
+    "title": "Khetsa Libandla"
+  },
+  "selectGroup": {
+    "checkInAnyway": "Bhalisa Nomakunjalo",
+    "choosingFor": "Kukhetsela {{name}}",
+    "closed": "Kuvaliwe",
+    "confirmClosed": "{{name}} kuvaliwe kubhalisa — bhalisa nomakunjalo?",
+    "confirmOutsideRange": "{{name}} ungaphandle kwebudzala lobufanele be-{{group}} — bhalisa nomakunjalo?",
+    "eligible": "Uyafaneleka",
+    "groupCount_one": "{{count}} licembu",
+    "groupCount_other": "{{count}} emacembu",
+    "noGroupOption": "Akukho licembu ngalesikhatsi",
+    "noGroups": "Akukho emacembu latfolakalako ngalesikhatsi",
+    "none": "Kute",
+    "outsideRange": "Ngaphandle kwebudzala lobufanele",
+    "subtitle": "Khetsa licembu le-{{serviceName}}",
+    "title": "Khetsa Licembu"
+  },
+  "services": {
+    "emptySubtitle": "Dala tinkonzo ku-B1 Admin kute ucale kubhalisa bantfu.",
+    "emptyTitle": "Akukho tinkonzo letihlelekile kwakamuva",
+    "loadError": "Kwehlulekile kulayisha tinkonzo.",
+    "subtitle": "Khetsa kutsi ngutinkonzo yiphi lotobhalisela yona",
+    "title": "Khetsa Inkonzo"
+  },
+  "setPin": {
+    "confirmPin": "Cinisekisa i-PIN yakho",
+    "enterPin": "Faka i-PIN",
+    "pinMismatch": "Ema-PIN awafani. Sicela uzame futsi.",
+    "pinTooShort": "I-PIN kufanele ibe netinombolo letine noma ngetulu",
+    "subtitle": "Dala i-PIN yetinombolo letine kuya kuletisitfupha kute uvikele tilungiselelo temphatsi",
+    "title": "Hlela i-PIN Yemphatsi"
+  },
+  "splash": {
+    "checkingUpdates": "Kuhlolwa tibuyeketo...",
+    "downloadingUpdate": "Kulanda sibuyeketo...",
+    "initializing": "Kucalwa...",
+    "loadingChurch": "Kulayishwa imininingwane yelibandla...",
+    "loggingIn": "Kuyangena..."
+  },
+  "steps": {
+    "done": "Kuphelile",
+    "find": "Tfola",
+    "select": "Khetsa"
+  }
+}
