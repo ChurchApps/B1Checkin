@@ -165,22 +165,15 @@ export default function Splash() {
               previousChurch.apis?.forEach(api =>
                 ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
 
-              if (churchAppearance[1]) {
-                try {
-                  CachedData.churchAppearance = JSON.parse(churchAppearance[1]);
-                } catch {
-                  CachedData.churchAppearance = await ApiHelper.getAnonymous(
-                    "/settings/public/" + previousChurch.church.id,
-                    "MembershipApi"
-                  );
-                  await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
-                }
-              } else {
+              try {
                 CachedData.churchAppearance = await ApiHelper.getAnonymous(
                   "/settings/public/" + previousChurch.church.id,
                   "MembershipApi"
                 );
                 await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
+              } catch {
+                // offline: fall back to whatever was cached
+                if (churchAppearance[1]) CachedData.churchAppearance = JSON.parse(churchAppearance[1]);
               }
 
               loadTheme(previousChurch.church.id);
