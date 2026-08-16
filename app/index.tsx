@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Updates from "expo-updates";
 import { useTranslation } from "react-i18next";
 import Animated, { Easing, FadeIn, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
-import { ApiHelper, CachedData, EnvironmentHelper, LoginResponseInterface } from "../src/helpers";
+import { ApiHelper, CachedData, EnvironmentHelper, SessionHelper } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { fonts, palette } from "../src/theme/tokens";
 
@@ -106,8 +106,6 @@ export default function Splash() {
   const checkStoredCredentials = async () => {
     try {
       const [
-        email,
-        password,
         selectedChurchId,
         churchAppearance,
         savedPrinter,
@@ -115,7 +113,7 @@ export default function Splash() {
         kioskLocked,
         stationMode
       ] = await AsyncStorage.multiGet([
-        "@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked", "@StationMode"
+        "@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked", "@StationMode"
       ]);
 
       if (stationMode[1] === "manned") {
@@ -139,55 +137,35 @@ export default function Splash() {
         CachedData.kioskLocked = true;
       }
 
-      if (email[1] && password[1]) {
-        setStatusMessage(t("splash.loggingIn"));
+      setStatusMessage(t("splash.loggingIn"));
+      const churches = await SessionHelper.restore();
+      if (!churches) {
+        safeNavigate("/login");
+        return;
+      }
 
-        const loginData: LoginResponseInterface = await ApiHelper.postAnonymous(
-          "/users/login",
-          { email: email[1], password: password[1] },
-          "MembershipApi"
-        );
+      if (selectedChurchId[1]) {
+        const previousChurch = churches.find(uc => uc.church?.id?.toString() === selectedChurchId[1]);
 
-        if (loginData.errors && loginData.errors.length > 0) {
-          safeNavigate("/login");
-        } else {
-          const churches = loginData.userChurches?.filter(userChurch =>
-            userChurch.apis && userChurch.apis?.length > 0);
-          await AsyncStorage.setItem("@UserChurches", JSON.stringify(churches));
+        if (previousChurch?.church?.id) {
+          setStatusMessage(t("splash.loadingChurch"));
+          CachedData.userChurch = previousChurch;
+          previousChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
 
-          if (selectedChurchId[1] && churches) {
-            const previousChurch = churches.find(uc =>
-              uc.church?.id?.toString() === selectedChurchId[1]);
-
-            if (previousChurch?.church?.id) {
-              setStatusMessage(t("splash.loadingChurch"));
-              CachedData.userChurch = previousChurch;
-              previousChurch.apis?.forEach(api =>
-                ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
-
-              try {
-                CachedData.churchAppearance = await ApiHelper.getAnonymous(
-                  "/settings/public/" + previousChurch.church.id,
-                  "MembershipApi"
-                );
-                await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
-              } catch {
-                // offline: fall back to whatever was cached
-                if (churchAppearance[1]) CachedData.churchAppearance = JSON.parse(churchAppearance[1]);
-              }
-
-              loadTheme(previousChurch.church.id);
-
-              safeNavigate("/services");
-              return;
-            }
+          try {
+            CachedData.churchAppearance = await ApiHelper.getAnonymous("/settings/public/" + previousChurch.church.id, "MembershipApi");
+            await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
+          } catch {
+            if (churchAppearance[1]) CachedData.churchAppearance = JSON.parse(churchAppearance[1]);
           }
 
-          safeNavigate("/selectChurch");
+          loadTheme(previousChurch.church.id);
+          safeNavigate("/services");
+          return;
         }
-      } else {
-        safeNavigate("/login");
       }
+
+      safeNavigate("/selectChurch");
     } catch (error) {
       console.error("Auto-login error:", error);
       safeNavigate("/login");

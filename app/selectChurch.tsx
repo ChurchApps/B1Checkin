@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { MaterialIcons } from "@expo/vector-icons";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
-import { ApiHelper, CachedData, FirebaseHelper, LoginUserChurchInterface, Utils } from "../src/helpers";
+import { ApiHelper, CachedData, FirebaseHelper, LoginUserChurchInterface, SessionHelper, Utils } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
 import { Button, EmptyState, ListRow, Screen, TextField } from "../src/components/ui";
 
@@ -21,9 +21,7 @@ function SelectChurch() {
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Select Church");
     (async () => {
-      const stored = await AsyncStorage.getItem("@UserChurches");
-      let churches: LoginUserChurchInterface[] = [];
-      try { churches = JSON.parse(stored || "[]"); } catch { churches = []; }
+      const churches = SessionHelper.churches;
       setUserChurches(churches);
 
       churches.forEach(church => {
@@ -84,7 +82,7 @@ function SelectChurch() {
   );
 
   const logout = async () => {
-    await AsyncStorage.multiRemove(["@Login", "@Email", "@Password", "@UserChurches"]);
+    await SessionHelper.clear();
     router.replace("/login");
   };
 

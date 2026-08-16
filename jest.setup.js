@@ -1,5 +1,15 @@
 jest.mock("@react-native-async-storage/async-storage", () => require("@react-native-async-storage/async-storage/jest/async-storage-mock"));
 
+jest.mock("expo-secure-store", () => {
+  const mem = {};
+  return {
+    isAvailableAsync: jest.fn(async () => true),
+    setItemAsync: jest.fn(async (k, v) => { mem[k] = v; }),
+    getItemAsync: jest.fn(async (k) => mem[k] ?? null),
+    deleteItemAsync: jest.fn(async (k) => { delete mem[k]; })
+  };
+});
+
 jest.mock("@react-native-firebase/app", () => ({ getApp: jest.fn() }));
 
 jest.mock("@react-native-firebase/analytics", () => {

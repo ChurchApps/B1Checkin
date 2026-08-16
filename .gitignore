@@ -5,6 +5,7 @@
 android/app/.cxx
 .vscode/.react/
 keystore.jks
+*.jks
 .serena
 .expo
 
