@@ -14,6 +14,7 @@ export { VisitSessionHelper } from "./VisitSessionHelper";
 
 // Migrated helpers from @churchapps/mobilehelper
 export { ApiHelper } from "./ApiHelper";
+export { SessionHelper } from "./SessionHelper";
 export { AppCenterHelper } from "./AppCenterHelper";
 export { ArrayHelper } from "./ArrayHelper";
 export { ErrorHelper } from "./ErrorHelper";

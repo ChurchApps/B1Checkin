@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PinEntryModal from "../src/components/PinEntryModal";
-import { ApiHelper, CachedData, screenNavigationProps } from "../src/helpers";
+import { ApiHelper, CachedData, screenNavigationProps, SessionHelper } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
 import { Button, IconName, ListRow, Screen, Sheet, TextField } from "../src/components/ui";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -71,16 +71,8 @@ const AdminSettings = (props: Props) => {
           text: t("common.logout"),
           style: "destructive",
           onPress: async () => {
-            await AsyncStorage.multiRemove([
-              "@Email",
-              "@Password",
-              "@SelectedChurchId",
-              "@ChurchAppearance",
-              "@UserChurches",
-              "@Login",
-              "@KioskPIN",
-              "@KioskLocked"
-            ]);
+            await SessionHelper.clear();
+            await AsyncStorage.multiRemove(["@SelectedChurchId", "@ChurchAppearance", "@KioskPIN", "@KioskLocked"]);
             CachedData.userChurch = null;
             CachedData.churchAppearance = null;
             CachedData.kioskPin = "";

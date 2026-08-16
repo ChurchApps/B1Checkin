@@ -80,6 +80,7 @@
       ],
       "expo-font",
       "expo-localization",
+      "expo-secure-store",
       "expo-web-browser",
       "./plugins/withFirebaseNonModularFix.js"
     ],

@@ -4980,6 +4980,7 @@ __metadata:
     expo-localization: "npm:~55.0.8"
     expo-notifications: "npm:~55.0.10"
     expo-router: "npm:~55.0.3"
+    expo-secure-store: "npm:~55.0.8"
     expo-splash-screen: "npm:~55.0.10"
     expo-status-bar: "npm:~55.0.4"
     expo-symbols: "npm:~55.0.4"
@@ -7191,6 +7192,15 @@ __metadata:
     react-server-dom-webpack:
       optional: true
   checksum: 10c0/9ad348281653e295564ab3d1b10a8fd6c1caada963cbba67443d457465b00c97caddcae8a9d20e59aa41c0c1f66f4cbc4f97a462d1b8f2953c44b4b97869c315
+  languageName: node
+  linkType: hard
+
+"expo-secure-store@npm:~55.0.8":
+  version: 55.0.16
+  resolution: "expo-secure-store@npm:55.0.16"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/ceb910923f0161b18dfaf47547b96124aecb8d5ce11d43ad459b8b91cfaa832d17f3563524accf62c825010ddc21c32c89b2ead7df6bc80e611530c4ff64c0bc
   languageName: node
   linkType: hard
 

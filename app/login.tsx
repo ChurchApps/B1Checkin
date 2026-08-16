@@ -1,10 +1,9 @@
 import React from "react";
 import { Animated, Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 import { router } from "expo-router";
-import { ApiHelper, FirebaseHelper, LoginResponseInterface, screenNavigationProps, Utilities } from "../src/helpers";
+import { ApiHelper, FirebaseHelper, LoginResponseInterface, screenNavigationProps, SessionHelper, Utilities } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
 import { Button, Card, TextField } from "../src/components/ui";
 
@@ -46,11 +45,21 @@ function Login(_props: Props) {
         setLoginError(data.errors[0]);
         triggerShake();
       } else {
-        const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0);
-        AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
-        setEmail("");
-        setPassword("");
-        router.replace("/selectChurch");
+        const churches = SessionHelper.filterChurches(data.userChurches);
+        const userJwt = data.user?.jwt;
+        if (!userJwt) {
+          setLoginError(t("login.loginFailed"));
+          triggerShake();
+          return;
+        }
+        SessionHelper.save(userJwt, email, churches).then(() => {
+          setEmail("");
+          setPassword("");
+          router.replace("/selectChurch");
+        }).catch(() => {
+          setLoginError(t("login.loginFailed"));
+          triggerShake();
+        });
       }
     }).catch(() => {
       setIsLoading(false);
