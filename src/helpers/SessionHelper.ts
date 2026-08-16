@@ -45,7 +45,9 @@ export class SessionHelper {
           await this.save(data.user.jwt, email, churches);
           return churches;
         }
-      } catch {}
+      } catch {
+        return null;
+      }
     }
     return null;
   }
