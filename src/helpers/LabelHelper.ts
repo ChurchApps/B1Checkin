@@ -118,6 +118,23 @@ export class LabelHelper {
     };
   }
 
+  // Month/day only, +/- windowDays, wraps across year end (e.g. Dec 30 vs Jan 2) and normalizes Feb 29 to Feb 28 in non-leap years.
+  public static isBirthdayWithin(birthDate: Date | string | null | undefined, windowDays: number, today: Date = new Date()): boolean {
+    if (!birthDate) return false;
+    const bd = birthDate instanceof Date ? birthDate : new Date(birthDate);
+    if (isNaN(bd.getTime())) return false;
+    const isLeap = (y: number) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+    const oneDay = 86400000;
+    const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+    // Try the birthday landing in the prior/current/next year so a Dec<->Jan gap measures as a few days, not ~365.
+    return [today.getFullYear() - 1, today.getFullYear(), today.getFullYear() + 1].some(year => {
+      const month = bd.getMonth();
+      const day = month === 1 && bd.getDate() === 29 && !isLeap(year) ? 28 : bd.getDate();
+      const birthdayUtc = Date.UTC(year, month, day);
+      return Math.abs(birthdayUtc - todayUtc) / oneDay <= windowDays;
+    });
+  }
+
   private static getNametagContext(visit: VisitInterface, isChild: boolean, pickupCode: string): LabelContext {
     const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "") || {};
     return {
@@ -127,6 +144,7 @@ export class LabelHelper {
       "person.lastName": person.name?.last || person.lastName || "",
       "person.nickName": person.name?.nick || person.nickName || "",
       "person.nametagNotes": person.nametagNotes || "",
+      "person.isBirthdayWeek": this.isBirthdayWithin(person.birthDate, 3) ? "true" : "",
       sessions: VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/,/g, "\n")
     };
   }
