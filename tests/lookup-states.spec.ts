@@ -1,6 +1,14 @@
 import { expect, test } from "@playwright/test";
 import { startKiosk, tapDigits, WELCOME_TITLE } from "./helpers/kiosk";
 
+test("lookup keypad shows a visible scan-code control", async ({ page }) => {
+  await startKiosk(page);
+  const scan = page.getByRole("button", { name: "Scan code" });
+  await expect(scan).toBeVisible();
+  await scan.click();
+  await expect(page.getByText("Hold the QR code from your phone up to the camera")).toBeVisible();
+});
+
 test("no-match search offers recovery actions", async ({ page }) => {
   await startKiosk(page);
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useFocusEffect, useRouter } from "expo-router";
 import { FlatList, Pressable, Text, useWindowDimensions, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import { MaterialIcons } from "@expo/vector-icons";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import QRCode from "react-native-qrcode-svg";
 import { RouteProp } from "@react-navigation/native";
@@ -16,6 +17,29 @@ import { Avatar, Button, EmptyState, ListRow, NumberPad, Screen, Sheet, Skeleton
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
+
+const ScanCodeButton = ({ label, onPress }: { label: string; onPress: () => void }) => {
+  const theme = useAppTheme();
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      onPress={onPress}
+      style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.sm, minHeight: 44 }}>
+      <View style={{
+        width: 44,
+        height: 44,
+        borderRadius: theme.radius.md,
+        backgroundColor: theme.colors.primary,
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+        <MaterialIcons name="qr-code" size={28} color={theme.colors.onPrimary} />
+      </View>
+      <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.primary }}>{label}</Text>
+    </Pressable>
+  );
+};
 
 const Lookup = (props: Props) => {
   const { t } = useTranslation();
@@ -262,7 +286,7 @@ const Lookup = (props: Props) => {
             <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.primary, textDecorationLine: "underline" }}>{t("lookup.registerGuest")}</Text>
           </Pressable>
         )}
-        <Button label={t("lookup.scanCode")} variant="ghost" size="md" icon="qr-code-scanner" onPress={() => router.navigate("/scan")} />
+        <ScanCodeButton label={String(t("lookup.scanCode"))} onPress={() => router.navigate("/scan")} />
         {manned && <Button label={t("lookup.checkout")} variant="ghost" size="md" icon="logout" onPress={() => router.navigate("/checkout")} />}
       </View>
     </View>
