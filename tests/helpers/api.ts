@@ -9,7 +9,7 @@ export async function apiLogin(request: APIRequestContext): Promise<Jwts> {
   const res = await request.post(BASE + "/membership/users/login", { data: { email: "demo@b1.church", password: "password" } });
   expect(res.ok()).toBeTruthy();
   const body = await res.json();
-  const church = body.userChurches[0];
+  const church = body.userChurches.find((c: any) => c.church.id === DEMO.churchId);
   const jwt = (k: string) => church.apis.find((a: any) => a.keyName === k).jwt;
   return { membership: jwt("MembershipApi"), attendance: jwt("AttendanceApi") };
 }
@@ -39,7 +39,7 @@ export async function directCheckin(request: APIRequestContext, jwt: string, opt
 
 // Uses /visits?personId (not /visits/checkin) to avoid date-copy id mangling.
 export async function deleteVisitsForPeople(request: APIRequestContext, jwt: string, _serviceId: string, personIds: string[]) {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Date().toLocaleDateString("en-CA");
   for (const personId of personIds) {
     const visits = await (await request.get(BASE + "/attendance/visits?personId=" + personId, { headers: auth(jwt) })).json();
     for (const v of Array.isArray(visits) ? visits : []) {
@@ -51,6 +51,7 @@ export async function deleteVisitsForPeople(request: APIRequestContext, jwt: str
 }
 
 export const DEMO = {
+  churchId: "CHU00000001",
   householdId: "HOU00000001",
   serviceId: "SER00000001",
   serviceTimeId: "SST00000001",
