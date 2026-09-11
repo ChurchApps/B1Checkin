@@ -1,9 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as SecureStore from "expo-secure-store";
 import { ApiHelper } from "./ApiHelper";
 import { LoginResponseInterface, LoginUserChurchInterface } from "./Interfaces";
 
 const JWT_KEY = "userJwt";
+// ponytail: store builds on runtime 2.1.0 predate expo-secure-store; a hard import crashes them at launch. Drop once runtimeVersion is bumped.
+let SecureStore: typeof import("expo-secure-store") | null = null;
+try { SecureStore = require("expo-secure-store"); } catch { SecureStore = null; }
+const secure = async () => (SecureStore && (await SecureStore.isAvailableAsync())) ? SecureStore : null;
 const LEFTOVER = ["@Password", "@Login", "@Email", "@UserChurches"];
 
 export class SessionHelper {
@@ -15,19 +18,19 @@ export class SessionHelper {
 
   static async save(userJwt: string, email: string, churches: LoginUserChurchInterface[]) {
     this.churches = churches;
-    if (await SecureStore.isAvailableAsync()) await SecureStore.setItemAsync(JWT_KEY, userJwt);
+    await (await secure())?.setItemAsync(JWT_KEY, userJwt);
     await AsyncStorage.multiRemove(["@Password", "@UserChurches"]);
     await AsyncStorage.multiSet([["@Login", "true"], ["@Email", email]]);
   }
 
   static async clear() {
     this.churches = [];
-    if (await SecureStore.isAvailableAsync()) await SecureStore.deleteItemAsync(JWT_KEY);
+    await (await secure())?.deleteItemAsync(JWT_KEY);
     await AsyncStorage.multiRemove(LEFTOVER);
   }
 
   static async restore(): Promise<LoginUserChurchInterface[] | null> {
-    const jwt = (await SecureStore.isAvailableAsync()) ? await SecureStore.getItemAsync(JWT_KEY) : null;
+    const jwt = await (await secure())?.getItemAsync(JWT_KEY);
     if (jwt) {
       const churches = await this.loginWithJwt(jwt);
       if (churches) return churches;
