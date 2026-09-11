@@ -1,5 +1,10 @@
+// PrinterLog pulls in the native printer module (no web/node impl); stub it so the pure
+// label logic is unit-testable off-device.
+jest.mock("../PrinterLog", () => ({ PrinterLog: { add: jest.fn(), attachNativeListeners: jest.fn() } }));
+
 import { code128Codes, code128Svg, code39Binary, code39Pattern, code39Svg, qrSvg } from "../barcode";
 import { LabelRenderer } from "../LabelRenderer";
+import { LabelHelper } from "../LabelHelper";
 import { LabelBlockInterface } from "../Interfaces";
 
 describe("code39", () => {
@@ -112,5 +117,38 @@ describe("LabelRenderer", () => {
     ], ctx);
     expect(html).toContain("background-color:#000000;");
     expect(html).toContain("<div style=\"position:absolute;left:0%;top:50%;width:50%;height:10%;font-size:10vh;text-align:left;\"></div>");
+  });
+});
+
+describe("LabelHelper.isBirthdayWithin", () => {
+  it("is true on the birthday itself and at the +/-3 day edges", () => {
+    const today = new Date(2026, 5, 15); // Jun 15, 2026
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 5, 15), 3, today)).toBe(true);
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 5, 12), 3, today)).toBe(true);
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 5, 18), 3, today)).toBe(true);
+  });
+
+  it("is false just outside the window", () => {
+    const today = new Date(2026, 5, 15);
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 5, 11), 3, today)).toBe(false);
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 5, 19), 3, today)).toBe(false);
+  });
+
+  it("wraps across the year end (Dec 30 vs Jan 2)", () => {
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 11, 30), 3, new Date(2026, 0, 2))).toBe(true);
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 0, 2), 3, new Date(2025, 11, 30))).toBe(true);
+    expect(LabelHelper.isBirthdayWithin(new Date(1990, 11, 20), 3, new Date(2026, 0, 2))).toBe(false);
+  });
+
+  it("treats a Feb 29 birthday as Feb 28 in a non-leap year", () => {
+    expect(LabelHelper.isBirthdayWithin(new Date(1992, 1, 29), 3, new Date(2027, 1, 28))).toBe(true);
+    expect(LabelHelper.isBirthdayWithin(new Date(1992, 1, 29), 3, new Date(2028, 1, 29))).toBe(true); // 2028 is a leap year
+  });
+
+  it("is false with no birth date or an invalid one, accepts string dates", () => {
+    expect(LabelHelper.isBirthdayWithin(undefined, 3)).toBe(false);
+    expect(LabelHelper.isBirthdayWithin(null, 3)).toBe(false);
+    expect(LabelHelper.isBirthdayWithin("not-a-date", 3)).toBe(false);
+    expect(LabelHelper.isBirthdayWithin("2026-06-15T12:00:00", 3, new Date(2026, 5, 15))).toBe(true);
   });
 });
