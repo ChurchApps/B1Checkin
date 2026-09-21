@@ -149,6 +149,7 @@ export class LabelHelper {
   public static selectChildVisits(visits: VisitInterface[], serviceTimes: ServiceTimeInterface[]): VisitInterface[] {
     const result: VisitInterface[] = [];
     (visits || []).forEach(pv => {
+      if (pv.checkinType === "volunteer") return;
       let isChild = false;
       pv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(serviceTimes || [], "id", vs.session?.serviceTimeId || "");

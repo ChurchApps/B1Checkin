@@ -20,6 +20,12 @@ const serviceTimes: ServiceTimeInterface[] = [
 
 const childVisit: VisitInterface = { id: "V1", personId: "P1", visitSessions: [{ session: { groupId: "GNURSERY", serviceTimeId: "ST1", displayName: "Nursery" } }] };
 const adultVisit: VisitInterface = { id: "V2", personId: "P2", visitSessions: [{ session: { groupId: "GADULT", serviceTimeId: "ST1", displayName: "Adult Class" } }] };
+const volunteerInNursery: VisitInterface = {
+  id: "V4",
+  personId: "P4",
+  checkinType: "volunteer",
+  visitSessions: [{ session: { groupId: "GNURSERY", serviceTimeId: "ST1", displayName: "Nursery" } }]
+};
 
 describe("LabelHelper.selectChildVisits", () => {
   it("keeps only visits whose group has parentPickup", () => {
@@ -34,5 +40,13 @@ describe("LabelHelper.selectChildVisits", () => {
   it("tolerates empty/missing inputs", () => {
     expect(LabelHelper.selectChildVisits([], serviceTimes)).toEqual([]);
     expect(LabelHelper.selectChildVisits([{ id: "V3", visitSessions: [] }], serviceTimes)).toEqual([]);
+  });
+
+  it("does not treat a volunteer in a pickup room as a child", () => {
+    expect(LabelHelper.selectChildVisits([volunteerInNursery], serviceTimes)).toEqual([]);
+  });
+
+  it("still keeps an actual child when a volunteer is also in the pickup room", () => {
+    expect(LabelHelper.selectChildVisits([childVisit, volunteerInNursery], serviceTimes).map(v => v.id)).toEqual(["V1"]);
   });
 });
