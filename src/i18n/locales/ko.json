@@ -39,6 +39,8 @@
     "lookupError": "해당 코드를 조회하지 못했습니다. 다시 시도해주세요.",
     "other": "기타",
     "otherNamePlaceholder": "이름 입력",
+    "scan": "스캔",
+    "scanTitle": "픽업 코드 스캔",
     "subtitle": "보안 코드를 입력하거나 스캔하세요",
     "success": "체크아웃되었습니다",
     "title": "체크아웃",

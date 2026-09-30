@@ -39,6 +39,8 @@
     "lookupError": "Impossible de rechercher ce code. Veuillez réessayer.",
     "other": "Autre personne",
     "otherNamePlaceholder": "Saisir le nom",
+    "scan": "Scanner",
+    "scanTitle": "Scanner le code de récupération",
     "subtitle": "Saisissez ou scannez le code de sécurité",
     "success": "Départ enregistré avec succès",
     "title": "Départ",

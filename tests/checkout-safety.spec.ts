@@ -58,3 +58,19 @@ test("checkout shows trusted people, pages a parent, and blocks a not-authorized
     return v?.checkedOutBy || "";
   }, { timeout: 15000 }).toContain("OVERRIDE: Rick Sanders");
 });
+
+test("checkout Scan button opens the pickup-code camera scanner", async ({ page }) => {
+  await startKiosk(page);
+  await enableManned(page);
+  await page.getByRole("button", { name: "Check Out" }).click();
+  await expect(page.getByPlaceholder("____")).toBeVisible();
+
+  // Web Playwright has no camera; the sheet opens on the camera view or the permission fallback.
+  await page.getByTestId("checkout-scan-button").click();
+  await expect(page.getByText("Scan pickup code", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Camera access is needed|Flip camera/).or(page.getByRole("button", { name: "Flip camera" })).first()).toBeVisible();
+
+  await page.getByRole("button", { name: "Cancel" }).last().click();
+  await expect(page.getByText("Scan pickup code", { exact: true })).toHaveCount(0);
+  await expect(page.getByPlaceholder("____")).toBeVisible();
+});

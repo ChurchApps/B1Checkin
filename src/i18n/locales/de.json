@@ -39,6 +39,8 @@
     "lookupError": "Code konnte nicht gefunden werden. Bitte versuchen Sie es erneut.",
     "other": "Andere Person",
     "otherNamePlaceholder": "Namen eingeben",
+    "scan": "Scannen",
+    "scanTitle": "Abholcode scannen",
     "subtitle": "Sicherheitscode eingeben oder scannen",
     "success": "Erfolgreich ausgecheckt",
     "title": "Auschecken",

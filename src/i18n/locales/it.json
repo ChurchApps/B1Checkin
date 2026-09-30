@@ -39,6 +39,8 @@
     "lookupError": "Impossibile cercare questo codice. Riprova.",
     "other": "Altra persona",
     "otherNamePlaceholder": "Inserisci il nome",
+    "scan": "Scansiona",
+    "scanTitle": "Scansiona il codice di ritiro",
     "subtitle": "Inserisci o scansiona il codice di sicurezza",
     "success": "Check-out effettuato con successo",
     "title": "Check-out",
