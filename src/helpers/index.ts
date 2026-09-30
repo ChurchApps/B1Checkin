@@ -5,6 +5,7 @@ export * from "./Interfaces";
 export { EligibilityHelper, GRADES } from "./EligibilityHelper";
 export type { Eligibility } from "./EligibilityHelper";
 export { PickupMatchHelper } from "./PickupMatchHelper";
+export { ScanCodeHelper } from "./ScanCodeHelper";
 export { LabelHelper } from "./LabelHelper";
 export { LabelRenderer } from "./LabelRenderer";
 export { PrinterLog } from "./PrinterLog";

@@ -69,6 +69,8 @@
     "reprint": "Reprint labels",
     "reprintFailed": "Couldn't reprint labels.",
     "reprinted": "Labels sent to printer",
+    "scan": "Scan",
+    "scanTitle": "Scan pickup code",
     "subtitle": "Enter or scan the security code",
     "success": "Checked out successfully",
     "title": "Check Out",

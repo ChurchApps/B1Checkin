@@ -39,6 +39,8 @@
     "lookupError": "Kód se nepodařilo vyhledat. Zkuste to prosím znovu.",
     "other": "Jiná osoba",
     "otherNamePlaceholder": "Zadejte jméno",
+    "scan": "Skenovat",
+    "scanTitle": "Naskenovat kód pro vyzvednutí",
     "subtitle": "Zadejte nebo naskenujte bezpečnostní kód",
     "success": "Odhlášení proběhlo úspěšně",
     "title": "Odhlášení",

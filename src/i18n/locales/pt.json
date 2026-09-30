@@ -39,6 +39,8 @@
     "lookupError": "Não foi possível localizar esse código. Por favor, tente novamente.",
     "other": "Outra pessoa",
     "otherNamePlaceholder": "Digite o nome",
+    "scan": "Escanear",
+    "scanTitle": "Escanear código de retirada",
     "subtitle": "Digite ou escaneie o código de segurança",
     "success": "Check-out realizado com sucesso",
     "title": "Check-out",

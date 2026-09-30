@@ -6,3 +6,4 @@ export { default as ErrorHandler } from "./ErrorHandler";
 export { default as PinEntryModal } from "./PinEntryModal";
 export { default as PrintUI } from "./PrintUI";
 export { default as ConfettiCelebration } from "./ConfettiCelebration";
+export { default as CodeScanner } from "./CodeScanner";

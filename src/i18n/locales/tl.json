@@ -39,6 +39,8 @@
     "lookupError": "Hindi mahanap ang code na iyon. Pakisubukan muli.",
     "other": "Ibang tao",
     "otherNamePlaceholder": "Ilagay ang pangalan",
+    "scan": "I-scan",
+    "scanTitle": "I-scan ang pickup code",
     "subtitle": "Ilagay o i-scan ang security code",
     "success": "Matagumpay na nag-check out",
     "title": "Mag-Check Out",

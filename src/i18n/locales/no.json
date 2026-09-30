@@ -39,6 +39,8 @@
     "lookupError": "Kunne ikke slå opp koden. Vennligst prøv igjen.",
     "other": "Annen person",
     "otherNamePlaceholder": "Skriv inn navn",
+    "scan": "Skann",
+    "scanTitle": "Skann hentekoden",
     "subtitle": "Skriv inn eller skann sikkerhetskoden",
     "success": "Utsjekking fullført",
     "title": "Sjekk ut",

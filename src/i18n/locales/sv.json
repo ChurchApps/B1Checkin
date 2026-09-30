@@ -39,6 +39,8 @@
     "lookupError": "Det gick inte att slå upp koden. Försök igen.",
     "other": "Annan person",
     "otherNamePlaceholder": "Ange namn",
+    "scan": "Skanna",
+    "scanTitle": "Skanna hämtkoden",
     "subtitle": "Ange eller skanna säkerhetskoden",
     "success": "Utcheckning lyckades",
     "title": "Checka ut",

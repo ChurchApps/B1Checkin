@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PrintUI from "../src/components/PrintUI";
+import CodeScanner from "../src/components/CodeScanner";
 import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, HouseholdPickupInterface, LabelHelper, PersonInterface, PickupMatchHelper, PrinterLog, screenNavigationProps, VisitInterface, VisitSessionHelper } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
 import { Avatar, Badge, Button, Screen, Sheet, TextField, Toast } from "../src/components/ui";
@@ -38,6 +39,7 @@ const Checkout = (props: Props) => {
   const [pageResult, setPageResult] = React.useState("");
   const [reprintLabels, setReprintLabels] = React.useState<string[]>([]);
   const [reprinting, setReprinting] = React.useState(false);
+  const [scanOpen, setScanOpen] = React.useState(false);
 
   const manned = CachedData.stationMode === "manned";
   const keyHeight = windowHeight < 1000 ? 52 : 64;
@@ -191,6 +193,9 @@ const Checkout = (props: Props) => {
           )}
       </View>
       {!!error && <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.danger, textAlign: "center" }}>{error}</Text>}
+      {!looking && (
+        <Button label={t("checkout.scan")} variant="outline" size="md" icon="qr-code-scanner" testID="checkout-scan-button" onPress={() => setScanOpen(true)} style={{ alignSelf: "center", marginTop: theme.spacing.md }} />
+      )}
       <View style={{ flex: 1 }} />
       <View style={{ gap: theme.spacing.md, marginBottom: theme.spacing.lg }}>
         {KEY_ROWS.map(row => (
@@ -319,6 +324,18 @@ const Checkout = (props: Props) => {
             <Button label={t("common.cancel")} onPress={() => setBlocked(null)} style={{ flex: 1.4 }} />
             <Button label={t("checkout.override")} variant="danger" onPress={() => { const name = otherName.trim(); setBlocked(null); checkout("OVERRIDE: " + name); }} style={{ flex: 1 }} />
           </View>
+        </View>
+      </Sheet>
+
+      <Sheet visible={scanOpen} onClose={() => setScanOpen(false)} maxWidth={560}>
+        <View style={{ gap: theme.spacing.md }}>
+          <Text style={{ fontSize: 22, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary }}>{t("checkout.scanTitle")}</Text>
+          {scanOpen && (
+            <View style={{ height: 360 }}>
+              <CodeScanner barcodeTypes={["qr", "code128", "code39"]} initialFacing="back" onCode={c => { setScanOpen(false); handleCode(c); }} />
+            </View>
+          )}
+          <Button label={t("common.cancel")} variant="ghost" fullWidth onPress={() => setScanOpen(false)} />
         </View>
       </Sheet>
 

@@ -39,6 +39,8 @@
     "lookupError": "无法查找该代码，请重试。",
     "other": "其他人",
     "otherNamePlaceholder": "输入姓名",
+    "scan": "扫描",
+    "scanTitle": "扫描接送码",
     "subtitle": "输入或扫描安全码",
     "success": "签退成功",
     "title": "签退",
