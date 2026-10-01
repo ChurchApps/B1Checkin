@@ -10,7 +10,7 @@ interface SkeletonProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const Skeleton: React.FC<SkeletonProps> = ({ width = "100%", height = 16, radius = 8, style }) => {
+const Skeleton: React.FC<SkeletonProps> = ({ width = "100%", height = 16, radius = 8, style }) => {
   const theme = useAppTheme();
   const opacity = useSharedValue(0.5);
 

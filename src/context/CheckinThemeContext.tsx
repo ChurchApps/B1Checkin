@@ -15,7 +15,7 @@ const DEFAULT_COLORS: CheckinThemeColors = {
   buttonText: "#FFFFFF"
 };
 
-export const DEFAULT_THEME: CheckinThemeConfig = { colors: DEFAULT_COLORS, backgroundImage: "", idleScreen: { enabled: false, timeoutSeconds: 120, slides: [] } };
+const DEFAULT_THEME: CheckinThemeConfig = { colors: DEFAULT_COLORS, backgroundImage: "", idleScreen: { enabled: false, timeoutSeconds: 120, slides: [] } };
 
 interface CheckinThemeContextType {
   theme: CheckinThemeConfig;
