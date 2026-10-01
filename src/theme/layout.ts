@@ -1,5 +1,3 @@
-import { useWindowDimensions } from "react-native";
-
 export const layout = {
   contentMaxWidth: 640,
   gutter: 24,
@@ -10,8 +8,3 @@ export const layout = {
   keypadKey: 88,
   breakpointRegular: 720
 };
-
-export function useBreakpoint(): "compact" | "regular" {
-  const { width } = useWindowDimensions();
-  return width >= layout.breakpointRegular ? "regular" : "compact";
-}

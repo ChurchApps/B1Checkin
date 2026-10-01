@@ -1,7 +1,7 @@
 import { GroupInterface, PersonInterface } from "./Interfaces";
 
 // Mirrors the Api GradeMapping GRADES ordering; hoist to @churchapps/helpers on next publish.
-export const GRADES = [
+const GRADES = [
   "PreK", "K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "Graduated"
 ];
 
