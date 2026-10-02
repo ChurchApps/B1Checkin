@@ -6,6 +6,7 @@ export { EligibilityHelper } from "./EligibilityHelper";
 export type { Eligibility } from "./EligibilityHelper";
 export { PickupMatchHelper } from "./PickupMatchHelper";
 export { ScanCodeHelper } from "./ScanCodeHelper";
+export { ServiceTimeHelper } from "./ServiceTimeHelper";
 export { LabelHelper } from "./LabelHelper";
 export { PrinterLog } from "./PrinterLog";
 export { Utilities, screenNavigationProps } from "./Utilities";

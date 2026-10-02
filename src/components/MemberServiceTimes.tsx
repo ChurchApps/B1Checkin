@@ -3,7 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { ArrayHelper, CachedData, CheckinType, GroupInterface, PersonInterface, screenNavigationProps, ServiceTimeInterface, VisitHelper, VisitInterface, VisitSessionInterface, VisitSessionHelper } from "../helpers";
+import { ArrayHelper, CachedData, CheckinType, GroupInterface, PersonInterface, screenNavigationProps, ServiceTimeHelper, ServiceTimeInterface, VisitHelper, VisitInterface, VisitSessionInterface, VisitSessionHelper } from "../helpers";
 import { useAppTheme } from "../theme";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
@@ -75,13 +75,19 @@ const MemberServiceTimes = (props: Props) => {
       const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", groupId);
       selectedGroupName = group?.name || t("members.error");
     }
+    const groupSummary = ServiceTimeHelper.getGroupSummary(serviceTime);
 
     return (
       <View key={serviceTime.id} style={{ backgroundColor: theme.colors.canvas, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.sm, flexDirection: "row", alignItems: "center", gap: theme.spacing.md }}>
         <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
           <MaterialIcons name="schedule" size={20} color={theme.colors.primary} />
         </View>
-        <Text numberOfLines={1} style={{ flex: 1, fontSize: 17, fontFamily: theme.fonts.medium, color: theme.colors.textPrimary }}>{serviceTime.name}</Text>
+        <View style={{ flex: 1 }}>
+          <Text numberOfLines={1} style={{ fontSize: 17, fontFamily: theme.fonts.medium, color: theme.colors.textPrimary }}>{serviceTime.name}</Text>
+          {groupSummary !== "" && (
+            <Text numberOfLines={2} style={{ fontSize: 14, fontFamily: theme.fonts.regular, color: theme.colors.textSecondary, marginTop: 2 }}>{groupSummary}</Text>
+          )}
+        </View>
         <Pressable
           accessibilityRole="button"
           onPress={() => { handleServiceTimeClick(serviceTime, props.person); }}
