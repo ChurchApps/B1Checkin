@@ -33,3 +33,19 @@ test("name search finds the demo family", async ({ page }) => {
   await page.getByRole("button", { name: "Back to keypad" }).click();
   await expect(page.getByText(WELCOME_TITLE)).toBeVisible();
 });
+
+test("guest QR sheet offers registering on the kiosk", async ({ page }) => {
+  // Demo church has QR guest registration off; turn it on for this session only.
+  await page.route("**/membership/settings/public/**", route => route.fulfill({ json: { enableQRGuestRegistration: "true" } }));
+  await startKiosk(page);
+
+  await page.getByText("Register as guest").click();
+  await expect(page.getByText("Scan to register as a guest")).toBeVisible();
+  await page.getByRole("button", { name: "Register here" }).click();
+
+  await expect(page.getByRole("button", { name: "Done" })).toBeVisible({ timeout: 15000 });
+  await page.getByRole("button", { name: "Done" }).click();
+  // The form screen (and its WebView) must unmount so the next family starts clean.
+  await expect(page.getByRole("button", { name: "Done" })).toHaveCount(0);
+  await expect(page.getByText(WELCOME_TITLE).last()).toBeVisible({ timeout: 15000 });
+});

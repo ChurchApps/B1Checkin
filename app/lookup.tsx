@@ -7,7 +7,7 @@ import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import QRCode from "react-native-qrcode-svg";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
-import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, PersonInterface, screenNavigationProps } from "../src/helpers";
+import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, GuestRegisterHelper, PersonInterface, screenNavigationProps } from "../src/helpers";
 import Header from "../src/components/Header";
 import IdleScreen from "../src/components/IdleScreen";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
@@ -304,14 +304,23 @@ const Lookup = (props: Props) => {
         <View style={{ alignItems: "center", gap: theme.spacing.lg }}>
           {!!CachedData.userChurch?.church?.subDomain && (
             <QRCode
-              value={`https://${CachedData.userChurch.church.subDomain}.b1.church/guest-register?serviceId=${CachedData.serviceId}`}
+              value={GuestRegisterHelper.getUrl(CachedData.userChurch.church.subDomain, CachedData.serviceId)}
               size={200}
               backgroundColor="#FFFFFF"
               color={theme.colors.primary}
             />
           )}
           <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.textPrimary, textAlign: "center" }}>{t("lookup.qrGuest")}</Text>
-          <Button label={t("common.ok")} onPress={() => setQrVisible(false)} fullWidth />
+          <Button
+            label={t("lookup.registerHere")}
+            icon="edit"
+            onPress={() => {
+              setQrVisible(false);
+              router.navigate("/guestRegister");
+            }}
+            fullWidth
+          />
+          <Button label={t("common.ok")} variant="ghost" onPress={() => setQrVisible(false)} fullWidth />
         </View>
       </Sheet>
     </>

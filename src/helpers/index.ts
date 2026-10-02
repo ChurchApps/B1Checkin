@@ -3,6 +3,7 @@ export { CachedData } from "./CachedData";
 export { EnvironmentHelper } from "./EnvironmentHelper";
 export * from "./Interfaces";
 export { EligibilityHelper } from "./EligibilityHelper";
+export { GuestRegisterHelper } from "./GuestRegisterHelper";
 export type { Eligibility } from "./EligibilityHelper";
 export { PickupMatchHelper } from "./PickupMatchHelper";
 export { ScanCodeHelper } from "./ScanCodeHelper";

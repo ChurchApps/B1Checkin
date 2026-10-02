@@ -62,6 +62,7 @@ function RootLayout() {
             <Stack.Screen name="services" />
             <Stack.Screen name="selectGroup" />
             <Stack.Screen name="addGuest" />
+            <Stack.Screen name="guestRegister" />
             <Stack.Screen name="checkinComplete" />
             <Stack.Screen name="checkout" />
             <Stack.Screen name="scan" />
