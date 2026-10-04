@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useAppTheme } from "../../theme";
 import { IconName } from "./icons";
 
-export type BadgeTone = "success" | "warning" | "info" | "neutral" | "danger";
+type BadgeTone = "success" | "warning" | "info" | "neutral" | "danger";
 
 interface Props {
   label: string;
