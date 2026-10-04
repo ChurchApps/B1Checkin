@@ -9,13 +9,13 @@ export interface CheckinThemeColors {
   buttonText: string;
 }
 
-export interface IdleSlide {
+interface IdleSlide {
   imageUrl: string;
   durationSeconds: number;
   sort: number;
 }
 
-export interface IdleScreenConfig {
+interface IdleScreenConfig {
   enabled: boolean;
   timeoutSeconds: number;
   slides: IdleSlide[];
@@ -28,7 +28,7 @@ export interface CheckinThemeConfig {
 }
 
 // New unified app theme types
-export interface AppThemeModeColors {
+interface AppThemeModeColors {
   background: string;
   surface: string;
   primary: string;

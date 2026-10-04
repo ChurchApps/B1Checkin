@@ -7,8 +7,8 @@ import { useAppTheme } from "../../theme";
 import { IconName } from "./icons";
 import { usePressScale } from "./pressScale";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
-export type ButtonSize = "md" | "lg" | "xl";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
+type ButtonSize = "md" | "lg" | "xl";
 
 interface Props {
   label: string;

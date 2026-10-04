@@ -10,8 +10,6 @@ export type ApiListType = "MembershipApi" | "AttendanceApi" | "MessagingApi" | "
 // Permission interfaces
 export interface RolePermissionInterface { id?: string; roleId?: string; contentType?: string; contentId?: string; action?: string; api?: string; }
 
-export interface PermissionInterface { api: string; contentType: string; action: string; }
-
 // User and Authentication interfaces
 export interface LoginResponseInterface {
   user: LoginUserInterface;
@@ -20,7 +18,7 @@ export interface LoginResponseInterface {
   errors?: string[];
 }
 
-export interface LoginUserInterface {
+interface LoginUserInterface {
   id?: string;
   email?: string;
   firstName?: string;
@@ -66,7 +64,7 @@ export interface PersonInterface {
   isGuest?: boolean; // kiosk-local: person just added via addGuest, defaults their check-in type to guest
 }
 
-export interface NameInterface {
+interface NameInterface {
   first?: string;
   middle?: string;
   last?: string;
@@ -76,7 +74,7 @@ export interface NameInterface {
   suffix?: string;
 }
 
-export interface ContactInfoInterface {
+interface ContactInfoInterface {
   address1?: string;
   address2?: string;
   city?: string;
@@ -92,21 +90,8 @@ export interface ContactInfoInterface {
   workEmail?: string;
 }
 
-export interface HouseholdInterface { id?: string; name?: string; }
-
-export interface HouseholdMemberInterface {
-  id?: string;
-  householdId?: string;
-  household?: HouseholdInterface;
-  personId?: string;
-  person?: PersonInterface;
-  role?: string;
-}
-
 // Campus and Services interfaces
-export interface CampusInterface { id?: string; name?: string; }
-
-export interface ServiceInterface { id?: string; campusId?: string; name?: string; }
+interface ServiceInterface { id?: string; campusId?: string; name?: string; }
 
 export interface ServiceTimeInterface {
   id?: string;
@@ -158,15 +143,6 @@ export interface HouseholdPickupInterface {
   notes?: string;
 }
 
-export interface GroupMemberInterface {
-  id?: string;
-  personId: string;
-  person?: PersonInterface;
-  groupId: string;
-  group?: GroupInterface;
-  leader?: boolean;
-}
-
 export interface GroupServiceTimeInterface {
   id?: string;
   groupId?: string;
@@ -195,27 +171,7 @@ export interface VisitSessionInterface {
   session?: SessionInterface;
 }
 
-export interface SessionInterface { id?: string; groupId: string; serviceTimeId: string; sessionDate?: Date; displayName: string; }
-
-export interface AttendanceInterface {
-  campus: CampusInterface;
-  service: ServiceInterface;
-  serviceTime: ServiceTimeInterface;
-  groupId: string;
-}
-
-export interface AttendanceRecordInterface {
-  serviceTime: ServiceTimeInterface;
-  service: ServiceInterface;
-  campus: CampusInterface;
-  week: number;
-  count: number;
-  visitDate: Date;
-  groupId: string;
-}
-
-// Settings interface
-export interface SettingInterface { id?: string; keyName?: string; value?: string; }
+interface SessionInterface { id?: string; groupId: string; serviceTimeId: string; sessionDate?: Date; displayName: string; }
 
 // Label template interfaces
 export interface LabelTemplateInterface {
@@ -248,48 +204,3 @@ export interface LabelBlockInterface {
   border?: boolean;
   condition?: { field?: string; operator?: "notEmpty" | "empty" | "equals" | "notEquals"; value?: string };
 }
-
-// Form interfaces
-export interface FormInterface {
-  id?: string;
-  name?: string;
-  contentType?: string;
-  restricted?: boolean;
-  accessStartTime?: Date;
-  accessEndTime?: Date;
-  archived: boolean;
-  action?: string;
-}
-
-export interface FormSubmissionInterface {
-  id?: string;
-  formId?: string;
-  contentType?: string;
-  contentId?: string;
-  form?: FormInterface;
-  answers?: AnswerInterface[];
-  questions?: QuestionInterface[];
-}
-
-export interface AnswerInterface {
-  id?: string;
-  value?: string;
-  questionId?: string;
-  formSubmissionId?: string;
-  required?: boolean;
-}
-
-export interface QuestionInterface {
-  id?: string;
-  formId?: string;
-  title?: string;
-  fieldType?: string;
-  placeholder?: string;
-  description?: string;
-  choices?: string;
-  required?: boolean;
-  sort?: number;
-}
-
-// Search interface
-export interface SearchCondition { field: string; operator: string; value: string; }
