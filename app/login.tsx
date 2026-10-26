@@ -19,6 +19,8 @@ function Login(_props: Props) {
   const [emailError, setEmailError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
   const [loginError, setLoginError] = React.useState("");
+  const [mfaToken, setMfaToken] = React.useState("");
+  const [mfaCode, setMfaCode] = React.useState("");
   const shakeAnim = React.useRef(new Animated.Value(0)).current;
 
   const triggerShake = () => {
@@ -31,17 +33,23 @@ function Login(_props: Props) {
   };
 
   const login = () => {
-    const emailErr = email === "" ? t("login.enterEmail") : !Utilities.validateEmail(email) ? t("login.validEmail") : "";
-    const passwordErr = password === "" ? t("login.enterPassword") : "";
-    setEmailError(emailErr);
-    setPasswordError(passwordErr);
     setLoginError("");
-    if (emailErr || passwordErr) return;
+    if (!mfaToken) {
+      const emailErr = email === "" ? t("login.enterEmail") : !Utilities.validateEmail(email) ? t("login.validEmail") : "";
+      const passwordErr = password === "" ? t("login.enterPassword") : "";
+      setEmailError(emailErr);
+      setPasswordError(passwordErr);
+      if (emailErr || passwordErr) return;
+    } else if (!mfaCode.trim()) return;
 
     setIsLoading(true);
-    ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
+    const body = mfaToken ? { mfaToken, mfaCode: mfaCode.trim() } : { email: email, password: password };
+    ApiHelper.postAnonymous("/users/login", body, "MembershipApi").then((data: LoginResponseInterface) => {
       setIsLoading(false);
-      if (data.errors && data.errors.length > 0) {
+      if (data.mfaRequired) {
+        setMfaToken(data.mfaToken || "");
+        setMfaCode("");
+      } else if (data.errors && data.errors.length > 0) {
         setLoginError(data.errors[0]);
         triggerShake();
       } else {
@@ -55,6 +63,8 @@ function Login(_props: Props) {
         SessionHelper.save(userJwt, email, churches).then(() => {
           setEmail("");
           setPassword("");
+          setMfaToken("");
+          setMfaCode("");
           router.replace("/selectChurch");
         }).catch(() => {
           setLoginError(t("login.loginFailed"));
@@ -63,7 +73,7 @@ function Login(_props: Props) {
       }
     }).catch(() => {
       setIsLoading(false);
-      setLoginError(t("login.loginFailed"));
+      setLoginError(mfaToken ? t("login.mfaInvalid") : t("login.loginFailed"));
       triggerShake();
     });
   };
@@ -89,42 +99,60 @@ function Login(_props: Props) {
 
             <Text style={{ fontSize: 24, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary, textAlign: "center", marginBottom: theme.spacing.xl }}>{t("login.welcomeBack")}</Text>
 
-            <TextField
-              placeholder={String(t("login.emailPlaceholder"))}
-              value={email}
-              onChangeText={value => {
-                setEmail(value);
-                if (emailError) setEmailError("");
-              }}
-              error={emailError}
-              leadingIcon="mail-outline"
-              autoComplete="email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              returnKeyType="next"
-              containerStyle={{ marginBottom: theme.spacing.lg }}
-            />
-            <TextField
-              placeholder={String(t("login.passwordPlaceholder"))}
-              value={password}
-              onChangeText={value => {
-                setPassword(value);
-                if (passwordError) setPasswordError("");
-              }}
-              error={passwordError}
-              leadingIcon="lock-outline"
-              secureTextEntry={!showPassword}
-              autoCapitalize="none"
-              autoCorrect={false}
-              returnKeyType="done"
-              onSubmitEditing={login}
-              trailing={
-                <Pressable accessibilityLabel="toggle password visibility" onPress={() => setShowPassword(!showPassword)} style={{ width: 48, height: 48, alignItems: "center", justifyContent: "center", marginRight: -theme.spacing.md }}>
-                  <MaterialIcons name={showPassword ? "visibility-off" : "visibility"} size={22} color={theme.colors.textMuted} />
-                </Pressable>
-              }
-              containerStyle={{ marginBottom: theme.spacing.lg }}
-            />
+            {mfaToken ? (
+              <>
+                <Text style={{ fontSize: 15, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center", marginBottom: theme.spacing.lg }}>{t("login.mfaInstructions")}</Text>
+                <TextField
+                  placeholder={String(t("login.mfaCode"))}
+                  value={mfaCode}
+                  onChangeText={setMfaCode}
+                  leadingIcon="verified-user"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  autoFocus
+                  returnKeyType="done"
+                  onSubmitEditing={login}
+                  containerStyle={{ marginBottom: theme.spacing.lg }}
+                />
+              </>
+            ) : (<>
+              <TextField
+                placeholder={String(t("login.emailPlaceholder"))}
+                value={email}
+                onChangeText={value => {
+                  setEmail(value);
+                  if (emailError) setEmailError("");
+                }}
+                error={emailError}
+                leadingIcon="mail-outline"
+                autoComplete="email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                returnKeyType="next"
+                containerStyle={{ marginBottom: theme.spacing.lg }}
+              />
+              <TextField
+                placeholder={String(t("login.passwordPlaceholder"))}
+                value={password}
+                onChangeText={value => {
+                  setPassword(value);
+                  if (passwordError) setPasswordError("");
+                }}
+                error={passwordError}
+                leadingIcon="lock-outline"
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+                returnKeyType="done"
+                onSubmitEditing={login}
+                trailing={
+                  <Pressable accessibilityLabel="toggle password visibility" onPress={() => setShowPassword(!showPassword)} style={{ width: 48, height: 48, alignItems: "center", justifyContent: "center", marginRight: -theme.spacing.md }}>
+                    <MaterialIcons name={showPassword ? "visibility-off" : "visibility"} size={22} color={theme.colors.textMuted} />
+                  </Pressable>
+                }
+                containerStyle={{ marginBottom: theme.spacing.lg }}
+              />
+            </>)}
 
             {!!loginError && (
               <View style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.sm, backgroundColor: theme.colors.dangerBg, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.lg }}>
@@ -134,6 +162,11 @@ function Login(_props: Props) {
             )}
 
             <Button label={t("common.login")} size="lg" fullWidth loading={isLoading} onPress={login} />
+            {!!mfaToken && (
+              <Text style={{ fontSize: 15, fontFamily: theme.fonts.medium, color: theme.colors.primary, textAlign: "center", marginTop: theme.spacing.lg }} onPress={() => { setMfaToken(""); setMfaCode(""); setLoginError(""); }}>
+                {t("common.back")}
+              </Text>
+            )}
 
             <Text style={{ fontSize: 13, fontFamily: theme.fonts.regular, color: theme.colors.textMuted, textAlign: "center", marginTop: theme.spacing.lg, lineHeight: 19 }}>
               {t("login.privacyConsent")}{" "}

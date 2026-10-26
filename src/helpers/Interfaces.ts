@@ -16,6 +16,8 @@ export interface LoginResponseInterface {
   churches: LoginUserChurchInterface[];
   userChurches?: LoginUserChurchInterface[];
   errors?: string[];
+  mfaRequired?: boolean;
+  mfaToken?: string;
 }
 
 interface LoginUserInterface {
