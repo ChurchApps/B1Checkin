@@ -32,7 +32,7 @@ const Household = (props: Props) => {
     CachedData.pendingVisits.forEach(pv => {
       if (pv.visitSessions && pv.visitSessions.length > 0) {
         const existingVisit = VisitHelper.getByPersonId(CachedData.existingVisits, pv.personId || "");
-        if (existingVisit && existingVisit.id) {
+        if (VisitHelper.isToday(existingVisit)) {
           const person = CachedData.householdMembers.find(m => m.id === pv.personId);
           if (person) alreadyCheckedInNames.push(person.name?.display || person.displayName || t("members.unknown"));
         }
