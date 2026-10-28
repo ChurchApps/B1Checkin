@@ -20,7 +20,7 @@ const MemberList = (props: Props) => {
 
   const isCheckedIn = (personId: string): boolean => {
     const visit = VisitHelper.getByPersonId(CachedData.existingVisits, personId);
-    return visit !== null && visit !== undefined && visit.id !== null && visit.id !== undefined;
+    return VisitHelper.isToday(visit);
   };
 
   const getSessionCount = (personId: string): number => {
