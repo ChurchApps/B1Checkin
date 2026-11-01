@@ -5,7 +5,8 @@ import { ApiHelper } from "../ApiHelper";
 
 jest.mock("../ApiHelper", () => ({ ApiHelper: { postAnonymous: jest.fn() } }));
 
-const church = { church: { id: "1", name: "Demo" }, apis: [{ keyName: "MembershipApi", jwt: "church.jwt", permissions: [] }] };
+const church = { church: { id: "1", name: "Demo" }, apis: [{ keyName: "MembershipApi", jwt: "church.jwt", permissions: [] }, { keyName: "AttendanceApi", jwt: "attendance.jwt", permissions: [{ contentType: "Attendance", action: "Checkin" }] }] };
+const withAttendance = (id: string, action: string) => ({ church: { id, name: id }, apis: [{ keyName: "AttendanceApi", jwt: "a.jwt", permissions: [{ contentType: "Attendance", action }] }] });
 
 beforeEach(async () => {
   SessionHelper.churches = [];
@@ -15,6 +16,22 @@ beforeEach(async () => {
 });
 
 describe("SessionHelper", () => {
+  // ChurchAppsSupport#1426: being in a role is not enough to run the kiosk.
+  it("keeps only churches where the account has Check-in or Attendance Edit", () => {
+    const checkin = withAttendance("checkin", "Checkin");
+    const edit = withAttendance("edit", "Edit");
+    const viewOnly = withAttendance("viewOnly", "View");
+    const otherRole = { church: { id: "giving", name: "giving" }, apis: [{ keyName: "GivingApi", jwt: "g.jwt", permissions: [{ contentType: "Donations", action: "Checkin" }] }] };
+    const noApis = { church: { id: "none", name: "none" }, apis: [] };
+    expect(SessionHelper.filterChurches([checkin, edit, viewOnly, otherRole, noApis])).toEqual([checkin, edit]);
+  });
+
+  it("drops a church without Check-in when a stored session is restored", async () => {
+    await SecureStore.setItemAsync("userJwt", "user.jwt");
+    (ApiHelper.postAnonymous as jest.Mock).mockResolvedValue({ user: { email: "staff@b1.church", jwt: "fresh.jwt" }, userChurches: [withAttendance("viewOnly", "View")] });
+    expect(await SessionHelper.restore()).toEqual([]);
+  });
+
   it("saves the user jwt in SecureStore and never writes @Password", async () => {
     await AsyncStorage.setItem("@Password", "leftover");
     await SessionHelper.save("user.jwt", "staff@b1.church", [church]);

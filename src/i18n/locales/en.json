@@ -202,8 +202,8 @@
     "title": "Scan Code"
   },
   "selectChurch": {
-    "emptySubtitle": "Your account doesn't have access to any church.",
-    "emptyTitle": "No churches available",
+    "emptySubtitle": "Your account needs the Check-in permission to run this kiosk. Ask your church admin to add it to one of your roles.",
+    "emptyTitle": "No check-in access",
     "title": "Select a Church"
   },
   "selectGroup": {

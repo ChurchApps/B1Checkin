@@ -13,7 +13,7 @@ export class SessionHelper {
   static churches: LoginUserChurchInterface[] = [];
 
   static filterChurches(churches?: LoginUserChurchInterface[]) {
-    return churches?.filter(uc => uc.apis && uc.apis.length > 0) || [];
+    return churches?.filter(uc => uc.apis?.some(api => api.keyName === "AttendanceApi" && api.permissions?.some(p => p.contentType === "Attendance" && (p.action === "Checkin" || p.action === "Edit")))) || [];
   }
 
   static async save(userJwt: string, email: string, churches: LoginUserChurchInterface[]) {
