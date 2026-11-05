@@ -53,10 +53,13 @@ export class ServiceTimeHelper {
   static isCheckinOpen(st: ServiceTimeInterface, now = new Date()): boolean {
     const start = parseTime(st.startTime);
     if (st.dayOfWeek == null || st.dayOfWeek < 0 || st.dayOfWeek > 6 || start === null) return true;
-    let end = parseTime(st.endTime) ?? start;
+    const parsedEnd = parseTime(st.endTime);
+    let end = parsedEnd ?? start;
     if (end < start) end += DAY;
     const windowStart = st.dayOfWeek * DAY + start - Math.max(0, st.checkinOpenMinutes ?? 0);
-    const windowEnd = st.dayOfWeek * DAY + end + Math.max(0, st.checkinCloseMinutes ?? 0);
+    // Neither an end time nor close minutes: open until the end of that day.
+    const openAllDay = parsedEnd === null && st.checkinCloseMinutes == null;
+    const windowEnd = openAllDay ? st.dayOfWeek * DAY + DAY - 1 : st.dayOfWeek * DAY + end + Math.max(0, st.checkinCloseMinutes ?? 0);
     const nowMinute = now.getDay() * DAY + now.getHours() * 60 + now.getMinutes();
     return [nowMinute - WEEK, nowMinute, nowMinute + WEEK].some(t => t >= windowStart && t <= windowEnd);
   }
