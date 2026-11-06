@@ -38,6 +38,15 @@ describe("ServiceTimeHelper.isCheckinOpen", () => {
     expect(ServiceTimeHelper.isCheckinOpen(st, at(1, 9, 30))).toBe(false);
   });
 
+  it("stays open until the end of that day when neither an end time nor close minutes is set", () => {
+    // Issue #1461: Thursday 10:25 service with blank end time and blank close field.
+    const startOnly = { id: "st3", dayOfWeek: 4, startTime: "10:25" };
+    expect(ServiceTimeHelper.isCheckinOpen(startOnly, at(4, 10, 24))).toBe(false);
+    expect(ServiceTimeHelper.isCheckinOpen(startOnly, at(4, 10, 27))).toBe(true);
+    expect(ServiceTimeHelper.isCheckinOpen(startOnly, at(4, 23, 59))).toBe(true);
+    expect(ServiceTimeHelper.isCheckinOpen(startOnly, at(5, 8, 0))).toBe(false);
+  });
+
   it("handles a window spilling from Saturday into Sunday", () => {
     const early = { id: "st2", dayOfWeek: 0, startTime: "00:15", checkinOpenMinutes: 30 };
     expect(ServiceTimeHelper.isCheckinOpen(early, at(-1, 23, 50))).toBe(true);
