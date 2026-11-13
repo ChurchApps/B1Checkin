@@ -17,6 +17,7 @@ const AddGuest = (props: Props) => {
   const router = useRouter();
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [firstNameError, setFirstNameError] = React.useState("");
   const [lastNameError, setLastNameError] = React.useState("");
   const [submitting, setSubmitting] = React.useState(false);
@@ -48,7 +49,8 @@ const AddGuest = (props: Props) => {
     const fullName = firstname + " " + lastname;
     let person: PersonInterface | null = await searchForGuest(fullName);
     if (person === null) {
-      person = { householdId: CachedData.householdId, name: { display: fullName, first: firstname, last: lastname }, contactInfo: {} };
+      const contactInfo = email.trim() ? { email: email.trim() } : {};
+      person = { householdId: CachedData.householdId, name: { display: fullName, first: firstname, last: lastname }, contactInfo };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
       if (data && data.length > 0) person.id = data[0].id;
     }
@@ -110,6 +112,18 @@ const AddGuest = (props: Props) => {
               error={lastNameError}
               size="lg"
               autoCapitalize="words"
+              returnKeyType="next"
+              containerStyle={{ marginBottom: theme.spacing.lg }}
+            />
+            <TextField
+              label={t("addGuest.email")}
+              placeholder={String(t("addGuest.emailPlaceholder"))}
+              value={email}
+              onChangeText={setEmail}
+              size="lg"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
               returnKeyType="done"
               onSubmitEditing={addGuest}
             />

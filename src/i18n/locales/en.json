@@ -2,6 +2,8 @@
   "addGuest": {
     "addButton": "Add Guest",
     "addFailed": "Couldn't add the guest. Please try again.",
+    "email": "Email",
+    "emailPlaceholder": "Enter email (optional)",
     "enterFirstName": "Please enter first name",
     "enterLastName": "Please enter last name",
     "firstName": "First Name",
