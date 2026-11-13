@@ -8,6 +8,7 @@ import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PrintUI from "../src/components/PrintUI";
 import CodeScanner from "../src/components/CodeScanner";
+import HouseholdSearch from "../src/components/HouseholdSearch";
 import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, HouseholdPickupInterface, LabelHelper, PersonInterface, PickupMatchHelper, PrinterLog, screenNavigationProps, VisitInterface, VisitSessionHelper } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
 import { Avatar, Badge, Button, Screen, Sheet, TextField, Toast } from "../src/components/ui";
@@ -40,6 +41,8 @@ const Checkout = (props: Props) => {
   const [reprintLabels, setReprintLabels] = React.useState<string[]>([]);
   const [reprinting, setReprinting] = React.useState(false);
   const [scanOpen, setScanOpen] = React.useState(false);
+  const [entryMode, setEntryMode] = React.useState<"code" | "search">("code");
+  const [loadingPersonId, setLoadingPersonId] = React.useState<string | null>(null);
 
   const manned = CachedData.stationMode === "manned";
   const keyHeight = windowHeight < 1000 ? 52 : 64;
@@ -77,6 +80,34 @@ const Checkout = (props: Props) => {
         setLooking(false);
       })
       .catch(() => reset(t("checkout.lookupError")));
+  };
+
+  const lookupPerson = async (person: PersonInterface) => {
+    setLoadingPersonId(person.id || "");
+    setError("");
+    try {
+      const householdId = person.householdId;
+      const members: PersonInterface[] = householdId ? await ApiHelper.get("/people/household/" + householdId, "MembershipApi") : [person];
+      const memberIds: string[] = ArrayHelper.getUniqueValues(members, "id");
+      const found: VisitInterface[] = await ApiHelper.get("/visits/active?peopleIds=" + encodeURIComponent(memberIds.join(",")), "AttendanceApi");
+      if (!Array.isArray(found) || found.length === 0) {
+        setError(t("checkout.noActive"));
+        setLoadingPersonId(null);
+        return;
+      }
+      const ids: string[] = ArrayHelper.getUniqueValues(found, "personId");
+      const pickup: HouseholdPickupInterface[] = householdId
+        ? await ApiHelper.get("/householdpickup/" + householdId, "MembershipApi").catch(() => [])
+        : [];
+      setVisits(found);
+      setChildren(members.filter(m => ids.includes(m.id || "")));
+      setAdults(members.filter(m => !ids.includes(m.id || "") && m.householdRole !== "Child"));
+      setPickupPeople(Array.isArray(pickup) ? pickup : []);
+      setLoadingPersonId(null);
+    } catch {
+      setLoadingPersonId(null);
+      setError(t("checkout.lookupError"));
+    }
   };
 
   const handleCode = (text: string) => {
@@ -194,7 +225,10 @@ const Checkout = (props: Props) => {
       </View>
       {!!error && <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.danger, textAlign: "center" }}>{error}</Text>}
       {!looking && (
-        <Button label={t("checkout.scan")} variant="outline" size="md" icon="qr-code-scanner" testID="checkout-scan-button" onPress={() => setScanOpen(true)} style={{ alignSelf: "center", marginTop: theme.spacing.md }} />
+        <View style={{ flexDirection: "row", justifyContent: "center", gap: theme.spacing.md, marginTop: theme.spacing.md }}>
+          <Button label={t("checkout.scan")} variant="outline" size="md" icon="qr-code-scanner" testID="checkout-scan-button" onPress={() => setScanOpen(true)} />
+          <Button label={t("checkout.searchByName")} variant="outline" size="md" icon="search" testID="checkout-search-button" onPress={() => { setError(""); setEntryMode("search"); }} />
+        </View>
       )}
       <View style={{ flex: 1 }} />
       <View style={{ gap: theme.spacing.md, marginBottom: theme.spacing.lg }}>
@@ -213,6 +247,14 @@ const Checkout = (props: Props) => {
           </View>
         ))}
       </View>
+    </>
+  );
+
+  const searchEntry = (
+    <>
+      {!!error && <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.danger, textAlign: "center", marginTop: theme.spacing.md }}>{error}</Text>}
+      <HouseholdSearch onSelect={lookupPerson} loadingPersonId={loadingPersonId} />
+      <Button label={t("checkout.backToCode")} variant="ghost" size="md" icon="dialpad" testID="checkout-back-to-code" onPress={() => { setError(""); setEntryMode("code"); }} style={{ alignSelf: "center", marginVertical: theme.spacing.md }} />
     </>
   );
 
@@ -307,8 +349,8 @@ const Checkout = (props: Props) => {
   return (
     <>
       <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} scroll={visits.length > 0}>
-        <Subheader title={t("checkout.title")} subtitle={visits.length === 0 ? t("checkout.subtitle") : undefined} onBack={() => router.back()} />
-        {visits.length === 0 ? codeEntry : pickup}
+        <Subheader title={t("checkout.title")} subtitle={visits.length === 0 ? (entryMode === "search" ? t("checkout.searchSubtitle") : t("checkout.subtitle")) : undefined} onBack={() => router.back()} />
+        {visits.length > 0 ? pickup : entryMode === "search" ? searchEntry : codeEntry}
       </Screen>
 
       <Sheet visible={!!blocked} onClose={() => setBlocked(null)} maxWidth={440}>

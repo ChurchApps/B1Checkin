@@ -48,6 +48,7 @@
     "warnTitle": "Volunteer ratio warning"
   },
   "checkout": {
+    "backToCode": "Enter code instead",
     "checkingOut": "Checking out",
     "checkoutFailed": "Couldn't check out. Please try again.",
     "codeNotFound": "No active check-ins match that code. Please try again.",
@@ -56,6 +57,8 @@
     "noProvider": "No SMS provider configured — set one up in B1Admin Texting settings.",
     "notAuthorizedMessage": "{{name}} is flagged as not authorized for pickup. Follow your child-safety procedure.",
     "notAuthorizedTitle": "Not authorized for pickup",
+    "newSearch": "New search",
+    "noActive": "No one in this household is checked in right now.",
     "nothingToPrint": "No labels to print.",
     "other": "Other",
     "otherNamePlaceholder": "Enter name",
@@ -72,6 +75,8 @@
     "reprinted": "Labels sent to printer",
     "scan": "Scan",
     "scanTitle": "Scan pickup code",
+    "searchByName": "Search by name",
+    "searchSubtitle": "Find the family by last name or phone",
     "subtitle": "Enter or scan the security code",
     "success": "Checked out successfully",
     "title": "Check Out",
