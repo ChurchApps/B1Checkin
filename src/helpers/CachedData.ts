@@ -23,6 +23,8 @@ export class CachedData {
 
   static labelTemplates: LabelTemplateInterface[] = [];
   static stationMode: "self" | "manned" = "self";
+  // Tablet setting: the lookup screen opens on the camera scanner and returns to it after each check-in.
+  static startOnScanner: boolean = false;
 
   // Per-person check-in type chosen at the household screen (personId -> type).
   static checkinTypes: Record<string, CheckinType> = {};

@@ -23,6 +23,7 @@ const AdminSettings = (props: Props) => {
   const theme = useAppTheme();
   const [showChangePinModal, setShowChangePinModal] = React.useState(false);
   const [manned, setManned] = React.useState(CachedData.stationMode === "manned");
+  const [startOnScanner, setStartOnScanner] = React.useState(CachedData.startOnScanner);
   const [broadcastOpen, setBroadcastOpen] = React.useState(false);
   const [services, setServices] = React.useState<any[]>([]);
   const [broadcastServiceId, setBroadcastServiceId] = React.useState("");
@@ -59,6 +60,12 @@ const AdminSettings = (props: Props) => {
     setManned(value);
     CachedData.stationMode = value ? "manned" : "self";
     AsyncStorage.setItem("@StationMode", CachedData.stationMode).catch(() => {});
+  };
+
+  const toggleStartOnScanner = (value: boolean) => {
+    setStartOnScanner(value);
+    CachedData.startOnScanner = value;
+    AsyncStorage.setItem("@StartOnScanner", value ? "true" : "false").catch(() => {});
   };
 
   const handleLogout = () => {
@@ -119,6 +126,14 @@ const AdminSettings = (props: Props) => {
           left={getIconCircle("badge")}
           right={<Switch value={manned} onValueChange={toggleManned} trackColor={{ true: theme.colors.primary }} />}
           onPress={() => toggleManned(!manned)}
+          style={{ marginBottom: theme.spacing.sm }}
+        />
+        <ListRow
+          title={t("admin.startOnScanner")}
+          subtitle={t("admin.startOnScannerHint")}
+          left={getIconCircle("qr-code-scanner")}
+          right={<Switch value={startOnScanner} onValueChange={toggleStartOnScanner} trackColor={{ true: theme.colors.primary }} />}
+          onPress={() => toggleStartOnScanner(!startOnScanner)}
           style={{ marginBottom: theme.spacing.sm }}
         />
         <View style={{ height: theme.spacing.lg }} />
