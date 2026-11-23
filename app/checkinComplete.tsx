@@ -83,6 +83,7 @@ const CheckinComplete = (props: Props) => {
     CachedData.existingVisits = [];
     CachedData.pendingVisits = [];
     CachedData.checkinTypes = {};
+    CachedData.checkedInById = "";
     setHtmlLabels([]);
     redirectToLookup(hasMilestone);
   };
@@ -138,6 +139,7 @@ const CheckinComplete = (props: Props) => {
         pv.checkinType = CachedData.checkinTypes[pv.personId] || VisitHelper.getDefaultCheckinType(CachedData.existingVisits, pv.personId, person?.isGuest);
       }
     });
+    VisitHelper.stampCheckedInBy(CachedData.pendingVisits, CachedData.checkedInById);
     let url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(","));
     if (acknowledgeWarnings) url += "&acknowledgeWarnings=true";
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi")

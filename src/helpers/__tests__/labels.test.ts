@@ -240,3 +240,49 @@ describe("LabelHelper age, birth date, and check-in type", () => {
     CachedData.labelTemplates = [];
   });
 });
+
+describe("LabelHelper checked in by", () => {
+  const household = [
+    { id: "K1", name: { display: "Tommy Smith" } },
+    { id: "MOM", name: { display: "Mary Smith" }, contactInfo: { mobilePhone: "555-0101", homePhone: "555-0199" } },
+    { id: "DAD", displayName: "John Smith", contactInfo: { homePhone: "555-0199" } }
+  ];
+
+  afterEach(() => { CachedData.householdMembers = []; });
+
+  it("takes the name and mobile phone, else home phone, of the adult on the visit", () => {
+    CachedData.householdMembers = household;
+    expect(LabelHelper.getCheckedInBy({ personId: "K1", checkedInById: "MOM" })).toEqual({ name: "Mary Smith", phone: "555-0101" });
+    expect(LabelHelper.getCheckedInBy({ personId: "K1", checkedInById: "DAD" })).toEqual({ name: "John Smith", phone: "555-0199" });
+  });
+
+  it("is blank when no one was recorded or the adult is not in the loaded household", () => {
+    CachedData.householdMembers = household;
+    expect(LabelHelper.getCheckedInBy({ personId: "K1" })).toEqual({ name: "", phone: "" });
+    expect(LabelHelper.getCheckedInBy({ personId: "K1", checkedInById: "OTHER" })).toEqual({ name: "", phone: "" });
+  });
+
+  it("prints and conditions on Checked in by fields on a designed nametag", async () => {
+    CachedData.serviceTimes = [{ id: "ST1", groups: [{ id: "G1", printNametag: true, parentPickup: false }] }];
+    CachedData.labelTemplates = [
+      {
+        labelType: "nametag",
+        isDefault: true,
+        content: JSON.stringify([
+          { type: "field", field: "checkedInBy.name", x: 0, y: 0, w: 50, h: 20 },
+          { type: "field", field: "checkedInBy.phone", x: 50, y: 0, w: 50, h: 20 },
+          { type: "text", text: "NO ADULT", x: 0, y: 20, w: 50, h: 20, condition: { field: "checkedInBy.name", operator: "empty" } }
+        ])
+      }, { labelType: "pickup", content: "[]" }
+    ];
+    const session = { session: { groupId: "G1", serviceTimeId: "ST1", displayName: "Room" } };
+    const withAdult = await LabelHelper.getAllLabelsFor([{ personId: "K1", checkedInById: "MOM", visitSessions: [session] }], household, "BXRC");
+    expect(withAdult[0]).toContain(">Mary Smith<");
+    expect(withAdult[0]).toContain(">555-0101<");
+    expect(withAdult[0]).not.toContain("NO ADULT");
+    const noAdult = await LabelHelper.getAllLabelsFor([{ personId: "K1", visitSessions: [session] }], household, "BXRC");
+    expect(noAdult[0]).toContain("NO ADULT");
+    CachedData.serviceTimes = [];
+    CachedData.labelTemplates = [];
+  });
+});

@@ -7,7 +7,7 @@ import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import QRCode from "react-native-qrcode-svg";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
-import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, GuestRegisterHelper, PersonInterface, screenNavigationProps } from "../src/helpers";
+import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, GuestRegisterHelper, PersonInterface, screenNavigationProps, VisitHelper } from "../src/helpers";
 import Header from "../src/components/Header";
 import IdleScreen from "../src/components/IdleScreen";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
@@ -77,10 +77,12 @@ const Lookup = (props: Props) => {
     ? "/people/search/phone?number=" + (phone.length > 4 ? phone : phone.slice(-4))
     : "/people/search?term=" + encodeURIComponent(lastName.trim());
 
-  const loadHouseholdMembers = async () => {
+  const loadHouseholdMembers = async (lookedUp: PersonInterface) => {
     const members: PersonInterface[] = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
     // Inactive people stay (they may be returning); deceased never show.
     CachedData.householdMembers = (Array.isArray(members) ? members : []).filter(m => m.membershipStatus !== "Deceased");
+    // The household list carries role and birth date, which search results may not.
+    CachedData.checkedInById = VisitHelper.getCheckedInById(CachedData.householdMembers.find(m => m.id === lookedUp.id) || lookedUp);
     await loadExistingVisits();
   };
 
@@ -98,7 +100,8 @@ const Lookup = (props: Props) => {
     if (loadingPersonId) return;
     setLoadingPersonId(person.id || "");
     CachedData.householdId = person.householdId || "";
-    loadHouseholdMembers().catch(() => {
+    CachedData.checkedInById = "";
+    loadHouseholdMembers(person).catch(() => {
       setLoadingPersonId(null);
       setHasSearched(true);
       setSearchFailed(true);
