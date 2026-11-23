@@ -66,6 +66,8 @@ describe("VisitHelper.getCheckedInById", () => {
 
   it("records no one when nothing shows the person is an adult", () => {
     expect(VisitHelper.getCheckedInById({ id: "p1" }, today)).toBe("");
+    expect(VisitHelper.getCheckedInById({ id: "p1", householdRole: "Other" }, today)).toBe("");
+    expect(VisitHelper.getCheckedInById({ id: "p1", householdRole: "Other", birthDate: "1960-01-01" as any }, today)).toBe("p1");
     expect(VisitHelper.getCheckedInById({ id: "p1", birthDate: "not a date" as any }, today)).toBe("");
     expect(VisitHelper.getCheckedInById(null, today)).toBe("");
     expect(VisitHelper.getCheckedInById({ householdRole: "Head" }, today)).toBe("");
