@@ -7,7 +7,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { router } from "expo-router";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { ApiHelper, ArrayHelper, CachedData, FirebaseHelper, GroupInterface, GroupServiceTimeInterface, screenNavigationProps, ServiceTimeHelper, ServiceTimeInterface } from "../src/helpers";
+import { AnnouncementHelper, ApiHelper, ArrayHelper, CachedData, FirebaseHelper, GroupInterface, GroupServiceTimeInterface, screenNavigationProps, ServiceTimeHelper, ServiceTimeInterface } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { useAppTheme } from "../src/theme";
 import { Button, EmptyState, ListRow, Screen, SkeletonList } from "../src/components/ui";
@@ -65,8 +65,11 @@ const Services = (props: Props) => {
       ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
       ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; }),
       ApiHelper.get("/checkin/settings", "AttendanceApi")
-        .then((settings: any) => { CachedData.gradePromotionDate = settings?.gradePromotionDate ?? null; })
-        .catch(() => { CachedData.gradePromotionDate = null; }),
+        .then((settings: any) => {
+          CachedData.gradePromotionDate = settings?.gradePromotionDate ?? null;
+          CachedData.checkinAnnouncement = AnnouncementHelper.normalize(settings?.checkinAnnouncement);
+        })
+        .catch(() => { CachedData.gradePromotionDate = null; CachedData.checkinAnnouncement = ""; }),
       ApiHelper.get("/labeltemplates", "AttendanceApi")
         .then(templates => {
           CachedData.labelTemplates = Array.isArray(templates) ? templates : [];

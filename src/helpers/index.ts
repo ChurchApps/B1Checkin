@@ -1,5 +1,6 @@
 // Local helpers
 export { CachedData } from "./CachedData";
+export { AnnouncementHelper } from "./AnnouncementHelper";
 export { EnvironmentHelper } from "./EnvironmentHelper";
 export * from "./Interfaces";
 export { EligibilityHelper } from "./EligibilityHelper";

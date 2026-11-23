@@ -5,6 +5,7 @@ import { router, useFocusEffect } from "expo-router";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import MemberList from "../src/components/MemberList";
+import CheckinAnnouncement from "../src/components/CheckinAnnouncement";
 import { CachedData, FirebaseHelper, screenNavigationProps, VisitHelper, VisitInterface } from "../src/helpers";
 import { useAppTheme } from "../src/theme";
 import { Button, EmptyState, Screen, Sheet, StepIndicator } from "../src/components/ui";
@@ -87,6 +88,8 @@ const Household = (props: Props) => {
           />
         </ScrollView>
       </Screen>
+
+      <CheckinAnnouncement />
 
       <Sheet visible={!!duplicateNames} onClose={() => setDuplicateNames(null)} maxWidth={420}>
         <View style={{ alignItems: "center", gap: theme.spacing.lg }}>
