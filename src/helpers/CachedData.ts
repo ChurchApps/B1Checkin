@@ -30,5 +30,7 @@ export class CachedData {
   static checkinTypes: Record<string, CheckinType> = {};
   // Church grade/age cutoff "MM-DD" (from GET /attendance/checkin/settings); null = use today.
   static gradePromotionDate: string | null = null;
+  // Church-wide check-in announcement (from GET /attendance/checkin/settings); "" = none.
+  static checkinAnnouncement: string = "";
 }
 

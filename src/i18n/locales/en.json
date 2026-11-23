@@ -117,6 +117,7 @@
   "household": {
     "addGuest": "Add a Guest",
     "alreadyCheckedIn": "Already checked in",
+    "announcementTitle": "Announcement",
     "checkin": "Check In",
     "checkinCount": "Check In — {{count}}",
     "chooseGroupHint": "Choose a group for at least one person",
