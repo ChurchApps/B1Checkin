@@ -18,6 +18,9 @@ import { Avatar, Button, EmptyState, ListRow, NumberPad, Screen, Sheet, Skeleton
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
+// Wait this long after the last keystroke before searching as the person types.
+const LIVE_SEARCH_DELAY_MS = 400;
+
 const ScanCodeButton = ({ label, onPress }: { label: string; onPress: () => void }) => {
   const theme = useAppTheme();
   return (
@@ -62,14 +65,22 @@ const Lookup = (props: Props) => {
   const [loadingPersonId, setLoadingPersonId] = React.useState<string | null>(null);
   const [searchFailed, setSearchFailed] = React.useState(false);
   const [manned, setManned] = React.useState(CachedData.stationMode === "manned");
+  const [livePeople, setLivePeople] = React.useState<PersonInterface[] | null>(null);
+  const liveSearchSeq = React.useRef(0);
 
   useFocusEffect(React.useCallback(() => { setManned(CachedData.stationMode === "manned"); }, []));
 
   const keyHeight = windowHeight < 1000 ? 72 : 88;
   const canSearch = searchMode === "phone" ? phone.length >= 4 : lastName.trim().length >= 2;
 
+  const getSearchUrl = () => searchMode === "phone"
+    ? "/people/search/phone?number=" + (phone.length > 4 ? phone : phone.slice(-4))
+    : "/people/search?term=" + encodeURIComponent(lastName.trim());
+
   const loadHouseholdMembers = async () => {
-    CachedData.householdMembers = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
+    const members: PersonInterface[] = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
+    // Inactive people stay (they may be returning); deceased never show.
+    CachedData.householdMembers = (Array.isArray(members) ? members : []).filter(m => m.membershipStatus !== "Deceased");
     await loadExistingVisits();
   };
 
@@ -89,6 +100,7 @@ const Lookup = (props: Props) => {
     CachedData.householdId = person.householdId || "";
     loadHouseholdMembers().catch(() => {
       setLoadingPersonId(null);
+      setHasSearched(true);
       setSearchFailed(true);
     });
   };
@@ -114,17 +126,28 @@ const Lookup = (props: Props) => {
     setHasSearched(true);
     setIsLoading(true);
     setSearchFailed(false);
-    const url = searchMode === "phone"
-      ? "/people/search/phone?number=" + (phone.length > 4 ? phone : phone.slice(-4))
-      : "/people/search?term=" + encodeURIComponent(lastName.trim());
-    ApiHelper.get(url, "MembershipApi")
+    ApiHelper.get(getSearchUrl(), "MembershipApi")
       .then(data => setPeople(data))
       .catch(() => setSearchFailed(true))
       .finally(() => setIsLoading(false));
   };
 
+  // Search as the person types, once the same minimum the Search button needs is met.
+  React.useEffect(() => {
+    const seq = ++liveSearchSeq.current;
+    if (hasSearched || !canSearch) { setLivePeople(null); return; }
+    const timer = setTimeout(() => {
+      ApiHelper.get(getSearchUrl(), "MembershipApi")
+        .then(data => { if (seq === liveSearchSeq.current) setLivePeople(Array.isArray(data) ? data : []); })
+        .catch(() => { if (seq === liveSearchSeq.current) setLivePeople(null); });
+    }, LIVE_SEARCH_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [searchMode, phone, lastName, hasSearched]);
+
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Lookup");
+    // Runs on mount only, so Back from the scanner lands on the keypad instead of reopening the camera.
+    if (CachedData.startOnScanner) router.navigate("/scan");
     if (CachedData.userChurch?.church?.id) {
       ApiHelper.getAnonymous("/settings/public/" + CachedData.userChurch.church.id, "MembershipApi")
         .then((settings: any) => { setShowQR(settings?.enableQRGuestRegistration === "true"); })
@@ -148,6 +171,30 @@ const Lookup = (props: Props) => {
         onPress={() => selectPerson(item)}
         style={{ marginBottom: theme.spacing.md }}
       />
+    </Animated.View>
+  );
+
+  const liveResults = livePeople && (
+    <Animated.View entering={FadeIn.duration(150)} style={{ flex: 1, marginTop: theme.spacing.md }} testID="lookup-live-results">
+      {livePeople.length === 0
+        ? <Text style={{ ...theme.type.body, color: theme.colors.textMuted, textAlign: "center" }}>{t("lookup.noMatchTitle")}</Text>
+        : (
+          <FlatList
+            data={livePeople}
+            keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <ListRow
+                title={item?.name?.display || ""}
+                left={<Avatar name={item?.name?.display || ""} photoUri={item.photo ? EnvironmentHelper.ContentRoot + item.photo : undefined} size={44} />}
+                right={loadingPersonId === item.id ? "spinner" : "chevron"}
+                onPress={() => selectPerson(item)}
+                style={{ marginBottom: theme.spacing.sm }}
+              />
+            )}
+          />
+        )}
     </Animated.View>
   );
 
@@ -216,7 +263,7 @@ const Lookup = (props: Props) => {
           {phone ? formatPhoneDisplay(phone) : "____"}
         </Text>
       </View>
-      <View style={{ flex: 1 }} />
+      <View style={{ flex: 1 }}>{liveResults}</View>
       <NumberPad
         keyHeight={keyHeight}
         onDigit={digit => {
@@ -266,7 +313,7 @@ const Lookup = (props: Props) => {
         onPress={() => switchMode("phone")}
         style={{ marginTop: theme.spacing.md }}
       />
-      <View style={{ flex: 1 }} />
+      <View style={{ flex: 1 }}>{liveResults}</View>
     </>
   );
 

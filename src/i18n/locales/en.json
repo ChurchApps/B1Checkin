@@ -29,6 +29,8 @@
     "mannedModeHint": "Adds check-out, paging, reprint, and profile editing",
     "noProvider": "No SMS provider configured — set one up in B1Admin Texting settings.",
     "setPin": "Set Admin PIN",
+    "startOnScanner": "Start on scanner",
+    "startOnScannerHint": "Opens the camera to scan a code, and returns to it after each check-in",
     "subtitle": "Manage your kiosk device settings",
     "title": "Admin Settings"
   },

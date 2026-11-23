@@ -29,6 +29,14 @@ const Scan = (props: Props) => {
     setBusy(false);
   };
 
+  // A station set to start on the scanner keeps the camera up for the next family.
+  const finish = () => {
+    setHtmlLabels([]);
+    setBusy(false);
+    if (CachedData.startOnScanner) setPeople([]);
+    else router.replace("/lookup");
+  };
+
   const lookupCode = async (code: string) => {
     setBusy(true);
     setError("");
@@ -40,14 +48,14 @@ const Scan = (props: Props) => {
       setPeople(found);
       if (!CachedData.printer?.ipAddress) {
         Toast.show(t("scan.noPrinter"), "info");
-        router.replace("/lookup");
+        finish();
         return;
       }
       PrinterLog.add("--- Print from QR scan ---");
       const labels = await LabelHelper.getAllLabelsFor(visits, found, code);
       if (labels.length === 0) {
         Toast.show(t("scan.nothingToPrint"), "info");
-        router.replace("/lookup");
+        finish();
         return;
       }
       setHtmlLabels(labels);
@@ -57,10 +65,8 @@ const Scan = (props: Props) => {
   };
 
   const handlePrintComplete = () => {
-    setHtmlLabels([]);
-    setBusy(false);
     Toast.show(t("scan.printed"), "success");
-    router.replace("/lookup");
+    finish();
   };
 
   const printing = (

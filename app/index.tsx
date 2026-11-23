@@ -105,11 +105,12 @@ export default function Splash() {
 
   const checkStoredCredentials = async () => {
     try {
-      const [selectedChurchId, churchAppearance, savedPrinter, kioskPin, kioskLocked, stationMode] = await AsyncStorage.multiGet(["@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked", "@StationMode"]);
+      const [selectedChurchId, churchAppearance, savedPrinter, kioskPin, kioskLocked, stationMode, startOnScanner] = await AsyncStorage.multiGet(["@SelectedChurchId", "@ChurchAppearance", "@Printer", "@KioskPIN", "@KioskLocked", "@StationMode", "@StartOnScanner"]);
 
       if (stationMode[1] === "manned") {
         CachedData.stationMode = "manned";
       }
+      CachedData.startOnScanner = startOnScanner[1] === "true";
 
       if (savedPrinter[1]) {
         try {
