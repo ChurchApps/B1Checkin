@@ -4,8 +4,13 @@ jest.mock("../PrinterLog", () => ({ PrinterLog: { add: jest.fn(), attachNativeLi
 
 import { code128Codes, code128Svg, code39Binary, code39Pattern, code39Svg, qrSvg } from "../barcode";
 import { LabelRenderer } from "../LabelRenderer";
+import i18n from "i18next";
+import en from "../../i18n/locales/en.json";
 import { LabelHelper } from "../LabelHelper";
-import { LabelBlockInterface } from "../Interfaces";
+import { CachedData } from "../CachedData";
+import { LabelBlockInterface, VisitInterface } from "../Interfaces";
+
+beforeAll(() => i18n.init({ lng: "en", resources: { en: { translation: en } }, interpolation: { escapeValue: false } }));
 
 describe("code39", () => {
   it("matches known patterns", () => {
@@ -150,5 +155,62 @@ describe("LabelHelper.isBirthdayWithin", () => {
     expect(LabelHelper.isBirthdayWithin(null, 3)).toBe(false);
     expect(LabelHelper.isBirthdayWithin("not-a-date", 3)).toBe(false);
     expect(LabelHelper.isBirthdayWithin("2026-06-15T12:00:00", 3, new Date(2026, 5, 15))).toBe(true);
+  });
+});
+
+describe("LabelHelper age, birth date, and check-in type", () => {
+  const today = new Date(2026, 10, 23); // Nov 23, 2026
+
+  it("formats age in whole years, or months under 2", () => {
+    expect(LabelHelper.formatAge("2022-03-14", today)).toBe("4");
+    expect(LabelHelper.formatAge("2022-11-24", today)).toBe("3"); // birthday is tomorrow
+    expect(LabelHelper.formatAge("2025-05-01T00:00:00.000Z", today)).toBe("18 mo");
+    expect(LabelHelper.formatAge("2026-11-01", today)).toBe("0 mo");
+  });
+
+  it("leaves age and birth date blank with no, invalid, or future birth dates", () => {
+    expect(LabelHelper.formatAge(undefined, today)).toBe("");
+    expect(LabelHelper.formatAge("not-a-date", today)).toBe("");
+    expect(LabelHelper.formatAge("2027-01-01", today)).toBe("");
+    expect(LabelHelper.formatBirthDate(null)).toBe("");
+  });
+
+  it("keeps the calendar day of a UTC-midnight birth date", () => {
+    expect(LabelHelper.formatBirthDate("2022-03-14T00:00:00.000Z")).toBe(new Date(2022, 2, 14).toLocaleDateString());
+  });
+
+  it("prints the check-in type from the visit, else the kiosk's per-person choice", () => {
+    expect(LabelHelper.formatCheckinType({ personId: "P1", checkinType: "volunteer" })).toBe("Volunteer");
+    CachedData.checkinTypes = { P2: "guest" };
+    expect(LabelHelper.formatCheckinType({ personId: "P2" })).toBe("Guest");
+    expect(LabelHelper.formatCheckinType({ personId: "P3" })).toBe("");
+    CachedData.checkinTypes = {};
+  });
+
+  it("fills the new fields on a designed nametag", async () => {
+    CachedData.serviceTimes = [{ id: "ST1", groups: [{ id: "G1", printNametag: true, parentPickup: false }] }];
+    CachedData.labelTemplates = [
+      {
+        labelType: "nametag",
+        isDefault: true,
+        content: JSON.stringify([
+          { type: "field", field: "person.age", x: 0, y: 0, w: 25, h: 20 },
+          { type: "field", field: "person.grade", x: 25, y: 0, w: 25, h: 20 },
+          { type: "field", field: "person.birthDate", x: 50, y: 0, w: 25, h: 20 },
+          { type: "field", field: "checkinType", x: 75, y: 0, w: 25, h: 20 }
+        ])
+      }, { labelType: "pickup", content: "[]" }
+    ];
+    const visit: VisitInterface = { personId: "P1", checkinType: "guest", visitSessions: [{ session: { groupId: "G1", serviceTimeId: "ST1", displayName: "Room" } }] };
+    const now = new Date();
+    const birthDate = new Date(now.getFullYear() - 7, now.getMonth() - 1, 1); // always 7 years and 1-2 months old
+    const labels = await LabelHelper.getAllLabelsFor([visit], [{ id: "P1", birthDate, grade: "2" }], "BXRC");
+    expect(labels).toHaveLength(1);
+    expect(labels[0]).toContain(">7<");
+    expect(labels[0]).toContain(">2<");
+    expect(labels[0]).toContain(">" + birthDate.toLocaleDateString() + "<");
+    expect(labels[0]).toContain(">Guest<");
+    CachedData.serviceTimes = [];
+    CachedData.labelTemplates = [];
   });
 });

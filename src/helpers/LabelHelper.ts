@@ -1,8 +1,10 @@
 import { Platform } from "react-native";
+import i18n from "i18next";
 import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
 import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, LabelBlockInterface } from "./Interfaces";
 import { ArrayHelper } from "./ArrayHelper";
+import { EligibilityHelper } from "./EligibilityHelper";
 import { PrinterLog } from "./PrinterLog";
 import { LabelContext, LabelRenderer } from "./LabelRenderer";
 
@@ -135,6 +137,34 @@ export class LabelHelper {
     });
   }
 
+  // "YYYY-MM-DD..." strings are read as a local calendar date so the day never shifts with the kiosk's time zone.
+  public static parseBirthDate(birthDate: Date | string | null | undefined): Date | null {
+    if (!birthDate) return null;
+    if (birthDate instanceof Date) return isNaN(birthDate.getTime()) ? null : birthDate;
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(birthDate);
+    const bd = m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : new Date(birthDate);
+    return isNaN(bd.getTime()) ? null : bd;
+  }
+
+  // Whole years, or months under age 2 so nursery labels are useful. Same month math as room guidance.
+  public static formatAge(birthDate: Date | string | null | undefined, today: Date = new Date()): string {
+    const bd = this.parseBirthDate(birthDate);
+    if (!bd) return "";
+    const months = EligibilityHelper.ageInMonths(bd, today);
+    if (months < 0) return "";
+    if (months < 24) return i18n.t("labels.ageMonths", { count: months });
+    return String(Math.floor(months / 12));
+  }
+
+  public static formatBirthDate(birthDate: Date | string | null | undefined): string {
+    return this.parseBirthDate(birthDate)?.toLocaleDateString() || "";
+  }
+
+  public static formatCheckinType(visit: VisitInterface): string {
+    const type = visit.checkinType || CachedData.checkinTypes[visit.personId || ""];
+    return type ? i18n.t(`household.type.${type}`) : "";
+  }
+
   private static getNametagContext(visit: VisitInterface, isChild: boolean, pickupCode: string): LabelContext {
     const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "") || {};
     return {
@@ -145,6 +175,10 @@ export class LabelHelper {
       "person.nickName": person.name?.nick || person.nickName || "",
       "person.nametagNotes": person.nametagNotes || "",
       "person.isBirthdayWeek": this.isBirthdayWithin(person.birthDate, 3) ? "true" : "",
+      "person.age": this.formatAge(person.birthDate),
+      "person.grade": person.grade || "",
+      "person.birthDate": this.formatBirthDate(person.birthDate),
+      checkinType: this.formatCheckinType(visit),
       sessions: VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/,/g, "\n")
     };
   }
