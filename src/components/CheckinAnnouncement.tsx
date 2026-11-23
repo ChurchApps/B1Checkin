@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import { useFocusEffect } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AnnouncementHelper, CachedData } from "../helpers";
 import { useAppTheme } from "../theme";
@@ -12,11 +13,16 @@ export const CheckinAnnouncement: React.FC = () => {
   const { t } = useTranslation();
   const theme = useAppTheme();
   const text = CachedData.checkinAnnouncement;
-  const household = CachedData.householdMembers;
-  const [visible, setVisible] = React.useState(() => AnnouncementHelper.shouldShow(text, household));
+  const [visible, setVisible] = React.useState(() => AnnouncementHelper.shouldShow(text, CachedData.householdMembers));
+
+  // Check again each time the household screen gains focus: the screen can be reused for the next family,
+  // and lookup always loads a new household list, so a new family sees it while add-guest / change-rooms does not.
+  useFocusEffect(React.useCallback(() => {
+    setVisible(AnnouncementHelper.shouldShow(CachedData.checkinAnnouncement, CachedData.householdMembers));
+  }, []));
 
   const confirm = () => {
-    AnnouncementHelper.confirm(household);
+    AnnouncementHelper.confirm(CachedData.householdMembers);
     setVisible(false);
   };
 

@@ -1,5 +1,5 @@
 import { APIRequestContext, expect, test } from "@playwright/test";
-import { searchSmith, startKiosk } from "./helpers/kiosk";
+import { searchSmith, startKiosk, tapDigits } from "./helpers/kiosk";
 import { apiLogin } from "./helpers/api";
 
 // The church-wide check-in announcement (Mobile > B1 CheckIn in B1Admin) shows with OK before the household screen.
@@ -58,6 +58,29 @@ test("shows the announcement as plain text before the household screen, once per
   await page.getByRole("button", { name: /Preschool/ }).click();
   await expect(page.getByText("Who's checking in?")).toBeVisible();
   await expect(text).toBeHidden();
+});
+
+test("shows the announcement again for the next lookup, including a live-search pick", async ({ page, request }) => {
+  const { membership } = await apiLogin(request);
+  await saveAnnouncement(request, membership, MESSAGE);
+
+  await startKiosk(page);
+  await searchSmith(page);
+  await page.getByRole("button", { name: /John Smith/ }).click();
+  const text = page.getByTestId("checkin-announcement-text");
+  await expect(text).toBeVisible({ timeout: 30000 });
+  await page.getByTestId("checkin-announcement-ok").click();
+  await expect(text).toBeHidden();
+
+  // Back to lookup, then pick the family from the search-as-you-type list.
+  await page.getByRole("button", { name: "back", exact: true }).last().click();
+  await page.getByRole("button", { name: "Back to keypad" }).click();
+  await tapDigits(page, "0101");
+  const live = page.getByTestId("lookup-live-results");
+  await live.getByRole("button", { name: /John Smith/ }).click({ timeout: 30000 });
+  await expect(text).toBeVisible({ timeout: 30000 });
+  await page.getByTestId("checkin-announcement-ok").click();
+  await expect(page.getByText("Who's checking in?")).toBeVisible();
 });
 
 test("goes straight to the household screen when the announcement is blank", async ({ page, request }) => {
