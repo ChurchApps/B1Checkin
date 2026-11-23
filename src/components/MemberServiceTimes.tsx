@@ -18,7 +18,7 @@ const MemberServiceTimes = (props: Props) => {
   const { t, i18n } = useTranslation();
   const theme = useAppTheme();
   const personId = props.person.id || "";
-  const defaultType: CheckinType = props.person.isGuest ? "guest" : "member";
+  const defaultType: CheckinType = VisitHelper.getDefaultCheckinType(CachedData.existingVisits, personId, props.person.isGuest);
   const [checkinType, setCheckinType] = React.useState<CheckinType>(CachedData.checkinTypes[personId] || defaultType);
 
   const selectType = (value: CheckinType) => {

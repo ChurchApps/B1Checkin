@@ -12,9 +12,26 @@ import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import PrintUI from "../src/components/PrintUI";
 import { useAppTheme } from "../src/theme";
-import { Button, ListRow, Screen, SkeletonList } from "../src/components/ui";
+import { Button, ListRow, Screen, Sheet, SkeletonList, TextField } from "../src/components/ui";
 
 const NO_PRINTER: AvailablePrinter = { model: "none", ipAddress: "", brand: "" };
+
+// Network-capable models the native providers know, named the way the scan reports them, for entering a printer by IP.
+const MANUAL_MODELS: AvailablePrinter[] = [
+  { brand: "Brother", model: "Brother QL-1110NWB", ipAddress: "" },
+  { brand: "Brother", model: "Brother QL-1115NWB", ipAddress: "" },
+  { brand: "Brother", model: "Brother QL-820NWB", ipAddress: "" },
+  { brand: "Brother", model: "Brother QL-810W", ipAddress: "" },
+  { brand: "Brother", model: "Brother QL-720NW", ipAddress: "" },
+  { brand: "Brother", model: "Brother QL-710W", ipAddress: "" },
+  { brand: "Brother", model: "Brother QL-580N", ipAddress: "" },
+  { brand: "Zebra", model: "Zebra Printer", ipAddress: "" }
+];
+
+const IPV4 = /^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/;
+
+// The scan reports Brother models with the brand already in the name ("Brother QL-820NWB").
+const printerName = (printer: AvailablePrinter) => (printer.model.startsWith(printer.brand) ? printer.model : `${printer.brand} ${printer.model}`).trim();
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -28,6 +45,9 @@ const Printers = (props: Props) => {
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const [diagnosticsOpen, setDiagnosticsOpen] = React.useState<boolean>(false);
+  const [manualOpen, setManualOpen] = React.useState<boolean>(false);
+  const [manualIp, setManualIp] = React.useState<string>("");
+  const [manualModel, setManualModel] = React.useState<AvailablePrinter>(MANUAL_MODELS[0]);
   // Read from the persistent app-wide printer log so this panel also shows the
   // family-print flow that ran earlier on the checkin-complete screen.
   const [debugLog, setDebugLog] = React.useState<string[]>(PrinterLog.get());
@@ -44,6 +64,7 @@ const Printers = (props: Props) => {
   const init = async () => {
     FirebaseHelper.addOpenScreenEvent("Printers");
     setIsScanning(true);
+    let saved: AvailablePrinter | null = null;
 
     try {
       const savedPrinter = await AsyncStorage.getItem("@Printer");
@@ -52,6 +73,7 @@ const Printers = (props: Props) => {
         if (printer && printer.model !== "none") {
           setSelectedPrinter(printer);
           CachedData.printer = printer;
+          saved = printer;
         }
       }
     } catch (error) {
@@ -68,6 +90,8 @@ const Printers = (props: Props) => {
             result.push({ brand: splitItem[0], model: splitItem[1], ipAddress: splitItem[2] });
           }
         });
+        // A printer entered by IP never shows up in the scan, so keep the saved one in the list.
+        if (saved?.ipAddress && !result.some(p => p.ipAddress === saved?.ipAddress)) result.push(saved);
         result.push(NO_PRINTER);
         setPrinters(result);
         setIsScanning(false);
@@ -103,7 +127,7 @@ const Printers = (props: Props) => {
 
     return (
       <ListRow
-        title={noPrinter ? t("printers.noPrinter") : `${item.brand} ${item.model}`}
+        title={noPrinter ? t("printers.noPrinter") : printerName(item)}
         subtitle={noPrinter ? undefined : item.ipAddress}
         selected={isSelected}
         left={
@@ -117,6 +141,50 @@ const Printers = (props: Props) => {
       />
     );
   };
+
+  const openManual = () => {
+    setManualIp("");
+    setManualModel(MANUAL_MODELS[0]);
+    setManualOpen(true);
+  };
+
+  const addManualPrinter = () => {
+    const printer: AvailablePrinter = { brand: manualModel.brand, model: manualModel.model, ipAddress: manualIp.trim() };
+    setPrinters(list => [...list.filter(p => p.ipAddress !== printer.ipAddress && !isNoPrinterSelected(p)), printer, NO_PRINTER]);
+    setSelectedPrinter(printer);
+    setManualOpen(false);
+  };
+
+  const getManualSheet = () => (
+    <Sheet visible={manualOpen} onClose={() => setManualOpen(false)} maxWidth={520}>
+      <View style={{ gap: theme.spacing.md }}>
+        <Text style={{ fontSize: 22, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary }}>{t("printers.enterIp")}</Text>
+        <TextField
+          label={t("printers.ipAddress")}
+          placeholder="192.168.1.50"
+          value={manualIp}
+          onChangeText={setManualIp}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="numbers-and-punctuation"
+          testID="printer-ip-input"
+        />
+        <Text style={{ color: theme.colors.textPrimary, fontSize: 15, fontFamily: theme.fonts.medium }}>{t("printers.model")}</Text>
+        <View style={{ flexDirection: "row", flexWrap: "wrap", gap: theme.spacing.sm }}>
+          {MANUAL_MODELS.map(m => {
+            const active = m.model === manualModel.model;
+            return (
+              <Button key={m.model} label={printerName(m)} variant={active ? "primary" : "outline"} size="md" icon={active ? "check" : undefined} onPress={() => setManualModel(m)} />
+            );
+          })}
+        </View>
+        <View style={{ flexDirection: "row", gap: theme.spacing.md, marginTop: theme.spacing.sm }}>
+          <Button label={t("common.cancel")} variant="ghost" onPress={() => setManualOpen(false)} style={{ flex: 1 }} />
+          <Button label={t("printers.usePrinter")} disabled={!IPV4.test(manualIp.trim())} onPress={addManualPrinter} style={{ flex: 1.4 }} testID="printer-ip-confirm" />
+        </View>
+      </View>
+    </Sheet>
+  );
 
   const testPrint = () => {
     if (isNoPrinterSelected(selectedPrinter)) Alert.alert(t("printers.noPrinterSelected"));
@@ -214,10 +282,24 @@ const Printers = (props: Props) => {
               showsVerticalScrollIndicator={false}
               style={{ flexGrow: 0 }}
             />
+            <ListRow
+              title={t("printers.enterIp")}
+              subtitle={printers.length === 1 ? t("printers.enterIpHint") : undefined}
+              left={
+                <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: theme.colors.primarySoft, alignItems: "center", justifyContent: "center" }}>
+                  <MaterialIcons name="settings-ethernet" size={22} color={theme.colors.primary} />
+                </View>
+              }
+              right="chevron"
+              onPress={openManual}
+              testID="printer-enter-ip"
+              style={{ marginTop: theme.spacing.sm }}
+            />
             {getLabelView()}
             {getDiagnostics()}
           </>
         )}
+      {getManualSheet()}
     </Screen>
   );
 };

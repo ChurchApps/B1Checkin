@@ -43,10 +43,17 @@ const Checkout = (props: Props) => {
   const [scanOpen, setScanOpen] = React.useState(false);
   const [entryMode, setEntryMode] = React.useState<"code" | "search">("code");
   const [loadingPersonId, setLoadingPersonId] = React.useState<string | null>(null);
+  const [selectedPersonIds, setSelectedPersonIds] = React.useState<string[]>([]);
 
   const manned = CachedData.stationMode === "manned";
   const keyHeight = windowHeight < 1000 ? 52 : 64;
   const trusted = pickupPeople.filter(p => p.status === "trusted");
+  const selectedVisitIds = visits.filter(v => selectedPersonIds.includes(v.personId || "")).map(v => v.id || "");
+  const noneSelected = selectedVisitIds.length === 0;
+
+  const toggleChild = (personId: string) => {
+    setSelectedPersonIds(ids => ids.includes(personId) ? ids.filter(id => id !== personId) : [...ids, personId]);
+  };
 
   React.useEffect(() => { FirebaseHelper.addOpenScreenEvent("Checkout"); }, []);
 
@@ -74,6 +81,7 @@ const Checkout = (props: Props) => {
           ? await ApiHelper.get("/householdpickup/" + householdId, "MembershipApi").catch(() => [])
           : [];
         setVisits(found);
+        setSelectedPersonIds(ids);
         setChildren(people);
         setAdults(members.filter(m => !ids.includes(m.id || "") && m.householdRole !== "Child"));
         setPickupPeople(Array.isArray(pickup) ? pickup : []);
@@ -100,6 +108,7 @@ const Checkout = (props: Props) => {
         ? await ApiHelper.get("/householdpickup/" + householdId, "MembershipApi").catch(() => [])
         : [];
       setVisits(found);
+      setSelectedPersonIds(ids);
       setChildren(members.filter(m => ids.includes(m.id || "")));
       setAdults(members.filter(m => !ids.includes(m.id || "") && m.householdRole !== "Child"));
       setPickupPeople(Array.isArray(pickup) ? pickup : []);
@@ -118,9 +127,9 @@ const Checkout = (props: Props) => {
   };
 
   const checkout = (pickedBy: string, pickedById?: string) => {
-    if (submitting) return;
+    if (submitting || noneSelected) return;
     setSubmitting(true);
-    const body = { visitIds: visits.map(v => v.id), checkedOutBy: pickedBy, checkedOutById: pickedById };
+    const body = { visitIds: selectedVisitIds, checkedOutBy: pickedBy, checkedOutById: pickedById };
     ApiHelper.post("/visits/checkout", body, "AttendanceApi")
       .then(() => {
         Toast.show(t("checkout.success"), "success");
@@ -262,8 +271,11 @@ const Checkout = (props: Props) => {
     <Pressable
       key={opts.personId || name}
       accessibilityRole="button"
+      accessibilityState={{ disabled: noneSelected }}
+      disabled={noneSelected}
       onPress={() => checkout(name, opts.personId)}
       style={({ pressed }) => ({
+        opacity: noneSelected ? 0.5 : 1,
         width: 150,
         alignItems: "center",
         gap: theme.spacing.sm,
@@ -289,18 +301,29 @@ const Checkout = (props: Props) => {
       <Text style={{ ...theme.type.overline, color: theme.colors.textMuted, marginBottom: theme.spacing.sm }}>{t("checkout.checkingOut")}</Text>
       {children.map(child => {
         const visit = visits.find(v => v.personId === child.id);
+        const childName = child.name?.display || child.displayName || "";
+        const checked = selectedPersonIds.includes(child.id || "");
         return (
-          <View key={child.id} style={{ flexDirection: "row", alignItems: "center", gap: theme.spacing.md, backgroundColor: theme.colors.surface, borderRadius: theme.radius.lg, padding: theme.spacing.md, marginBottom: theme.spacing.sm, ...theme.elevation.e1 }}>
-            <Avatar name={child.name?.display || child.displayName || ""} photoUri={child.photo ? EnvironmentHelper.ContentRoot + child.photo : undefined} size={48} />
+          <Pressable
+            key={child.id}
+            accessibilityRole="checkbox"
+            accessibilityLabel={childName}
+            accessibilityState={{ checked }}
+            disabled={submitting}
+            onPress={() => toggleChild(child.id || "")}
+            style={({ pressed }) => ({ flexDirection: "row", alignItems: "center", gap: theme.spacing.md, backgroundColor: pressed ? theme.colors.primarySoft : theme.colors.surface, borderRadius: theme.radius.lg, padding: theme.spacing.md, marginBottom: theme.spacing.sm, ...theme.elevation.e1 })}>
+            <MaterialIcons name={checked ? "check-box" : "check-box-outline-blank"} size={32} color={checked ? theme.colors.primary : theme.colors.textMuted} />
+            <Avatar name={childName} photoUri={child.photo ? EnvironmentHelper.ContentRoot + child.photo : undefined} size={48} />
             <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 18, fontFamily: theme.fonts.semibold, color: theme.colors.textPrimary }}>{child.name?.display || child.displayName}</Text>
+              <Text style={{ fontSize: 18, fontFamily: theme.fonts.semibold, color: checked ? theme.colors.textPrimary : theme.colors.textMuted }}>{childName}</Text>
               <Text numberOfLines={1} style={{ fontSize: 14, fontFamily: theme.fonts.regular, color: theme.colors.textMuted }}>
                 {VisitSessionHelper.getDisplaySessions(visit?.visitSessions || [])}
               </Text>
             </View>
-          </View>
+          </Pressable>
         );
       })}
+      {noneSelected && <Text style={{ fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.danger, marginTop: theme.spacing.sm }}>{t("checkout.selectChild")}</Text>}
       <Text style={{ ...theme.type.h2, color: theme.colors.textPrimary, marginTop: theme.spacing.xl, marginBottom: theme.spacing.lg }}>{t("checkout.whoPickingUp")}</Text>
       {submitting
         ? <ActivityIndicator size="large" color={theme.colors.primary} style={{ marginTop: theme.spacing.xl }} />
@@ -310,8 +333,11 @@ const Checkout = (props: Props) => {
             {trusted.map(p => personCard(p.name, { photoUri: p.photoUrl || undefined, personId: p.personId, trustedBadge: true }))}
             <Pressable
               accessibilityRole="button"
+              accessibilityState={{ disabled: noneSelected }}
+              disabled={noneSelected}
               onPress={() => setOtherMode(true)}
               style={({ pressed }) => ({
+                opacity: noneSelected ? 0.5 : 1,
                 width: 150,
                 alignItems: "center",
                 justifyContent: "center",
@@ -338,7 +364,7 @@ const Checkout = (props: Props) => {
             autoFocus
             containerStyle={{ flex: 1 }}
           />
-          <Button label={t("checkout.confirm")} disabled={otherName.trim().length < 2} onPress={confirmOther} />
+          <Button label={t("checkout.confirm")} disabled={otherName.trim().length < 2 || noneSelected} onPress={confirmOther} />
         </View>
       )}
     </>

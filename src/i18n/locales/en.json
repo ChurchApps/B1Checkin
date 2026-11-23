@@ -81,6 +81,7 @@
     "scanTitle": "Scan pickup code",
     "searchByName": "Search by name",
     "searchSubtitle": "Find the family by last name or phone",
+    "selectChild": "Select at least one child to check out.",
     "subtitle": "Enter or scan the security code",
     "success": "Checked out successfully",
     "title": "Check Out",
@@ -186,6 +187,10 @@
   },
   "printers": {
     "diagnostics": "Diagnostics",
+    "enterIp": "Enter IP address",
+    "enterIpHint": "Type the printer's address if the scan can't find it",
+    "ipAddress": "IP address",
+    "model": "Printer model",
     "noPrinter": "No Printer",
     "noPrinterSelected": "No printer selected",
     "noneFound": "No printers found on this network",
@@ -195,7 +200,8 @@
     "scanning": "Scanning for printers...",
     "subtitle": "Choose a printer for printing name tags and labels",
     "testPrint": "Test Print",
-    "title": "Select a Printer"
+    "title": "Select a Printer",
+    "usePrinter": "Use This Printer"
   },
   "scan": {
     "codeNotFound": "No active check-ins match that code. Check in on your phone first.",

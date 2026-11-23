@@ -5,7 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming, ZoomIn } from "react-native-reanimated";
 import { router } from "expo-router";
-import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, LabelHelper, PersonInterface, PrinterLog, screenNavigationProps } from "../src/helpers";
+import { ApiHelper, ArrayHelper, CachedData, EnvironmentHelper, FirebaseHelper, LabelHelper, PersonInterface, PrinterLog, screenNavigationProps, VisitHelper } from "../src/helpers";
 import PrintUI from "../src/components/PrintUI";
 import ConfettiCelebration from "../src/components/ConfettiCelebration";
 import Header from "../src/components/Header";
@@ -134,7 +134,8 @@ const CheckinComplete = (props: Props) => {
     // Stamp the per-person check-in type onto each visit actually being checked in.
     CachedData.pendingVisits.forEach(pv => {
       if (pv.visitSessions && pv.visitSessions.length > 0 && pv.personId) {
-        pv.checkinType = CachedData.checkinTypes[pv.personId] || "member";
+        const person = CachedData.householdMembers.find(m => m.id === pv.personId);
+        pv.checkinType = CachedData.checkinTypes[pv.personId] || VisitHelper.getDefaultCheckinType(CachedData.existingVisits, pv.personId, person?.isGuest);
       }
     });
     let url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + encodeURIComponent(peopleIds.join(","));
