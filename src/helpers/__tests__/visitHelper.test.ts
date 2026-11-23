@@ -23,3 +23,27 @@ describe("VisitHelper.isToday", () => {
     expect(VisitHelper.isToday({ personId: "p1", visitDate: "not a date" as any }, now)).toBe(false);
   });
 });
+
+// Remembered type: Volunteer carries over from the last visit to this service; Guest never does.
+describe("VisitHelper.getDefaultCheckinType", () => {
+  const visits = [
+    { personId: "vol", checkinType: "volunteer" as const },
+    { personId: "guest", checkinType: "guest" as const },
+    { personId: "mem", checkinType: "member" as const }
+  ];
+
+  it("starts on Volunteer when the last visit was Volunteer", () => {
+    expect(VisitHelper.getDefaultCheckinType(visits, "vol")).toBe("volunteer");
+  });
+
+  it("does not carry Guest over and falls back to Member", () => {
+    expect(VisitHelper.getDefaultCheckinType(visits, "guest")).toBe("member");
+    expect(VisitHelper.getDefaultCheckinType(visits, "mem")).toBe("member");
+    expect(VisitHelper.getDefaultCheckinType(visits, "nobody")).toBe("member");
+    expect(VisitHelper.getDefaultCheckinType([], "vol")).toBe("member");
+  });
+
+  it("starts a just-added guest on Guest", () => {
+    expect(VisitHelper.getDefaultCheckinType(visits, "vol", true)).toBe("guest");
+  });
+});

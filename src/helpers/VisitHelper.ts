@@ -1,4 +1,4 @@
-import { VisitInterface } from "./Interfaces";
+import { CheckinType, VisitInterface } from "./Interfaces";
 
 export class VisitHelper {
 
@@ -20,5 +20,11 @@ export class VisitHelper {
     return elapsed >= 0 && elapsed < 24 * 60 * 60 * 1000;
   }
 
-}
+  // The chip starts on Volunteer when the person's last visit to this service (from GET /visits/checkin)
+  // was a volunteer visit. A just-added guest starts on Guest; Guest is never carried over from a past visit.
+  public static getDefaultCheckinType(visits: VisitInterface[], personId: string, isGuest?: boolean): CheckinType {
+    if (isGuest) return "guest";
+    return VisitHelper.getByPersonId(visits, personId)?.checkinType === "volunteer" ? "volunteer" : "member";
+  }
 
+}
