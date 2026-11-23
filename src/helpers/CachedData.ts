@@ -8,6 +8,8 @@ export class CachedData {
   static userChurch: LoginUserChurchInterface | null = null;
   static householdId: string = "";
   static householdMembers: PersonInterface[] = [];
+  // The adult whose phone or name found this household ("" = none); saved as each visit's checkedInById.
+  static checkedInById: string = "";
 
   static serviceId: string = "";
   static serviceTimes: ServiceTimeInterface[] = [];

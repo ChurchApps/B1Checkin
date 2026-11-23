@@ -176,8 +176,17 @@ export class LabelHelper {
     return type ? i18n.t(`household.type.${type}`) : "";
   }
 
+  // Name and phone of the adult who checked this person in, from the household loaded for the check-in (blank when none).
+  public static getCheckedInBy(visit: VisitInterface): { name: string; phone: string } {
+    const adult: PersonInterface | null = visit.checkedInById ? ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.checkedInById) : null;
+    if (!adult) return { name: "", phone: "" };
+    const ci = adult.contactInfo || {};
+    return { name: adult.name?.display || adult.displayName || "", phone: ci.mobilePhone || ci.homePhone || ci.workPhone || "" };
+  }
+
   private static getNametagContext(visit: VisitInterface, isChild: boolean, pickupCode: string): LabelContext {
     const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers || [], "id", visit.personId || "") || {};
+    const checkedInBy = this.getCheckedInBy(visit);
     return {
       ...this.getCommonContext(isChild ? pickupCode : ""),
       "person.displayName": person.name?.display || person.displayName || "",
@@ -190,6 +199,8 @@ export class LabelHelper {
       "person.grade": person.grade || "",
       "person.birthDate": this.formatBirthDate(person.birthDate),
       checkinType: this.checkinTypeValue(visit),
+      "checkedInBy.name": checkedInBy.name,
+      "checkedInBy.phone": checkedInBy.phone,
       sessions: VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/,/g, "\n")
     };
   }

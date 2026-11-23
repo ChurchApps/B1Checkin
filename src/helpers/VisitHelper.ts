@@ -1,4 +1,5 @@
-import { CheckinType, VisitInterface } from "./Interfaces";
+import { CheckinType, PersonInterface, VisitInterface } from "./Interfaces";
+import { EligibilityHelper } from "./EligibilityHelper";
 
 export class VisitHelper {
 
@@ -25,6 +26,23 @@ export class VisitHelper {
   public static getDefaultCheckinType(visits: VisitInterface[], personId: string, isGuest?: boolean): CheckinType {
     if (isGuest) return "guest";
     return VisitHelper.getByPersonId(visits, personId)?.checkinType === "volunteer" ? "volunteer" : "member";
+  }
+
+  // "Checked in by" is the person whose phone or name found the household, but only when they are clearly an adult:
+  // not marked Child, not under 18 by birth date, and either given a household role or a birth date that shows 18+.
+  // Anything else (a child's name was searched, or nothing says adult) records no one.
+  public static getCheckedInById(lookedUp: PersonInterface | null | undefined, today: Date = new Date()): string {
+    if (!lookedUp?.id) return "";
+    if (lookedUp.householdRole === "Child") return "";
+    const birth = lookedUp.birthDate ? new Date(lookedUp.birthDate) : null;
+    const knownBirth = birth && !isNaN(birth.getTime()) ? birth : null;
+    if (knownBirth) return EligibilityHelper.ageInMonths(knownBirth, today) >= 18 * 12 ? lookedUp.id : "";
+    return lookedUp.householdRole ? lookedUp.id : "";
+  }
+
+  // Stamped on every visit the kiosk posts, so a visit carried over from an earlier week never keeps its old value.
+  public static stampCheckedInBy(visits: VisitInterface[], checkedInById: string) {
+    visits.forEach(v => { v.checkedInById = checkedInById || undefined; });
   }
 
 }
