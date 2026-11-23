@@ -20,13 +20,13 @@ export class LabelRenderer {
     }
   }
 
-  private static renderBlock(block: LabelBlockInterface, ctx: LabelContext) {
+  private static renderBlock(block: LabelBlockInterface, ctx: LabelContext, printed: LabelContext) {
     let style = `position:absolute;left:${block.x || 0}%;top:${block.y || 0}%;width:${block.w || 0}%;height:${block.h || 0}%;`;
     let content = "";
     switch (block.type) {
       case "text":
       case "field": {
-        const raw = block.type === "text" ? block.text || "" : ctx[block.field || ""] || "";
+        const raw = block.type === "text" ? block.text || "" : printed[block.field || ""] ?? ctx[block.field || ""] ?? "";
         style += `font-size:${block.fontSize || 10}vh;text-align:${block.align || "left"};`;
         if (block.bold) style += "font-weight:bold;";
         if (block.italic) style += "font-style:italic;";
@@ -48,8 +48,10 @@ export class LabelRenderer {
     return `<div style="${style}">${content}</div>`;
   }
 
-  public static render(blocks: LabelBlockInterface[], ctx: LabelContext) {
-    const body = blocks.filter(b => this.passesCondition(b, ctx)).map(b => this.renderBlock(b, ctx)).join("");
+  // ctx holds the stable values that conditions and barcodes use; printed overrides only the text a field block shows
+  // (e.g. a translated check-in type), so "Check-in Type equals Guest" matches on any kiosk language.
+  public static render(blocks: LabelBlockInterface[], ctx: LabelContext, printed: LabelContext = {}) {
+    const body = blocks.filter(b => this.passesCondition(b, ctx)).map(b => this.renderBlock(b, ctx, printed)).join("");
     return `<html><head><style>body{margin:0px;background-color:#FFF;}</style></head><body>${body}</body></html>`;
   }
 }

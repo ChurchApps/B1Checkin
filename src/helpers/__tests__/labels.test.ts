@@ -10,7 +10,8 @@ import { LabelHelper } from "../LabelHelper";
 import { CachedData } from "../CachedData";
 import { LabelBlockInterface, VisitInterface } from "../Interfaces";
 
-beforeAll(() => i18n.init({ lng: "en", resources: { en: { translation: en } }, interpolation: { escapeValue: false } }));
+const es = { household: { type: { member: "Miembro", guest: "Invitado", volunteer: "Voluntario" } } };
+beforeAll(() => i18n.init({ lng: "en", fallbackLng: "en", resources: { en: { translation: en }, es: { translation: es } }, interpolation: { escapeValue: false } }));
 
 describe("code39", () => {
   it("matches known patterns", () => {
@@ -179,12 +180,37 @@ describe("LabelHelper age, birth date, and check-in type", () => {
     expect(LabelHelper.formatBirthDate("2022-03-14T00:00:00.000Z")).toBe(new Date(2022, 2, 14).toLocaleDateString());
   });
 
-  it("prints the check-in type from the visit, else the kiosk's per-person choice", () => {
-    expect(LabelHelper.formatCheckinType({ personId: "P1", checkinType: "volunteer" })).toBe("Volunteer");
+  it("takes the check-in type from the visit, else the kiosk's per-person choice", () => {
+    expect(LabelHelper.checkinTypeValue({ personId: "P1", checkinType: "volunteer" })).toBe("Volunteer");
+    expect(LabelHelper.printedCheckinType({ personId: "P1", checkinType: "volunteer" })).toBe("Volunteer");
     CachedData.checkinTypes = { P2: "guest" };
-    expect(LabelHelper.formatCheckinType({ personId: "P2" })).toBe("Guest");
-    expect(LabelHelper.formatCheckinType({ personId: "P3" })).toBe("");
+    expect(LabelHelper.checkinTypeValue({ personId: "P2" })).toBe("Guest");
+    expect(LabelHelper.checkinTypeValue({ personId: "P3" })).toBe("");
+    expect(LabelHelper.printedCheckinType({ personId: "P3" })).toBe("");
     CachedData.checkinTypes = {};
+  });
+
+  it("matches check-in type conditions on the stable value but prints the translation on a non-English kiosk", async () => {
+    await i18n.changeLanguage("es");
+    try {
+      const visit: VisitInterface = { personId: "P1", checkinType: "guest" };
+      const ctx = { checkinType: LabelHelper.checkinTypeValue(visit) };
+      const printed = { checkinType: LabelHelper.printedCheckinType(visit) };
+      const blocks: LabelBlockInterface[] = [
+        { type: "text", text: "WELCOME", x: 0, y: 0, w: 50, h: 20, condition: { field: "checkinType", operator: "equals", value: "Guest" } },
+        { type: "text", text: "STAFF", x: 0, y: 20, w: 50, h: 20, condition: { field: "checkinType", operator: "equals", value: "Volunteer" } },
+        { type: "field", field: "checkinType", x: 50, y: 0, w: 50, h: 20 },
+        { type: "barcode", symbology: "code39", value: "checkinType", x: 0, y: 50, w: 50, h: 30 }
+      ];
+      const html = LabelRenderer.render(blocks, ctx, printed);
+      expect(html).toContain("WELCOME");
+      expect(html).not.toContain("STAFF");
+      expect(html).toContain(">Invitado<");
+      expect(html).not.toContain(">Guest<");
+      expect(html).toContain(code39Svg("Guest"));
+    } finally {
+      await i18n.changeLanguage("en");
+    }
   });
 
   it("fills the new fields on a designed nametag", async () => {

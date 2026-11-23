@@ -160,8 +160,19 @@ export class LabelHelper {
     return this.parseBirthDate(birthDate)?.toLocaleDateString() || "";
   }
 
-  public static formatCheckinType(visit: VisitInterface): string {
-    const type = visit.checkinType || CachedData.checkinTypes[visit.personId || ""];
+  private static getCheckinType(visit: VisitInterface) {
+    return visit.checkinType || CachedData.checkinTypes[visit.personId || ""];
+  }
+
+  // Stable value for conditions and barcodes: "Member", "Guest", or "Volunteer", as the designer offers it.
+  public static checkinTypeValue(visit: VisitInterface): string {
+    const type = this.getCheckinType(visit);
+    return type ? type.charAt(0).toUpperCase() + type.slice(1) : "";
+  }
+
+  // Text printed on the label, in the kiosk's language.
+  public static printedCheckinType(visit: VisitInterface): string {
+    const type = this.getCheckinType(visit);
     return type ? i18n.t(`household.type.${type}`) : "";
   }
 
@@ -178,7 +189,7 @@ export class LabelHelper {
       "person.age": this.formatAge(person.birthDate),
       "person.grade": person.grade || "",
       "person.birthDate": this.formatBirthDate(person.birthDate),
-      checkinType: this.formatCheckinType(visit),
+      checkinType: this.checkinTypeValue(visit),
       sessions: VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/,/g, "\n")
     };
   }
@@ -267,7 +278,7 @@ export class LabelHelper {
         if (pv.visitSessions && pv.visitSessions.length > 0 && this.shouldPrintNametag(pv)) {
           const isChild = childVisits.some(cv => cv.personId === pv.personId);
           result.push(nametagBlocks
-            ? LabelRenderer.render(nametagBlocks, this.getNametagContext(pv, isChild, pickupCode))
+            ? LabelRenderer.render(nametagBlocks, this.getNametagContext(pv, isChild, pickupCode), { checkinType: this.printedCheckinType(pv) })
             : this.replaceValues(labelTemplate, pv, childVisits, pickupCode));
         }
       });
