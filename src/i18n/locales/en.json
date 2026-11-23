@@ -150,6 +150,9 @@
     "validEmail": "Please enter valid email",
     "welcomeBack": "Welcome Back"
   },
+  "labels": {
+    "ageMonths": "{{count}} mo"
+  },
   "lookup": {
     "backToKeypad": "Back to keypad",
     "checkout": "Check out",
